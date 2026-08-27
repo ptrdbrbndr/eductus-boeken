@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 27
-augustus 2026: 1522 titels in 21 rubrieken.
+augustus 2026: 1536 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -12,25 +12,25 @@ bij de volgende build verloren.
 
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
-| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553, 800, 1301, 2057 |
+| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553, 800, 1301, 2057, 2127 |
 | Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586, 1168, 1206, 1208, 1503, 1509, 1510, 1514, 1515, 1517, 1525, 1527, 1543, 1549, 1556, 1560, 1561, 1566, 1572, 1582, 1583, 1594, 1595, 1602, 1614, 1615, 1636, 1637, 1643, 1645, 1648, 1653, 1654, 1665, 1667, 1669, 1670, 1672, 1673, 1685, 1710, 1713, 1716, 1721, 1723, 1724, 1726, 1728, 1736, 1737, 1739, 1743, 1753, 1761, 1764, 1768, 1769, 1777, 1814, 1817, 1829, 1838, 1840, 1852, 1870, 1878, 1882, 1893, 1912, 2006, 2008, 2009, 2019, 2028, 2032, 2042, 2049, 2063, 2064, 2073, 2075, 2076, 2079, 2095, 2097, 2099, 2100, 2118 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408, 1500, 1598, 1730, 1811, 1874, 2074 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618, 819, 830, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 934, 942, 1114, 1200, 1202, 1204, 1205, 1209, 1211, 1212, 1213, 1312, 1327, 1400, 1401, 1402, 1512, 1518, 1519, 1534, 1538, 1542, 1557, 1562, 1567, 1570, 1571, 1573, 1585, 1591, 1597, 1600, 1601, 1617, 1618, 1620, 1622, 1625, 1626, 1632, 1633, 1634, 1649, 1664, 1666, 1681, 1686, 1687, 1691, 1694, 1695, 1700, 1706, 1725, 1746, 1757, 1758, 1765, 1767, 1771, 1772, 1823, 1827, 1834, 1835, 1836, 1837, 1851, 1884, 1885, 1886, 1887, 1888, 2001, 2003, 2004, 2040, 2041, 2047, 2048, 2071, 2086, 2087, 2089, 2092, 2119 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550, 824, 828, 832, 952, 1299, 1321, 1322, 1323, 1501, 1576, 1581, 1699, 1749 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552, 1762, 1833, 1879, 1901, 1913, 2029, 2030, 2053 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19, 1210, 1330 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542, 803, 1292, 1295, 1511, 1526, 1627, 1638, 1639, 1646, 1693, 1709, 1733, 1766, 1776, 1778, 1801, 1803, 1822, 1825, 1842, 1868, 1873, 1906, 1907, 2070, 2094 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162, 1171, 1172, 1173, 1174, 1203, 1302, 1307, 1308, 1309, 1310, 1311, 1314, 1315, 1316, 1317, 1319, 1320, 1325, 1326, 1328, 1329, 1506, 1513, 1521, 1523, 1524, 1528, 1545, 1548, 1550, 1553, 1563, 1564, 1565, 1588, 1599, 1604, 1610, 1613, 1616, 1628, 1631, 1647, 1656, 1668, 1674, 1679, 1680, 1683, 1688, 1696, 1712, 1718, 1719, 1720, 1722, 1731, 1732, 1750, 1751, 1756, 1759, 1802, 1807, 1809, 1810, 1812, 1813, 1816, 1828, 1830, 1831, 1853, 1855, 1857, 1858, 1860, 1862, 1863, 1864, 1865, 1866, 1871, 1872, 1881, 1883, 1894, 1895, 1899, 1902, 1915, 2005, 2016, 2026, 2036, 2052, 2066, 2068, 2069, 2088, 2090, 2093, 2096, 2104, 2105, 2107, 2108, 2109, 2117 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542, 803, 1292, 1295, 1511, 1526, 1627, 1638, 1639, 1646, 1693, 1709, 1733, 1766, 1776, 1778, 1801, 1803, 1822, 1825, 1842, 1868, 1873, 1906, 1907, 2070, 2094, 2129, 2130 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162, 1171, 1172, 1173, 1174, 1203, 1302, 1307, 1308, 1309, 1310, 1311, 1314, 1315, 1316, 1317, 1319, 1320, 1325, 1326, 1328, 1329, 1506, 1513, 1521, 1523, 1524, 1528, 1545, 1548, 1550, 1553, 1563, 1564, 1565, 1588, 1599, 1604, 1610, 1613, 1616, 1628, 1631, 1647, 1656, 1668, 1674, 1679, 1680, 1683, 1688, 1696, 1712, 1718, 1719, 1720, 1722, 1731, 1732, 1750, 1751, 1756, 1759, 1802, 1807, 1809, 1810, 1812, 1813, 1816, 1828, 1830, 1831, 1853, 1855, 1857, 1858, 1860, 1862, 1863, 1864, 1865, 1866, 1871, 1872, 1881, 1883, 1894, 1895, 1899, 1902, 1915, 2005, 2016, 2026, 2036, 2052, 2066, 2068, 2069, 2088, 2090, 2093, 2096, 2104, 2105, 2107, 2108, 2109, 2117, 2131 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931, 1532, 1729, 1747 |
 | Reclame en overtuiging | hoe reclame verkoopt en wat het vak over zijn eigen werking beweert | 443, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913, 1279, 1280, 1281, 1283, 1284, 1285, 1286, 1287, 1288, 1331, 1744, 1752, 1877, 2072, 2112 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913, 1279, 1280, 1281, 1283, 1284, 1285, 1286, 1287, 1288, 1331, 1744, 1752, 1877, 2072, 2112, 2123, 2124, 2125, 2126 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551, 1294, 1297, 1541, 1589, 1590, 1641, 1642, 1682, 1738, 1740, 1745, 1843, 1861, 1918, 1919, 2034, 2037, 2056, 2061 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545, 1916, 2062 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447, 1303, 1304, 1305, 1306, 1313, 1522, 1539, 1596, 1850, 2083, 2091, 2098 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116, 1145, 1146, 1148, 1155, 1201, 1225, 1226, 1233, 1240, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254, 1255, 1264, 1269, 1289, 1290, 1291, 1293, 1298, 1345, 1611, 1619, 1659, 1701, 1702, 1707, 1715, 1859, 1875, 2022, 2024, 2035 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116, 1145, 1146, 1148, 1155, 1201, 1225, 1226, 1233, 1240, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254, 1255, 1264, 1269, 1289, 1290, 1291, 1293, 1298, 1345, 1611, 1619, 1659, 1701, 1702, 1707, 1715, 1859, 1875, 2022, 2024, 2035, 2122 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 760, 761, 762, 805, 818, 820, 823, 938, 941, 944, 945, 946, 947, 948, 949, 950, 951, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1265, 1267, 1270, 1271, 1272, 1273, 1274, 1275, 1276, 1277, 1278, 1282, 1318, 1344, 1578, 1592, 1593, 1603, 1651, 1658, 1675, 1676, 1677, 1678, 1708, 1714, 1815, 1839, 1841, 1854, 2050, 2051, 2077 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560, 768, 1505, 1507, 1531, 1584, 1586, 1663, 1671, 1689, 1703, 1704, 1705, 1748, 1760, 1779, 1818, 1832, 1849, 1889, 1890, 1896, 1898, 1909, 1910, 2013, 2014, 2018, 2103 |
-| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831, 1127, 1129, 1132, 1133, 1136, 1137, 1243, 1530, 1533, 1546, 1554, 1605, 1623, 1630, 1655, 1698, 1804, 1844, 1846, 1869, 1914, 2002, 2007, 2027, 2043, 2044, 2059, 2084, 2106, 2111, 2120 |
+| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831, 1127, 1129, 1132, 1133, 1136, 1137, 1243, 1530, 1533, 1546, 1554, 1605, 1623, 1630, 1655, 1698, 1804, 1844, 1846, 1869, 1914, 2002, 2007, 2027, 2043, 2044, 2059, 2084, 2106, 2111, 2120, 2121, 2128, 2132, 2133, 2134 |
 | Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769, 835, 836, 932, 936, 937, 940, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1112, 1115, 1117, 1118, 1119, 1120, 1122, 1123, 1124, 1125, 1126, 1139, 1140, 1141, 1142, 1143, 1144, 1147, 1149, 1150, 1151, 1152, 1154, 1156, 1157, 1158, 1161, 1163, 1164, 1165, 1166, 1167, 1169, 1170, 1207, 1214, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1227, 1228, 1229, 1230, 1231, 1232, 1234, 1235, 1236, 1237, 1238, 1239, 1241, 1242, 1244, 1266, 1268, 1296, 1300, 1324, 1502, 1504, 1508, 1520, 1535, 1536, 1537, 1540, 1551, 1552, 1555, 1558, 1559, 1568, 1569, 1575, 1577, 1579, 1580, 1606, 1607, 1608, 1612, 1621, 1624, 1629, 1640, 1644, 1650, 1652, 1660, 1661, 1662, 1684, 1690, 1697, 1717, 1727, 1734, 1735, 1741, 1742, 1754, 1763, 1770, 1773, 1774, 1775, 1800, 1805, 1806, 1819, 1820, 1821, 1826, 1845, 1847, 1848, 1856, 1867, 1876, 1891, 1892, 1904, 1908, 1911, 1917, 2000, 2015, 2017, 2020, 2021, 2023, 2025, 2031, 2039, 2045, 2046, 2058, 2060, 2065, 2067, 2078, 2080, 2101, 2115, 2116 |
 | Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 753, 826, 827, 910, 935, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1657, 1900, 2033, 2114 |
 
@@ -317531,6 +317531,1998 @@ bewust mist.
 taal wat dit boek met formele notatie doet: nagaan of een redenering
 standhoudt.
 
+## 2121. Thinking in Systems: A Primer
+
+Donella H. Meadows, 2008 (postuum; manuscript uit de jaren negentig). Postuum
+uitgegeven door Chelsea Green Publishing (White River Junction, Vermont,
+2008), geredigeerd door Diana Wright uit een onafgemaakt manuscript dat
+Meadows in de jaren negentig schreef. Meadows overleed in 2001; ze was
+hoofdauteur van *The Limits to Growth* (1972) en doceerde systeemdynamica aan
+Dartmouth College. Het boek bouwt voort op haar essay *Leverage Points: Places
+to Intervene in a System* (Sustainability Institute, 1999). Nederlandse
+vertaling niet nagekeken. Rubriek: naslag en praktijk.
+Tags: `systeemdenken`, `feedbackloops`, `complexiteit`, `modelvorming`,
+`hefboompunten`, `beleid`
+
+Donella Meadows was systeemdynamicus en hoofdauteur van *The Limits to Growth*
+(1972), het rapport aan de Club van Rome dat met computermodellen liet zien
+hoe bevolkingsgroei en industriële productie tegen de grenzen van grondstoffen
+en milieu aanlopen. Dit boek verscheen zeven jaar na haar dood, samengesteld
+door Diana Wright uit een manuscript dat Meadows in de jaren negentig als
+lesmateriaal schreef. Het legt uit hoe systemen zijn opgebouwd uit voorraden,
+stromen en feedbacklussen, en waarom hun gedrag voortkomt uit die structuur en
+niet uit de goede of kwade bedoelingen van de mensen erin.
+
+Het tweede deel van het boek werkt haar bekendste bijdrage uit: een lijst van
+twaalf plekken waar ingrijpen in een systeem meer of minder effect heeft, van
+het bijstellen van een getal tot het veranderen van het paradigma waarop het
+systeem is gebouwd. Als primer voert het geen enkelvoudige these over één
+onderwerp, maar een manier van kijken die op ecosystemen, organisaties en
+economieën tegelijk van toepassing wordt gemaakt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Meadows' stelling is dat het gedrag van een systeem, of het
+nu een thermostaat, een bedrijf of een economie is, voortkomt uit de structuur
+van voorraden, stromen en de feedbacklussen die ze verbinden, en niet uit
+gebeurtenissen of uit de karakters van de mensen die erin handelen. Wie een
+systeem structureel wil veranderen, moet daarom niet naar een schuldige zoeken
+maar naar de plek in die structuur waar een kleine ingreep het gedrag het
+meest verschuift, en die plek ligt volgens haar zelden waar de meeste aandacht
+naartoe gaat, bij getallen en parameters, maar dieper, bij de regels, de
+doelen en het paradigma waarop het systeem is gebouwd.
+
+#### De gang van het boek
+
+**Voorraden, stromen en feedback**
+
+Het eerste deel voert de bouwstenen van een systeem in: een voorraad is iets
+dat zich op een gegeven moment ophoopt, zoals water in een badkuip of geld op
+een rekening, en een stroom is wat die voorraad laat toe- of afnemen, zoals de
+kraan en de afvoer. Een feedbacklus ontstaat zodra de omvang van een voorraad
+zelf weer invloed krijgt op een stroom, zoals een thermostaat die de
+verwarming afslaat zodra de kamertemperatuur de ingestelde waarde bereikt.
+
+Meadows onderscheidt balancerende lussen, die een voorraad naar een doelwaarde
+toe sturen en zo stabiliteit opleveren, van versterkende lussen, die een
+verandering juist vergroten, zoals rente die optelt bij een saldo dat daardoor
+weer meer rente oplevert. De meeste systemen bevatten meerdere lussen van
+beide soorten, die elkaar afwisselend overheersen.
+
+**Waarom systemen verrassen**
+
+Vanuit die bouwstenen legt Meadows uit waarom systemen zich vaak anders
+gedragen dan de intuïtie voorspelt: vertragingen tussen een handeling en het
+zichtbare effect ervan leiden tot overcorrectie, zoals een douchekraan die
+eerst te koud en dan te heet wordt versteld voordat de juiste stand is
+gevonden. Niet-lineaire verbanden, waarbij een verdubbeling van de oorzaak
+niet tot een verdubbeling van het gevolg leidt, maken dat een systeem lang
+stabiel lijkt voordat het abrupt omslaat.
+
+Ze gebruikt hier de bevolkings- en productiemodellen uit *The Limits to
+Growth* als voorbeeld van hoe exponentiële groei tegen een vaste grens, zoals
+de draagkracht van een akker of een visbestand, tot een plotselinge
+ineenstorting kan leiden in plaats van een geleidelijke afvlakking.
+
+**Systeemvallen**
+
+Het derde deel katalogiseert terugkerende structuren die een systeem naar een
+ongewenst gedrag duwen: de tragedie van de meent, waarin individueel rationeel
+gebruik van een gedeelde bron die bron uitput, verschuiving van de last naar
+de tussenpersoon, waarin een symptoombestrijding de onderliggende oorzaak
+juist in stand houdt, en succes voor de succesvolle, waarin een kleine
+voorsprong zichzelf versterkt tot een blijvend overwicht.
+
+Bij elke val beschrijft Meadows ook de structurele tegenmaatregel, zoals een
+regel die de gedeelde bron beschermt of een investering in het onderliggende
+probleem in plaats van in het symptoom, en benadrukt dat de val zelf neutraal
+is: dezelfde structuur treedt op in een visserij, een verslaving en een
+wapenwedloop.
+
+**Twaalf hefboompunten**
+
+Het bekendste deel van het boek ordent twaalf plekken om in een systeem in te
+grijpen, van de minst naar de meest effectieve: getallen en parameters
+bijstellen, buffers vergroten, de voorraad-en-stroomstructuur zelf veranderen,
+vertragingen verkorten, de sterkte van balancerende lussen aanpassen, de
+sterkte van versterkende lussen aanpassen, wie welke informatie krijgt
+veranderen, de regels van het systeem veranderen, het vermogen tot
+zelforganisatie vergroten, het doel van het systeem veranderen, en ten slotte
+het paradigma waarop het systeem is gebouwd.
+
+Meadows waarschuwt zelf dat deze volgorde een vuistregel is en geen bewezen
+rangorde: in de praktijk grijpen beleidsmakers bijna altijd bij de minst
+effectieve hefbomen onderaan de lijst, omdat een parameter bijstellen politiek
+haalbaarder is dan een doel of een paradigma ter discussie stellen.
+
+**Leven met systemen**
+
+Het slotdeel keert terug van de analyse naar de houding van wie in een systeem
+handelt: mentale modellen expliciet maken in plaats van ze voor de
+werkelijkheid zelf aan te zien, informatiestromen beschermen tegen vervorming,
+en aandacht besteden aan wat van belang is ook als het zich niet laat meten.
+Meadows sluit af met de aansporing om systemen niet te willen beheersen maar
+ermee te dansen, in het besef dat geen enkel model de werkelijkheid volledig
+vat.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Voorraad | Alles wat zich op een gegeven moment in een systeem heeft opgehoopt en op dat moment meetbaar is, zoals water, geld of vertrouwen. |
+| Stroom | De toe- of afname per tijdseenheid die een voorraad laat groeien of krimpen. |
+| Feedbacklus | Een keten waarin de omvang van een voorraad, via informatie, weer invloed krijgt op een stroom die diezelfde voorraad verandert. |
+| Balancerende lus | Een feedbacklus die een voorraad naar een doelwaarde stuurt en zo voor stabiliteit zorgt. |
+| Versterkende lus | Een feedbacklus die een verandering vergroot in plaats van afremt, de bron van exponentiële groei of ineenstorting. |
+| Hefboompunt | Een plek in de structuur van een systeem waar een kleine ingreep een grote verschuiving in het gedrag van het systeem oplevert. |
+| Systeemval | Een terugkerende structuur die een systeem zonder kwade opzet naar een ongewenst gedrag duwt, zoals de tragedie van de meent. |
+| Paradigma | De gedeelde, meestal onuitgesproken aanname over hoe de wereld werkt waarop de doelen en regels van een systeem zijn gebouwd. |
+| Veerkracht | Het vermogen van een systeem om na een verstoring zijn structuur te herstellen, te onderscheiden van stabiliteit op de korte termijn. |
+
+#### Waar het argument op rust
+
+Meadows bouwt op de systeemdynamica die Jay Forrester in de jaren zestig aan
+het MIT ontwikkelde, en op het World3-model waarmee zij en haar coauteurs in
+*The Limits to Growth* economische en ecologische scenario's doorrekenden. Dat
+fundament is een gevestigde modelleertraditie met decennia toepassing in
+bedrijfskunde, ecologie en beleidsanalyse, niet een nieuwe claim die dit boek
+zelf moet bewijzen.
+
+Het boek zelf is geen onderzoeksrapport maar een primer: het legt de begrippen
+uit met voorbeelden, zonder de vergelijkingen en simulaties te tonen waarmee
+systeemdynamici een model daadwerkelijk doorrekenen. De lezer moet Meadows op
+haar woord geloven dat een voorbeeld de onderliggende structuur correct
+weergeeft, iets wat in een technisch systeemdynamicarapport wel te controleren
+zou zijn.
+
+Voor de systeemvallen in het derde deel geldt hetzelfde: Meadows benoemt
+telkens een structuur die in meerdere, uiteenlopende systemen terugkeert, van
+visserij tot verslaving tot wapenwedloop, maar levert per geval geen aparte
+onderbouwing dat de structuur daar ook daadwerkelijk aan het werk is. De
+overtuigingskracht zit in de herkenbaarheid van de voorbeelden, niet in een
+aparte toets per systeem.
+
+#### Wat er tegen in te brengen valt
+
+De rangorde van de twaalf hefboompunten is Meadows' eigen ervaringsoordeel,
+geen resultaat van een formele toets, en zij zegt dat zelf in het boek. Latere
+auteurs binnen het vakgebied hebben erop gewezen dat de volgorde per systeem
+kan verschillen en dat een parameter soms wel degelijk het effectiefste
+aangrijpingspunt is, bijvoorbeeld wanneer een systeem al dicht bij een
+omslagpunt staat.
+
+Het boek past dezelfde voorraad-en-stroommetafoor toe op zeer uiteenlopende
+systemen, van een badkuip tot een nationale economie, en die overdraagbaarheid
+is tegelijk de kracht en de zwakte van het boek: ze maakt het denkkader breed
+bruikbaar, maar de voorbeelden blijven daardoor illustratief in plaats van
+empirisch getoetste gevalsstudies. Wie het boek als volledige inleiding in
+systeemdynamica leest, mist de wiskundige kant van het vak, het opstellen en
+doorrekenen van de differentiaalvergelijkingen die aan een echt model ten
+grondslag liggen.
+
+#### Wat er concreet mee te doen is
+
+- Teken bij een terugkerend probleem eerst de voorraden en stromen die erbij
+horen, voor je naar een schuldige zoekt.
+- Ga na of een feedbacklus balancerend of versterkend is voor je een maatregel
+voorstelt: een maatregel die op een versterkende lus aangrijpt, kan een
+probleem juist vergroten.
+- Doorloop bij een voorgestelde oplossing de lijst hefboompunten en vraag of
+de maatregel een parameter bijstelt of een regel, een doel of het paradigma
+raakt.
+- Zoek bij herhaald falen van een maatregel naar de systeemval die erachter
+zit, in plaats van de maatregel harder toe te passen.
+- Vraag bij een systeem dat zich structureel blijft herhalen niet alleen welke
+regel het gedrag stuurt, maar ook welk doel of paradigma die regel zelf
+rechtvaardigt.
+
+#### Wat je hierna leest
+
+- 347. Complexity. Waldrop beschrijft de bredere complexiteitswetenschap
+waarbinnen systeemdynamica als vakgebied is ontstaan, met meer nadruk op de
+geschiedenis dan op een toepasbaar begrippenkader.
+- 300. Critical Mass: How One Thing Leads to Another. Ball laat zien hoe
+dezelfde soort structuren, feedback en drempelwaarden, in files, menigten en
+beurskoersen optreden, met natuurkunde in plaats van systeemdynamica als
+uitgangspunt.
+- 55. Thinking, Fast and Slow. Kahneman verklaart waarom mensen geneigd zijn
+een systeem als een keten van losse gebeurtenissen te lezen in plaats van als
+een structuur, precies de denkfout die Meadows met haar begrippenkader wil
+corrigeren.
+
+## 2122. The Bomber Mafia
+
+Malcolm Gladwell, 2021. Ondertitel *A Dream, a Temptation, and the Longest
+Night of the Second World War*, bij Little, Brown and Company (Boston, 2021).
+Verscheen eerst als Audible Original en pas daarna als gedrukt boek, wat de
+korte hoofdstukken en het gesproken ritme van de tekst verklaart. Geen
+Nederlandse vertaling nagekeken. Rubriek: geschiedenis en samenleving.
+Tags: `luchtoorlog`, `tweede wereldoorlog`, `militaire doctrine`,
+`technologie`, `ethiek`, `narratieve non-fictie`
+
+Gladwell vertelt hoe een groep Amerikaanse officieren aan de Air Corps
+Tactical School in Alabama in de jaren dertig geloofde dat het
+Norden-bomvizier, een nieuw precisie-instrument van uitvinder Carl Norden,
+oorlog voerbaar maakte zonder de gebiedsbombardementen die Groot-Brittannië op
+Duitse steden uitvoerde. Door alleen vitale doelen te raken, de zogeheten
+choke points, zou een vijand sneller en met minder burgerslachtoffers te
+verslaan zijn. Die groep werd binnen de luchtmacht de Bommenmaffia genoemd.
+
+Het boek volgt hoe die droom vastliep in de praktijk boven Japan: generaal
+Haywood Hansell probeerde de doctrine vanaf november 1944 uit te voeren met
+B-29's op grote hoogte, tot hij in januari 1945 werd vervangen door Curtis
+LeMay, die de precisiedoctrine losliet voor laagvliegende brandbombardementen.
+Gladwell behandelt dit als een verhaal over de kloof tussen een technologische
+belofte en wat er in de praktijk gebeurt zodra die belofte niet snel genoeg
+werkt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Gladwells stelling is dat technologie een droom van humanere
+oorlogvoering mogelijk lijkt te maken, precisiebombardementen die alleen
+vitale doelen raken, maar dat de druk om resultaat te boeken op de korte
+termijn die droom ondermijnt zodra de techniek in de praktijk faalt. Het boek
+laat zien hoe twee officieren met dezelfde opleiding en dezelfde uitrusting
+tot tegengestelde beslissingen kwamen, Hansell die aan de doctrine vasthield
+ook toen ze niet werkte, en LeMay die haar losliet voor een aanpak die wel
+meetbaar resultaat gaf, met enorme burgerslachtoffers als gevolg.
+
+#### De gang van het boek
+
+**De droom van de Bommenmaffia**
+
+Gladwell opent met Carl Norden en zijn bomvizier, het eerste instrument dat
+een bommenwerper op grote hoogte een doel met precisie liet raken. Aan de Air
+Corps Tactical School in Alabama bouwde een groep officieren daar in de late
+jaren dertig een doctrine omheen: wie de choke points van een vijandelijke
+economie raakt, kogellagerfabrieken, olieraffinaderijen,
+elektriciteitscentrales, kan een oorlog beëindigen zonder de steden zelf te
+hoeven verwoesten.
+
+Die groep kreeg de bijnaam Bommenmaffia en zag in het Norden-vizier niet
+alleen een wapen maar een moreel argument: oorlog kon menselijker worden
+gevoerd dan het gebiedsbombarderen dat de Britse luchtmacht toepaste.
+
+**De eerste beproeving boven Duitsland**
+
+Voor de doctrine op Japan werd toegepast, testten de Amerikanen haar boven
+Europa, onder meer bij de aanvallen op de Duitse kogellagerfabrieken in
+Schweinfurt, met Hansell in een leidende rol en LeMay als uitvoerend
+commandant. De missies haalden de beloofde precisie niet: wolken onttrokken
+doelen aan het zicht, en zonder zicht was het Norden-vizier waardeloos, wat
+tot herhaalde, kostbare aanvallen zonder het gehoopte resultaat leidde.
+
+**Hansell boven Japan**
+
+Vanaf november 1944 probeerde Hansell dezelfde precisiedoctrine uit te voeren
+vanaf de Marianen, met de nieuwe B-29 Superfortress op grote hoogte boven
+Japan. De jetstream boven Japan, een verschijnsel waarmee de planners
+onvoldoende rekening hadden gehouden, blies de bommen stelselmatig van hun
+doel, terwijl bewolking het zicht opnieuw blokkeerde. Het resultaat bleef ver
+achter bij wat de doctrine beloofde.
+
+**LeMay en het vuur over Tokio**
+
+In januari 1945 verving Curtis LeMay Hansell als bevelhebber en liet binnen
+enkele weken de precisiedoctrine varen. In de nacht van 9 op 10 maart 1945
+stuurde hij honderden B-29's op lage hoogte met brandbommen naar Tokio, een
+aanval die tienduizenden burgerslachtoffers maakte in één nacht en die, anders
+dan de precisiecampagne, wel het gewenste militaire resultaat opleverde.
+
+Gladwell beschrijft deze omslag niet als een simpele overwinning van
+meedogenloosheid op idealisme, maar als de uitkomst van een systeem dat
+resultaat beloonde ongeacht de methode waarmee het werd behaald. Hansell had
+zeven jaar aan de doctrine vastgehouden, ook toen de resultaten uitbleven,
+terwijl LeMay binnen weken na zijn aanstelling een andere aanpak beproefde,
+wat Gladwell aanwijst als het verschil tussen loyaliteit aan een idee en
+loyaliteit aan een uitkomst.
+
+**Wat er van de droom overbleef**
+
+Het slotdeel volgt de doctrine van de Bommenmaffia tot aan de atoombommen op
+Hiroshima en Nagasaki, en naar de naoorlogse luchtmacht waarin LeMay's aanpak
+de norm werd. Gladwell laat de vraag onbeantwoord staan of de droom van
+precisieoorlog een vergissing was of alleen zijn tijd vooruit, gezien latere
+precisiewapens die decennia later dichter bij die belofte kwamen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Norden-bomvizier | Het optisch-mechanische richtinstrument van Carl Norden waarmee een bommenwerper op grote hoogte een doel met precisie kon raken, mits het doel zichtbaar was. |
+| Bommenmaffia | De informele naam voor de groep officieren aan de Air Corps Tactical School die precisiebombardementen op vitale doelen als humaner alternatief voor gebiedsbombardementen zag. |
+| Choke point | Een vitaal knooppunt in de vijandelijke oorlogseconomie, zoals een kogellagerfabriek of olieraffinaderij, waarvan de vernietiging de rest van het systeem zou lamleggen. |
+| Precisiebombardement | Het gericht aanvallen van specifieke militaire of industriële doelen, in doctrine tegenover het bombarderen van een heel gebied. |
+| Gebiedsbombardement | Het bombarderen van een uitgestrekt gebied, doorgaans een stad, zonder zich tot specifieke doelen te beperken. |
+| Jetstream | De sterke luchtstroom op grote hoogte boven Japan die de precisie van hooggevlogen bombardementen in de praktijk ondermijnde. |
+| Brandbombardement | Een aanval met brandbommen bedoeld om een stedelijk gebied met vaak houten bebouwing grootschalig in vlammen te laten opgaan. |
+
+#### Waar het argument op rust
+
+Gladwell bouwt het boek op archiefmateriaal, gepubliceerde militaire
+geschiedschrijving en interviews, in de verhalende stijl van zijn eerdere werk
+en zonder de notenapparaten van een academische geschiedschrijving. Het boek
+verscheen eerst als gesproken Audible Original, wat verklaart waarom de
+hoofdstukken kort zijn en waarom scènes vaker herteld dan met bronverwijzing
+onderbouwd worden.
+
+De kernfeiten, de rol van het Norden-vizier, de wisseling van Hansell naar
+LeMay en de brandbombardementen op Tokio, zijn breed gedocumenteerde militaire
+geschiedenis en niet Gladwells eigen ontdekking; zijn bijdrage zit in de
+framing als botsing tussen een technologische droom en de druk van een oorlog
+die resultaat eist.
+
+#### Wat er tegen in te brengen valt
+
+Gladwells kenmerkende aanpak, complexe geschiedenis herleiden tot een scherp
+verhaal met twee tegenover elkaar gezette hoofdpersonen, vereenvoudigt ook
+hier: de keuze tussen precisie- en gebiedsbombardementen hing van meer
+factoren af dan het karakter van twee generaals, waaronder
+productiecapaciteit, inlichtingenwerk over Japanse industriespreiding en druk
+vanuit Washington. Critici van zijn eerdere boeken hebben dezelfde reductie
+tot een persoonlijk drama al vaker aangewezen.
+
+Het boek citeert relatief weinig expliciete bronnen voor een geschiedenisboek
+en leunt sterk op reeds gepubliceerde studies, zoals het werk van historicus
+Conrad Crane over LeMay. Wie de gebeurtenissen zelf wil narekenen, komt met
+dit boek alleen tot de al bestaande secundaire literatuur, niet tot nieuw
+archiefonderzoek.
+
+Het boek laat verder onbesproken hoeveel van de latere precisiewapens, die
+decennia na de Tweede Wereldoorlog wel dicht bij de belofte van de
+Bommenmaffia kwamen, zelf weer tot nieuwe morele vragen leidden over wie een
+oorlog op afstand voert en wie de gevolgen ervan draagt. Gladwell sluit af met
+een open vraag in plaats van met een stellingname, wat het boek meer een
+verkenning dan een betoog maakt.
+
+#### Wat je hierna leest
+
+- 944. The Making of the Atomic Bomb. Rhodes beschrijft de ontwikkeling van de
+atoombom die de luchtoorlog boven Japan tot een einde bracht, met dezelfde
+spanning tussen technologische belofte en de gevolgen van haar gebruik.
+- 274. Outliers. Gladwells eigen Outliers laat dezelfde voorkeur zien voor een
+scherp afgebakend verhaal met een centrale verklaring, hier toegepast op
+succes in plaats van op oorlogsdoctrine.
+- 272. The Art of War. Sun Tzu beschrijft oorlog als een zaak van misleiding
+en berekening; Gladwells boek laat zien wat er gebeurt wanneer een moreel
+uitgangspunt tegen die berekening aanloopt.
+
+## 2123. One Up On Wall Street
+
+Peter Lynch met John Rothchild, 1989. Ondertitel *How to Use What You Already
+Know to Make Money in the Market*, bij Simon & Schuster (New York, 1989),
+herzien in 2000 met een nieuw voorwoord. Lynch beheerde van 1977 tot 1990 het
+Fidelity Magellan Fund, met een gemiddeld jaarrendement van 29 procent over
+die dertien jaar. Nederlandse vertaling niet nagekeken. Rubriek: geld en
+ondernemen.
+Tags: `aandelen`, `beleggen`, `aandelenselectie`, `fondsbeheer`, `particuliere
+belegger`
+
+Peter Lynch schreef dit boek na dertien jaar aan het hoofd van het Fidelity
+Magellan Fund, dat onder zijn leiding uitgroeide tot het grootste
+beleggingsfonds ter wereld met een van de beste langetermijnrendementen. Zijn
+stelling is dat een particuliere belegger een voordeel heeft dat professionele
+analisten missen: hij ziet als klant, werknemer of buurtbewoner soms jaren
+eerder dan Wall Street dat een winkelketen, een product of een dienst
+aanslaat.
+
+Lynch waarschuwt echter dat die herkenning pas het beginpunt is: wie op basis
+van een goed gevoel over een winkel of een merk koopt zonder de jaarcijfers te
+lezen, doet volgens hem hetzelfde als een blinde aankoop op een tip. Het boek
+behandelt daarom vooral hoe een particuliere belegger dat vertrekpunt met
+eigen huiswerk moet aanvullen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lynchs stelling is dat een particuliere belegger, juist omdat
+hij geen honderden bedrijven hoeft te volgen maar zich kan concentreren op een
+klein aantal dat hij uit eigen ervaring kent, een structureel
+informatievoordeel heeft ten opzichte van professionele analisten die pas laat
+op een trend reageren. Dat voordeel is volgens hem alleen te verzilveren met
+discipline: eerst de herkenning uit het dagelijks leven, dan het rekenwerk in
+het jaarverslag, en pas daarna de aankoop.
+
+#### De gang van het boek
+
+**Het voordeel van de particuliere belegger**
+
+Lynch opent met voorbeelden uit zijn eigen ervaring, zoals Dunkin' Donuts en
+Taco Bell, bedrijven waarvan hij de aantrekkingskracht als klant zag voordat
+de koers dat weerspiegelde. Zijn punt is dat een fondsbeheerder duizenden
+bedrijven tegelijk moet overzien en daardoor trager reageert op signalen die
+een gewone consument dagelijks onder ogen krijgt.
+
+Hij benadrukt meteen dat herkenning geen koopadvies is: het is alleen een
+reden om een bedrijf nader te onderzoeken, niet om aandelen te kopen.
+
+**Zes categorieën aandelen**
+
+Lynch verdeelt bedrijven in zes categorieën die elk een andere aanpak vragen:
+langzame groeiers, grote, volwassen bedrijven met een groei net boven die van
+de economie; stabiele groeiers, iets sneller groeiend en minder gevoelig voor
+de conjunctuur; snelle groeiers, kleine, agressief expanderende bedrijven met
+het grootste koerspotentieel; cyclische bedrijven, waarvan de winst met de
+conjunctuur meebeweegt; herstellers, bedrijven die van de rand van
+faillissement terugkomen; en bedrijven met verborgen bezit, waarvan de
+boekwaarde de werkelijke waarde van bezittingen zoals onroerend goed
+onderschat.
+
+Voor elke categorie geeft Lynch een andere maatstaf: bij snelle groeiers telt
+de groeisnelheid het zwaarst, bij cyclische bedrijven het moment in de
+conjunctuurcyclus, bij herstellers de balans en de kaspositie.
+
+**Het verhaal achter het aandeel**
+
+Voor elk bedrijf eist Lynch een kort, controleerbaar verhaal, waarom het
+groeit en wat dat in de cijfers moet laten zien, met de koers-winstverhouding
+afgezet tegen de winstgroei als vuistregel: een aandeel waarvan de
+koers-winstverhouding lager ligt dan het groeipercentage is potentieel
+goedkoop. Hij raadt aan het jaarverslag te lezen, te letten op de
+schuldpositie en na te gaan of insiders eigen aandelen kopen.
+
+Een lage bezetting door institutionele beleggers en analisten geldt bij hem
+als extra aanwijzing: een bedrijf dat nog niemand op Wall Street volgt, biedt
+meer ruimte voor een koersstijging zodra het wel wordt opgemerkt.
+
+**Tienbaggers en portefeuillebeheer**
+
+Lynch introduceert de tienbagger, een aandeel dat tien keer de aankoopprijs
+oplevert, als het type winst dat een spreiding van middelmatige en
+verliesgevende posities ruimschoots compenseert. Hij bekritiseert de gewoonte
+om winnaars snel te verkopen en verliezers vast te houden in de hoop op
+herstel, wat hij vergelijkt met het wieden van de bloemen en het water geven
+aan het onkruid.
+
+Zijn advies is het omgekeerde: een positie die het verwachte verhaal blijft
+waarmaken, laten groeien, en een positie waarvan het verhaal niet meer klopt,
+verkopen ongeacht de aankoopprijs.
+
+**Wat te vermijden**
+
+Het slotdeel waarschuwt tegen diworsification, de gewoonte van bedrijven om
+buiten hun kernactiviteit over te nemen en zo waarde te vernietigen in plaats
+van te scheppen, en tegen beleggers die op basis van een tip of een
+marktvoorspelling kopen zonder een eigen verhaal te kunnen navertellen. Lynch
+stelt dat wie het verhaal achter een aandeel niet in enkele zinnen kan
+uitleggen, het beter niet kan bezitten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Tienbagger | Een aandeel dat tien keer de aankoopprijs oplevert, volgens Lynch de belangrijkste bron van rendement in een portefeuille. |
+| Diworsification | Lynchs term voor overnames buiten de kernactiviteit die een bedrijf verzwakken in plaats van versterken. |
+| Koers-winst tegen groei | De vuistregel waarbij de koers-winstverhouding wordt afgezet tegen het winstgroeipercentage om te zien of een aandeel goedkoop is ten opzichte van zijn groei. |
+| Langzame groeier | Een groot, volwassen bedrijf met een groei die de economie nauwelijks overtreft. |
+| Snelle groeier | Een klein, agressief expanderend bedrijf met het grootste koerspotentieel maar ook het grootste risico. |
+| Cyclisch bedrijf | Een bedrijf waarvan de winst sterk meebeweegt met de conjunctuur, waarbij timing van de aan- en verkoop het resultaat bepaalt. |
+| Herstelaandeel | Een bedrijf dat van de rand van faillissement terugkomt, waarbij de balans en de kaspositie de kans op herstel bepalen. |
+
+#### Waar het argument op rust
+
+Lynchs voornaamste bewijs is zijn eigen track record: het Fidelity Magellan
+Fund groeide onder zijn leiding van 1977 tot 1990 met een gemiddeld
+jaarrendement van 29 procent, ruim boven de brede aandelenmarkt in dezelfde
+periode. Het boek onderbouwt zijn methode met voorbeelden uit die praktijk in
+plaats van met een onafhankelijk gecontroleerde studie.
+
+De onderliggende logica, dat particuliere kennis van een product of dienst een
+reëel informatievoordeel geeft, is aannemelijk maar door Lynch zelf niet los
+van zijn eigen resultaat getoetst: hij levert geen cijfers over hoeveel
+particuliere beleggers met dezelfde methode een vergelijkbaar rendement
+haalden.
+
+#### Wat er tegen in te brengen valt
+
+Lynchs rendement is bereikt met de onderzoekscapaciteit van een van de
+grootste fondshuizen ter wereld achter zich, analisten, directe toegang tot
+bedrijfsleiding, een schaal van onderzoek die een particuliere belegger niet
+kan evenaren. Dat relativeert de kern van het boek, dat een gewone belegger
+zonder die middelen hetzelfde voordeel zou hebben.
+
+De slogan invest in what you know wordt vaker aangehaald dan het huiswerk dat
+Lynch er nadrukkelijk aan verbindt: hij waarschuwt zelf tegen kopen op
+herkenning alleen, maar in de populaire lezing van het boek is precies die
+waarschuwing het eerst weggevallen. Het boek dateert bovendien uit een periode
+voordat indexfondsen de dominante keuze voor particuliere beleggers werden, en
+gaat niet in op de vraag of actief stockpicken de kosten ervan structureel
+goedmaakt.
+
+#### Wat er concreet mee te doen is
+
+- Leg voor elk aandeel dat je overweegt het verhaal in twee tot drie zinnen
+vast, en verkoop zodra dat verhaal niet meer klopt.
+- Bepaal eerst in welke van de zes categorieën een bedrijf valt voordat je een
+groeicijfer of een waarderingsmaatstaf erop loslaat.
+- Lees het jaarverslag en let specifiek op de schuldpositie en op aankopen van
+eigen aandelen door bestuurders.
+- Vermijd een aankoop op een tip of een herkenning als klant zolang je het
+onderliggende verhaal niet zelf kunt navertellen.
+
+#### Wat je hierna leest
+
+- 144. Margin of Safety. Klarman benadert aandelenselectie vanuit de
+bescherming tegen verlies in plaats van vanuit groei, een strengere maatstaf
+dan Lynchs verhaal-en-cijfersbenadering.
+- 270. Principles. Dalio beschrijft hoe hij zijn eigen beleggingsbeslissingen
+tot expliciete, herhaalbare principes maakte, waar Lynch dichter bij het
+individuele bedrijfsverhaal blijft.
+
+## 2124. The Escape from Balance Sheet Recession and the QE Trap
+
+Richard C. Koo, 2015. Ondertitel *A Hazardous Road for the World Economy*, bij
+Wiley (2015; hardcover editie 27 oktober 2014). Koo is hoofdeconoom van het
+Nomura Research Institute in Tokio en werkte eerder bij de Federal Reserve
+Bank of New York. Het boek is een vervolg op zijn eerdere *The Holy Grail of
+Macroeconomics* (2008), waarin hij het begrip balansrecessie introduceerde.
+Nederlandse vertaling niet nagekeken. Rubriek: geld en ondernemen.
+Tags: `macro-economie`, `monetair beleid`, `balansrecessie`, `kwantitatieve
+verruiming`, `japan`, `eurocrisis`
+
+Richard Koo bouwt in dit boek voort op zijn eigen begrip balansrecessie, een
+economie waarin bedrijven en huishoudens schulden aflossen in plaats van te
+lenen, ook bij een rente van nul, omdat hun bezittingen minder waard zijn
+geworden dan hun schulden. Hij paste dat begrip voor het eerst toe op Japan na
+1990 en gebruikt het hier om de wereldeconomie na de crisis van 2008 te lezen:
+de Verenigde Staten, het Verenigd Koninkrijk, Japan en de eurozone, elk in een
+andere fase van hetzelfde probleem.
+
+De kern van het boek is een waarschuwing: centrale banken hebben na 2008 op
+grote schaal kwantitatieve verruiming ingezet, terwijl die maatregel volgens
+Koo weinig uithaalt zolang de private sector per se wil aflossen, en een nieuw
+risico schept zodra bedrijven wel weer willen lenen en de opgepompte
+geldhoeveelheid niet op tijd wordt teruggedraaid, de QE-val uit de titel.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Koo's stelling is dat de gangbare macro-economie is gebouwd
+op het beeld van bedrijven die bij een lagere rente meer lenen, terwijl een
+economie na het uiteenspatten van een schuldgedreven zeepbel in een andere
+toestand terechtkomt: bedrijven minimaliseren dan schuld ongeacht de rente, om
+eerst hun balans te herstellen. Monetair beleid verliest in die toestand zijn
+grip, en alleen begrotingsbeleid, de overheid die leent en uitgeeft waar de
+private sector dat laat liggen, kan de vraag op peil houden tot de balansen
+zijn hersteld.
+
+#### De gang van het boek
+
+**Yin en yang: twee typen economie**
+
+Koo onderscheidt een yang-fase, waarin bedrijven bij winstmaximalisatie
+streven en op een lagere rente reageren met meer lenen en investeren, van een
+yin-fase, waarin bedrijven op schuldminimalisatie overschakelen omdat hun
+bezittingen door een gebarsten zeepbel minder waard zijn geworden dan hun
+schulden. In de yin-fase blijven bedrijven aflossen, ook bij een rente van
+nul, omdat hun balans dat eist voordat winst weer de eerste zorg kan zijn.
+
+**Waarom monetair beleid vastloopt**
+
+In een balansrecessie verliest de rente zijn sturende werking: een centrale
+bank kan geld goedkoop maken, maar niemand met een negatieve balans wil
+daarvan lenen. Koo noemt dit pushing on a string, een metafoor voor beleid dat
+wel kan afremmen maar niet kan voortstuwen. Alleen de overheid kan in die
+situatie als lener van laatste instantie optreden en de vraag opvangen die de
+private sector laat liggen.
+
+**De QE-val**
+
+Kwantitatieve verruiming, de aankoop van staatsobligaties door een centrale
+bank om de geldhoeveelheid te vergroten, mist volgens Koo tijdens een
+balansrecessie haar doel omdat er geen leners zijn om het extra geld aan uit
+te zetten. Het geld blijft grotendeels als reserve bij banken staan, met als
+neveneffect opgeblazen prijzen van aandelen en obligaties in plaats van reële
+groei.
+
+Het echte risico ligt volgens hem verderop: zodra bedrijven hun balans hebben
+hersteld en weer willen lenen, moet de centrale bank de opgepompte
+geldhoeveelheid op tijd afbouwen. Doet zij dat te laat, dan dreigt inflatie of
+een obligatiecrash; doet zij dat te vroeg, dan dreigt een hervallen in de
+recessie.
+
+**Japan als eerste testcase**
+
+Koo herleest Japans twee verloren decennia als het resultaat van een overheid
+die begrotingsstimulering telkens weer terugschroefde zodra de economie
+tekenen van herstel toonde, waarna de private sector, nog altijd bezig met
+schuldafbouw, opnieuw wegzakte. Zijn these is dat Japan niet ondanks maar
+dankzij aanhoudende begrotingstekorten een diepere ineenstorting heeft
+vermeden, en dat de herhaalde bezuinigingen de crisis juist hebben verlengd.
+
+**Het Westen na 2008 en de eurocrisis**
+
+Koo schrijft de betere prestatie van de Amerikaanse economie ten opzichte van
+Europa na 2008 toe aan beleidsmakers die, in tegenstelling tot een deel van
+Europa, de balansrecessie herkenden en de begrotingsstimulans niet te vroeg
+afbouwden. Over de eurocrisis is hij kritisch: hij noemt het een verkeerde
+diagnose om de crisis in landen als Spanje en Griekenland vooral als een
+concurrentieprobleem te behandelen dat structurele hervormingen vraagt,
+terwijl de kern volgens hem een balansprobleem is dat om begrotingsruimte
+vraagt, een ruimte die de eurozone door haar constructie juist inperkt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Balansrecessie | Een recessie waarin de private sector schulden aflost in plaats van leent, ongeacht de hoogte van de rente, omdat bezittingen minder waard zijn geworden dan schulden. |
+| Yin-fase | Koo's term voor de toestand van een economie waarin bedrijven schuldminimalisatie boven winstmaximalisatie stellen. |
+| Yang-fase | De gangbare toestand van een economie waarin bedrijven bij winstmaximalisatie op de rente reageren met meer lenen. |
+| Pushing on a string | Koo's beeld voor monetair beleid dat een economie wel kan afremmen maar tijdens een balansrecessie niet kan voortstuwen. |
+| Kwantitatieve verruiming | Het opkopen van staatsobligaties door een centrale bank om de geldhoeveelheid te vergroten en zo de rente verder te drukken. |
+| QE-val | Het risico dat een centrale bank de tijdens kwantitatieve verruiming opgepompte geldhoeveelheid niet op tijd afbouwt zodra de private sector weer wil lenen. |
+
+#### Waar het argument op rust
+
+Koo's begrip balansrecessie komt voort uit zijn eigen werk bij Nomura in de
+jaren negentig, waar hij als een van de eersten signaleerde dat Japanse
+bedrijven collectief schulden afbouwden ondanks een beleidsrente die richting
+nul zakte, een patroon dat de gangbare rentegedreven modellen niet
+voorspelden. Zijn bewijsvoering in dit boek bestaat uit vergelijkend
+cijfermateriaal over de private-sectorbalans van Japan, de Verenigde Staten,
+het Verenigd Koninkrijk en de eurozone na 2008.
+
+De kern van zijn these, dat bedrijven bij een negatieve balans blijven
+aflossen ondanks een lage rente, is met nationale rekeningencijfers te
+verifiëren en wordt ook door economen die zijn beleidsvoorschriften betwisten
+als empirisch patroon erkend. Het is vooral de conclusie die eruit volgt,
+begrotingsbeleid als enige uitweg, die in het vak omstreden blijft.
+
+#### Wat er tegen in te brengen valt
+
+Een deel van de macro-economen bestrijdt niet het patroon dat Koo signaleert
+maar wel zijn conclusie dat kwantitatieve verruiming zonder effect blijft:
+onderzoek naar de portefeuille- en wisselkoerskanalen van QE wijst op reële,
+zij het kleinere, effecten op lange rentes en op de waarde van een munt, ook
+wanneer het kredietkanaal geblokkeerd is. Koo behandelt die kanalen in dit
+boek nauwelijks.
+
+Zijn lezing van de eurocrisis als vooral een balansprobleem onderschat volgens
+critici de reële concurrentieverschillen die tussen noordelijke en zuidelijke
+lidstaten waren gegroeid voor 2008, verschillen in loonkosten en
+productiviteit die niet vanzelf verdwijnen zodra begrotingsruimte toeneemt.
+Koo's stellige toon, begrotingsbeleid werkt en QE werkt niet, laat weinig
+ruimte voor een combinatie van beide, terwijl een deel van de vakliteratuur
+juist voor die combinatie pleit.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij economisch nieuws over een lage rente eerst na of bedrijven en
+huishoudens per saldo sparen of lenen, voor je een renteverlaging als
+stimulerend beoordeelt.
+- Onderscheid bij een recessie een probleem van vraag, op te lossen met
+begrotingsbeleid, van een probleem van concurrentievermogen, dat om iets
+anders vraagt dan meer overheidsuitgaven.
+- Volg bij een langdurig ruim monetair beleid niet alleen de instroom maar ook
+de aangekondigde afbouw, en let op het tempo waarin die wordt uitgevoerd.
+
+#### Wat je hierna leest
+
+- 270. Principles. Dalio beschrijft in Principles dezelfde soort
+schuldgedreven cycli vanuit het perspectief van een belegger die erop moet
+positioneren, waar Koo vanuit beleid redeneert.
+- 144. Margin of Safety. Klarman schrijft over hoe een belegger zich beschermt
+tegen de neergaande fase van dezelfde schuldcyclus die Koo op macro-niveau
+beschrijft.
+
+## 2125. Mastering the Market Cycle
+
+Howard Marks, 2018. Ondertitel *Getting the Odds on Your Side*, bij Houghton
+Mifflin Harcourt (New York, 2018), vervolg op zijn eerdere *The Most Important
+Thing* (2011). Marks is medeoprichter en covoorzitter van Oaktree Capital
+Management en bouwt het boek op de memo's die hij sinds 1990 aan klanten
+schrijft. Nederlandse vertaling niet nagekeken. Rubriek: geld en ondernemen.
+Tags: `beleggen`, `conjunctuurcyclus`, `kredietcyclus`, `risicohouding`,
+`beleggerspsychologie`
+
+Howard Marks beschrijft hoe de conjunctuur, de winstgevendheid van bedrijven
+en de beschikbaarheid van krediet in herkenbare cycli bewegen, en hoe de
+stemming van beleggers die cycli versterkt: optimisme en hebzucht duwen
+prijzen verder omhoog dan de fundamenten rechtvaardigen, angst duwt ze verder
+omlaag. Zijn stelling is dat niemand het precieze verloop van een cyclus kan
+voorspellen, maar dat een belegger wel kan bepalen waar in de cyclus de markt
+op een gegeven moment ongeveer staat.
+
+Dat onderscheid, tussen voorspellen en positioneren, is de kern van het boek:
+Marks bepleit niet dat een belegger de top of de bodem moet raden, maar dat
+hij zijn risicohouding aanpast aan de fase van de cyclus waarin hij zich
+bevindt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Marks' stelling is dat financiële markten niet willekeurig
+bewegen maar in herkenbare cycli, opgebouwd uit een economische cyclus, een
+winstcyclus en een kredietcyclus, die door de psychologie van beleggers worden
+versterkt tot uitslagen die groter zijn dan de onderliggende fundamenten
+rechtvaardigen. Een belegger die vraagt wat er zal gebeuren, stelt zich
+volgens Marks de verkeerde vraag; wie vraagt waar de markt nu ongeveer staat
+in haar cyclus, en zijn risicohouding daarop afstemt, verhoogt de kans op een
+goede uitkomst zonder de toekomst te hoeven voorspellen.
+
+#### De gang van het boek
+
+**De economische en de winstcyclus**
+
+Marks begint bij de fundamentele cycli: de economische cyclus van groei en
+krimp, en de winstcyclus van bedrijven, die de economische cyclus doorgaans
+versterkt volgt omdat vaste kosten winsten sneller laten stijgen en dalen dan
+de omzet zelf. Deze twee cycli zijn volgens Marks de basis waarop de andere
+cycli in het boek voortbouwen.
+
+**De kredietcyclus**
+
+De kredietcyclus noemt Marks de meest wisselvallige en invloedrijke van de
+cycli die hij bespreekt: kredietverstrekkers worden bij economische voorspoed
+steeds soepeler, verlagen hun eisen en verruimen hun voorwaarden, tot een
+omslag de deur voor krediet plotseling weer dichtslaat. Die venstermetafoor,
+een venster van kredietbeschikbaarheid dat opent en sluit, gebruikt hij om te
+laten zien hoe snel financiering kan verdwijnen precies op het moment dat
+bedrijven haar het hardst nodig hebben.
+
+**De psychologische slinger**
+
+Bovenop de fundamentele cycli legt Marks een psychologische cyclus:
+beleggersstemming slingert tussen hebzucht en angst, tussen risicobereidheid
+en risicomijding, en zelden rust die slinger in het midden. Bij stijgende
+markten verdringt de angst om kansen te missen de angst om geld te verliezen,
+bij dalende markten gebeurt het omgekeerde, waardoor de psychologische cyclus
+de fundamentele cyclus versterkt in plaats van compenseert.
+
+**Waar staan we?**
+
+Marks bepleit dat een belegger zich niet moet afvragen wat de markt gaat doen,
+een vraag die volgens hem structureel onbeantwoordbaar is, maar waar de markt
+nu ongeveer staat binnen haar cyclus: dicht bij een uiterste van optimisme met
+hoge waarderingen en soepel krediet, of dicht bij een uiterste van pessimisme
+met lage waarderingen en krap krediet. Die positiebepaling levert geen
+tijdstip op, maar een aanwijzing voor de risicohouding die op dat moment past.
+
+**Wat te doen**
+
+Marks illustreert zijn methode met de crisis van 2007 en 2008: Oaktree begon
+in de zomer van 2007 vermogen op te halen voor een fonds gericht op
+noodlijdende schuld, op basis van signalen in de kredietcyclus, ruim voordat
+de crisis in volle omvang zichtbaar werd. Zijn punt is niet dat hij de crisis
+voorspelde, maar dat hij de cyclus correct inschatte en zijn risicohouding
+daarop aanpaste voordat de markt dat deed.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Conjunctuurcyclus | De afwisseling van economische groei en krimp waarop de andere cycli in het boek voortbouwen. |
+| Kredietcyclus | De afwisseling van soepele en krappe kredietverlening, door Marks de meest wisselvallige en invloedrijke van de cycli genoemd. |
+| Kredietvenster | Marks' beeld voor de periode waarin financiering ruim beschikbaar is, die plotseling kan sluiten zodra het sentiment omslaat. |
+| De slinger | Marks' terugkerende metafoor voor beleggersstemming, die tussen hebzucht en angst beweegt en zelden in het midden rust. |
+| Risicohouding | De mate waarin een belegger bereid is risico te nemen, die Marks aanpast aan de ingeschatte fase van de cyclus in plaats van vast te houden. |
+| Cycluspositionering | Het bepalen waar de markt ongeveer staat in haar cyclus, als alternatief voor het voorspellen van het toekomstige verloop. |
+
+#### Waar het argument op rust
+
+Marks onderbouwt zijn cyclusdenken met zijn eigen ervaring als medeoprichter
+van Oaktree Capital Management, gespecialiseerd in noodlijdende schuld, en met
+de memo's die hij sinds 1990 aan klanten schreef en waarvan sommige, zoals
+zijn memo's uit 2007 over de kredietcyclus, met tijdstempel bewaard zijn
+gebleven. Dat maakt zijn claim dat hij de cyclus destijds correct inschatte,
+beter te verifiëren dan een achteraf geformuleerde observatie.
+
+Het boek levert geen kwantitatief model waarmee een lezer zelf een cyclusfase
+zou kunnen berekenen; de positiebepaling blijft bij Marks een kwalitatief
+oordeel op basis van waarderingen, kredietvoorwaarden en beleggerssentiment,
+opgebouwd uit decennia ervaring.
+
+#### Wat er tegen in te brengen valt
+
+Marks erkent zelf dat cyclusdenken geen voorspelling van timing oplevert,
+alleen een inschatting van waarschijnlijkheid, en dat verschil is voor een
+lezer moeilijk te operationaliseren: het boek geeft geen vaste regels waarmee
+twee lezers onafhankelijk van elkaar tot dezelfde inschatting van de huidige
+cyclusfase zouden komen. De methode leunt sterk op het geoefende oordeel van
+de auteur zelf, wat haar moeilijk overdraagbaar maakt.
+
+Het boek benadrukt Marks' succesvolle cyclusinschattingen, zoals 2007, zonder
+daarnaast systematisch de gevallen te bespreken waarin zijn of andermans
+cyclusinschatting achteraf verkeerd bleek. Dat maakt de overtuigingskracht van
+de voorbeelden groter dan een onafhankelijke toets van de methode zou
+rechtvaardigen.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een beleggingsbeslissing niet wat de markt gaat doen, maar of
+waarderingen, kredietvoorwaarden en sentiment nu dicht bij een uiterste staan.
+- Pas de risicohouding van een portefeuille aan de ingeschatte cyclusfase aan,
+in plaats van een vast risiconiveau aan te houden ongeacht de omstandigheden.
+- Let bij kredietnieuws op veranderingen in leenvoorwaarden zelf, niet alleen
+op de hoogte van de rente, als vroeg signaal van een omslag in de
+kredietcyclus.
+
+#### Wat je hierna leest
+
+- 2123. One Up On Wall Street. Lynch redeneert vanuit het individuele bedrijf
+en zijn verhaal, waar Marks vanuit de bredere cyclus redeneert waarin dat
+bedrijf wordt gewaardeerd.
+- 2124. The Escape from Balance Sheet Recession and the QE Trap. Koo
+beschrijft dezelfde kredietcyclus die Marks bespreekt, maar dan vanuit het
+perspectief van macro-economisch beleid in plaats van portefeuillebeheer.
+- 144. Margin of Safety. Klarman deelt Marks' nadruk op risicobeheersing boven
+voorspelling, met een sterkere focus op de veiligheidsmarge van een
+individuele positie.
+
+## 2126. The Art of Execution
+
+Lee Freeman-Shor, 2015. Ondertitel *How the World's Best Investors Get It
+Wrong and Still Make Millions*, bij Harriman House (Petersfield, 2015).
+Freeman-Shor beheerde als fondsselecteur bij Old Mutual Global Investors het
+Best Ideas-fonds en volgde daarin 1866 individuele beleggingsbeslissingen van
+45 topfondsbeheerders over meerdere jaren. Nederlandse vertaling niet
+nagekeken. Rubriek: geld en ondernemen.
+Tags: `beleggen`, `beleggersgedrag`, `risicobeheer`, `fondsbeheer`,
+`gedragspsychologie`
+
+Lee Freeman-Shor kreeg als fondsselecteur inzage in de individuele koop- en
+verkoopbeslissingen van 45 topfondsbeheerders die hij voor zijn Best
+Ideas-fonds had geselecteerd, in totaal 1866 posities. Zijn belangrijkste
+bevinding is dat minder dan de helft van die posities uiteindelijk winstgevend
+was, en dat het onderscheid tussen de beheerders niet zat in hoe vaak ze
+gelijk hadden, maar in wat ze deden nadat een positie begon te winnen of te
+verliezen.
+
+Op basis daarvan deelt hij de beheerders in vijf gedragstypen in, van
+beleggers die verstijven zodra een positie verliest tot beleggers die winnende
+posities laten doorgroeien. Het boek behandelt aandelenselectie zelf
+nauwelijks; het gaat over de uitvoering die daarna volgt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Freeman-Shors stelling is dat het resultaat van een belegger
+minder wordt bepaald door hoe vaak hij de juiste aandelen kiest dan door wat
+hij doet nadat hij een positie heeft ingenomen: doorgaan bij een verlies,
+verkopen bij een verlies, bijkopen bij een verlies, te vroeg verkopen bij
+winst, of een winnaar laten doorgroeien. Uit zijn dataset van 1866 posities
+bij 45 topbeheerders blijkt dat het gedrag na aankoop een groter verschil
+maakt voor het eindresultaat dan het percentage posities dat uiteindelijk
+winst opleverde.
+
+#### De gang van het boek
+
+**Het onderzoek achter het boek**
+
+Freeman-Shor selecteerde als fondsbeheerder bij Old Mutual Global Investors de
+beste ideeën van 45 vooraanstaande fondsbeheerders voor zijn eigen Best
+Ideas-fonds en kreeg daardoor toegang tot de volledige geschiedenis van hun
+individuele posities, in totaal 1866, inclusief het moment van instap, elke
+bijkoop of verkoop, en de uiteindelijke uitkomst.
+
+Uit die dataset bleek dat minder dan de helft van de posities winst opleverde,
+ook bij beheerders met een sterke reputatie, wat Freeman-Shor ertoe bracht
+niet naar de selectie maar naar het gedrag na de selectie te kijken.
+
+**Konijnen: bevriezen bij verlies**
+
+Konijnen doen niets zodra een positie verlies begint te tonen: ze kopen niet
+bij, in de overtuiging dat de koers wel terugkomt, en verkopen niet, uit onwil
+om het verlies te erkennen. Ze blijven, zoals een konijn in de koplampen,
+bewegingloos tot het verlies uiteindelijk vanzelf verdwijnt of onhoudbaar
+groot wordt.
+
+**Sluipschutters en jagers: twee reacties op verlies die wel werkten**
+
+Sluipschutters sneden een verlies snel af zodra het overtuigingsniveau voor
+een positie daalde, en beperkten zo de schade tot een klein deel van de
+portefeuille. Jagers deden het tegenovergestelde en kochten juist bij bij een
+dalende koers, maar alleen wanneer hun oorspronkelijke overtuiging over het
+bedrijf overeind bleef, waardoor hun gemiddelde aankoopprijs daalde tegen de
+tijd dat de koers weer steeg.
+
+Beide groepen boekten volgens Freeman-Shor betere resultaten dan de konijnen,
+ondanks tegengestelde reacties op hetzelfde verlies, omdat beide een bewuste
+beslissing namen in plaats van te bevriezen.
+
+**Overvallers en kenners: twee reacties op winst**
+
+Overvallers verkochten een winnende positie zodra er een kleine winst op
+stond, uit angst die winst weer te verliezen, en misten daardoor de grootste
+koersstijgingen die pas later volgden. Kenners lieten een winnende positie
+juist doorgroeien zolang het onderliggende verhaal overeind bleef, en boekten
+daardoor de hoogste rendementen van alle vijf de groepen.
+
+Freeman-Shor noemt de kenners de duidelijkste verklaring voor het verschil
+tussen een gemiddelde en een uitzonderlijke beheerder: niet meer juiste
+keuzes, maar meer geduld bij de keuzes die wel klopten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Executie | Wat een belegger doet nadat hij een positie heeft ingenomen, het onderwerp van het boek in plaats van de aandelenselectie zelf. |
+| Konijnen | Beleggers die bij een verliezende positie noch bijkopen noch verkopen en zo bewegingloos blijven tot het verlies vanzelf verdwijnt of te groot wordt. |
+| Sluipschutters | Beleggers die een verlies snel afsnijden zodra hun overtuiging over een positie daalt. |
+| Jagers | Beleggers die bijkopen bij een dalende koers zolang hun oorspronkelijke overtuiging over het bedrijf overeind blijft. |
+| Overvallers | Beleggers die een winnende positie te vroeg verkopen voor een kleine winst, uit angst die weer te verliezen. |
+| Kenners | Beleggers die een winnende positie laten doorgroeien zolang het onderliggende verhaal overeind blijft, met de hoogste rendementen tot gevolg. |
+
+#### Waar het argument op rust
+
+De kern van het boek is een dataset van 1866 individuele
+beleggingsbeslissingen van 45 fondsbeheerders die Freeman-Shor als
+fondsselecteur zelf volgde, inclusief tijdstip van instap, bijkoop, verkoop en
+resultaat. Dat is voor een gedragsindeling ongewoon rijk materiaal, opgebouwd
+uit werkelijke transacties in plaats van simulaties of achteraf
+gereconstrueerde voorbeelden.
+
+De dataset is niet publiek gemaakt en niet onafhankelijk gecontroleerd; de
+lezer moet Freeman-Shors eigen classificatie van welke beheerder in welke
+categorie viel op zijn woord aannemen, iets wat bij een intern fondsonderzoek
+zonder peer review normaal is maar de conclusies wel minder hard maakt dan een
+gepubliceerde studie.
+
+#### Wat er tegen in te brengen valt
+
+De 45 beheerders in de dataset waren al door Freeman-Shor zelf geselecteerd
+als beste ideeën voor zijn fonds, wat een selectie-vertekening in de
+steekproef brengt: de bevindingen zeggen iets over hoe uitzonderlijk goede
+beheerders met winst en verlies omgaan, niet noodzakelijk over hoe een
+gemiddelde belegger dat doet of zou moeten doen.
+
+De vijf gedragstypen zijn een achteraf toegepaste indeling op bestaand gedrag,
+geen voorspellend model: het boek laat niet zien hoe een lezer vooraf zou
+herkennen tot welk type hij zelf behoort, of hoe hij van konijn naar
+sluipschutter of jager verandert onder de druk van een werkelijk verlies. Ook
+blijft onduidelijk hoeveel van het verschil tussen de types simpelweg
+samenhangt met het onderliggende aandeel zelf, sommige verhalen herstellen nu
+eenmaal vaker dan andere, los van hoe de beheerder zich gedroeg.
+
+#### Wat er concreet mee te doen is
+
+- Leg voor elke positie vooraf vast wat de reactie wordt bij een koersdaling
+van een vastgesteld percentage: bijkopen, verkopen, of vasthouden, in plaats
+van dat moment zelf te beslissen.
+- Herken het konijnengedrag bij jezelf: niets doen bij een verlies is zelf ook
+een actieve keuze, alleen een onbewuste.
+- Verkoop een winnende positie niet automatisch bij een eerste koersdoel, maar
+toets eerst of het oorspronkelijke verhaal nog overeind staat.
+
+#### Wat je hierna leest
+
+- 2125. Mastering the Market Cycle. Marks beschrijft op portefeuilleniveau
+dezelfde spanning tussen vasthouden en verkopen die Freeman-Shor op het niveau
+van de individuele positie invult.
+- 2123. One Up On Wall Street. Lynchs pleidooi om winnaars te laten
+doorgroeien en verliezers op tijd te verkopen komt sterk overeen met wat
+Freeman-Shors kenners in de praktijk bleken te doen.
+
+## 2127. The Practicing Mind
+
+Thomas M. Sterner, 2006. Volledige titel *The Practicing Mind: Developing
+Focus and Discipline in Your Life*. Sterner gaf het boek voor het eerst in
+eigen beheer uit; New World Library (Novato, Californië) bracht een herziene
+editie uit in 2010. Sterner is jazzpianist, golfer en bouwde het boek op eigen
+oefenervaring in beide disciplines. Precieze eerste-drukgegevens niet
+nagekeken. Nederlandse vertaling niet nagekeken. Rubriek: vakmanschap en
+aandacht.
+Tags: `discipline`, `geduld`, `focus`, `gewoontevorming`, `zelfhulp`
+
+Thomas Sterner betoogt dat mensen zichzelf onnodig frustreren door zich op een
+doel te richten in plaats van op het proces dat naar dat doel leidt: wie leert
+pianospelen of golfen en alleen naar het eindresultaat kijkt, ervaart elke
+oefensessie als een tekortkoming ten opzichte van een nog niet bereikte staat.
+Zijn oplossing is een omslag naar procesgerichtheid, waarbij de handeling van
+het oefenen zelf het doel wordt in plaats van een middel ernaartoe.
+
+Het boek is kort en persoonlijk geschreven, opgebouwd uit Sterners eigen
+ervaring als jazzpianist en golfer, en biedt geen onderzoek maar een reeks
+praktische technieken om die procesgerichtheid vast te houden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sterners stelling is dat geduld en discipline niet aangeboren
+eigenschappen zijn maar vaardigheden die ontstaan uit een verschuiving in
+perceptie: wie een handeling als product beoordeelt, product namelijk of het
+doel al is bereikt, ervaart elke tussenstap als falen, terwijl wie dezelfde
+handeling als proces beoordeelt, elke tussenstap als de handeling zelf
+ervaart. Die verschuiving is volgens hem aan te leren met concrete technieken,
+en niet afhankelijk van karakter of aanleg.
+
+#### De gang van het boek
+
+**Van product naar proces**
+
+Sterner opent met het onderscheid tussen productgerichtheid, het beoordelen
+van een handeling op basis van het bereikte resultaat, en procesgerichtheid,
+het beoordelen van een handeling op basis van de aandacht die eraan is
+besteed. Aan de hand van zijn eigen pianolessen en golfrondes laat hij zien
+hoe productgerichtheid een oefensessie in een aaneenschakeling van
+mislukkingen verandert, terwijl procesgerichtheid dezelfde sessie in een reeks
+voltooide momenten verandert.
+
+**De cirkel van geduld en discipline**
+
+Sterner wijst op een paradox: het ontwikkelen van geduld vraagt discipline, en
+het ontwikkelen van discipline vraagt geduld, waardoor iemand zonder een van
+beide moeilijk aan een van beide kan beginnen. Hij doorbreekt die cirkel door
+te stellen dat een kleine perceptieverschuiving, het accepteren dat een
+vaardigheid nooit af is maar altijd in ontwikkeling blijft, allebei tegelijk
+vrijmaakt.
+
+**Gewoontes bewust vormen**
+
+Een gewoonte is volgens Sterner niets anders dan een herhaalde handeling
+waaraan de aandacht is ontsnapt: zodra iemand een handeling zonder nadenken
+uitvoert, is die een gewoonte geworden, in positieve of negatieve zin. Om een
+nieuwe gewoonte te vormen, moet de aandacht dus bewust bij de handeling
+blijven tot herhaling haar vanzelf verankert, in plaats van te wachten op
+motivatie die vanzelf aanhoudt.
+
+**De vier S-woorden**
+
+Sterner geeft vier praktische regels om een oefening behapbaar te houden:
+simplify, de handeling tot haar kern terugbrengen, small, in kleine stappen
+werken, short, in korte sessies, en slow, in een tempo waarin fouten opvallen
+voordat ze zich inslijten. Samen houden deze vier de aandacht bij het proces
+in plaats van bij het nog verre eindresultaat.
+
+**Equanimiteit en DOC**
+
+Het slothoofdstuk introduceert wat Sterner DOC noemt, een afstandelijke,
+oordeelvrije manier van naar de eigen oefening kijken: fouten worden
+geregistreerd als informatie in plaats van als reden tot frustratie. Die
+houding, gecombineerd met de vier S-woorden, moet volgens Sterner de
+gelijkmoedigheid opleveren waarmee oefenen een blijvende bezigheid wordt in
+plaats van een opeenvolging van korte pogingen die telkens worden opgegeven.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Procesgerichtheid | Het beoordelen van een handeling op basis van de aandacht die eraan is besteed, in plaats van op basis van het bereikte resultaat. |
+| Perceptieverschuiving | De verandering in hoe een handeling wordt beoordeeld, van product naar proces, die volgens Sterner geduld en discipline tegelijk vrijmaakt. |
+| De vier S-woorden | Sterners vier regels om te oefenen: simplify, small, short en slow, samen bedoeld om de aandacht bij het proces te houden. |
+| DOC | Sterners term voor een afstandelijke, oordeelvrije manier van naar de eigen oefening kijken, waarbij fouten als informatie worden geregistreerd. |
+| Equanimiteit | De gelijkmoedigheid die volgens Sterner ontstaat uit de combinatie van procesgerichtheid en oordeelvrije zelfobservatie. |
+
+#### Waar het argument op rust
+
+Sterner onderbouwt zijn methode met eigen ervaring als jazzpianist en golfer,
+niet met onderzoek of citaten uit de psychologie van vaardigheidsverwerving.
+Het boek noemt geen studies en bevat geen literatuurlijst; de
+overtuigingskracht zit in de herkenbaarheid van de voorbeelden, niet in een
+onafhankelijke toets van de methode.
+
+De kernclaim, dat procesgerichtheid frustratie vermindert en
+doorzettingsvermogen vergroot, sluit aan bij bredere literatuur over
+doeloriëntatie in de psychologie, maar Sterner verwijst daar zelf niet naar en
+presenteert zijn inzicht als persoonlijke ontdekking uit eigen oefenpraktijk.
+
+#### Wat er tegen in te brengen valt
+
+Het boek generaliseert van twee disciplines die Sterner zelf beoefende, muziek
+en golf, naar vaardigheidsontwikkeling in het algemeen, zonder te toetsen of
+dezelfde procesgerichte aanpak evengoed werkt bij vaardigheden met een andere
+structuur, zoals sociale vaardigheden of complexe kennisvakken. De vier
+S-woorden en DOC zijn Sterners eigen vocabulaire voor ideeën die in oudere
+contemplatieve tradities, waaronder het zenboeddhisme, al eeuwenlang bestaan,
+zonder dat het boek die herkomst benoemt.
+
+Het boek is kort en herhaalt dezelfde kernboodschap, proces boven product, in
+verschillende bewoordingen door de hoofdstukken heen, wat het meer een
+uitgewerkt essay maakt dan een stapsgewijze methode met aantoonbaar nieuwe
+technieken per hoofdstuk. Wie al bekend is met begrippen als mindfulness of
+aandachtig handelen uit andere bronnen, vindt in Sterners versie vooral een
+nieuwe woordkeuze voor een bestaand idee, toegepast op oefenen in plaats van
+op meditatie in brede zin.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel een oefensessie na afloop op de aandacht die je eraan besteedde,
+niet op hoe dicht je bij het einddoel kwam.
+- Pas bij een nieuwe vaardigheid de vier S-woorden toe: vereenvoudig de
+handeling, werk in kleine stappen, houd sessies kort, en vertraag het tempo
+tot fouten opvallen.
+- Registreer een fout tijdens het oefenen als informatie in plaats van als
+aanleiding tot frustratie, en ga direct door met de volgende herhaling.
+- Merk op wanneer een gewoonte zich zonder nadenken voltrekt, en bepaal bewust
+of die aandachtsvrije herhaling een gewoonte versterkt die je wilt behouden of
+juist wilt afleren.
+
+#### Wat je hierna leest
+
+- 376. Talent Is Overrated. Colvin onderbouwt met onderzoek naar doelgericht
+oefenen wat Sterner op basis van eigen ervaring beschrijft, met minder
+anekdote en meer verwijzing naar studies.
+- 29. Grit. Duckworth beschrijft doorzettingsvermogen als meetbare eigenschap
+met onderzoek erachter, waar Sterner een praktische techniek aanreikt om
+hetzelfde vol te houden.
+- 70. Deep Work. Newport past een vergelijkbare focus op het proces toe op
+kenniswerk in plaats van op muziek en sport.
+
+## 2128. The Science of Rapid Skill Acquisition
+
+Peter Hollins. Volledige titel *The Science of Rapid Skill Acquisition:
+Advanced Methods to Learn, Remember, and Master New Skills and Information*,
+deel 2 van Hollins' zelfstandig gepubliceerde reeks Learning how to Learn,
+inmiddels in een tweede editie. Hollins schrijft onder eigen naam een groot
+aantal vergelijkbaar opgezette boeken over psychologie en persoonlijke
+ontwikkeling. Precieze eerste-drukgegevens niet nagekeken. Nederlandse
+vertaling niet nagekeken. Rubriek: naslag en praktijk.
+Tags: `vaardigheden leren`, `doelgericht oefenen`, `zelfstudie`,
+`productiviteit`, `zelfhulp`
+
+Peter Hollins bundelt in dit boek adviezen over hoe een lezer een nieuwe
+vaardigheid sneller onder de knie krijgt, van het kiezen van de juiste
+vaardigheid tot het beheren van de eigen verwachtingen tijdens het leerproces.
+Het boek is opgebouwd als een praktische gids in zeven hoofdstukken, van
+strategische planning tot het combineren van al aanwezige vaardigheden tot een
+nieuwe, sterkere combinatie.
+
+Hollins presenteert het boek als synthese van bestaande inzichten uit
+psychologie en productiviteitsliteratuur, niet als verslag van eigen
+onderzoek, en het wordt hier dan ook behandeld als overzicht van wat het
+aanraadt, niet als getoetste wetenschap.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hollins' stelling is dat het tempo waarmee iemand een nieuwe
+vaardigheid leert, minder wordt bepaald door aanleg dan door de manier waarop
+het leerproces is ingericht: de juiste vaardigheid kiezen, doelgericht in
+plaats van herhaald oefenen, de leeromgeving inrichten, en de eigen
+verwachtingen realistisch houden. Wie deze factoren bewust regelt, leert
+volgens hem sneller dan wie er ongestructureerd op los oefent.
+
+#### De gang van het boek
+
+**De juiste vaardigheid kiezen**
+
+Het eerste hoofdstuk behandelt niet hoe te leren maar wat te leren: Hollins
+benadrukt dat niet elke vaardigheid evenveel oplevert, en dat een vaardigheid
+die aansluit bij bestaande doelen sneller wordt volgehouden dan een die op
+zichzelf staat. Daarnaast onderscheidt hij verschillende fasen van leren, van
+onbewuste onbekwaamheid tot bewuste bekwaamheid, om aan te geven wat er in
+elke fase nodig is.
+
+**Strategische planning en doelgericht oefenen**
+
+Hollins pleit voor een plan voordat het oefenen begint: welke deelvaardigheden
+een grotere vaardigheid opbouwen, en in welke volgorde die het beste worden
+geoefend. Doelgericht oefenen, met directe feedback en gerichte aandacht voor
+de zwakste schakel, krijgt hier de nadruk boven ongestructureerde herhaling.
+
+**Diepe comprehensie**
+
+Voor Hollins is begrip een voorwaarde voor snelheid: wie de onderliggende
+logica van een vaardigheid doorziet, hoeft minder losse stappen apart te
+onthouden. Hij raadt aan een nieuw concept in eigen woorden uit te leggen als
+toets of het begrip er werkelijk is, in plaats van te vertrouwen op
+herkenning.
+
+**Vaardigheden stapelen**
+
+Met een verwijzing naar het skill-stacking-idee van cartoonist Scott Adams
+beschrijft Hollins hoe een combinatie van meerdere middelmatige vaardigheden
+een zeldzamere en waardevollere positie kan opleveren dan uitmuntendheid in
+één enkele vaardigheid. Dit hoofdstuk verschuift de vraag van hoe snel te
+leren naar welke vaardigheden de moeite waard zijn om te combineren.
+
+**Omgeving en verwachtingen**
+
+De laatste hoofdstukken behandelen de sociale en fysieke omgeving waarin wordt
+geoefend, en het belang van realistische verwachtingen over de leercurve.
+Hollins waarschuwt dat te hoge verwachtingen over de leersnelheid vaker tot
+opgeven leiden dan een gebrek aan aanleg. Een omgeving met afleiding of met
+mensen die het nut van de nieuwe vaardigheid ontkennen, kost volgens hem net
+zoveel voortgang als een verkeerde oefenmethode, ook al krijgt die
+omgevingsfactor in de meeste leerboeken minder aandacht dan de oefentechniek
+zelf.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Doelgericht oefenen | Oefenen met een specifiek doel, directe feedback en gerichte aandacht voor de zwakste schakel, in plaats van ongestructureerde herhaling. |
+| Leerfasen | De opeenvolgende stadia van leren, van onbewuste onbekwaamheid tot bewuste bekwaamheid, die elk een andere aanpak vragen. |
+| Vaardigheden stapelen | Het combineren van meerdere middelmatige vaardigheden tot een zeldzame en waardevolle combinatie, ontleend aan cartoonist Scott Adams. |
+| Diepe comprehensie | Het begrijpen van de onderliggende logica van een vaardigheid, als voorwaarde om sneller te kunnen leren dan door losse feiten te onthouden. |
+| Verwachtingsmanagement | Het bijstellen van de eigen verwachtingen over de leersnelheid, om te voorkomen dat een trage start tot opgeven leidt. |
+
+#### Waar het argument op rust
+
+Hollins presenteert het boek als synthese van psychologische en
+productiviteitsliteratuur, met doelgericht oefenen als centraal begrip dat
+teruggaat op onderzoek naar expertiseontwikkeling. Het boek zelf citeert
+echter geen specifieke studies met naam en jaartal; de onderbouwing blijft op
+het niveau van algemene verwijzing naar bestaand onderzoek, niet van
+naspeurbare bronnen.
+
+Het skill-stacking-hoofdstuk erkent zijn herkomst bij Scott Adams, wat opvalt
+tussen de overige hoofdstukken die geen bronnen noemen; dat maakt dit
+hoofdstuk het meest verifieerbare onderdeel van het boek. De overige
+hoofdstukken presenteren adviezen als vaststaand zonder aan te geven welk deel
+steunt op gepubliceerd onderzoek en welk deel op Hollins' eigen
+praktijkervaring als schrijver over dit onderwerp.
+
+#### Wat er tegen in te brengen valt
+
+Hollins publiceert onder eigen naam een groot aantal gelijksoortig opgezette
+boeken over psychologie en zelfontwikkeling, wat bij dit boek de vraag oproept
+hoeveel oorspronkelijk denkwerk erin zit tegenover het herschikken van
+bestaande, algemeen bekende adviezen over leren en oefenen. Waar Hollins wel
+bestaand onderzoek noemt, blijft dat zonder brongegevens, zodat een lezer de
+claims niet zelf kan narekenen.
+
+Het boek behandelt vaardigheidsverwerving in algemene termen die op vrijwel
+elke vaardigheid van toepassing worden gemaakt, van een taal tot een sport tot
+een technisch vak, zonder aandacht voor de verschillen tussen die domeinen.
+Wat voor een motorische vaardigheid als typen werkt, hoeft niet hetzelfde te
+zijn als wat voor een sociale vaardigheid als onderhandelen werkt, en dat
+onderscheid blijft in het boek onderbelicht.
+
+De belofte in de titel, rapid skill acquisition, suggereert een tempo dat het
+boek zelf niet garandeert: de methoden die het aanreikt, doelgericht oefenen,
+structuur en realistische verwachtingen, verkorten de leertijd niet
+aantoonbaar meer dan wat in bredere literatuur over expertiseontwikkeling al
+bekend is, ook al presenteert de titel dat als iets nieuws.
+
+#### Wat er concreet mee te doen is
+
+- Kies bewust welke vaardigheid je gaat leren op basis van hoe ze aansluit bij
+een bestaand doel, voordat je een leerschema opstelt.
+- Splits een vaardigheid in deelvaardigheden en oefen de zwakste eerst, in
+plaats van de vaardigheid als geheel te herhalen.
+- Leg een nieuw geleerd concept in eigen woorden uit aan iemand anders, als
+toets of het begrip er werkelijk is.
+- Stel voorafgaand aan een nieuw leertraject een realistische verwachting over
+de leercurve op papier, zodat een langzaam begin niet als reden geldt om te
+stoppen.
+
+#### Wat je hierna leest
+
+- 2127. The Practicing Mind. Sterner beschrijft vanuit eigen ervaring dezelfde
+nadruk op doelgericht, aandachtig oefenen die Hollins hier als synthese van
+bestaand onderzoek presenteert.
+- 376. Talent Is Overrated. Colvin werkt het begrip doelgericht oefenen dat
+Hollins noemt, met naam en onderzoek uit, tot een uitgebreider en beter
+onderbouwd betoog.
+
+## 2129. Power of Ignored Skills
+
+Manoj Tripathi. Volledige titel *Power of Ignored Skills: Change the Way You
+Think and Decide*, uitgegeven bij Notion Press (India); editiejaar niet met
+zekerheid vastgesteld, vermoedelijk 2020 of 2021. Tripathi werkt in sales en
+marketing bij Mercedes-Benz India en schrijft daarnaast als blogger.
+Nederlandse vertaling niet nagekeken. Rubriek: gewoontes en denken.
+Tags: `denkvaardigheden`, `besluitvorming`, `observatie`, `zelfhulp`,
+`persoonlijke ontwikkeling`
+
+Manoj Tripathi beschrijft negen vaardigheden die volgens hem structureel
+worden onderschat in opleiding en loopbaan: waarneming, het leggen van
+verbanden, communicatie, doelgerichtheid, dromen, buiten de lijnen denken,
+doorzettingsvermogen, diepgaand onderzoek en voorspelling. Elk hoofdstuk opent
+met een citaat en een definitie van de vaardigheid, gevolgd door voorbeelden
+van bekende historische figuren die er volgens Tripathi in uitblonken.
+
+Het boek bevat geen citaten naar onderzoek en presenteert de negen
+vaardigheden als Tripathi's eigen indeling, opgebouwd uit zestien jaar
+werkervaring in plaats van uit een onafhankelijk getoetst model.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tripathi's stelling is dat succes minder afhangt van de
+vaardigheden die scholing en loopbaanadvies gewoonlijk benadrukken, zoals
+technische kennis of gestructureerde planning, dan van negen minder zichtbare
+vaardigheden die mensen zelden bewust trainen: goed waarnemen, verbanden
+leggen tussen ongelijksoortige feiten, helder communiceren, een duidelijk doel
+voor ogen houden, groot durven dromen, buiten de gangbare kaders denken,
+volhouden bij tegenslag, een onderwerp grondig uitdiepen, en toekomstige
+ontwikkelingen aanvoelen.
+
+#### De gang van het boek
+
+**Waarneming en verbanden leggen**
+
+De eerste twee vaardigheden vormen volgens Tripathi de basis van de overige
+zeven: wie goed waarneemt, ziet details die anderen missen, en wie die details
+met elkaar in verband brengt, ziet patronen voordat ze algemeen zichtbaar
+worden. Hij illustreert dit met voorbeelden van historische figuren die
+volgens hem juist door scherpe waarneming tot een doorbraak kwamen.
+
+**Communicatie en doelgerichtheid**
+
+Een waargenomen patroon heeft volgens Tripathi pas waarde zodra het
+overtuigend wordt overgebracht, en die overdracht werkt het beste wanneer ze
+aan een helder eigen doel is gekoppeld. Dit hoofdstuk koppelt
+communicatievaardigheid dus niet aan welsprekendheid op zich, maar aan de
+duidelijkheid van het onderliggende doel dat iemand probeert over te brengen.
+
+**Dromen en buiten de lijnen denken**
+
+Tripathi behandelt het vermogen om groot te dromen en het vermogen om buiten
+gangbare kaders te denken als twee kanten van dezelfde vaardigheid: de een
+levert de ambitie, de ander de originaliteit om er een weg naartoe te bedenken
+die nog niemand eerder bewandelde.
+
+**Doorzettingsvermogen en diepgaand onderzoek**
+
+De zevende en achtste vaardigheid gaan over volhouden bij tegenslag en over de
+bereidheid een onderwerp grondiger te doorgronden dan de meeste mensen nodig
+achten. Tripathi koppelt beide aan voorbeelden van figuren die pas na
+herhaalde mislukking of jarenlange verdieping tot hun bekendste prestatie
+kwamen.
+
+**Voorspelling**
+
+De laatste vaardigheid, het aanvoelen van een toekomstige ontwikkeling voordat
+die algemeen zichtbaar wordt, bouwt volgens Tripathi op de eerste acht voort:
+alleen wie waarneemt, verbanden legt, helder communiceert, een doel voor ogen
+houdt, durft te dromen, buiten de lijnen denkt, volhoudt en de diepte induikt,
+ontwikkelt uiteindelijk het soort inzicht waarmee een ontwikkeling vroeg wordt
+herkend. Tripathi noemt voorspelling daarom geen losse negende vaardigheid
+maar het resultaat waartoe de andere acht, samen geoefend, vanzelf leiden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Waarneming | Het vermogen om details op te merken die anderen over het hoofd zien, de basisvaardigheid waarop Tripathi de overige acht bouwt. |
+| Verbanden leggen | Het combineren van ogenschijnlijk losstaande waarnemingen tot een patroon. |
+| Doelgerichtheid | Een helder eigen doel voor ogen houden, waaraan Tripathi effectieve communicatie koppelt. |
+| Buiten de lijnen denken | Het bedenken van een oplossing die buiten de gangbare, algemeen aanvaarde aanpak valt. |
+| Diepe duik | De bereidheid een onderwerp grondiger te doorgronden dan de meeste mensen nodig achten. |
+| Voorspelling | Het aanvoelen van een toekomstige ontwikkeling voordat die algemeen zichtbaar wordt, volgens Tripathi de optelsom van de andere acht vaardigheden. |
+
+#### Waar het argument op rust
+
+Tripathi bouwt het boek op zestien jaar eigen werkervaring in sales en
+marketing en op voorbeelden van bekende historische figuren per hoofdstuk,
+niet op gepubliceerd onderzoek. Het boek noemt geen studies en bevat geen
+literatuurlijst. Elk hoofdstuk opent met een citaat van een bekende naam, wat
+het boek een aforistische toon geeft die dichter bij een verzameling lessen
+staat dan bij een doorlopend betoog.
+
+De negen vaardigheden zijn Tripathi's eigen indeling; er is geen
+onafhankelijke bron die bevestigt dat precies deze negen, en niet meer of
+minder, de doorslaggevende factoren voor succes zijn.
+
+#### Wat er tegen in te brengen valt
+
+De voorbeelden van historische figuren zijn achteraf gekozen om bij een
+vaardigheid te passen, wat het patroon aannemelijker laat lijken dan het is:
+voor vrijwel elke vaardigheid zijn evengoed historische figuren te vinden die
+zonder die vaardigheid succesvol waren, of die de vaardigheid wel bezaten
+zonder succesvol te worden, en die tegenvoorbeelden ontbreken in het boek.
+
+Zonder onderzoek naar hoeveel mensen deze negen vaardigheden trainen en met
+welk resultaat, blijft de kernclaim, dat ze genegeerd worden en dat training
+ervan tot succes leidt, een aanname die het boek zelf niet toetst.
+
+De titel belooft dat het om genegeerde vaardigheden gaat, maar communicatie,
+doorzettingsvermogen en doelgerichtheid staan ook in talloze andere boeken in
+dezelfde rubriek centraal. Wat het boek onderscheidt is niet zozeer de keuze
+van de negen vaardigheden zelf, die grotendeels bekend terrein bestrijkt, maar
+de indeling waarin Tripathi ze samenbrengt en de volgorde waarin hij ze laat
+voortbouwen op waarneming als basis.
+
+#### Wat er concreet mee te doen is
+
+- Kies één van de negen vaardigheden waarin je jezelf het zwakst inschat, en
+zoek een dagelijkse gelegenheid om die specifiek te oefenen.
+- Leg bij een probleem dat je niet oplost eerst vast wat je hebt waargenomen,
+voordat je naar een verklaring of oplossing zoekt.
+- Toets een gedroomd doel door het in een concreet plan te vertalen, in plaats
+van het als losse ambitie te laten staan.
+- Zoek bij een historisch voorbeeld dat je aanspreekt ook naar iemand met
+dezelfde vaardigheid die niet succesvol werd, om het verhaal niet klakkeloos
+als bewijs te lezen.
+
+#### Wat je hierna leest
+
+- 376. Talent Is Overrated. Colvin onderbouwt met onderzoek wat Tripathi met
+historische voorbeelden illustreert: dat vaardigheid uit gerichte training
+voortkomt en niet uit aangeboren talent.
+- 55. Thinking, Fast and Slow. Kahneman beschrijft de denkfouten die het
+lastig maken om patronen, waarnemingen en voorspellingen betrouwbaar van
+toeval te onderscheiden, een kanttekening die Tripathi's boek niet behandelt.
+- 349. Range. Epstein onderbouwt met breder vergelijkend onderzoek waarom
+veelzijdigheid vaak tot betere resultaten leidt dan vroege specialisatie, een
+these die dicht bij Tripathi's nadruk op brede, genegeerde vaardigheden ligt.
+
+## 2130. The Power of Ignored Skills
+
+R.H. Rizvi, 2025. Zelfstandig gepubliceerd (2025). Over de auteur is publiek
+geen verifieerbare biografische informatie te vinden. De titel is vrijwel
+gelijk aan die van het oudere, niet verwante boek van Manoj Tripathi elders in
+deze lijst, en behandelt een ander onderwerp onder dezelfde naam. Rubriek:
+gewoontes en denken.
+Tags: `observatie`, `rust`, `verveling`, `metacognitie`, `zelfhulp`
+
+Dit boek van R.H. Rizvi deelt zijn titel met het oudere boek van Manoj
+Tripathi elders in deze lijst, maar behandelt een andere invalshoek: het gaat
+over stille, over het hoofd geziene vermogens als diepe observatie,
+strategische rust, het verdragen van verveling en het nadenken over het eigen
+denken. Volgens de uitgeversbeschrijving voeden deze vermogens prestaties,
+creatieve doorbraken en veerkracht.
+
+Over de auteur en de onderbouwing van de claims is publiek weinig te vinden:
+er zijn geen onafhankelijke recensies, interviews of achtergrondinformatie
+beschikbaar op het moment van opname in deze lijst. Zolang dat zo blijft, is
+een uitgebreide samenvatting van dit boek niet verantwoord te schrijven zonder
+de tekst zelf te raadplegen, en beperkt deze vermelding zich tot wat de
+uitgever erover meldt.
+
+## 2131. Social Skills for the Overthinker
+
+Nick Trenton. Volledige titel *Social Skills for the Overthinker: Beat
+Self-Sabotage, Escape Your Comfort Zone, and Get Out Of Your Head*, deel 19
+van Trentons zelfstandig gepubliceerde reeks The Path to Calm. Precieze
+eerste-drukgegevens niet nagekeken; recente druk 2023-2024. Nederlandse
+vertaling niet nagekeken. Rubriek: brein en lichaam.
+Tags: `sociale angst`, `piekeren`, `zelfsabotage`, `cognitieve
+herformulering`, `zelfhulp`
+
+Nick Trenton richt dit boek op mensen die in sociale situaties vastlopen door
+overdenken: het voortdurend natrekken van wat er is gezegd of hoe iemand
+overkwam, tot het denken zelf de sociale situatie in de weg gaat staan. Het
+boek gaat volgens de uitgever een klinischer weg dan vergelijkbare titels, met
+aandacht voor hoe een angstig brein werkt en hoe iemand daar niet tegenin maar
+mee kan leren werken.
+
+Onderwerpen die terugkeren zijn de piekercyclus, de innerlijke criticus,
+nieuwsgierigheid als tegenwicht tegen overdenken, en praktische technieken als
+cognitieve herformulering en rollenspel om sociale situaties te oefenen
+voordat ze zich in het echt voordoen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Trentons stelling is dat sociale onhandigheid bij overdenkers
+zelden voortkomt uit een gebrek aan sociale kennis, maar uit een brein dat elk
+sociaal moment vooraf en achteraf op gevaar natrekt, waardoor de aandacht
+tijdens het contact zelf naar binnen verschuift in plaats van naar de ander.
+Wie leert die piekercyclus te herkennen en te onderbreken, wordt volgens hem
+sociaal vaardiger zonder dat er nieuwe sociale trucs bij hoeven te komen.
+
+#### De gang van het boek
+
+**Hoe het angstige brein sociale situaties leest**
+
+Trenton begint met uit te leggen waarom een overdenkend brein een sociale
+situatie sneller als bedreigend beoordeelt dan die werkelijk is, en waarom die
+inschatting voelt als een feit in plaats van als een interpretatie. Dit deel
+is bedoeld om de lezer te laten herkennen dat de innerlijke ervaring van
+gevaar geen betrouwbare graadmeter is voor het werkelijke risico van een
+sociaal moment. Trenton benadrukt daarbij dat de eerste hoofdstukken vooral
+bedoeld zijn om de lezer zich herkend te laten voelen, voordat het boek naar
+concrete technieken overgaat.
+
+**De piekercyclus doorbreken**
+
+Een centraal hoofdstuk beschrijft de piekercyclus: een sociaal moment wordt na
+afloop herhaaldelijk nagelopen op wat er fout ging, wat op zijn beurt de angst
+voor het volgende sociale moment vergroot. Trenton reikt technieken aan om dat
+natrekken vroegtijdig te onderbreken in plaats van de gedachtegang uit te
+laten woeden.
+
+**De innerlijke criticus**
+
+Trenton behandelt de innerlijke stem die sociale prestaties voortdurend
+beoordeelt als een aparte partij binnen het denken, die met dezelfde
+technieken als een externe criticus kan worden weerlegd: nagaan of de kritiek
+op feiten berust of op een aanname, en die aanname expliciet benoemen.
+
+**Nieuwsgierigheid als tegenwicht**
+
+Als alternatief voor de op zichzelf gerichte aandacht van een overdenker stelt
+Trenton oprechte nieuwsgierigheid naar de ander voor: wie tijdens een gesprek
+aandacht besteedt aan wat de ander zegt, houdt vanzelf minder aandacht over
+voor de innerlijke piekercyclus.
+
+**Oefenen met herformulering en rollenspel**
+
+Het slotdeel reikt praktische technieken aan, waaronder cognitieve
+herformulering, het expliciet herformuleren van een bedreigende gedachte tot
+een neutralere versie, en rollenspel om een lastig geachte sociale situatie
+vooraf te oefenen in een veilige context.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Piekercyclus | Het herhaaldelijk natrekken van een sociaal moment na afloop, wat de angst voor een volgend moment vergroot in plaats van verkleint. |
+| Innerlijke criticus | De stem binnen het eigen denken die sociale prestaties voortdurend beoordeelt, door Trenton als aparte, weerlegbare partij behandeld. |
+| Cognitieve herformulering | Het expliciet herformuleren van een bedreigend geachte gedachte tot een neutralere, beter onderbouwde versie. |
+| Sociale angst | De angst voor beoordeling in sociale situaties die bij overdenken vooral van binnenuit, door de eigen gedachtegang, wordt gevoed. |
+| Rollenspel | Het vooraf oefenen van een lastig geachte sociale situatie in een veilige, gesimuleerde context. |
+
+#### Waar het argument op rust
+
+Trenton bouwt het boek op bestaande cognitief-gedragstherapeutische
+technieken, zoals cognitieve herformulering, die in de klinische psychologie
+onderzoek achter zich hebben, al citeert het boek zelf geen specifieke
+studies. De toepassing van die technieken op overdenken in sociale situaties
+is Trentons eigen samenvoeging, niet een apart geteste interventie.
+
+Trenton publiceert onder eigen naam een groot aantal vergelijkbaar opgezette
+boeken binnen dezelfde reeks The Path to Calm, wat wijst op een format dat
+herhaald wordt toegepast op verschillende thema's binnen angst en piekeren,
+eerder dan op boek-specifiek onderzoek per titel. Dat format levert een
+leesbaar en herkenbaar boek op, maar ook een dat inhoudelijk dicht bij de
+andere delen van dezelfde reeks blijft staan.
+
+#### Wat er tegen in te brengen valt
+
+Het boek onderscheidt niet duidelijk welke adviezen steunen op klinisch
+onderzoek naar cognitieve gedragstherapie en welke voortkomen uit Trentons
+eigen synthese voor dit specifieke boek, waardoor een lezer niet kan
+beoordelen welk advies het steviger onderbouwde deel van het boek is.
+
+Als zelfhulpboek buiten een therapeutische setting biedt het geen vervanging
+voor behandeling bij sociale angst die het dagelijks functioneren ernstig
+beperkt; het boek zelf maakt dat onderscheid niet expliciet en presenteert de
+technieken als algemeen toepasbaar ongeacht de ernst van de klacht.
+
+Het boek richt zich specifiek op overdenken als oorzaak van sociale moeite,
+terwijl sociale angst ook andere, minder cognitieve oorzaken kan hebben, zoals
+eerdere afwijzingservaringen of lichamelijke overgevoeligheid voor spanning.
+Voor lezers bij wie overdenken niet de kern van hun sociale moeite is, sluit
+de aanpak van het boek minder goed aan dan de titel suggereert.
+
+#### Wat er concreet mee te doen is
+
+- Onderbreek een piekergedachte na een sociaal moment door haar hardop of op
+papier te herformuleren tot een neutralere beschrijving van wat er feitelijk
+gebeurde.
+- Richt tijdens een gesprek de aandacht bewust op wat de ander zegt, als
+tegenwicht tegen de neiging om de eigen bijdrage te blijven beoordelen.
+- Oefen een sociaal moment waar je tegenop ziet vooraf in een rollenspel met
+iemand die je vertrouwt.
+- Schrijf na een piekerbui de aanname op waarop de kritiek van de innerlijke
+criticus rust, en ga na of die aanname op feiten of op een vermoeden berust.
+
+#### Wat je hierna leest
+
+- 457. Emotional Agility. David beschrijft emotionele flexibiliteit als
+alternatief voor het onderdrukken of bestrijden van een moeilijk gevoel, een
+aanpak die aansluit bij Trentons pleidooi om de piekercyclus te herkennen in
+plaats van te bevechten.
+- 458. The Upside of Stress. McGonigal laat zien dat de fysieke ervaring van
+stress kan worden geherinterpreteerd, dezelfde herformuleringstechniek die
+Trenton op sociale angst toepast.
+- 55. Thinking, Fast and Slow. Kahneman beschrijft hoe snel, associatief
+denken een sociale situatie al binnen milliseconden van een oordeel voorziet,
+het mechanisme waar Trentons piekercyclus op voortbouwt.
+
+## 2132. The Mathematics of Large Language Models
+
+Jason Karpeles. Volledige titel *The Mathematics of Large Language Models:
+Machine Learning Theory Made Readable*, zelfstandig gepubliceerd (Lulu/Amazon
+KDP). Over Karpeles is publiek geen academische aanstelling of eerdere
+publicatie te vinden; het boek verschijnt zonder uitgeversredactie of peer
+review. Precieze eerste-drukgegevens niet nagekeken. Nederlandse vertaling
+niet nagekeken. Rubriek: naslag en praktijk.
+Tags: `kunstmatige intelligentie`, `taalmodellen`, `wiskunde`, `machine
+learning`, `studieboek`
+
+Jason Karpeles behandelt in zestien tot zeventien hoofdstukken de wiskundige
+ideeën achter moderne taalmodellen, van lineaire algebra, kansrekening en
+optimalisatie als fundament, via de transformer-architectuur en generatieve
+modellen, tot onzekerheid, schaalwetten, causaliteit en een slothoofdstuk over
+hallucinatie: wat de wiskunde zegt over wat een model niet kan weten, en
+wanneer onthouding van een antwoord de juiste uitkomst is.
+
+Elk hoofdstuk opent volgens de uitgeversbeschrijving met het menselijke
+verhaal achter een belangrijk idee, voordat het de wiskunde zelf behandelt.
+Het boek is zelfstandig gepubliceerd, zonder de redactie of toetsing van een
+academische uitgeverij, en wordt hier op basis van de beschikbare beschrijving
+en niet van een volledige lezing samengevat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Karpeles' impliciete stelling is dat de wiskunde achter grote
+taalmodellen leesbaar te maken is voor wie de onderliggende ideeën in
+menselijke, verhalende vorm eerst begrijpt, zonder de formules zelf te
+versimpelen of weg te laten. Het boek positioneert zich daarmee tussen een
+populariserend overzicht zonder wiskunde en een specialistisch leerboek dat
+alleen voor wie al vergevorderd is in lineaire algebra en kansrekening te
+volgen is.
+
+#### De gang van het boek
+
+**Wiskundig fundament**
+
+De eerste hoofdstukken behandelen lineaire algebra, kansrekening,
+optimalisatie en generalisatie als het gereedschap waarmee de rest van het
+boek werkt: vectoren en matrices om taal als getallen te representeren,
+kansverdelingen om onzekerheid te modelleren, en optimalisatiemethoden om een
+model tijdens training bij te stellen.
+
+**Transformers en generatieve modellen**
+
+Vanuit dat fundament bouwt het boek de transformer-architectuur op, het
+aandachtmechanisme waarmee een model bepaalt welke eerdere woorden relevant
+zijn voor het volgende, en behandelt het generatieve modellen zoals
+diffusiemodellen, die niet alleen tekst maar ook beeld en geluid kunnen
+genereren via eenzelfde wiskundig raamwerk.
+
+**Onzekerheid en schaalwetten**
+
+Een groep hoofdstukken behandelt hoe een model onzekerheid over zijn eigen
+antwoord kan uitdrukken via Bayesiaanse methoden en gekalibreerde onzekerheid,
+en hoe schaalwetten voorspellen hoe de prestaties van een model veranderen
+naarmate de hoeveelheid data, rekenkracht en parameters toeneemt, inclusief
+in-context leren, het vermogen van een model om binnen één gesprek van
+voorbeelden te leren zonder herschoold te worden.
+
+**Hallucinatie en de grens van het weten**
+
+Het slothoofdstuk behandelt wat de wiskunde zegt over hallucinatie, het
+genereren van overtuigend klinkende maar onjuiste antwoorden, en over
+abstentie, het moment waarop een model zou moeten aangeven dat het antwoord
+niet weet in plaats van er een te verzinnen. Volgens de uitgeversbeschrijving
+toont dit hoofdstuk dat hallucinatie niet louter een trainingsfout is die met
+meer data verdwijnt, maar voor een deel een wiskundig te verwachten gevolg van
+hoe een model kansen over mogelijke antwoorden verdeelt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Aandachtmechanisme | Het onderdeel van de transformer-architectuur waarmee een model bepaalt welke eerdere woorden relevant zijn voor het genereren van het volgende. |
+| Diffusiemodel | Een generatief model dat data opbouwt door een omgekeerd ruisproces te leren, gebruikt voor tekst, beeld en geluid. |
+| Gekalibreerde onzekerheid | De mate waarin de door een model opgegeven zekerheid over een antwoord overeenkomt met de werkelijke kans dat het antwoord juist is. |
+| Schaalwet | Een wiskundige regelmatigheid die voorspelt hoe de prestaties van een model veranderen met de hoeveelheid data, rekenkracht en parameters. |
+| In-context leren | Het vermogen van een taalmodel om binnen één gesprek van gegeven voorbeelden te leren, zonder dat de onderliggende parameters worden bijgesteld. |
+| Hallucinatie | Het genereren van een overtuigend klinkend maar feitelijk onjuist antwoord door een taalmodel. |
+| Abstentie | Het bewust niet geven van een antwoord door een model, wanneer de wiskunde aangeeft dat de onzekerheid te groot is. |
+
+#### Waar het argument op rust
+
+Het boek bouwt op gevestigde, gepubliceerde theorie: de
+transformer-architectuur gaat terug op het artikel Attention Is All You Need
+van Vaswani en collega's (2017), en schaalwetten op empirisch onderzoek van
+onder meer Kaplan en collega's bij OpenAI. Karpeles presenteert deze theorie
+in eigen woorden, niet als eigen onderzoek.
+
+Zonder uitgeversredactie of peer review is er geen onafhankelijke controle
+geweest op de juistheid van de wiskundige afleidingen in het boek; een lezer
+die de formules wil narekenen, doet er goed aan ze te toetsen aan de
+oorspronkelijke, gepubliceerde artikelen waarop het boek voortbouwt.
+
+#### Wat er tegen in te brengen valt
+
+Karpeles is niet te herleiden tot een academische aanstelling of eerdere
+vakpublicatie, en het boek verschijnt buiten een uitgeverij met
+wetenschappelijke redactie om, wat betekent dat fouten in de wiskundige
+afleidingen niet vooraf door een onafhankelijke expert zijn gecontroleerd,
+anders dan bij een gepubliceerd leerboek van een universitaire uitgeverij.
+
+De belofte om zestien tot zeventien onderwerpen, van lineaire algebra tot
+causaliteit, elk met een menselijk verhaal toegankelijk te maken, brengt het
+risico dat de wiskunde per onderwerp oppervlakkiger blijft dan de titel
+machine learning theory made readable doet vermoeden. Het veld van
+taalmodellen verandert bovendien snel genoeg dat een zelfstandig gepubliceerd
+boek zonder herzieningen op onderdelen sneller verouderd raakt dan een
+periodiek herziene academische tekst.
+
+Voor een boek dat zich op de wiskunde van taalmodellen richt, is het
+opmerkelijk dat de auteur zelf publiek geen aantoonbare achtergrond in
+wiskunde, informatica of machine learning heeft; dat betekent niet automatisch
+dat de inhoud onjuist is, maar wel dat een lezer minder kan steunen op het
+gezag van de auteur dan bij een boek van iemand met een naspeurbare
+vakachtergrond, en dus meer moet leunen op het zelf narekenen van de
+gepresenteerde afleidingen.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik dit boek als tweede, toegankelijkere bron naast een primaire
+wiskundige tekst of het oorspronkelijke onderzoeksartikel, niet als enige bron
+voor een precieze afleiding.
+- Controleer bij een centrale formule of het boek verwijst naar het
+onderliggende onderzoeksartikel, en raadpleeg dat artikel bij twijfel over de
+juistheid.
+- Lees het slothoofdstuk over hallucinatie en abstentie ook als je vooral in
+de eerdere, meer technische hoofdstukken geïnteresseerd bent: het plaatst de
+rest van het boek in het perspectief van wat een model, ondanks alle besproken
+wiskunde, uiteindelijk niet kan garanderen.
+
+#### Wat je hierna leest
+
+- 2133. The Mathematical Foundations of Large Language Models. Baaquie
+behandelt dezelfde overgang van klassieke naar neurale taalmodellen in een
+boek dat wel door een academische uitgeverij is uitgegeven.
+- 2134. The Mathematics of Large Language Models: From Tokens to Transformers,
+Training to Decoding. Team Trex werkt de transformer-architectuur die Karpeles
+in één hoofdstuk behandelt, in meer technisch detail uit vanaf de eerste
+beginselen.
+
+## 2133. The Mathematical Foundations of Large Language Models
+
+Belal Ehsan Baaquie. Uitgegeven bij Springer (ISBN 9789819204656). Baaquie
+promoveerde in theoretische natuurkunde aan Cornell University, was van 1984
+tot 2016 hoogleraar natuurkunde aan de National University of Singapore en
+daarna hoogleraar finance aan INCEIF in Maleisië; hij schreef eerder drie
+boeken over kwantumveldentheorie toegepast op financiële markten, waaronder
+*Quantum Field Theory for Economics and Finance* (Cambridge University Press,
+2018). Precieze publicatiedatum en volledige inhoudsopgave van dit boek niet
+nagekeken; het veronderstelt kennis van lineaire algebra, kansrekening en
+calculus op bachelorniveau. Nederlandse vertaling niet nagekeken. Rubriek:
+naslag en praktijk.
+Tags: `kunstmatige intelligentie`, `taalmodellen`, `wiskunde`, `machine
+learning`, `studieboek`
+
+Dit boek van Belal Ehsan Baaquie bouwt de wiskunde van taalmodellen op vanaf
+het eenvoudigste begin, bigrammen en n-grammodellen die de kans op een volgend
+woord alleen uit de voorafgaande een of enkele woorden schatten, en werkt van
+daaruit stapsgewijs toe naar de neurale taalmodellen en de
+transformer-architectuur die moderne grote taalmodellen aandrijft.
+
+Anders dan de twee zelfstandig gepubliceerde titels elders in deze lijst
+verschijnt dit boek bij een gevestigde academische uitgeverij, wat op redactie
+en toetsing wijst die bij een zelfpublicatie ontbreekt. Een volledige,
+hoofdstuk-voor-hoofdstuk inhoudsopgave was bij het samenstellen van deze
+samenvatting niet te achterhalen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Baaquie's impliciete stelling is dat een taalmodel, hoe
+complex ook, wiskundig te begrijpen is als het eindpunt van een geleidelijke
+uitbreiding op een eenvoudig beginidee: de kans op een volgend woord schatten
+uit wat eraan voorafging. Door met het eenvoudigste model te beginnen, het
+n-grammodel, en van daaruit laag voor laag complexiteit toe te voegen, kunnen
+lezers met een bachelorniveau aan lineaire algebra, kansrekening en calculus
+de transformer-architectuur uiteindelijk als uitbreiding herkennen in plaats
+van als een op zichzelf staand, ondoorzichtig systeem.
+
+#### De gang van het boek
+
+**Wiskundige vereisten**
+
+Het boek herhaalt of veronderstelt de wiskundige basis die de rest van het
+boek nodig heeft: lineaire algebra voor het rekenen met vectoren en matrices,
+kansrekening voor het modelleren van onzekerheid over het volgende woord, en
+calculus voor de optimalisatiemethoden waarmee een model tijdens training
+wordt bijgesteld.
+
+**Van bigrammen naar n-grammodellen**
+
+Baaquie begint bij het eenvoudigste taalmodel, het bigram, dat de kans op een
+woord alleen uit het direct voorafgaande woord schat, en breidt dat uit tot
+n-grammodellen die een langere reeks voorafgaande woorden meewegen. Deze
+klassieke modellen, van voor het tijdperk van neurale netwerken, dienen als
+een wiskundig navolgbaar startpunt voordat het boek naar complexere modellen
+overstapt.
+
+**Naar neurale taalmodellen en de transformer**
+
+Vanuit de beperkingen van n-grammodellen, die geen betekenisrelaties tussen
+woorden verder dan de gekozen n meewegen, bouwt het boek toe naar neurale
+taalmodellen en uiteindelijk naar de transformer-architectuur, waarin het
+aandachtmechanisme in principe elk eerder woord in een tekst kan laten
+meewegen, ongeacht de afstand tot het woord dat wordt voorspeld.
+
+**Waarom het klassieke vertrekpunt de keuze is**
+
+Dat Baaquie bij bigrammen begint in plaats van direct bij de transformer, is
+zelf een didactische keuze: een n-grammodel is met beperkte kansrekening
+volledig te doorgronden, inclusief de reden waarom het faalt bij lange afstand
+tussen woorden. Die faalreden is precies het probleem dat de
+transformer-architectuur oplost, waardoor de lezer bij het latere hoofdstuk
+over aandacht al weet welk concreet gebrek het aandachtmechanisme wiskundig
+verhelpt, in plaats van de architectuur als een op zichzelf staand ontwerp te
+moeten aannemen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Bigram | Het eenvoudigste taalmodel, dat de kans op een woord alleen schat uit het direct voorafgaande woord. |
+| N-grammodel | Een uitbreiding van het bigram die een langere, vaste reeks voorafgaande woorden meeweegt bij het schatten van de kans op het volgende woord. |
+| Neuraal taalmodel | Een taalmodel dat de kans op een volgend woord schat met een neuraal netwerk in plaats van met vaste telfrequenties zoals bij een n-grammodel. |
+| Transformer-architectuur | De architectuur die met een aandachtmechanisme elk eerder woord in een tekst kan laten meewegen, ongeacht de afstand tot het te voorspellen woord. |
+| Kansrekening | Het wiskundige gereedschap waarmee een taalmodel onzekerheid over het volgende woord uitdrukt als een verdeling van waarschijnlijkheden. |
+
+#### Waar het argument op rust
+
+Springer is een gevestigde academische uitgeverij met redactionele toetsing,
+wat dit boek onderscheidt van de twee zelfstandig gepubliceerde titels over
+hetzelfde onderwerp elders in deze lijst; die toetsing is echter geen garantie
+voor foutloosheid, alleen een aanwijzing voor een hogere kans op inhoudelijke
+controle vooraf. Baaquies eerdere werk over kwantumveldentheorie toegepast op
+financiële markten wijst op een auteur die vaker complexe wiskunde uit een
+ander vakgebied naar een nieuw toepassingsgebied vertaalt, wat bij dit boek
+dezelfde overdraagbare aanpak doet vermoeden.
+
+De opbouw van bigram naar n-gram naar neuraal model naar transformer volgt de
+gedocumenteerde geschiedenis van het vakgebied zelf, van klassieke
+statistische taalmodellen naar de neurale architecturen die sinds het
+transformer-artikel van 2017 dominant zijn geworden.
+
+#### Wat er tegen in te brengen valt
+
+Bij het samenstellen van deze samenvatting was geen volledige,
+hoofdstuk-voor-hoofdstuk inhoudsopgave van het boek te achterhalen, waardoor
+deze beschrijving zich beperkt tot de bevestigde algemene opbouw, van
+n-grammen naar transformers, zonder in te gaan op specifieke voorbeelden,
+afleidingen of toepassingen die het boek verder mogelijk behandelt.
+
+De veronderstelde voorkennis, lineaire algebra, kansrekening en calculus op
+bachelorniveau, maakt het boek ontoegankelijk voor lezers zonder die
+achtergrond, een drempel die het boek deelt met de meeste academische
+leerboeken over dit onderwerp maar die de titel foundations niet expliciet
+aankondigt.
+
+Omdat een volledige inhoudsopgave niet kon worden geraadpleegd, is niet te
+beoordelen hoeveel ruimte het boek besteedt aan recentere ontwikkelingen zoals
+schaalwetten of in-context leren, onderwerpen die in de twee zelfstandig
+gepubliceerde titels elders in deze lijst wel expliciet aan bod komen. Een
+academisch boek bij Springer wordt doorgaans trager herzien dan een
+zelfpublicatie, wat bij een snel veranderend vakgebied als taalmodellen een
+reëel nadeel kan zijn tegenover het voordeel van redactionele toetsing.
+
+#### Wat er concreet mee te doen is
+
+- Begin bij het bigram- en n-gramhoofdstuk ook als je vooral in transformers
+geïnteresseerd bent: de latere architectuur is als uitbreiding op dit
+eenvoudige model beter te doorgronden dan als geïsoleerd systeem.
+- Herhaal de wiskundige vereisten uit het eerste deel actief, met eigen
+voorbeelden, voordat je aan de hoofdstukken over neurale taalmodellen begint.
+- Vraag je bij elke stap van bigram naar n-gram naar neuraal model naar
+transformer expliciet af welk concreet gebrek van het vorige model de volgende
+stap oplost, in plaats van elke architectuur los te onthouden.
+
+#### Wat je hierna leest
+
+- 2132. The Mathematics of Large Language Models. Karpeles behandelt dezelfde
+overgang van fundament naar transformer toegankelijker maar zonder de
+redactionele toetsing van een academische uitgeverij.
+- 2134. The Mathematics of Large Language Models: From Tokens to Transformers,
+Training to Decoding. Team Trex werkt specifiek de transformer-architectuur
+waar Baaquie naartoe bouwt, in meer technisch detail uit.
+- 2120. Logic: A Complete Introduction. Lee behandelt formele systemen op een
+ander niveau van abstractie, het wiskundig karakteriseren van geldige
+redeneringen in plaats van het schatten van waarschijnlijke woordvolgordes,
+met eenzelfde opbouw van eenvoudig naar complex.
+
+## 2134. The Mathematics of Large Language Models: From Tokens to Transformers, Training to Decoding
+
+Team Trex. Zelfstandig gepubliceerd. De auteursnaam Team Trex verwijst niet
+naar een individuele, identificeerbare auteur met verifieerbare achtergrond;
+het boek verschijnt zonder uitgeversredactie of peer review. Precieze
+eerste-drukgegevens niet nagekeken. Nederlandse vertaling niet nagekeken.
+Rubriek: naslag en praktijk.
+Tags: `kunstmatige intelligentie`, `taalmodellen`, `wiskunde`,
+`transformer-architectuur`, `studieboek`
+
+Dit boek bouwt de transformer-architectuur op vanaf de eerste beginselen: de
+vectorruimte van embeddings, waarin woorden als getallen worden
+gerepresenteerd, de werking van scaled dot-product attention, en de rol van
+LayerNorm en residuele verbindingen bij het stabiel houden van de training.
+Het behandelt vervolgens de maximum-likelihoodschatting waarmee een model
+tijdens voortraining wordt getraind, en inferentiestrategieën als nucleus- en
+top-k-sampling waarmee een getraind model tekst genereert.
+
+De auteursnaam Team Trex verwijst naar een collectief in plaats van een
+individuele, met naam en achtergrond te identificeren auteur, wat dit boek
+onderscheidt van de twee andere titels met een vergelijkbare titel elders in
+deze lijst en om extra behoedzaamheid vraagt bij het beoordelen van de inhoud.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het boek presenteert de transformer-architectuur als een
+keten van wiskundig navolgbare stappen, van de vectorruimte waarin woorden
+worden gerepresenteerd tot de kansverdeling waarmee een getraind model het
+volgende woord genereert, met als impliciete stelling dat wie elke stap in die
+keten afzonderlijk doorgrondt, uiteindelijk begrijpt hoe een taalmodel als
+geheel werkt zonder een stap als black box te hoeven accepteren.
+
+#### De gang van het boek
+
+**Embeddings en de vectorruimte**
+
+Het boek opent met embeddings, de representatie van woorden of subwoorddelen
+als vectoren in een hoogdimensionale ruimte, waarin woorden met een
+vergelijkbare betekenis dicht bij elkaar liggen. Deze representatie is de
+wiskundige basis waarop alle volgende stappen in de transformer-architectuur
+voortbouwen.
+
+**Aandacht: scaled dot-product attention**
+
+Vanuit de vectorruimte van embeddings bouwt het boek het aandachtmechanisme
+op, waarbij voor elk woord wordt berekend hoe relevant elk ander woord in de
+tekst voor de betekenis ervan is, geschaald om de training stabiel te houden
+bij hoogdimensionale vectoren.
+
+**Stabilisatie: LayerNorm en residuele verbindingen**
+
+Het boek behandelt LayerNorm, een normalisatietechniek die voorkomt dat
+waarden tussen lagen van het netwerk te sterk uitschieten, en residuele
+verbindingen, die een kortere route voor het trainingssignaal door het netwerk
+toevoegen. Beide technieken zijn nodig om een diep netwerk van veel
+opeenvolgende lagen stabiel te kunnen trainen.
+
+**Training: maximum-likelihoodschatting**
+
+Voor het trainen van het model behandelt het boek de
+maximum-likelihoodschatting, de methode waarmee de parameters van het model zo
+worden bijgesteld dat de kans die het model aan de werkelijk waargenomen tekst
+toekent, zo hoog mogelijk wordt.
+
+**Inferentie: van tokenisatie tot sampling**
+
+Het slotdeel behandelt hoe tekst voor training wordt opgedeeld in
+subwoorddelen, met de entropie van die tokenisatie als maatstaf voor
+efficiëntie, en hoe een getraind model bij het genereren van tekst een volgend
+woord kiest met technieken als nucleus-sampling en top-k-sampling, die de
+softmax-kansverdeling over mogelijke woorden inperken tot een beheersbare
+subset. Het boek besluit met de constatering dat de keuze van
+sampling-strategie evenveel invloed heeft op de kwaliteit van gegenereerde
+tekst als de architectuur of de training zelf, een stap die in populaire
+uitleg van taalmodellen vaak wordt overgeslagen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Embedding | De representatie van een woord of subwoorddeel als vector in een hoogdimensionale ruimte, waarin betekenisverwante woorden dicht bij elkaar liggen. |
+| Scaled dot-product attention | Het aandachtmechanisme dat berekent hoe relevant elk woord in een tekst is voor de betekenis van een ander woord, geschaald voor stabiliteit tijdens training. |
+| LayerNorm | Een normalisatietechniek die voorkomt dat waarden tussen lagen van een neuraal netwerk te sterk uitschieten tijdens training. |
+| Residuele verbinding | Een kortere route voor het trainingssignaal door een diep netwerk, die het trainen van veel opeenvolgende lagen stabieler maakt. |
+| Maximum-likelihoodschatting | De trainingsmethode waarbij de parameters van een model zo worden bijgesteld dat de kans die het model aan de werkelijk waargenomen tekst toekent, zo hoog mogelijk wordt. |
+| Subwoord-tokenisatie | Het opdelen van tekst in kleinere eenheden dan hele woorden, waarmee ook onbekende woorden uit bekende delen kunnen worden opgebouwd. |
+| Nucleus-sampling | Een inferentietechniek die bij het genereren van tekst alleen kiest uit de kleinste groep woorden die samen een vastgestelde kansdrempel overschrijden. |
+
+#### Waar het argument op rust
+
+De behandelde onderwerpen, embeddings, scaled dot-product attention, LayerNorm
+en residuele verbindingen, gaan terug op het transformer-artikel Attention Is
+All You Need van Vaswani en collega's (2017) en op latere, eveneens
+gepubliceerde technieken voor tekstgeneratie zoals nucleus-sampling. Het boek
+presenteert die bestaande, gepubliceerde theorie in eigen woorden.
+
+Zonder een identificeerbare individuele auteur en zonder uitgeversredactie is
+er geen onafhankelijke aanwijzing van wie de wiskundige afleidingen heeft
+opgesteld of gecontroleerd, wat de verifieerbaarheid van het boek beperkt tot
+het narekenen van de formules tegen de oorspronkelijke bronartikelen.
+
+#### Wat er tegen in te brengen valt
+
+De auteursnaam Team Trex is geen individuele, met naam en achtergrond te
+identificeren auteur, wat dit boek onderscheidt van een leerboek met een
+controleerbare, verantwoordelijke naam erachter. Bij zelfstandig gepubliceerde
+technische boeken zonder identificeerbare auteur is extra behoedzaamheid op
+zijn plaats over de herkomst en juistheid van de inhoud, ook al is de
+behandelde wiskunde zelf gevestigde, gepubliceerde theorie.
+
+Het boek verschijnt in een kort tijdsbestek naast minstens twee andere
+zelfstandig gepubliceerde titels met een vrijwel identieke titel over
+hetzelfde onderwerp, wat wijst op een snel gevuld marktsegment rond de
+populariteit van taalmodellen. Dat maakt het voor een lezer moeilijker te
+beoordelen hoeveel oorspronkelijke uitwerking een specifieke titel bevat
+tegenover wat elders vrij beschikbaar is, bijvoorbeeld in het oorspronkelijke
+onderzoeksartikel of in gratis online cursusmateriaal.
+
+Van de drie boeken over dit onderwerp in deze lijst is dit het meest
+technische en het minst herleidbare naar een verantwoordelijke auteur, een
+combinatie die om de meeste behoedzaamheid vraagt: precies waar de wiskunde
+het lastigst zelf te controleren is, ontbreekt de naam die er
+verantwoordelijkheid voor draagt.
+
+#### Wat er concreet mee te doen is
+
+- Volg de opbouw van embedding naar aandacht naar stabilisatie naar training
+naar inferentie als checklist om na te gaan welke stap van de
+transformer-architectuur je nog niet volledig doorgrondt.
+- Reken een centrale formule, zoals de scaled dot-product attention, na tegen
+het oorspronkelijke transformer-artikel in plaats van tegen dit boek alleen,
+gezien het ontbreken van uitgeversredactie.
+- Vergelijk bij het hoofdstuk over sampling zelf het effect van nucleus- en
+top-k-sampling op dezelfde tekstprompt, als die mogelijkheid via een openbaar
+toegankelijk taalmodel beschikbaar is, om het wiskundige verschil ook in de
+praktijk te zien.
+
+#### Wat je hierna leest
+
+- 2132. The Mathematics of Large Language Models. Karpeles plaatst dezelfde
+transformer-architectuur in een breder overzicht van de wiskunde achter
+taalmodellen, met minder technisch detail per stap.
+- 2133. The Mathematical Foundations of Large Language Models. Baaquie bouwt
+naar dezelfde architectuur toe vanuit klassieke taalmodellen, in een boek met
+de redactionele toetsing die dit boek mist.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -317541,39 +319533,39 @@ Course in Miracles` 1849, 1889 · `aanbod` 307 · `aandacht` 17, 34, 54, 70, 71,
 78, 141, 205, 209, 248, 288, 326, 333, 341, 390, 441, 461, 517, 579, 581, 700,
 800, 802, 1172, 1300, 1308, 1558, 1563, 1569, 1640, 1643, 1682, 1705, 1709,
 1718, 1747, 1833, 1857, 1871, 1872, 1913, 2027, 2057, 2100 · `aandeelhouders`
-567 · `aandelen` 474, 481, 804 · `aannames` 27 · `aanpassingsvermogen` 157,
-252 · `aanraking` 1623 · `aansprakelijkheid` 827 · `aantekeningen` 81 ·
-`aantekeningen maken` 420 · `aantrekkingswet` 1832 · `aanvaarding` 1893, 2015
-· `aanwezigheid` 149, 435, 1912 · `aarde` 92 · `abolitionisme` 1875 ·
-`abonnees` 369 · `Abraham` 1890, 1898, 1910 · `abstract expressionisme` 1581 ·
-`absurdisme` 173, 1727, 1770 · `academisch` 143 · `acausaliteit` 362 ·
-`acceptance and commitment therapy` 457, 460 · `acceptatie` 1508, 1526, 1527,
-1554, 1814, 1842 · `ACE-onderzoek` 1623 · `ACE-studie` 1722 · `achttiende
-eeuw` 321 · `ACT` 1526, 1842 · `acteren` 385 · `actie` 427 · `actiebereidheid`
-1802 · `action board` 1818 · `activisme` 1580 · `actualiteit` 237 · `actueel`
-67 · `acupressuur` 2111 · `ADD` 1521 · `adel` 235 · `adem` 1698 ·
-`ademfrequentie` 1812 · `ademhaling` 87, 118, 318, 332, 432, 1528, 1550, 1599,
-1683, 1753, 1756, 1800, 1812, 1813, 1816, 1825, 1831, 1857, 1912, 2027, 2049,
-2066, 2067, 2096, 2100 · `ademwerk` 1528, 1599, 1614, 1696, 1743, 1756, 1816 ·
-`adhd` 1308, 1309 · `ADHD` 1521, 2005 · `adleriaanse-psychologie` 335 ·
-`advaita` 527, 1101, 1502, 1536, 1612, 1652 · `advaita vedanta` 520, 1102 ·
-`Advaita Vedanta` 1508 · `adventisme` 1138 · `adverteren` 308 · `advies` 473,
-1210 · `adviescolumn` 1583 · `adviespraktijk` 151 · `adviseren` 511 ·
-`affirmaties` 117, 184, 188, 190, 380, 403, 439, 560, 1586, 1896 ·
-`afhankelijkheid` 167, 1862 · `afkicken` 2003 · `afleiding` 290, 1561, 1879 ·
-`aforisme` 1540 · `aforismen` 2, 17, 179, 216, 218, 228, 391, 394, 462, 473,
-535, 832, 1300, 1713, 2015, 2095 · `afrika` 589, 591, 593, 594, 595, 596, 597,
-599, 600, 602, 1111, 1112, 1113 · `Afrika` 1518 · `afrikaanse diaspora` 601 ·
-`afrocentrisme` 588, 589, 591, 592, 593, 595, 597 · `afscheid nemen` 285 ·
-`afschrikking` 217 · `afstamming` 1676 · `afvallen` 557, 1807, 1899, 2107,
-2108, 2117 · `afweer` 1646 · `afweermechanismen` 1723 · `afwezige-vader` 4 ·
-`agenda` 512 · `agressie` 223, 339 · `aids` 1586 · `Alabama` 1519 ·
-`albigenzenkruistocht` 1700 · `alchemie` 631, 633, 642, 646, 1104, 1154, 1250
-· `alcohol` 4, 1906, 2098 · `alfabet` 2002 · `algoritmen` 476, 477, 479 ·
-`algoritmes` 1747 · `All Blacks` 2061 · `alledaags` 89, 1576 · `alledaags
-racisme` 1619 · `alledaagse werkelijkheid` 721 · `allegorie` 222, 524, 631,
-1107, 2116 · `Allen Carr` 1638 · `allocatie` 507, 813 · `aloha` 1820 ·
-`alternatieve geneeskunde` 2007, 2008 · `alternatieve geneeswijzen` 1689 ·
+567 · `aandelen` 474, 481, 804, 2123 · `aandelenselectie` 2123 · `aannames` 27
+· `aanpassingsvermogen` 157, 252 · `aanraking` 1623 · `aansprakelijkheid` 827
+· `aantekeningen` 81 · `aantekeningen maken` 420 · `aantrekkingswet` 1832 ·
+`aanvaarding` 1893, 2015 · `aanwezigheid` 149, 435, 1912 · `aarde` 92 ·
+`abolitionisme` 1875 · `abonnees` 369 · `Abraham` 1890, 1898, 1910 · `abstract
+expressionisme` 1581 · `absurdisme` 173, 1727, 1770 · `academisch` 143 ·
+`acausaliteit` 362 · `acceptance and commitment therapy` 457, 460 ·
+`acceptatie` 1508, 1526, 1527, 1554, 1814, 1842 · `ACE-onderzoek` 1623 ·
+`ACE-studie` 1722 · `achttiende eeuw` 321 · `ACT` 1526, 1842 · `acteren` 385 ·
+`actie` 427 · `actiebereidheid` 1802 · `action board` 1818 · `activisme` 1580
+· `actualiteit` 237 · `actueel` 67 · `acupressuur` 2111 · `ADD` 1521 · `adel`
+235 · `adem` 1698 · `ademfrequentie` 1812 · `ademhaling` 87, 118, 318, 332,
+432, 1528, 1550, 1599, 1683, 1753, 1756, 1800, 1812, 1813, 1816, 1825, 1831,
+1857, 1912, 2027, 2049, 2066, 2067, 2096, 2100 · `ademwerk` 1528, 1599, 1614,
+1696, 1743, 1756, 1816 · `adhd` 1308, 1309 · `ADHD` 1521, 2005 ·
+`adleriaanse-psychologie` 335 · `advaita` 527, 1101, 1502, 1536, 1612, 1652 ·
+`advaita vedanta` 520, 1102 · `Advaita Vedanta` 1508 · `adventisme` 1138 ·
+`adverteren` 308 · `advies` 473, 1210 · `adviescolumn` 1583 · `adviespraktijk`
+151 · `adviseren` 511 · `affirmaties` 117, 184, 188, 190, 380, 403, 439, 560,
+1586, 1896 · `afhankelijkheid` 167, 1862 · `afkicken` 2003 · `afleiding` 290,
+1561, 1879 · `aforisme` 1540 · `aforismen` 2, 17, 179, 216, 218, 228, 391,
+394, 462, 473, 535, 832, 1300, 1713, 2015, 2095 · `afrika` 589, 591, 593, 594,
+595, 596, 597, 599, 600, 602, 1111, 1112, 1113 · `Afrika` 1518 · `afrikaanse
+diaspora` 601 · `afrocentrisme` 588, 589, 591, 592, 593, 595, 597 · `afscheid
+nemen` 285 · `afschrikking` 217 · `afstamming` 1676 · `afvallen` 557, 1807,
+1899, 2107, 2108, 2117 · `afweer` 1646 · `afweermechanismen` 1723 ·
+`afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 · `aids` 1586 ·
+`Alabama` 1519 · `albigenzenkruistocht` 1700 · `alchemie` 631, 633, 642, 646,
+1104, 1154, 1250 · `alcohol` 4, 1906, 2098 · `alfabet` 2002 · `algoritmen`
+476, 477, 479 · `algoritmes` 1747 · `All Blacks` 2061 · `alledaags` 89, 1576 ·
+`alledaags racisme` 1619 · `alledaagse werkelijkheid` 721 · `allegorie` 222,
+524, 631, 1107, 2116 · `Allen Carr` 1638 · `allocatie` 507, 813 · `aloha` 1820
+· `alternatieve geneeskunde` 2007, 2008 · `alternatieve geneeswijzen` 1689 ·
 `altruisme` 1344 · `alzheimer` 1680 · `amateurs` 1839 · `amazon` 257 ·
 `Amazone` 1593, 1841, 1848 · `ambacht` 6, 12, 13, 17, 18, 832, 1301 ·
 `ambitie` 75 · `amerika` 600 · `Amerika` 114, 431, 1706, 1707 · `amerikaans`
@@ -317609,78 +319601,79 @@ racisme` 1619 · `alledaagse werkelijkheid` 721 · `allegorie` 222, 524, 631,
 `automatisering` 297, 539, 1264 · `automatismen` 1803 · `autonomie` 6, 50 ·
 `autoritarisme` 1900 · `autoriteit` 215 · `autotelie` 200 · `avontuur` 1625,
 1686, 2041 · `ayahuasca` 759 · `Ayla` 1823 · `ayurveda` 1605 · `Ayurveda` 2103
-· `Azië` 2089 · `backtesten` 482, 502 · `bagno` 1850 · `Bali` 1534, 1767 ·
-`ballingschap` 1522 · `bandha` 1698 · `banken en verzekeraars` 497 ·
-`bankwezen` 1332 · `bardo` 1754, 1847 · `barok` 216 · `basisbehoeften` 107 ·
-`basisinkomen` 1901 · `bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur`
-170, 257, 270, 1610 · `bedrijfsfilosofie` 1744 · `bedrijfsgroei` 350 ·
-`bedrijfsleven` 209, 293, 903 · `bedrijfsmodel` 2112 · `bedrijfsonderzoek` 353
-· `bedrijfssystemen` 264 · `bedrijfsvoering` 1877, 2072 · `beeldcultuur` 563,
-828 · `beeldend boek` 2078 · `beeldroman` 1725 · `beeldverhaal` 561 ·
-`begeleiding` 2044 · `beginners` 112 · `behoeften` 35 · `behoeftigheid` 1602 ·
-`beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 · `bekering`
-1664 · `bekkenbodem` 1831 · `belangenverstrengeling` 138, 752 · `belasting`
-1855 · `beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480,
-481, 482, 483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502,
-503, 504, 505, 804, 807, 808, 810, 811, 812, 813, 814, 815, 816, 817, 1281,
-1283, 1288 · `beleid` 65 · `Belgie` 1865 · `belichaamde cognitie` 755 · `Bell`
-1658 · `beloningssysteem` 418 · `bemiddeling` 35, 1641 · `bergsport` 1744 ·
-`beroemdheden` 128 · `beroemdheid` 563 · `beroepshouding` 1720, 1914 ·
-`beroepskeuze` 1292 · `Bert Hellinger` 1510, 2043, 2044 · `beschadigd-bestand`
-115, 130 · `beschaving` 57, 593, 820, 939, 1659 · `beslissen` 55 ·
-`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
-170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
-468, 475, 510, 906, 908, 909, 1258, 1287, 2090 · `besluitvorming onder druk`
-2062 · `bestseller` 8, 37, 250, 1591 · `betekenis` 143 · `bethel` 559 ·
-`betrokkenheid` 472 · `beurs` 80, 488, 814, 1284 · `beurshandel` 487 ·
-`beurskrach` 809 · `beursrendement` 353 · `beweegrichtlijnen` 2104 · `bewegen`
-1822, 2104 · `beweging` 77, 84, 1131, 1564, 1630, 1631, 1688, 1759, 1855,
-1915, 2052, 2069 · `bewijs` 63, 658, 660 · `bewijslast` 1611 · `bewijsvoering`
-1545 · `bewust ego` 1693 · `bewustwording` 103, 2023 · `bewustzijn` 148, 169,
-200, 275, 340, 377, 518, 580, 585, 652, 663, 759, 760, 761, 763, 767, 918,
-927, 928, 1156, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167,
-1171, 1172, 1173, 1174, 1256, 1268, 1311, 1316, 1317, 1318, 1319, 1320, 1324,
-1327, 1328, 1329, 1504, 1506, 1524, 1531, 1650, 1652, 1661, 1703, 1742, 1779,
-1814, 1815, 1821, 1891, 1917, 2015, 2020, 2045, 2065, 2067, 2090, 2101, 2116 ·
-`bewustzijnsniveaus` 449, 1705 · `bewustzijnsontwikkeling` 1614 · `bezit` 37 ·
-`bhagavad gita` 569, 2060 · `Bhagavad Gita` 1508, 1551 · `bias` 209 ·
-`bibliotheek` 2001 · `bijbel` 1568, 1811 · `bijbeluitleg` 1703 ·
-`bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-dood ervaring` 1524 ·
-`bijna-doodervaring` 585, 1174, 1506, 1596, 1601, 1667, 1847, 2021 ·
-`bijnieren` 1864 · `Bildungsroman` 1571 · `bindingsangst` 1517, 1549, 1737 ·
-`bindingspatronen` 1541 · `bioenergetica` 2049 · `biofotonen` 1531, 1815 ·
-`biofysica` 2050 · `biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267,
-269, 320, 328, 402, 454, 514, 537, 558, 649, 658, 659, 689, 821, 905, 1124,
-1153, 1220, 1229, 1252, 1265, 1315, 1331, 1581, 1749, 2046 · `biohacking` 316,
-2117 · `biologie` 66, 88, 89, 90, 91, 322, 663, 818, 823, 941, 949, 950, 1120,
-1259, 1262, 1273, 1275, 1344, 1675, 1677 · `biologie van gedrag` 273 ·
-`biologische klok` 326, 329, 552 · `biomechanica` 1855 · `biotechnologie` 236,
-413 · `bipedie` 1708 · `bipolaire stoornis` 1315 · `blackjack` 505 ·
-`blessures` 1858 · `bloedlijnen` 1532 · `bloedvaten` 86 · `bloedwaarden` 313 ·
-`bloemlezing` 758, 1640, 1643 · `blokkade` 14 · `bodem` 1592 · `bodhichitta`
-1662 · `Boeddha` 2046 · `boeddhisme` 111, 287, 333, 341, 401, 528, 755, 1106,
-1109, 1110, 1124, 1125, 1168, 1556, 1558, 1559, 1560, 1561, 1606, 1645, 1664,
-1665, 1685, 1713, 1717, 1734, 1735, 1754, 1775, 1800, 1829, 1847, 1878, 2046 ·
-`boek der veranderingen` 2039 · `bogomilen` 1702 · `boksen` 1835 · `Bombay`
-1401, 1502, 1837 · `bomen` 2077 · `bonobo` 1675 · `boosheid` 1584 ·
-`bootstrapping` 369 · `bos` 1597, 2077 · `bosbeheer` 2077 · `botanie` 1578 ·
-`Boulder` 1559 · `boulimie` 1620 · `brainstormen` 33 · `branding` 443 ·
-`brein` 414, 1564, 1627, 1907, 2005, 2109 · `Bretagne` 1886 · `Bridgeman
-Ademmethode` 1756 · `brieven` 292, 517, 1210 · `brievenroman` 1518 · `Britse
-zelfhulp` 1870 · `broederliefde` 2071 · `broer en zus` 1618 · `broers` 10 ·
-`bronnenkritiek` 691, 1143, 1146, 1701 · `bronnenuitgave` 641, 1223 · `Bruce
-Greyson` 1506 · `budgetteren` 159, 233, 464, 1752 · `buitenaards leven` 1856 ·
-`buitenlandse hulp` 221 · `buitenstaander` 1823 · `bureaucratie` 1339, 1901 ·
-`burgerlijk verzet` 617 · `burgerlijke ongehoorzaamheid` 2033 · `burgerschap`
-243 · `burn-out` 135, 207, 400, 551, 552, 1503, 1594, 1669, 1683, 1800, 1816,
-1833, 1866, 1895, 2047, 2079, 2094 · `Burning Man` 1610 · `bushido` 535 ·
-`business model canvas` 2112 · `cabaret` 1765 · `cadeauboek` 1672 ·
-`cafébrand` 1512 · `cafeïne` 52 · `Californië` 10 · `Camus` 1727 · `canon`
-1568 · `Caputo` 1579 · `cardiologie` 1524 · `cariës` 1854 · `carl jung` 258 ·
-`Carnegie Mellon` 1691 · `carrière` 146, 158, 388, 1278 · `cases` 40 ·
-`cashflow` 37 · `casuïstiek` 1674 · `CE Delft` 1651 · `celbiologie` 419, 1273,
-1588 · `Celestijnse belofte` 1827 · `celgeheugen` 2008, 2009 · `censuur` 685,
-1522 · `ceremonie` 1753 · `chakra's` 432, 1520, 1605, 1660, 2007 ·
+· `Azië` 2089 · `backtesten` 482, 502 · `bagno` 1850 · `balansrecessie` 2124 ·
+`Bali` 1534, 1767 · `ballingschap` 1522 · `bandha` 1698 · `banken en
+verzekeraars` 497 · `bankwezen` 1332 · `bardo` 1754, 1847 · `barok` 216 ·
+`basisbehoeften` 107 · `basisinkomen` 1901 · `bbc` 82 · `bedrijfsbestuur` 567
+· `bedrijfscultuur` 170, 257, 270, 1610 · `bedrijfsfilosofie` 1744 ·
+`bedrijfsgroei` 350 · `bedrijfsleven` 209, 293, 903 · `bedrijfsmodel` 2112 ·
+`bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `bedrijfsvoering` 1877,
+2072 · `beeldcultuur` 563, 828 · `beeldend boek` 2078 · `beeldroman` 1725 ·
+`beeldverhaal` 561 · `begeleiding` 2044 · `beginners` 112 · `behoeften` 35 ·
+`behoeftigheid` 1602 · `beinvloeding` 123, 126 · `beïnvloeding` 399 ·
+`bekentenis` 60 · `bekering` 1664 · `bekkenbodem` 1831 ·
+`belangenverstrengeling` 138, 752 · `belasting` 1855 · `beleggen` 21, 64, 144,
+233, 277, 351, 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486,
+489, 490, 492, 496, 498, 499, 500, 501, 502, 503, 504, 505, 804, 807, 808,
+810, 811, 812, 813, 814, 815, 816, 817, 1281, 1283, 1288, 2123, 2125, 2126 ·
+`beleggersgedrag` 2126 · `beleggerspsychologie` 2125 · `beleid` 65, 2121 ·
+`Belgie` 1865 · `belichaamde cognitie` 755 · `Bell` 1658 · `beloningssysteem`
+418 · `bemiddeling` 35, 1641 · `bergsport` 1744 · `beroemdheden` 128 ·
+`beroemdheid` 563 · `beroepshouding` 1720, 1914 · `beroepskeuze` 1292 · `Bert
+Hellinger` 1510, 2043, 2044 · `beschadigd-bestand` 115, 130 · `beschaving` 57,
+593, 820, 939, 1659 · `beslissen` 55 · `beslissingen` 197 · `besluiten` 47,
+59, 69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293,
+299, 364, 396, 423, 424, 426, 450, 451, 468, 475, 510, 906, 908, 909, 1258,
+1287, 2090, 2129 · `besluitvorming onder druk` 2062 · `bestseller` 8, 37, 250,
+1591 · `betekenis` 143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488,
+814, 1284 · `beurshandel` 487 · `beurskrach` 809 · `beursrendement` 353 ·
+`beweegrichtlijnen` 2104 · `bewegen` 1822, 2104 · `beweging` 77, 84, 1131,
+1564, 1630, 1631, 1688, 1759, 1855, 1915, 2052, 2069 · `bewijs` 63, 658, 660 ·
+`bewijslast` 1611 · `bewijsvoering` 1545 · `bewust ego` 1693 · `bewustwording`
+103, 2023 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585, 652,
+663, 759, 760, 761, 763, 767, 918, 927, 928, 1156, 1158, 1159, 1160, 1161,
+1162, 1163, 1164, 1165, 1166, 1167, 1171, 1172, 1173, 1174, 1256, 1268, 1311,
+1316, 1317, 1318, 1319, 1320, 1324, 1327, 1328, 1329, 1504, 1506, 1524, 1531,
+1650, 1652, 1661, 1703, 1742, 1779, 1814, 1815, 1821, 1891, 1917, 2015, 2020,
+2045, 2065, 2067, 2090, 2101, 2116 · `bewustzijnsniveaus` 449, 1705 ·
+`bewustzijnsontwikkeling` 1614 · `bezit` 37 · `bhagavad gita` 569, 2060 ·
+`Bhagavad Gita` 1508, 1551 · `bias` 209 · `bibliotheek` 2001 · `bijbel` 1568,
+1811 · `bijbeluitleg` 1703 · `bijeenkomsten` 304 · `bijgeloof` 63 ·
+`bijna-dood ervaring` 1524 · `bijna-doodervaring` 585, 1174, 1506, 1596, 1601,
+1667, 1847, 2021 · `bijnieren` 1864 · `Bildungsroman` 1571 · `bindingsangst`
+1517, 1549, 1737 · `bindingspatronen` 1541 · `bioenergetica` 2049 ·
+`biofotonen` 1531, 1815 · `biofysica` 2050 · `biografie` 31, 46, 189, 231,
+240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514, 537, 558, 649,
+658, 659, 689, 821, 905, 1124, 1153, 1220, 1229, 1252, 1265, 1315, 1331, 1581,
+1749, 2046 · `biohacking` 316, 2117 · `biologie` 66, 88, 89, 90, 91, 322, 663,
+818, 823, 941, 949, 950, 1120, 1259, 1262, 1273, 1275, 1344, 1675, 1677 ·
+`biologie van gedrag` 273 · `biologische klok` 326, 329, 552 · `biomechanica`
+1855 · `biotechnologie` 236, 413 · `bipedie` 1708 · `bipolaire stoornis` 1315
+· `blackjack` 505 · `blessures` 1858 · `bloedlijnen` 1532 · `bloedvaten` 86 ·
+`bloedwaarden` 313 · `bloemlezing` 758, 1640, 1643 · `blokkade` 14 · `bodem`
+1592 · `bodhichitta` 1662 · `Boeddha` 2046 · `boeddhisme` 111, 287, 333, 341,
+401, 528, 755, 1106, 1109, 1110, 1124, 1125, 1168, 1556, 1558, 1559, 1560,
+1561, 1606, 1645, 1664, 1665, 1685, 1713, 1717, 1734, 1735, 1754, 1775, 1800,
+1829, 1847, 1878, 2046 · `boek der veranderingen` 2039 · `bogomilen` 1702 ·
+`boksen` 1835 · `Bombay` 1401, 1502, 1837 · `bomen` 2077 · `bonobo` 1675 ·
+`boosheid` 1584 · `bootstrapping` 369 · `bos` 1597, 2077 · `bosbeheer` 2077 ·
+`botanie` 1578 · `Boulder` 1559 · `boulimie` 1620 · `brainstormen` 33 ·
+`branding` 443 · `brein` 414, 1564, 1627, 1907, 2005, 2109 · `Bretagne` 1886 ·
+`Bridgeman Ademmethode` 1756 · `brieven` 292, 517, 1210 · `brievenroman` 1518
+· `Britse zelfhulp` 1870 · `broederliefde` 2071 · `broer en zus` 1618 ·
+`broers` 10 · `bronnenkritiek` 691, 1143, 1146, 1701 · `bronnenuitgave` 641,
+1223 · `Bruce Greyson` 1506 · `budgetteren` 159, 233, 464, 1752 · `buitenaards
+leven` 1856 · `buitenlandse hulp` 221 · `buitenstaander` 1823 · `bureaucratie`
+1339, 1901 · `burgerlijk verzet` 617 · `burgerlijke ongehoorzaamheid` 2033 ·
+`burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552, 1503, 1594, 1669,
+1683, 1800, 1816, 1833, 1866, 1895, 2047, 2079, 2094 · `Burning Man` 1610 ·
+`bushido` 535 · `business model canvas` 2112 · `cabaret` 1765 · `cadeauboek`
+1672 · `cafébrand` 1512 · `cafeïne` 52 · `Californië` 10 · `Camus` 1727 ·
+`canon` 1568 · `Caputo` 1579 · `cardiologie` 1524 · `cariës` 1854 · `carl
+jung` 258 · `Carnegie Mellon` 1691 · `carrière` 146, 158, 388, 1278 · `cases`
+40 · `cashflow` 37 · `casuïstiek` 1674 · `CE Delft` 1651 · `celbiologie` 419,
+1273, 1588 · `Celestijnse belofte` 1827 · `celgeheugen` 2008, 2009 · `censuur`
+685, 1522 · `ceremonie` 1753 · `chakra's` 432, 1520, 1605, 1660, 2007 ·
 `challenger` 62 · `Chanakya` 370 · `channeling` 549, 670, 677, 678, 679, 768,
 1122, 1221, 1222, 1535, 1537, 1585, 1629, 1661, 1819, 1890, 1891, 1898, 1910,
 2020, 2021 · `chaos` 74, 347 · `chapbook` 100 · `charismatisch christendom`
@@ -317694,70 +319687,72 @@ Greyson` 1506 · `budgetteren` 159, 233, 464, 1752 · `buitenaards leven` 1856 �
 1548 · `coachbloem` 1530 · `coaching` 161, 291, 441, 1297, 1510, 1528, 1530,
 1630, 1631, 1751, 1778, 1804, 1817, 1834, 1843, 2019, 2026, 2034, 2059, 2070,
 2106 · `cognitie` 656 · `cognitieve gedragstherapie` 147, 153, 373, 1803 ·
-`cognitieve herstructurering` 177 · `cognitieve neurowetenschap` 763 ·
-`cognitieve psychologie` 759 · `cognitieve therapie` 1873 · `cognitieve
-vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias` 59 ·
-`cognitiewetenschap` 755, 767, 1172 · `collectief bewustzijn` 435 ·
-`collectief onbewuste` 357, 360, 362 · `Colombia` 1402 · `columns` 89, 90 ·
-`coma` 763 · `comfortzone` 187 · `commando` 97 · `commentaar` 1806 ·
-`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305,
-338, 356, 398, 399, 444, 466, 475, 539, 555, 1272, 1277, 1294, 1304, 1306,
-1530, 1589, 1590, 1670, 1738, 1843, 2056, 2077 · `communisme` 625 ·
-`compassie` 1525, 1527, 1556, 1814 · `complexiteit` 170, 268, 300, 347, 423,
-1258, 1274, 1279, 1861 · `complimenten geven` 356 · `complotdenken` 667, 668,
-672, 676, 683, 684, 688, 690, 914, 915, 916, 917, 920, 921, 923, 925, 926,
-931, 1142, 1143, 1145, 1146, 1147, 1150, 1152, 1908, 2023 · `complottheorie`
-680, 1532 · `componisten` 1749 · `concentratie` 70, 441, 802, 1879, 2005, 2030
-· `concurrentie` 293, 902 · `conditionering` 61, 519, 1569, 1638, 1640 ·
-`conflict` 35, 42, 43, 212, 305, 1641, 1642, 1843 · `conflictbemiddeling` 304
-· `conflicthantering` 271, 1590 · `conformisme` 211, 1295, 1900 ·
-`consistentie` 553 · `consument` 703, 704 · `consumptie` 463, 1651, 1709 ·
-`consumptiekeuzes` 299 · `consumptiemaatschappij` 564 · `contemplatie` 1734,
-2078 · `content` 308 · `content creatie` 365 · `content marketing` 369 ·
-`controlemaatschappij` 2023 · `controverse` 2003 · `Conversations with God`
-1621 · `copywriting` 695, 697, 698, 699, 701 · `Cor van der Geest` 1834 ·
-`core gifts` 2037 · `corruptie` 221, 1269 · `cortisol` 1863, 1866, 1899 ·
-`Costa Rica` 1515 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312,
-349, 418, 445, 471, 472, 475, 550, 702, 803, 952, 1203, 1299, 1310, 1315,
-1321, 1322, 1323, 1330, 1501, 1563, 1679, 1749, 2090 · `cricket` 174 ·
-`crisis` 47, 807, 2022 · `CRISPR` 413 · `Culturele Revolutie` 1522 · `cultuur`
-68, 274, 764, 825, 1267, 1902 · `cultuurfilosofie` 580, 826, 1116, 1170, 1296,
-1298 · `cultuurgeschiedenis` 822, 1298 · `cultuurkritiek` 54, 405, 592, 672,
-722, 824, 1163, 1206, 1264 · `cultuurpsychologie` 1553 · `Curacao` 1765 ·
-`cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131, 548 · `cybernetica`
-411, 539, 540, 541, 1277 · `cynisme` 250, 319, 1580, 1725 · `Cyrus de Grote`
-536 · `dagboek` 2, 109, 224, 286, 579, 1200, 1204, 1569, 1673, 2083, 2098 ·
-`dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagboekonderzoek` 472 ·
-`dagelijkse gewoontes` 205 · `dagelijkse praktijk` 442 · `dagindeling` 1749 ·
-`dagritme` 2096 · `dagteksten` 1640 · `dance` 1777 · `dankbaarheid` 129, 433,
-1636, 1643, 1846, 2014 · `dans` 1563, 1564 · `danstherapie` 1630, 1631 ·
-`Dante` 2092 · `darmbacteriën` 417 · `darmflora` 1895 · `Darwin` 1676, 1677 ·
-`dataïsme` 236 · `daten` 166 · `dating` 2037 · `David Bohm` 2045 · `David
-Icke` 1532 · `Davos` 1571 · `de ander` 574 · `Dear Sugar` 1583 · `debat` 28 ·
-`debuut` 1686 · `debuutboek` 226 · `debuutroman` 1534 · `deconstructie` 1579 ·
+`cognitieve herformulering` 2131 · `cognitieve herstructurering` 177 ·
+`cognitieve neurowetenschap` 763 · `cognitieve psychologie` 759 · `cognitieve
+therapie` 1873 · `cognitieve vertekening` 234 · `cognitieve wetenschap` 467 ·
+`cognitieve-bias` 59 · `cognitiewetenschap` 755, 767, 1172 · `collectief
+bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 · `Colombia` 1402 ·
+`columns` 89, 90 · `coma` 763 · `comfortzone` 187 · `commando` 97 ·
+`commentaar` 1806 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183,
+186, 193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555, 1272, 1277,
+1294, 1304, 1306, 1530, 1589, 1590, 1670, 1738, 1843, 2056, 2077 ·
+`communisme` 625 · `compassie` 1525, 1527, 1556, 1814 · `complexiteit` 170,
+268, 300, 347, 423, 1258, 1274, 1279, 1861, 2121 · `complimenten geven` 356 ·
+`complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915, 916, 917,
+920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146, 1147, 1150, 1152, 1908,
+2023 · `complottheorie` 680, 1532 · `componisten` 1749 · `concentratie` 70,
+441, 802, 1879, 2005, 2030 · `concurrentie` 293, 902 · `conditionering` 61,
+519, 1569, 1638, 1640 · `conflict` 35, 42, 43, 212, 305, 1641, 1642, 1843 ·
+`conflictbemiddeling` 304 · `conflicthantering` 271, 1590 · `conformisme` 211,
+1295, 1900 · `conjunctuurcyclus` 2125 · `consistentie` 553 · `consument` 703,
+704 · `consumptie` 463, 1651, 1709 · `consumptiekeuzes` 299 ·
+`consumptiemaatschappij` 564 · `contemplatie` 1734, 2078 · `content` 308 ·
+`content creatie` 365 · `content marketing` 369 · `controlemaatschappij` 2023
+· `controverse` 2003 · `Conversations with God` 1621 · `copywriting` 695, 697,
+698, 699, 701 · `Cor van der Geest` 1834 · `core gifts` 2037 · `corruptie`
+221, 1269 · `cortisol` 1863, 1866, 1899 · `Costa Rica` 1515 · `creativiteit`
+11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349, 418, 445, 471, 472, 475, 550,
+702, 803, 952, 1203, 1299, 1310, 1315, 1321, 1322, 1323, 1330, 1501, 1563,
+1679, 1749, 2090 · `cricket` 174 · `crisis` 47, 807, 2022 · `CRISPR` 413 ·
+`Culturele Revolutie` 1522 · `cultuur` 68, 274, 764, 825, 1267, 1902 ·
+`cultuurfilosofie` 580, 826, 1116, 1170, 1296, 1298 · `cultuurgeschiedenis`
+822, 1298 · `cultuurkritiek` 54, 405, 592, 672, 722, 824, 1163, 1206, 1264 ·
+`cultuurpsychologie` 1553 · `Curacao` 1765 · `cursus` 108, 130, 201 ·
+`cursus-in-wonderen` 102, 131, 548 · `cybernetica` 411, 539, 540, 541, 1277 ·
+`cynisme` 250, 319, 1580, 1725 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224,
+286, 579, 1200, 1204, 1569, 1673, 2083, 2098 · `dagboekaantekeningen` 226 ·
+`dagboekmethode` 78 · `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 ·
+`dagelijkse praktijk` 442 · `dagindeling` 1749 · `dagritme` 2096 ·
+`dagteksten` 1640 · `dance` 1777 · `dankbaarheid` 129, 433, 1636, 1643, 1846,
+2014 · `dans` 1563, 1564 · `danstherapie` 1630, 1631 · `Dante` 2092 ·
+`darmbacteriën` 417 · `darmflora` 1895 · `Darwin` 1676, 1677 · `dataïsme` 236
+· `daten` 166 · `dating` 2037 · `David Bohm` 2045 · `David Icke` 1532 ·
+`Davos` 1571 · `de ander` 574 · `Dear Sugar` 1583 · `debat` 28 · `debuut` 1686
+· `debuutboek` 226 · `debuutroman` 1534 · `deconstructie` 1579 ·
 `deelpersoonlijkheden` 1541, 1778 · `deeltjesfysica` 648, 1658 · `defusie`
 1842 · `degrowth` 298 · `dekoloniaal denken` 521 · `delegeren` 434, 1877 ·
 `delen` 2036 · `deliberate practice` 376 · `dementie` 84, 85, 225, 1573, 1674
 · `democratie` 98, 562, 619, 628, 753, 910, 1211 · `Den Haag` 1777 · `denken`
 310, 509, 664, 1735, 2045 · `denkfouten` 55, 59, 142, 396, 437, 510, 514, 817,
 1729, 1868, 1893, 1918 · `denkmethode` 471 · `denkmodellen` 426, 928 ·
-`denkwijze` 1852 · `depressie` 403, 1718, 1866, 2001 · `derivaten` 494, 495,
-810, 1286 · `Derk Wiersum` 1746 · `dertien grootmoeders` 1908 · `dertiende
-eeuw` 1700 · `design thinking` 150 · `destructiviteit` 223 · `determinisme`
-1342 · `deugd` 247, 459, 581 · `Dharamsala` 1829 · `dharma` 2060, 2103 ·
-`dharmatoespraken` 1558 · `diagnose` 104 · `dialoog` 335, 572, 1269, 1555,
-1629, 1861, 2045 · `dichotomie van controle` 194 · `dichtwerk` 524 ·
-`dictatuur` 221 · `dieet` 1807, 1865, 2108 · `dienstbaarheid` 230, 245, 535 ·
-`diepe-tijd` 239 · `dieptepsychologie` 646, 1118, 1154, 1235 · `dieren` 555,
-1305, 1656 · `dierenverhalen` 1666 · `dierenzintuigen` 322 · `dierkunde` 760 ·
-`dierlijke-cognitie` 383 · `dierproeven` 330 · `differentiatie` 165 ·
-`digitaal` 81 · `Dina` 1542 · `diplomatie` 243 · `Dipsaus` 1619 · `direct
-response` 350 · `direct-marketing` 695, 697, 698, 699 · `DISC` 156, 429 ·
-`discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445, 462, 480, 481, 482, 487,
-488, 545, 800, 1749, 2028, 2064 · `discours` 628 · `disruptie` 293 · `divina
-commedia` 2092 · `divinatie` 2080 · `Divine Revelation` 1896 · `DNA` 419,
-1904, 2051 · `docenten` 116 · `doe-het-zelf` 1801 · `doeboek` 1872 · `doelen`
-58, 136, 158, 542 · `doelen stellen` 367, 427, 448, 1501, 1543, 2073 ·
+`denkvaardigheden` 2129 · `denkwijze` 1852 · `depressie` 403, 1718, 1866, 2001
+· `derivaten` 494, 495, 810, 1286 · `Derk Wiersum` 1746 · `dertien
+grootmoeders` 1908 · `dertiende eeuw` 1700 · `design thinking` 150 ·
+`destructiviteit` 223 · `determinisme` 1342 · `deugd` 247, 459, 581 ·
+`Dharamsala` 1829 · `dharma` 2060, 2103 · `dharmatoespraken` 1558 · `diagnose`
+104 · `dialoog` 335, 572, 1269, 1555, 1629, 1861, 2045 · `dichotomie van
+controle` 194 · `dichtwerk` 524 · `dictatuur` 221 · `dieet` 1807, 1865, 2108 ·
+`dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieptepsychologie` 646,
+1118, 1154, 1235 · `dieren` 555, 1305, 1656 · `dierenverhalen` 1666 ·
+`dierenzintuigen` 322 · `dierkunde` 760 · `dierlijke-cognitie` 383 ·
+`dierproeven` 330 · `differentiatie` 165 · `digitaal` 81 · `Dina` 1542 ·
+`diplomatie` 243 · `Dipsaus` 1619 · `direct response` 350 · `direct-marketing`
+695, 697, 698, 699 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133,
+137, 146, 445, 462, 480, 481, 482, 487, 488, 545, 800, 1749, 2028, 2064, 2127
+· `discours` 628 · `disruptie` 293 · `divina commedia` 2092 · `divinatie` 2080
+· `Divine Revelation` 1896 · `DNA` 419, 1904, 2051 · `docenten` 116 ·
+`doe-het-zelf` 1801 · `doeboek` 1872 · `doelen` 58, 136, 158, 542 · `doelen
+stellen` 367, 427, 448, 1501, 1543, 2073 · `doelgericht oefenen` 2128 ·
 `doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 · `dogma`
 1729 · `dominantie` 2057 · `donkere-triade` 124 · `dood` 98, 169, 292, 535,
 822, 1562, 1634, 1728, 1742, 1754, 1911, 2025, 2071 · `doodsangst` 405, 2118 ·
@@ -317816,44 +319811,45 @@ christendom` 2025 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232, 952,
 1116, 1294, 1727, 1769 · `essaybundel` 390, 425, 620, 926, 927, 934, 1259,
 1312 · `essays` 523, 656, 830, 1208, 1578, 1583, 1657, 1718, 1724, 1849 ·
 `essentie` 1636 · `esthetica` 756, 1576 · `esthetiek` 824, 828, 832, 1296,
-1299 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612, 665, 819, 1269, 2035 ·
-`etnobotanie` 765, 1841 · `etnografie` 764, 1245 · `eurazië` 694 · `europa`
-751 · `euthanasie` 2021 · `evangelicalisme` 1715 · `evangelisatie` 201 ·
-`evangelisch` 1836 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
-339, 347, 383, 518, 609, 760, 762, 767, 820, 823, 829, 950, 1259, 1262, 1267,
-1273, 1275, 1288, 1308, 1344, 1659, 1676, 1677, 1678, 1708, 1858, 1904, 2066,
-2101 · `evolutiebiologie` 452, 453 · `evolutionaire gezondheid` 1565 ·
-`evolutionaire psychologie` 1627 · `evolutionaire-psychologie` 67 ·
-`excellentie` 553 · `exclusion zone` 2050 · `excuses` 1738 · `executives` 344
-· `existentialisme` 405, 940, 1727 · `existentiefilosofie` 757 · `existentiële
-psychotherapie` 2118 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
-280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `expressie` 1699
-· `extra dimensies` 648 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 ·
-`facilitatie` 304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466,
-1400, 1402, 1617, 1870, 2043, 2086 · `familieconflict` 178 ·
-`familiegeschiedenis` 114, 235 · `familieopstellingen` 1510, 1602, 1636, 1637,
-1844, 1914, 2043, 2044 · `familieroman` 10 · `familiesysteem` 1510, 1602 ·
-`fantasie` 1884, 1885, 2048 · `fantasy` 192, 203, 1562, 1567, 1632, 1634, 2071
-· `farmaceutische industrie` 752 · `farmacologie` 1714 · `fascisme` 753 ·
-`fawnen` 1617 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 ·
-`feedback` 41, 296, 541, 542, 1670, 1740 · `feiten` 43 · `feminien
-leiderschap` 1624 · `feminisme` 3, 620, 624, 1117, 1121, 1124, 1125, 1155,
-1169, 1170, 1224, 1225, 1226, 1229, 1231, 1235, 1236, 1238, 1240, 1241 ·
-`fenomenologie` 574, 577, 582, 721, 755, 757, 759 · `feuilleton` 1570 ·
-`fictie` 100, 115 · `film` 41, 832 · `filologie` 641 · `filosoferen` 1918 ·
-`filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383,
-390, 391, 392, 393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610, 652,
-654, 932, 948, 1109, 1111, 1112, 1115, 1163, 1167, 1260, 1266, 1268, 1296,
-1300, 1317, 1555, 1724, 1725, 1729, 1770, 1774, 2067 · `filosofie van de
-biologie` 760 · `filosofiegeschiedenis` 269, 639, 1251 · `filosofische
-antropologie` 584 · `financiële geletterdheid` 163 · `financiële markten` 268,
-351, 480, 481, 483, 499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903,
-1279, 1281, 1283, 1288 · `financiële onafhankelijkheid` 264 · `financiele
-vrijheid` 277 · `financiële wiskunde` 497, 507, 810 · `financiële-discipline`
-464 · `financiën` 334, 395, 425 · `financiering` 172 · `fitgirls` 1807 ·
-`fitness` 2068 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `Florence`
-2114 · `flow` 78, 187, 200, 1563, 1610, 1723, 2109 · `fobie` 1533 · `focus`
-175, 197, 448, 513, 1857 · `folklore` 615, 669, 1216, 1245 · `fotoboek` 189 ·
+1299 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612, 665, 819, 1269, 2035,
+2122 · `etnobotanie` 765, 1841 · `etnografie` 764, 1245 · `eurazië` 694 ·
+`eurocrisis` 2124 · `europa` 751 · `euthanasie` 2021 · `evangelicalisme` 1715
+· `evangelisatie` 201 · `evangelisch` 1836 · `evolutie` 56, 66, 89, 90, 91,
+239, 318, 322, 323, 332, 339, 347, 383, 518, 609, 760, 762, 767, 820, 823,
+829, 950, 1259, 1262, 1267, 1273, 1275, 1288, 1308, 1344, 1659, 1676, 1677,
+1678, 1708, 1858, 1904, 2066, 2101 · `evolutiebiologie` 452, 453 ·
+`evolutionaire gezondheid` 1565 · `evolutionaire psychologie` 1627 ·
+`evolutionaire-psychologie` 67 · `excellentie` 553 · `exclusion zone` 2050 ·
+`excuses` 1738 · `executives` 344 · `existentialisme` 405, 940, 1727 ·
+`existentiefilosofie` 757 · `existentiële psychotherapie` 2118 · `expeditie`
+36 · `experiment` 79, 215 · `experimenten` 280, 424 · `experimenteren` 265 ·
+`expertise` 283, 320, 376 · `expressie` 1699 · `extra dimensies` 648 ·
+`extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen`
+23, 72, 75, 312, 422 · `familie` 45, 325, 466, 1400, 1402, 1617, 1870, 2043,
+2086 · `familieconflict` 178 · `familiegeschiedenis` 114, 235 ·
+`familieopstellingen` 1510, 1602, 1636, 1637, 1844, 1914, 2043, 2044 ·
+`familieroman` 10 · `familiesysteem` 1510, 1602 · `fantasie` 1884, 1885, 2048
+· `fantasy` 192, 203, 1562, 1567, 1632, 1634, 2071 · `farmaceutische
+industrie` 752 · `farmacologie` 1714 · `fascisme` 753 · `fawnen` 1617 · `FBI`
+154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541,
+542, 1670, 1740 · `feedbackloops` 2121 · `feiten` 43 · `feminien leiderschap`
+1624 · `feminisme` 3, 620, 624, 1117, 1121, 1124, 1125, 1155, 1169, 1170,
+1224, 1225, 1226, 1229, 1231, 1235, 1236, 1238, 1240, 1241 · `fenomenologie`
+574, 577, 582, 721, 755, 757, 759 · `feuilleton` 1570 · `fictie` 100, 115 ·
+`film` 41, 832 · `filologie` 641 · `filosoferen` 1918 · `filosofie` 1, 6, 71,
+93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
+436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654, 932, 948, 1109, 1111,
+1112, 1115, 1163, 1167, 1260, 1266, 1268, 1296, 1300, 1317, 1555, 1724, 1725,
+1729, 1770, 1774, 2067 · `filosofie van de biologie` 760 ·
+`filosofiegeschiedenis` 269, 639, 1251 · `filosofische antropologie` 584 ·
+`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
+499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903, 1279, 1281, 1283, 1288
+· `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
+wiskunde` 497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395,
+425 · `financiering` 172 · `fitgirls` 1807 · `fitness` 2068 · `fitnessbranche`
+307, 544 · `flitshandel` 499 · `Florence` 2114 · `flow` 78, 187, 200, 1563,
+1610, 1723, 2109 · `fobie` 1533 · `focus` 175, 197, 448, 513, 1857, 2127 ·
+`folklore` 615, 669, 1216, 1245 · `fondsbeheer` 2123, 2126 · `fotoboek` 189 ·
 `fotografie` 1313 · `fotosynthese` 2051 · `Foucault` 1774 · `foutcultuur` 422
 · `fouten maken` 509 · `fractals` 811 · `fragmenten` 1200 · `franchise` 544,
 1877 · `frankrijk` 115 · `Frankrijk` 1672, 1727, 1770 · `Frans de Waal` 1675 ·
@@ -317868,10 +319864,10 @@ uitdaging` 323 · `fysiologie` 318, 412, 458, 1128, 1130, 2066 ·
 89, 90, 138, 154, 280, 330, 383, 425, 802, 1843 · `gedragsbiologie` 322, 339 ·
 `gedragscode` 2095 · `gedragseconomie` 424, 426, 514, 1288 ·
 `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie`
-294, 817 · `gedragstherapie` 1526, 1842 · `gedragstypen` 156 ·
+294, 817, 2126 · `gedragstherapie` 1526, 1842 · `gedragstypen` 156 ·
 `gedragsverandering` 238, 290, 457, 469, 1565, 1907, 2108 ·
-`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800 ·
-`geest` 584, 652, 1167 · `geestelijke gezondheid` 193 · `geestelijke
+`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800, 2127
+· `geest` 584, 652, 1167 · `geestelijke gezondheid` 193 · `geestelijke
 gezondheidszorg` 1525 · `geestelijke oefeningen` 586 · `geestelijke
 verzorging` 1575 · `geestestraining` 1556, 1662 · `gegevensanalyse` 486 ·
 `gehechtheid` 166, 2037, 2056 · `geheim genootschap` 202 · `geheime diensten`
@@ -317914,7 +319910,7 @@ communicatie` 1641, 1642 · `geweten` 1637 · `gewicht` 138 · `gewichtsverlies`
 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557, 1561, 1563,
 1582, 1638, 1648, 1653, 1654, 1688, 1709, 1760, 1761, 1822, 1825, 1853, 1857,
 1860, 1868, 1883, 1907, 2019, 2029, 2073, 2076 · `gewoontevorming` 146, 161,
-168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 ·
+168, 188, 244, 291, 294, 396, 397, 411, 540, 2127 · `gezag` 62 ·
 `gezichtsuitdrukking` 1902 · `gezin` 547, 1613, 2056 · `gezinnen` 327 ·
 `gezinsdynamiek` 1595 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332,
 412, 414, 415, 823, 1128, 1129, 1131, 1133, 1134, 1138, 1564, 1647, 1688,
@@ -317948,95 +319944,95 @@ literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531, 1238
 `Harvard` 457 · `hatha yoga` 1698 · `Hawaii` 1505, 1820 · `Hay House` 380,
 1513 · `hechting` 145, 152, 317, 386, 1517, 1521, 1549, 1623, 1719, 1731,
 1737, 1745, 1750, 1862, 2093 · `hedendaags India` 202 · `hedgefondsen` 505,
-810 · `hedonische asymmetrie` 1802 · `heelal` 99, 262 · `heilige geometrie`
-1821 · `heksenproces` 1888 · `heksenvervolging` 1233 · `hekserij` 1224, 1227,
-1228, 1231, 1233, 1244, 1245 · `hel` 2092 · `heldendom` 532, 1851 ·
-`heldenreis` 410, 1805 · `helderheid` 82, 436 · `heling` 1819 · `Hellinger`
-1914 · `helpen` 1914 · `herhaling` 125, 134 · `herinnering` 1622, 1887 ·
-`herkaderen` 1546, 1616 · `herkomst` 127 · `hermetische filosofie` 378, 1246 ·
-`hermetisme` 613, 631, 632, 633, 638, 639, 642, 647, 766, 1218, 1232, 1249,
-1250, 1253, 1254 · `heroïne` 1837 · `heroverwegen` 28 · `hersenbank` 1680 ·
-`hersenen` 51, 84, 85, 86, 327, 801, 829, 1160, 1307, 1506, 1679, 1680, 1719,
-1742, 1848, 1895, 2088 · `hersenonderzoek` 330, 333, 763 · `hersenspoeling`
-384, 668 · `herstel` 87, 552, 583, 1722, 1833, 1913, 1915 · `herstelbeweging`
-1613 · `herstelrecht` 1641 · `Herziene Statenvertaling` 1811 · `het gesprek`
-416 · `het nu` 2015 · `hexagrammen` 2039 · `hiernamaals` 1867, 1911 ·
-`Himalaya` 191, 1800 · `hindoeisme` 1508 · `hindoeïsme` 169, 199, 527, 569,
-1102, 1551, 2060 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie`
-203 · `Hinge` 166 · `hiphop` 440 · `Hipparchia` 1725 · `hippietrail` 2089 ·
-`historische portretten` 248 · `historische roman` 529, 922, 923, 924, 1542,
-1649, 1886, 1888 · `ho'oponopono` 1505 · `hofcultuur` 216 · `holistisch` 1751
-· `holistische geneeskunde` 1750 · `hollywood` 555 · `Hollywood` 178, 1585 ·
-`Holocaust` 48, 1213, 1539, 2091 · `holografie` 340 · `homoseksualiteit` 325,
-1730 · `Honderd Bunder Bos` 1666 · `Hongkong` 1596 · `hoogbegaafdheid` 1314 ·
-`hooggevoeligheid` 1660 · `hoogsensitiviteit` 1523, 1667 · `hoop` 255, 319 ·
-`hormonen` 80, 339, 1864, 1881, 1899, 2069, 2107 · `hospice` 416, 1601 ·
-`houding` 117, 1630, 1631, 1855, 2027 · `huisarts` 1828, 2099 · `huisvesting`
-65 · `hulp` 1633 · `hulpverlening` 1720, 1914, 2106 · `humanisme` 236, 643 ·
-`humanistische psychologie` 1726 · `humor` 16, 19, 26, 105, 227, 561, 1296,
-1322, 2097, 2106 · `Huna` 1820 · `husserl` 577 · `huwelijk` 9, 34, 165, 1589,
-1590, 1620 · `Huxley` 54 · `hybride werken` 512 · `hypermoderne school` 831 ·
-`hyperrealiteit` 565 · `hyperventilatie` 1696, 1812 · `hypnose` 123, 124, 125,
-668, 1144, 1159, 1616, 1868, 1869, 1917 · `hypnotherapie` 1546, 1739, 1868,
-1869 · `hypocrisie` 1627 · `i ching` 2032 · `I Ching` 2080 · `i tjing` 2039 ·
-`Ibiza` 1534 · `Idaho` 45 · `idealisme` 1742 · `ideeen` 702 · `ideeën` 206 ·
-`ideeëngeschiedenis` 269, 751, 766, 932, 1246, 1247, 1248, 1249, 1250, 1251,
-1252, 1253, 1255, 1875 · `ideeenroman` 1772 · `identiteit` 22, 115, 192, 261,
-374, 375, 467, 559, 1116, 1201, 1206, 1302, 1303, 1319, 1504, 1618, 1639,
-1730, 1774 · `identiteitskapitaal` 51 · `ideologie` 628 · `ideologiekritiek`
-1341 · `ierland` 110 · `ifs` 2036 · `IJsland` 185, 533, 2116 · `ijstijd` 1823
-· `ik-vorm` 113 · `ikigai` 1882 · `Illuminati` 1532 · `illustratie` 1681, 2002
-· `illustraties` 109, 327 · `Ilon Wikland` 1597 · `imitatie` 11 ·
-`immuunsysteem` 1604, 1722, 1813, 1863 · `imperfectionisme` 442 · `import` 20
-· `india` 649, 2033 · `India` 163, 171, 172, 180, 189, 191, 196, 199, 203,
-226, 242, 365, 370, 518, 520, 527, 1101, 1304, 1400, 1401, 1502, 1552, 1652,
-1763, 1767, 1806, 1826, 1837, 1847, 2046 · `indianen` 2024 ·
-`indianenspiritualiteit` 2115 · `indirecte suggestie` 1546 · `individualisme`
-9, 96, 624, 1206, 1772 · `individualiteit` 263 · `individuatie` 359, 360, 408,
-409, 646 · `individuele-verantwoordelijkheid` 299 · `indonesië` 692 ·
-`inductie` 1869 · `industrie` 348, 905 · `inflatie` 1332 · `informatietheorie`
-1272, 1277, 1278, 1316 · `inheems denken` 521 · `inheemse kennis` 1578 ·
-`inheemse volken` 1593 · `initiatie` 407, 408, 522, 921, 922, 1114, 1235, 2074
-· `inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689, 1345 ·
-`innerlijk kind` 1595, 1613, 1616, 1751 · `innerlijk-kind` 109 ·
-`innerlijk-werkleven` 472 · `innerlijke criticus` 1541, 1594, 1693, 1778, 1817
-· `innerlijke familie` 2036 · `innerlijke houding` 2044 · `innerlijke rust`
-2042 · `innerlijke stem` 377, 2070 · `innerlijke vrede` 548 · `innerlijke
-vrijheid` 2091 · `innovatie` 206, 251, 293, 306, 471, 901, 1270, 2112 ·
-`inquisitie` 1649, 1701 · `instagram` 129 · `instemming` 616 · `instituties`
-392 · `insuline` 1864, 1865, 1899 · `integraal bewustzijn` 580 · `integriteit`
-547, 1772 · `intellectuelen` 1341 · `intelligentie` 383, 943 · `intentie` 1531
-· `interactie` 1201 · `internal family systems` 1550 · `internationale
-betrekkingen` 455 · `internet` 60, 198, 1302 · `internetcultuur` 666 ·
-`interoceptie` 1902 · `interpretatie` 764 · `interventionisme` 1336 ·
-`interview` 1805 · `interviews` 58, 277, 289, 1572, 1764 · `intimiteit` 122,
-145, 164, 165, 1830, 2037 · `introspectie` 579, 1325, 1326 · `introversie` 33,
-361, 1203, 1206 · `intuitie` 128, 1845 · `intuïtie` 214, 283, 320, 1537, 1660,
-1721, 1904, 2080, 2090, 2101 · `investeren` 270, 348 · `invloed` 11 ·
-`invoeling` 577 · `invulboek` 1846 · `inwijding` 636, 1218, 1230, 2017 ·
-`inzicht` 587 · `irak` 2022 · `Irak` 1851 · `ironie` 2000 · `irrationaliteit`
-424 · `Isha` 1826 · `islam` 526, 1108, 1216 · `islamitische filosofie` 525,
-1107 · `Israël` 514 · `Isvara` 1508 · `Italiaanse non-fictie` 211 · `Italië`
-155, 1767, 2114 · `jager-verzamelaars` 1708 · `jaloezie` 19 · `japan` 902 ·
-`Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535, 1306, 1554 · `japanse
-filosofie` 576, 1106 · `jaren dertig` 1657, 1854 · `jaren negentig` 348 ·
-`jaren tachtig` 1585 · `jaren zestig` 750, 1148 · `jaren zeventig` 1511, 1584,
-2086, 2089 · `jaren-tachtig` 139 · `jaren-twintig` 94 · `jaren-vijftig` 704 ·
-`jazztijdperk` 284 · `je schept je eigen werkelijkheid` 1661 · `jeff bezos`
-257 · `jeugd` 53, 104, 115, 834, 1515, 1519, 1557, 1723, 1873, 2004, 2048 ·
-`jeugdboek` 1625, 1634, 1695 · `jeugdliteratuur` 1562, 1885 · `jeugdtrauma`
-1722 · `jezuïet` 2065 · `jodendom` 630, 640, 942, 1216, 1568, 1657 ·
-`jodenvervolging` 2091 · `Joe Vitale` 1505 · `Johannes` 1537 · `John Harrison`
-321 · `joint ventures` 348 · `jojo-effect` 2108 · `jonge liefde` 180 ·
-`jongeren` 25, 1747, 1892, 2083 · `jongvolwassenen` 569 ·
-`jongvolwassenenroman` 295 · `joodse filosofie` 572, 574 · `Jordaan` 2048 ·
-`Joseph Campbell` 1805 · `journaling` 147, 1739 · `journalistiek` 4, 7, 46,
-82, 238, 257, 285, 401, 499, 566, 669, 690, 816, 903, 950, 1313, 2066 · `judo`
-1834 · `jung` 646, 937, 1118, 1123, 1153, 1154 · `Jung` 143, 358, 359, 1292,
-1598 · `jungiaans` 1520 · `jungiaanse psychologie` 1845 · `Jungiaanse
-psychologie` 404, 407, 408, 409, 410, 1121, 1230, 1234, 1235, 1236 ·
-`kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644, 1217, 1253 ·
-`Kabul` 184 · `Kagyu` 1662 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 ·
+810 · `hedonische asymmetrie` 1802 · `heelal` 99, 262 · `hefboompunten` 2121 ·
+`heilige geometrie` 1821 · `heksenproces` 1888 · `heksenvervolging` 1233 ·
+`hekserij` 1224, 1227, 1228, 1231, 1233, 1244, 1245 · `hel` 2092 · `heldendom`
+532, 1851 · `heldenreis` 410, 1805 · `helderheid` 82, 436 · `heling` 1819 ·
+`Hellinger` 1914 · `helpen` 1914 · `herhaling` 125, 134 · `herinnering` 1622,
+1887 · `herkaderen` 1546, 1616 · `herkomst` 127 · `hermetische filosofie` 378,
+1246 · `hermetisme` 613, 631, 632, 633, 638, 639, 642, 647, 766, 1218, 1232,
+1249, 1250, 1253, 1254 · `heroïne` 1837 · `heroverwegen` 28 · `hersenbank`
+1680 · `hersenen` 51, 84, 85, 86, 327, 801, 829, 1160, 1307, 1506, 1679, 1680,
+1719, 1742, 1848, 1895, 2088 · `hersenonderzoek` 330, 333, 763 ·
+`hersenspoeling` 384, 668 · `herstel` 87, 552, 583, 1722, 1833, 1913, 1915 ·
+`herstelbeweging` 1613 · `herstelrecht` 1641 · `Herziene Statenvertaling` 1811
+· `het gesprek` 416 · `het nu` 2015 · `hexagrammen` 2039 · `hiernamaals` 1867,
+1911 · `Himalaya` 191, 1800 · `hindoeisme` 1508 · `hindoeïsme` 169, 199, 527,
+569, 1102, 1551, 2060 · `Hindoeïstische mythologie` 192, 202 ·
+`hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `Hipparchia` 1725 ·
+`hippietrail` 2089 · `historische portretten` 248 · `historische roman` 529,
+922, 923, 924, 1542, 1649, 1886, 1888 · `ho'oponopono` 1505 · `hofcultuur` 216
+· `holistisch` 1751 · `holistische geneeskunde` 1750 · `hollywood` 555 ·
+`Hollywood` 178, 1585 · `Holocaust` 48, 1213, 1539, 2091 · `holografie` 340 ·
+`homoseksualiteit` 325, 1730 · `Honderd Bunder Bos` 1666 · `Hongkong` 1596 ·
+`hoogbegaafdheid` 1314 · `hooggevoeligheid` 1660 · `hoogsensitiviteit` 1523,
+1667 · `hoop` 255, 319 · `hormonen` 80, 339, 1864, 1881, 1899, 2069, 2107 ·
+`hospice` 416, 1601 · `houding` 117, 1630, 1631, 1855, 2027 · `huisarts` 1828,
+2099 · `huisvesting` 65 · `hulp` 1633 · `hulpverlening` 1720, 1914, 2106 ·
+`humanisme` 236, 643 · `humanistische psychologie` 1726 · `humor` 16, 19, 26,
+105, 227, 561, 1296, 1322, 2097, 2106 · `Huna` 1820 · `husserl` 577 ·
+`huwelijk` 9, 34, 165, 1589, 1590, 1620 · `Huxley` 54 · `hybride werken` 512 ·
+`hypermoderne school` 831 · `hyperrealiteit` 565 · `hyperventilatie` 1696,
+1812 · `hypnose` 123, 124, 125, 668, 1144, 1159, 1616, 1868, 1869, 1917 ·
+`hypnotherapie` 1546, 1739, 1868, 1869 · `hypocrisie` 1627 · `i ching` 2032 ·
+`I Ching` 2080 · `i tjing` 2039 · `Ibiza` 1534 · `Idaho` 45 · `idealisme` 1742
+· `ideeen` 702 · `ideeën` 206 · `ideeëngeschiedenis` 269, 751, 766, 932, 1246,
+1247, 1248, 1249, 1250, 1251, 1252, 1253, 1255, 1875 · `ideeenroman` 1772 ·
+`identiteit` 22, 115, 192, 261, 374, 375, 467, 559, 1116, 1201, 1206, 1302,
+1303, 1319, 1504, 1618, 1639, 1730, 1774 · `identiteitskapitaal` 51 ·
+`ideologie` 628 · `ideologiekritiek` 1341 · `ierland` 110 · `ifs` 2036 ·
+`IJsland` 185, 533, 2116 · `ijstijd` 1823 · `ik-vorm` 113 · `ikigai` 1882 ·
+`Illuminati` 1532 · `illustratie` 1681, 2002 · `illustraties` 109, 327 · `Ilon
+Wikland` 1597 · `imitatie` 11 · `immuunsysteem` 1604, 1722, 1813, 1863 ·
+`imperfectionisme` 442 · `import` 20 · `india` 649, 2033 · `India` 163, 171,
+172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527, 1101,
+1304, 1400, 1401, 1502, 1552, 1652, 1763, 1767, 1806, 1826, 1837, 1847, 2046 ·
+`indianen` 2024 · `indianenspiritualiteit` 2115 · `indirecte suggestie` 1546 ·
+`individualisme` 9, 96, 624, 1206, 1772 · `individualiteit` 263 ·
+`individuatie` 359, 360, 408, 409, 646 · `individuele-verantwoordelijkheid`
+299 · `indonesië` 692 · `inductie` 1869 · `industrie` 348, 905 · `inflatie`
+1332 · `informatietheorie` 1272, 1277, 1278, 1316 · `inheems denken` 521 ·
+`inheemse kennis` 1578 · `inheemse volken` 1593 · `initiatie` 407, 408, 522,
+921, 922, 1114, 1235, 2074 · `inleiding` 452, 456 · `inlichtingendiensten`
+687, 688, 689, 1345 · `innerlijk kind` 1595, 1613, 1616, 1751 ·
+`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke criticus` 1541,
+1594, 1693, 1778, 1817 · `innerlijke familie` 2036 · `innerlijke houding` 2044
+· `innerlijke rust` 2042 · `innerlijke stem` 377, 2070 · `innerlijke vrede`
+548 · `innerlijke vrijheid` 2091 · `innovatie` 206, 251, 293, 306, 471, 901,
+1270, 2112 · `inquisitie` 1649, 1701 · `instagram` 129 · `instemming` 616 ·
+`instituties` 392 · `insuline` 1864, 1865, 1899 · `integraal bewustzijn` 580 ·
+`integriteit` 547, 1772 · `intellectuelen` 1341 · `intelligentie` 383, 943 ·
+`intentie` 1531 · `interactie` 1201 · `internal family systems` 1550 ·
+`internationale betrekkingen` 455 · `internet` 60, 198, 1302 ·
+`internetcultuur` 666 · `interoceptie` 1902 · `interpretatie` 764 ·
+`interventionisme` 1336 · `interview` 1805 · `interviews` 58, 277, 289, 1572,
+1764 · `intimiteit` 122, 145, 164, 165, 1830, 2037 · `introspectie` 579, 1325,
+1326 · `introversie` 33, 361, 1203, 1206 · `intuitie` 128, 1845 · `intuïtie`
+214, 283, 320, 1537, 1660, 1721, 1904, 2080, 2090, 2101 · `investeren` 270,
+348 · `invloed` 11 · `invoeling` 577 · `invulboek` 1846 · `inwijding` 636,
+1218, 1230, 2017 · `inzicht` 587 · `irak` 2022 · `Irak` 1851 · `ironie` 2000 ·
+`irrationaliteit` 424 · `Isha` 1826 · `islam` 526, 1108, 1216 · `islamitische
+filosofie` 525, 1107 · `Israël` 514 · `Isvara` 1508 · `Italiaanse non-fictie`
+211 · `Italië` 155, 1767, 2114 · `jager-verzamelaars` 1708 · `jaloezie` 19 ·
+`japan` 902, 2124 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535,
+1306, 1554 · `japanse filosofie` 576, 1106 · `jaren dertig` 1657, 1854 ·
+`jaren negentig` 348 · `jaren tachtig` 1585 · `jaren zestig` 750, 1148 ·
+`jaren zeventig` 1511, 1584, 2086, 2089 · `jaren-tachtig` 139 ·
+`jaren-twintig` 94 · `jaren-vijftig` 704 · `jazztijdperk` 284 · `je schept je
+eigen werkelijkheid` 1661 · `jeff bezos` 257 · `jeugd` 53, 104, 115, 834,
+1515, 1519, 1557, 1723, 1873, 2004, 2048 · `jeugdboek` 1625, 1634, 1695 ·
+`jeugdliteratuur` 1562, 1885 · `jeugdtrauma` 1722 · `jezuïet` 2065 ·
+`jodendom` 630, 640, 942, 1216, 1568, 1657 · `jodenvervolging` 2091 · `Joe
+Vitale` 1505 · `Johannes` 1537 · `John Harrison` 321 · `joint ventures` 348 ·
+`jojo-effect` 2108 · `jonge liefde` 180 · `jongeren` 25, 1747, 1892, 2083 ·
+`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
+574 · `Jordaan` 2048 · `Joseph Campbell` 1805 · `journaling` 147, 1739 ·
+`journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566, 669, 690, 816,
+903, 950, 1313, 2066 · `judo` 1834 · `jung` 646, 937, 1118, 1123, 1153, 1154 ·
+`Jung` 143, 358, 359, 1292, 1598 · `jungiaans` 1520 · `jungiaanse psychologie`
+1845 · `Jungiaanse psychologie` 404, 407, 408, 409, 410, 1121, 1230, 1234,
+1235, 1236 · `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644, 1217,
+1253 · `Kabul` 184 · `Kagyu` 1662 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 ·
 `kameraadschap` 529 · `kanalisatie` 1856 · `kanker` 419, 1596, 1604, 1691,
 2008 · `kans` 64, 805 · `kansdenken` 487 · `kansen` 137 · `kansenongelijkheid`
 1694 · `kansrekening` 282, 456, 484, 490, 496, 504, 505, 812, 946, 1280, 1287
@@ -318079,19 +320075,20 @@ bewustzijn` 1908 · `kosmologie` 239, 262, 281, 645, 647, 648, 651, 655, 938,
 945, 948, 1115, 1221, 1222, 1261, 1607, 2116 · `kostschool` 1562 · `koude`
 1813, 2066 · `koude oorlog` 217, 220, 384, 454, 456, 680, 689, 692, 693, 1141
 · `koude-oorlog` 1345 · `koudetraining` 1857 · `krachttraining` 1807 ·
-`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
-346 · `krijgsmacht` 2062, 2063 · `Krishna` 1551 · `Krishna en Arjuna` 2060 ·
-`Krishnamurti` 1569, 1640, 2045 · `kritiek` 24, 41, 50, 1330, 1603, 1865 ·
-`kritiek geven` 356, 1740 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruiden`
-1605, 1669 · `kruistocht` 1701 · `kruistochtgeest` 534 · `kundalini` 1698 ·
-`Kundalini` 1889 · `kunst` 11, 445, 1214, 1323, 1679 · `kunstenaars` 312, 1315
-· `kunstfilosofie` 1576 · `kunstgeschiedenis` 241, 312, 822, 828, 1299 ·
-`kunstmatig leven` 347 · `kunstmatige intelligentie` 236, 237, 297, 652, 1256,
-1258, 1317, 1318, 2035 · `kwaad` 404 · `kwaliteit` 1, 400, 912, 1301, 1744 ·
-`kwantificering` 392 · `kwantitatief handelen` 506, 1279 · `kwantitatieve
-analyse` 498 · `kwantitatieve financiën` 485, 503, 816, 1286 ·
-`kwantumbiologie` 2051 · `kwantumfysica` 208, 340, 432, 433, 918, 919, 920,
-930, 1164, 1165, 1166, 1261, 1513, 1524, 1531, 1815, 2001, 2009, 2013 ·
+`kredietcyclus` 2125 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219,
+272 · `krijgskunst` 346 · `krijgsmacht` 2062, 2063 · `Krishna` 1551 · `Krishna
+en Arjuna` 2060 · `Krishnamurti` 1569, 1640, 2045 · `kritiek` 24, 41, 50,
+1330, 1603, 1865 · `kritiek geven` 356, 1740 · `kritisch denken` 420, 421 ·
+`kroeg` 4 · `kruiden` 1605, 1669 · `kruistocht` 1701 · `kruistochtgeest` 534 ·
+`kundalini` 1698 · `Kundalini` 1889 · `kunst` 11, 445, 1214, 1323, 1679 ·
+`kunstenaars` 312, 1315 · `kunstfilosofie` 1576 · `kunstgeschiedenis` 241,
+312, 822, 828, 1299 · `kunstmatig leven` 347 · `kunstmatige intelligentie`
+236, 237, 297, 652, 1256, 1258, 1317, 1318, 2035, 2132, 2133, 2134 · `kwaad`
+404 · `kwaliteit` 1, 400, 912, 1301, 1744 · `kwantificering` 392 ·
+`kwantitatief handelen` 506, 1279 · `kwantitatieve analyse` 498 ·
+`kwantitatieve financiën` 485, 503, 816, 1286 · `kwantitatieve verruiming`
+2124 · `kwantumbiologie` 2051 · `kwantumfysica` 208, 340, 432, 433, 918, 919,
+920, 930, 1164, 1165, 1166, 1261, 1513, 1524, 1531, 1815, 2001, 2009, 2013 ·
 `kwantummechanica` 362, 655, 761, 818, 1318, 1658 · `kwantumtaal` 1507, 1545 ·
 `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470, 1541, 2037 ·
 `kyotoschool` 576 · `lachen` 1552 · `lafheid` 1851 · `Lama Yeshe` 1775 ·
@@ -318132,27 +320129,28 @@ analyse` 498 · `kwantitatieve financiën` 485, 503, 816, 1286 ·
 415 · `loopbaan` 50, 51, 150, 349, 515, 547, 803, 1501, 1740, 1766 · `lopen`
 1855 · `loslaten` 377, 449, 1507, 1637, 1671, 1840 · `losmaken` 45 ·
 `lotsbestemming` 261 · `louteringsberg` 2092 · `lsd` 750 · `LSD` 1841 ·
-`luchtvaart` 422 · `luisteren` 24, 35, 305, 444, 1642, 1919 · `Luke Howard`
-1839 · `lymfeklierkanker` 1596 · `maakbaarheid` 1769 · `maankalender` 1908 ·
-`maatschappijkritiek` 674, 826, 1731 · `machinaal leren` 484, 485, 486, 503 ·
-`machine learning` 2035 · `macht` 212, 250, 263, 381, 388, 440, 617, 622, 683,
-684, 685, 753, 935, 1145, 1146, 1289, 1562, 1567, 1634 · `machtspolitiek` 220,
-2114 · `machtstheorie` 221 · `machtsverhoudingen` 155 · `magie` 613, 632, 634,
-637, 638, 639, 641, 1126, 1216, 1218, 1220, 1232, 1242, 1244, 1246, 1247,
-1248, 1249, 1253, 1255 · `magisch realisme` 261, 1401, 1402 ·
-`magnetoreceptie` 2051 · `mahamudra` 1717 · `management` 42, 47, 170, 183,
-256, 350, 353, 364, 472, 900, 901, 902, 904, 907, 908, 909, 912, 1901, 2072 ·
-`managementklassieker` 1776 · `managementtheorie` 547 · `manifest` 629 ·
-`manifesteren` 128, 129, 130, 131, 132, 190, 196, 433, 543, 560, 768, 1505,
-1507, 1703, 1704, 1748, 1760, 1779, 1818, 1820, 1889, 1890, 1898, 1909, 1910,
-2013, 2018, 2103 · `manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429,
-672, 673, 675, 686, 704, 1255 · `mannelijk en vrouwelijk` 1741 · `mannelijke
-energie` 1819 · `mannelijkheid` 3, 406, 407, 408, 1500, 1874, 2074 · `mannen`
-7, 1598, 1730, 1811, 1831, 1874, 2006 · `mannenbeweging` 407 · `mannenwerk`
-2074 · `mantelzorg` 225 · `mantra` 403 · `manuscript` 359 · `Mao` 1522 ·
-`maria magdalena` 614 · `Maria Magdalena` 1819 · `Mark Janssen` 1633 ·
-`marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309, 350, 443, 446, 913
-· `marketingwetenschap` 705 · `marktanalyse` 698 · `marktmicrostructuur` 477,
+`luchtoorlog` 2122 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444, 1642,
+1919 · `Luke Howard` 1839 · `lymfeklierkanker` 1596 · `maakbaarheid` 1769 ·
+`maankalender` 1908 · `maatschappijkritiek` 674, 826, 1731 · `machinaal leren`
+484, 485, 486, 503 · `machine learning` 2035, 2132, 2133 · `macht` 212, 250,
+263, 381, 388, 440, 617, 622, 683, 684, 685, 753, 935, 1145, 1146, 1289, 1562,
+1567, 1634 · `machtspolitiek` 220, 2114 · `machtstheorie` 221 ·
+`machtsverhoudingen` 155 · `macro-economie` 2124 · `magie` 613, 632, 634, 637,
+638, 639, 641, 1126, 1216, 1218, 1220, 1232, 1242, 1244, 1246, 1247, 1248,
+1249, 1253, 1255 · `magisch realisme` 261, 1401, 1402 · `magnetoreceptie` 2051
+· `mahamudra` 1717 · `management` 42, 47, 170, 183, 256, 350, 353, 364, 472,
+900, 901, 902, 904, 907, 908, 909, 912, 1901, 2072 · `managementklassieker`
+1776 · `managementtheorie` 547 · `manifest` 629 · `manifesteren` 128, 129,
+130, 131, 132, 190, 196, 433, 543, 560, 768, 1505, 1507, 1703, 1704, 1748,
+1760, 1779, 1818, 1820, 1889, 1890, 1898, 1909, 1910, 2013, 2018, 2103 ·
+`manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429, 672, 673, 675, 686,
+704, 1255 · `mannelijk en vrouwelijk` 1741 · `mannelijke energie` 1819 ·
+`mannelijkheid` 3, 406, 407, 408, 1500, 1874, 2074 · `mannen` 7, 1598, 1730,
+1811, 1831, 1874, 2006 · `mannenbeweging` 407 · `mannenwerk` 2074 ·
+`mantelzorg` 225 · `mantra` 403 · `manuscript` 359 · `Mao` 1522 · `maria
+magdalena` 614 · `Maria Magdalena` 1819 · `Mark Janssen` 1633 · `marketing`
+13, 40, 60, 172, 183, 279, 280, 307, 308, 309, 350, 443, 446, 913 ·
+`marketingwetenschap` 705 · `marktanalyse` 698 · `marktmicrostructuur` 477,
 478 · `marxisme` 564 · `materialisme` 1742 · `matras` 1883 · `matriarchaat`
 1240, 1695 · `MBCL` 1525 · `McKinsey` 511 · `MDMA` 1714 · `mededogen` 1560,
 1561, 1606, 1662, 1829 · `media` 54, 60, 100, 562, 563, 564, 565, 566, 666,
@@ -318178,49 +320176,51 @@ gedrag` 155 · `menselijke natuur` 1859 · `menselijke oorsprong` 1904 ·
 229, 323, 372, 373, 374, 545, 2063 · `mentalisme` 378, 399 · `mentorschap` 4,
 285, 289, 320, 402 · `Mer-Ka-Ba` 1821 · `Merel Teunis` 1739 · `meridianen`
 2007 · `merken` 279, 700, 701, 705 · `metabolic typing` 2052 · `metabolisme`
-313 · `metafictie` 1771 · `metafoor` 1630 · `metafysica` 102, 518, 584, 587,
-1742 · `meten` 69, 133, 695, 697 · `meteorologie` 1839 · `methaan` 1603 ·
-`methode` 81, 764, 2009 · `methodologie` 1337, 1340, 1342, 1343 ·
-`methylering` 1894 · `Mexico` 1841, 1858 · `microbedrijf` 40, 172 ·
+313 · `metacognitie` 2130 · `metafictie` 1771 · `metafoor` 1630 · `metafysica`
+102, 518, 584, 587, 1742 · `meten` 69, 133, 695, 697 · `meteorologie` 1839 ·
+`methaan` 1603 · `methode` 81, 764, 2009 · `methodologie` 1337, 1340, 1342,
+1343 · `methylering` 1894 · `Mexico` 1841, 1858 · `microbedrijf` 40, 172 ·
 `microbioom` 417 · `middelbare-leeftijd` 7 · `middeleeuwen` 534, 632, 822,
 947, 1107, 1216, 1263, 1282, 1649, 1701 · `Midden-aarde` 1567 ·
 `midden-oosten` 720 · `middenrif` 1756 · `midlife` 324 · `midrasj` 1542 ·
-`migratie` 1553 · `milieu` 1651, 1744 · `militair` 2064 · `militaire
-geschiedenis` 568 · `militaire strategie` 220 · `millennials` 159 · `Milton`
-1885 · `Milton Erickson` 1546 · `mind-body` 2008 · `minderheden` 68 ·
-`minderheidsstandpunt` 761 · `mindful` 103 · `mindfulness` 141, 147, 149, 177,
-333, 401, 1525, 1526, 1561, 1606, 1645, 1664, 1761, 1846, 1871, 1872, 2096,
-2100 · `mindset` 146, 181, 188, 387, 458, 1669, 1752, 2018, 2019, 2028, 2064,
-2069 · `Mindvalley` 1760 · `minimalisme` 181 · `misdaad` 254, 1148, 1707 ·
-`misleiding` 219, 272, 677 · `mislukking` 516, 1331 · `mismatchziekten` 1708 ·
-`missie` 567 · `mitochondriën` 313 · `mode` 833 · `modellen` 300 ·
-`modelleren` 139 · `modellering` 455 · `modulariteit` 1627 · `moed` 44, 529,
-1519, 2071 · `moeder en dochter` 1522, 1600, 1650, 1887 · `moeder-en-zoon` 26
-· `moeder-kindrelatie` 1862 · `moederkoren` 765, 1611 · `moederschap` 1758 ·
-`momentum` 481 · `monnik` 1664 · `monniksleven` 230, 1207 · `monomythe` 410 ·
-`monopolie` 306 · `monsters` 532 · `Montségur` 1700 · `Monty-Python` 16 ·
-`moraal` 9, 57, 67, 263, 1627, 1676, 1678, 2086 · `moraalfilosofie` 581 ·
-`moraalkritiek` 391 · `moreel` 36 · `moritatherapie` 1554 · `mormonisme` 560,
-1707 · `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472,
-1822, 2028, 2073 · `motivatieonderzoek` 703, 704 · `Motley Fool` 474 · `motor`
-2047 · `motoren` 6 · `motorfietsen` 325 · `MTHFR` 1894 · `Muhammad Ali` 1835 ·
-`multitasken` 1879 · `muziek` 17, 85, 762, 824, 952, 1246, 1256, 1291, 1297,
-1512, 1564, 1674, 1679 · `muziekfilosofie` 756 · `mycotoxines` 2117 ·
-`mysteriecultus` 765 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604, 606,
-610, 630, 636, 640, 666, 754, 835, 936, 1100, 1103, 1109, 1110, 1124, 1158,
-1207, 1222, 1237, 1263, 1300, 1540, 1607, 1717, 1774, 2058, 2065 · `mythe` 608
-· `mythe en ritueel` 756 · `mythen` 1845 · `mythevorming` 615, 1140, 1151,
-1238, 1240 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611, 1117,
-1119, 1157, 1225, 1226, 1235, 1237, 1238, 1805, 2074, 2119 · `mythologische
-fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 ·
-`napoleontische oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 ·
-`naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504, 640, 661, 662, 806,
-813, 815, 817, 835, 931, 1127, 1129, 1133, 1243, 1263, 1689, 1690, 2007, 2039,
-2059, 2084 · `nationalisme` 237, 1333 · `natuur` 191, 323, 609, 830, 1259,
-1262, 1575, 1593, 1695, 2032 · `natuurbeschrijving` 1569 · `natuurgeneeskunde`
-1647 · `natuurgeschiedenis` 1839 · `natuurkunde` 62, 94, 240, 262, 281, 300,
-326, 648, 650, 651, 653, 655, 657, 818, 819, 944, 945, 947, 1261, 1265, 1276,
-1279, 1318 · `natuurlijke horsemanship` 2057 · `natuurlijke selectie` 1677 ·
+`migratie` 1553 · `milieu` 1651, 1744 · `militair` 2064 · `militaire doctrine`
+2122 · `militaire geschiedenis` 568 · `militaire strategie` 220 ·
+`millennials` 159 · `Milton` 1885 · `Milton Erickson` 1546 · `mind-body` 2008
+· `minderheden` 68 · `minderheidsstandpunt` 761 · `mindful` 103 ·
+`mindfulness` 141, 147, 149, 177, 333, 401, 1525, 1526, 1561, 1606, 1645,
+1664, 1761, 1846, 1871, 1872, 2096, 2100 · `mindset` 146, 181, 188, 387, 458,
+1669, 1752, 2018, 2019, 2028, 2064, 2069 · `Mindvalley` 1760 · `minimalisme`
+181 · `misdaad` 254, 1148, 1707 · `misleiding` 219, 272, 677 · `mislukking`
+516, 1331 · `mismatchziekten` 1708 · `missie` 567 · `mitochondriën` 313 ·
+`mode` 833 · `modellen` 300 · `modelleren` 139 · `modellering` 455 ·
+`modelvorming` 2121 · `modulariteit` 1627 · `moed` 44, 529, 1519, 2071 ·
+`moeder en dochter` 1522, 1600, 1650, 1887 · `moeder-en-zoon` 26 ·
+`moeder-kindrelatie` 1862 · `moederkoren` 765, 1611 · `moederschap` 1758 ·
+`momentum` 481 · `monetair beleid` 2124 · `monnik` 1664 · `monniksleven` 230,
+1207 · `monomythe` 410 · `monopolie` 306 · `monsters` 532 · `Montségur` 1700 ·
+`Monty-Python` 16 · `moraal` 9, 57, 67, 263, 1627, 1676, 1678, 2086 ·
+`moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `moritatherapie`
+1554 · `mormonisme` 560, 1707 · `motivatie` 117, 139, 146, 183, 200, 207, 315,
+427, 468, 469, 472, 1822, 2028, 2073 · `motivatieonderzoek` 703, 704 · `Motley
+Fool` 474 · `motor` 2047 · `motoren` 6 · `motorfietsen` 325 · `MTHFR` 1894 ·
+`Muhammad Ali` 1835 · `multitasken` 1879 · `muziek` 17, 85, 762, 824, 952,
+1246, 1256, 1291, 1297, 1512, 1564, 1674, 1679 · `muziekfilosofie` 756 ·
+`mycotoxines` 2117 · `mysteriecultus` 765 · `mystiek` 340, 390, 524, 525, 573,
+578, 603, 604, 606, 610, 630, 636, 640, 666, 754, 835, 936, 1100, 1103, 1109,
+1110, 1124, 1158, 1207, 1222, 1237, 1263, 1300, 1540, 1607, 1717, 1774, 2058,
+2065 · `mythe` 608 · `mythe en ritueel` 756 · `mythen` 1845 · `mythevorming`
+615, 1140, 1151, 1238, 1240 · `mythologie` 73, 143, 357, 360, 407, 408, 409,
+599, 611, 1117, 1119, 1157, 1225, 1226, 1235, 1237, 1238, 1805, 2074, 2119 ·
+`mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
+`nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
+`narratieve non-fictie` 2122 · `naslag` 99, 112 · `naslagwerk` 59, 225, 426,
+477, 478, 486, 491, 500, 504, 640, 661, 662, 806, 813, 815, 817, 835, 931,
+1127, 1129, 1133, 1243, 1263, 1689, 1690, 2007, 2039, 2059, 2084 ·
+`nationalisme` 237, 1333 · `natuur` 191, 323, 609, 830, 1259, 1262, 1575,
+1593, 1695, 2032 · `natuurbeschrijving` 1569 · `natuurgeneeskunde` 1647 ·
+`natuurgeschiedenis` 1839 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326,
+648, 650, 651, 653, 655, 657, 818, 819, 944, 945, 947, 1261, 1265, 1276, 1279,
+1318 · `natuurlijke horsemanship` 2057 · `natuurlijke selectie` 1677 ·
 `natuurlijke-selectie` 1344 · `navigatie` 321 · `navy seals` 229, 364 ·
 `nazisme` 223, 1338, 1900 · `neanderthaler` 762 · `neanderthalers` 1823 ·
 `necrofilie` 223 · `nederland` 96 · `Nederland` 1528, 1530, 1619, 1633, 1673,
@@ -318258,41 +320258,41 @@ spiritualiteit` 1621 · `nieuwe tijd` 1697 · `nieuwetijdskind` 1650 · `nieuws`
 `noodlot` 533, 1600 · `Noord-Europa` 1625 · `Noordse mythologie` 533 ·
 `notitieboeken` 241 · `novelle` 173 · `nuchterheid` 1906, 2098 · `nulpuntveld`
 1815 · `numerologie` 1690 · `numineus` 578 · `obesitas` 417, 1708 ·
-`objectivisme` 1772 · `observeren` 15 · `obsessieve liefde` 284 · `Occitanië`
-1649 · `occultisme` 378, 613, 634, 637, 638, 644, 676, 914, 915, 921, 924,
-925, 1140, 1147, 1214, 1216, 1217, 1220, 1221, 1222, 1228, 1229, 1232, 1239,
-1242, 1243, 1244, 1248, 1250, 1690 · `oceaanbemesting` 1603 · `ochtendroutine`
-14, 134, 244, 1822, 1825 · `octopus` 760 · `Odin` 2080 · `oefenen` 29, 397,
-800 · `oefening` 141, 296, 1710, 1814 · `oefeningen` 15, 35, 87, 103, 109,
-118, 120, 122, 130, 549, 1527, 1543, 1556, 1595, 1729, 1737, 1773, 1816, 1871,
-1916 · `oerdieet` 1899 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 ·
-`omdenken` 2094 · `omgangsvormen` 24, 398, 939 · `omkering` 105 · `omstreden`
-37, 73, 76, 83, 1329 · `onafhankelijkheid` 1401, 1672 · `onbegrepen-klachten`
-104 · `onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284, 1401
-· `onbewezen` 127, 128, 129, 130, 131, 132, 139, 1239 · `onbewuste` 16, 283,
-358, 359, 1316, 2090 · `onbewuste overtuigingen` 2013 · `onderbewuste` 124,
-1545, 1588, 1704 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134,
-135, 136 · `onderdrukte emoties` 1668 · `onderhandelen` 159, 186, 217, 260,
-271, 272, 305, 444, 450, 455, 1721 · `ondernemen` 20, 39, 40, 47, 172, 446,
-476, 2112 · `ondernemers` 174, 1669 · `ondernemerschap` 157, 163, 185, 197,
-198, 210, 222, 228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312, 350,
-365, 369, 370, 395, 403, 427, 431, 434, 465, 544, 567, 570, 901, 905, 906,
-908, 911, 913, 1279, 1280, 1664, 1744, 1877, 2072 · `onderstroom` 2034 ·
-`onderwereld` 1837 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237, 349,
-509, 598, 667, 803, 943, 1130, 1310, 1321, 1691, 1694, 1697, 2083, 2084 ·
-`onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78,
-79, 80, 84, 85, 86, 88, 152, 305, 691, 705, 906, 909, 946, 949, 950, 951,
-1278, 1315, 1328, 1548, 1810 · `onderzoeksdebat` 53 · `onderzoeksethiek` 215 ·
-`onderzoeksjournalistiek` 665, 687, 688, 692, 1148 · `onderzoekskritiek` 52,
-415, 1292 · `onderzoeksmethode` 1506 · `ongeluk` 1664 · `ongemak` 323 ·
-`ongemakkelijke gesprekken` 1670 · `ongeneeslijke ziekte` 285 · `online
-ondernemen` 309 · `onrecht` 1580 · `onrust` 1653, 1838 · `onsterfelijkheid`
-236, 405, 1209 · `ontgifting` 1848 · `onthaasten` 2042 · `onthechting` 462 ·
-`ontlading` 1696 · `ontmoeten` 304 · `ontmoeting` 572, 1294 · `ontologie` 344
-· `ontrouw` 1509 · `ontslagen` 47 · `ontsnapping` 1850 · `ontspanning` 1732,
-1756, 1759, 1812, 1816, 1883 · `ontwaken` 1536 · `ontwerp` 550 ·
-`ontwikkeling` 46, 85, 1521, 1679, 1680 · `ontwikkelingsfasen` 1613 ·
-`ontwikkelingslanden` 234 · `ontwikkelingspsychologie` 1520 ·
+`objectivisme` 1772 · `observatie` 2129, 2130 · `observeren` 15 · `obsessieve
+liefde` 284 · `Occitanië` 1649 · `occultisme` 378, 613, 634, 637, 638, 644,
+676, 914, 915, 921, 924, 925, 1140, 1147, 1214, 1216, 1217, 1220, 1221, 1222,
+1228, 1229, 1232, 1239, 1242, 1243, 1244, 1248, 1250, 1690 · `oceaanbemesting`
+1603 · `ochtendroutine` 14, 134, 244, 1822, 1825 · `octopus` 760 · `Odin` 2080
+· `oefenen` 29, 397, 800 · `oefening` 141, 296, 1710, 1814 · `oefeningen` 15,
+35, 87, 103, 109, 118, 120, 122, 130, 549, 1527, 1543, 1556, 1595, 1729, 1737,
+1773, 1816, 1871, 1916 · `oerdieet` 1899 · `okinawa` 77 · `okr` 256 ·
+`oligarchie` 618 · `omdenken` 2094 · `omgangsvormen` 24, 398, 939 · `omkering`
+105 · `omstreden` 37, 73, 76, 83, 1329 · `onafhankelijkheid` 1401, 1672 ·
+`onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
+`onbetrouwbare verteller` 284, 1401 · `onbewezen` 127, 128, 129, 130, 131,
+132, 139, 1239 · `onbewuste` 16, 283, 358, 359, 1316, 2090 · `onbewuste
+overtuigingen` 2013 · `onderbewuste` 124, 1545, 1588, 1704 · `onderbewustzijn`
+259 · `onderbouwing` 87, 108, 117, 134, 135, 136 · `onderdrukte emoties` 1668
+· `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450, 455, 1721 ·
+`ondernemen` 20, 39, 40, 47, 172, 446, 476, 2112 · `ondernemers` 174, 1669 ·
+`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
+278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
+465, 544, 567, 570, 901, 905, 906, 908, 911, 913, 1279, 1280, 1664, 1744,
+1877, 2072 · `onderstroom` 2034 · `onderwereld` 1837 · `onderwijs` 6, 23, 33,
+45, 63, 65, 68, 116, 237, 349, 509, 598, 667, 803, 943, 1130, 1310, 1321,
+1691, 1694, 1697, 2083, 2084 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29,
+32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305, 691, 705, 906,
+909, 946, 949, 950, 951, 1278, 1315, 1328, 1548, 1810 · `onderzoeksdebat` 53 ·
+`onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665, 687, 688, 692, 1148 ·
+`onderzoekskritiek` 52, 415, 1292 · `onderzoeksmethode` 1506 · `ongeluk` 1664
+· `ongemak` 323 · `ongemakkelijke gesprekken` 1670 · `ongeneeslijke ziekte`
+285 · `online ondernemen` 309 · `onrecht` 1580 · `onrust` 1653, 1838 ·
+`onsterfelijkheid` 236, 405, 1209 · `ontgifting` 1848 · `onthaasten` 2042 ·
+`onthechting` 462 · `ontlading` 1696 · `ontmoeten` 304 · `ontmoeting` 572,
+1294 · `ontologie` 344 · `ontrouw` 1509 · `ontslagen` 47 · `ontsnapping` 1850
+· `ontspanning` 1732, 1756, 1759, 1812, 1816, 1883 · `ontwaken` 1536 ·
+`ontwerp` 550 · `ontwikkeling` 46, 85, 1521, 1679, 1680 · `ontwikkelingsfasen`
+1613 · `ontwikkelingslanden` 234 · `ontwikkelingspsychologie` 1520 ·
 `ontwikkelingstrauma` 1623 · `onvolmaaktheid` 379 · `onzekerheid` 268, 341,
 375, 423, 515, 516, 1280, 1281, 1579 · `oordeel` 59, 69, 1919 · `oordelen`
 1642 · `oorlog` 31, 57, 66, 364, 568, 1293, 1644, 1771, 2000, 2024 ·
@@ -318327,26 +320327,26 @@ Rome` 328 · `Oudengels` 532 · `ouder worden` 1566, 1758, 1915 · `ouder-worden
 `paradijs` 2092 · `paradox` 1801 · `parallelle levens` 2001 · `parallelle
 werelden` 1885 · `parallelle werkelijkheden` 1705 · `paranormaal` 340, 362,
 669, 677, 929, 1144 · `parapsychologie` 637, 1161, 1324, 1328, 1531, 1815,
-1867 · `parawetenschap` 663 · `Pareto` 1762 · `Parijs` 1212 · `passie` 50, 198
-· `pastel` 2092 · `pastoraat` 34 · `Patagonia` 1744 · `Patanjali` 1806 ·
-`patiëntenverhalen` 331 · `patiëntverhalen` 414 · `patriarchaat` 3, 1155 ·
-`patronen` 1510, 1543, 1550, 1665, 1801, 1873, 2034, 2043 · `Paul Gilbert`
-1525 · `pauzes` 1879, 1913 · `PCOS` 1881 · `pedagogiek` 1639, 2084 ·
-`pelgrimage` 8, 1577 · `pensioen` 277, 1882 · `perceptie` 30 ·
-`perfectionisme` 19, 32, 44, 575, 1503, 1594, 1693, 1713, 1769, 1828 ·
-`personeelsbeleid` 1744 · `persoonlijk merk` 198, 365 · `persoonlijke
-financiën` 163, 233, 395 · `persoonlijke groei` 1753, 1760 · `persoonlijke
-ontwikkeling` 161, 465, 467, 1314, 1543, 2019, 2059, 2073 · `persoonlijke
-verantwoordelijkheid` 2028 · `persoonlijkheid` 33, 338, 538, 1292, 1314 ·
-`persoonlijkheidstypen` 361, 1292 · `perspectief` 580, 1729 · `Peru` 1570,
-1585, 1591 · `Perzië` 524, 525, 526, 536 · `pesten` 1633 · `peyote` 1608 ·
-`Phantasien` 1884 · `Phoenix Opleidingen` 1844 · `piekeren` 105, 176, 1526,
-1563, 1852 · `pijn` 85, 255, 1558 · `pijnappelklier` 1545 · `pijnbestrijding`
-1869 · `pijnlichaam` 435 · `piraten` 1686 · `Pixar` 41, 46, 1331 · `plaats`
-825 · `placebo` 387, 469, 1513, 1588 · `planeconomie` 1334 · `planetaire
-gezondheid` 1575 · `planeten` 99, 1123 · `planning` 70, 276, 2029, 2030, 2032,
-2053 · `plantaardig` 2016, 2068 · `plantaardig eten` 1604 ·
-`plantaardig-dieet` 324 · `planten` 1841 · `plastische chirurgie` 411 ·
+1867 · `parawetenschap` 663 · `Pareto` 1762 · `Parijs` 1212 · `particuliere
+belegger` 2123 · `passie` 50, 198 · `pastel` 2092 · `pastoraat` 34 ·
+`Patagonia` 1744 · `Patanjali` 1806 · `patiëntenverhalen` 331 ·
+`patiëntverhalen` 414 · `patriarchaat` 3, 1155 · `patronen` 1510, 1543, 1550,
+1665, 1801, 1873, 2034, 2043 · `Paul Gilbert` 1525 · `pauzes` 1879, 1913 ·
+`PCOS` 1881 · `pedagogiek` 1639, 2084 · `pelgrimage` 8, 1577 · `pensioen` 277,
+1882 · `perceptie` 30 · `perfectionisme` 19, 32, 44, 575, 1503, 1594, 1693,
+1713, 1769, 1828 · `personeelsbeleid` 1744 · `persoonlijk merk` 198, 365 ·
+`persoonlijke financiën` 163, 233, 395 · `persoonlijke groei` 1753, 1760 ·
+`persoonlijke ontwikkeling` 161, 465, 467, 1314, 1543, 2019, 2059, 2073, 2129
+· `persoonlijke verantwoordelijkheid` 2028 · `persoonlijkheid` 33, 338, 538,
+1292, 1314 · `persoonlijkheidstypen` 361, 1292 · `perspectief` 580, 1729 ·
+`Peru` 1570, 1585, 1591 · `Perzië` 524, 525, 526, 536 · `pesten` 1633 ·
+`peyote` 1608 · `Phantasien` 1884 · `Phoenix Opleidingen` 1844 · `piekeren`
+105, 176, 1526, 1563, 1852, 2131 · `pijn` 85, 255, 1558 · `pijnappelklier`
+1545 · `pijnbestrijding` 1869 · `pijnlichaam` 435 · `piraten` 1686 · `Pixar`
+41, 46, 1331 · `plaats` 825 · `placebo` 387, 469, 1513, 1588 · `planeconomie`
+1334 · `planetaire gezondheid` 1575 · `planeten` 99, 1123 · `planning` 70,
+276, 2029, 2030, 2032, 2053 · `plantaardig` 2016, 2068 · `plantaardig eten`
+1604 · `plantaardig-dieet` 324 · `planten` 1841 · `plastische chirurgie` 411 ·
 `plato` 581 · `pleasen` 1617 · `Pleiaden` 1856 · `plicht` 2 · `podcast` 136,
 465, 513, 1503, 1764, 2096 · `poëzie` 204, 611, 1110, 1115, 1210, 1211, 1304,
 1330, 1681, 1746, 2000, 2119 · `poker` 137 · `polarisatie` 305, 1729, 1747 ·
@@ -318383,9 +320383,9 @@ studies` 720 · `postmarxisme` 628 · `postmodernisme` 565, 1170 ·
 · `proactief` 25 · `probleemdenken` 2094 · `procestrauma` 1751 · `producer` 17
 · `product` 446 · `productie` 912 · `productiviteit` 151, 175, 197, 207, 244,
 276, 278, 290, 311, 400, 434, 442, 448, 512, 552, 802, 904, 1879, 1913, 2029,
-2030, 2053 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471 ·
-`proeven` 112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108 ·
-`propaganda` 60, 384, 562, 566, 686, 1757 · `propositielogica` 437, 2120 ·
+2030, 2053, 2128 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471
+· `proeven` 112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108
+· `propaganda` 60, 384, 562, 566, 686, 1757 · `propositielogica` 437, 2120 ·
 `protestantisme` 1577 · `protocol` 69 · `provocatieve therapie` 2106 ·
 `prozagedicht` 1540 · `pseudokennis` 126 · `pseudoniem` 378 ·
 `pseudowetenschap` 673, 1120, 1139, 1152, 1156, 1219, 1240, 1243, 1531, 1607,
@@ -318441,43 +320441,43 @@ ervaring` 1715 · `religieuze symboliek` 409 · `religiewetenschap` 758 · `REM`
 · `ridderideaal` 822 · `rijkdom` 57, 228, 2014 · `rippling` 2118 · `risico`
 64, 80, 144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501, 804,
 811, 815, 816, 1280, 1283, 1287 · `risicobeheer` 479, 489, 490, 491, 492, 493,
-494, 497, 498, 504, 506, 810, 1285, 1288 · `ritme` 1564, 2032 · `ritueel` 404,
-590, 608, 719, 1103, 1114, 1126, 1169, 1224, 1231, 1239, 1241, 1244, 1290,
-1291, 1298, 1566, 1579 · `rituelen` 304 · `rivier als symbool` 287 ·
-`rockefeller habits` 2072 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12,
-160, 1736 · `roken` 1638 · `rolgedrag` 1201 · `rolpatronen` 1687 · `roman` 61,
-113, 114, 115, 254, 554, 904, 915, 916, 917, 918, 919, 920, 921, 1209, 1212,
-1213, 1327, 1400, 1401, 1402, 1518, 1519, 1538, 1557, 1570, 1571, 1591, 1600,
-1618, 1700, 1771, 1772, 1779, 1823, 1827, 1836, 1837, 1887, 1888, 2001, 2047,
-2048, 2086, 2087 · `romantiek` 1849 · `Rome` 537, 1838 · `Romeinse filosofie`
-1728 · `romeinse oudheid` 232 · `Rosenberg` 1641, 1642 · `Rotterdam` 1581,
-1765 · `routines` 1688 · `rouw` 95, 467, 1512, 1514, 1533, 1535, 1573, 1583,
-1601, 1613, 1615, 1646, 1746, 1758, 1836, 1867, 1893, 1911, 2021 ·
-`rouwverwerking` 204 · `roversbende` 1597 · `Royal Jongbloed` 1811 ·
-`rozenkruisers` 631, 645 · `rugby` 2061 · `rugpijn` 1668 · `ruil` 717, 718 ·
-`ruimte en tijd` 281 · `ruimtevaart` 266, 819 · `Rumi` 1538 · `runen` 1217,
-2080 · `Rusland` 1507 · `russische literatuur` 235 · `rust` 32, 1761, 1768,
-2078, 2079 · `ruzie` 1738 · `Rwanda` 1618 · `SaaS` 434 · `Sadhguru` 1826 ·
-`sadisme` 223 · `saga` 533 · `salaris` 1721 · `Salinas` 10 · `Samarkand` 1684
-· `samengesteld gezin` 1758 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
-`samenwerking` 453, 1297, 1659, 1776, 1859 · `samoerai` 346, 462, 517, 535 ·
-`San Diego` 1558 · `sanatorium` 1571 · `sanskriet` 1876 · `Sanskriet` 520,
-1100, 1102, 1551, 1806 · `Santa Fe Institute` 347, 1279 · `Santiago` 1577 ·
-`satire` 155, 914, 915, 916, 918, 919, 920, 923, 1706 · `satori` 528, 769 ·
-`satsang` 1652 · `satyagraha` 2033 · `scaling up` 2072 · `scepsis` 63, 585,
-675, 927, 929, 1108, 1208, 1716 · `scepticisme` 1724 · `schaalgroei` 434 ·
-`schaalvergroting` 350 · `schaamte` 32, 44, 317, 470, 1309, 1613, 1615, 1645,
-1693, 1694, 1699, 1712, 1730, 1830, 2004 · `schaarste` 92, 249, 1709 ·
-`schaatsen` 1916 · `schaduw` 404 · `schaduwwerk` 1566, 1598, 1741, 1917 ·
-`schaken` 831 · `scheiding` 556, 1767 · `scheikunde` 92, 942, 1714 ·
-`schematherapie` 1873 · `schijf van vijf` 2105 · `schilderkunst` 1581 ·
-`schildklier` 1864 · `schizofrenie` 671 · `schoenen` 1855 · `school` 53, 84,
-1523, 1632 · `schoolleven` 2048 · `schrijfoefeningen` 1846 · `schrijven` 11,
-12, 14, 18, 19, 81, 436, 511, 1583, 1801 · `schrijvers` 1749 ·
-`schrijverschap` 191, 325, 934, 1204, 1210, 1557, 1570 · `schuilnaam` 1612 ·
-`schuld` 254, 2087 · `schulden` 20, 38, 121, 159, 464 · `schuldgevoel` 1584,
-1615 · `sciencefiction` 1771 · `secularisatie` 1577 · `seculier boeddhisme`
-1846 · `seizoenen` 2032 · `sekse` 1675 · `sekseverschillen` 1589 ·
+494, 497, 498, 504, 506, 810, 1285, 1288, 2126 · `risicohouding` 2125 ·
+`ritme` 1564, 2032 · `ritueel` 404, 590, 608, 719, 1103, 1114, 1126, 1169,
+1224, 1231, 1239, 1241, 1244, 1290, 1291, 1298, 1566, 1579 · `rituelen` 304 ·
+`rivier als symbool` 287 · `rockefeller habits` 2072 · `roem-en-eenzaamheid`
+178 · `roeping` 8, 9, 12, 160, 1736 · `roken` 1638 · `rolgedrag` 1201 ·
+`rolpatronen` 1687 · `roman` 61, 113, 114, 115, 254, 554, 904, 915, 916, 917,
+918, 919, 920, 921, 1209, 1212, 1213, 1327, 1400, 1401, 1402, 1518, 1519,
+1538, 1557, 1570, 1571, 1591, 1600, 1618, 1700, 1771, 1772, 1779, 1823, 1827,
+1836, 1837, 1887, 1888, 2001, 2047, 2048, 2086, 2087 · `romantiek` 1849 ·
+`Rome` 537, 1838 · `Romeinse filosofie` 1728 · `romeinse oudheid` 232 ·
+`Rosenberg` 1641, 1642 · `Rotterdam` 1581, 1765 · `routines` 1688 · `rouw` 95,
+467, 1512, 1514, 1533, 1535, 1573, 1583, 1601, 1613, 1615, 1646, 1746, 1758,
+1836, 1867, 1893, 1911, 2021 · `rouwverwerking` 204 · `roversbende` 1597 ·
+`Royal Jongbloed` 1811 · `rozenkruisers` 631, 645 · `rugby` 2061 · `rugpijn`
+1668 · `ruil` 717, 718 · `ruimte en tijd` 281 · `ruimtevaart` 266, 819 ·
+`Rumi` 1538 · `runen` 1217, 2080 · `Rusland` 1507 · `russische literatuur` 235
+· `rust` 32, 1761, 1768, 2078, 2079, 2130 · `ruzie` 1738 · `Rwanda` 1618 ·
+`SaaS` 434 · `Sadhguru` 1826 · `sadisme` 223 · `saga` 533 · `salaris` 1721 ·
+`Salinas` 10 · `Samarkand` 1684 · `samengesteld gezin` 1758 · `samenleving`
+90, 98, 319 · `samenwerken` 25 · `samenwerking` 453, 1297, 1659, 1776, 1859 ·
+`samoerai` 346, 462, 517, 535 · `San Diego` 1558 · `sanatorium` 1571 ·
+`sanskriet` 1876 · `Sanskriet` 520, 1100, 1102, 1551, 1806 · `Santa Fe
+Institute` 347, 1279 · `Santiago` 1577 · `satire` 155, 914, 915, 916, 918,
+919, 920, 923, 1706 · `satori` 528, 769 · `satsang` 1652 · `satyagraha` 2033 ·
+`scaling up` 2072 · `scepsis` 63, 585, 675, 927, 929, 1108, 1208, 1716 ·
+`scepticisme` 1724 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte`
+32, 44, 317, 470, 1309, 1613, 1615, 1645, 1693, 1694, 1699, 1712, 1730, 1830,
+2004 · `schaarste` 92, 249, 1709 · `schaatsen` 1916 · `schaduw` 404 ·
+`schaduwwerk` 1566, 1598, 1741, 1917 · `schaken` 831 · `scheiding` 556, 1767 ·
+`scheikunde` 92, 942, 1714 · `schematherapie` 1873 · `schijf van vijf` 2105 ·
+`schilderkunst` 1581 · `schildklier` 1864 · `schizofrenie` 671 · `schoenen`
+1855 · `school` 53, 84, 1523, 1632 · `schoolleven` 2048 · `schrijfoefeningen`
+1846 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511, 1583, 1801 · `schrijvers`
+1749 · `schrijverschap` 191, 325, 934, 1204, 1210, 1557, 1570 · `schuilnaam`
+1612 · `schuld` 254, 2087 · `schulden` 20, 38, 121, 159, 464 · `schuldgevoel`
+1584, 1615 · `sciencefiction` 1771 · `secularisatie` 1577 · `seculier
+boeddhisme` 1846 · `seizoenen` 2032 · `sekse` 1675 · `sekseverschillen` 1589 ·
 `seksualiteit` 100, 145, 164, 165, 316, 672, 1125, 1134, 1500, 1509, 1548,
 1590, 1712, 1741, 1773, 1774, 1819, 1830, 1831, 1874, 2006, 2087, 2093 ·
 `seksueel misbruik` 1622 · `seksuele selectie` 1676 · `seksuologie` 1548 ·
@@ -318491,102 +320491,103 @@ van Tabriz` 1538 · `Shaolin` 389 · `Silicon Valley` 306, 1740 · `simulatie`
 329, 414, 1174, 1325, 1326, 1328, 1329, 1565, 1683, 1688, 1704, 1822, 1853,
 1860, 1883, 2076, 2096 · `slaapapneu` 332 · `slaapcoaching` 2076 · `slavernij`
 68, 1875 · `smartphone` 53, 288, 1833 · `soChicken` 1653, 1654, 1761 ·
-`sociaal panorama` 1804 · `sociale besmetting` 303 · `sociale klasse` 2119 ·
-`sociale media` 53, 70, 194, 198, 204, 288, 365, 1718, 1747, 1807, 1852, 2004
-· `sociale psychologie` 215, 280, 302, 319, 1289, 1295, 1804, 1900 ·
-`sociale-vaardigheden` 398 · `socialisme` 618, 1334 · `sociobiologie` 722,
-1267 · `sociologie` 300, 622, 715, 721, 723, 805, 826, 834, 939, 1201, 1290,
-1301, 1302 · `socratisch gesprek` 1918, 1919 · `soedan` 716 · `soefisme` 524,
-526, 1108, 1538 · `software` 276, 484 · `somatic experiencing` 1656 · `Somatic
-Experiencing` 1622 · `somatologie` 1809 · `somberheid` 119 · `soorten` 1677 ·
-`spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529, 1514 ·
-`special forces` 2063, 2064 · `specialisatie` 349, 803 · `speculatie` 808,
-809, 1281, 1283, 1284, 1285 · `speedreading` 175 · `spel` 550, 1298 · `spelen`
-32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451, 452, 453, 454, 455,
-456, 656 · `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
-`spiegelwerk` 1586 · `spieropbouw` 316 · `spijt` 447, 2001 · `spionage` 1345 ·
-`spiritisme` 677, 1161, 1535, 1867 · `spiritualisme` 1537 · `spiritualiteit`
-8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310,
-358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614, 679,
-754, 1101, 1205, 1224, 1231, 1236, 1241, 1327, 1500, 1528, 1534, 1540, 1552,
-1575, 1591, 1624, 1629, 1644, 1649, 1650, 1671, 1716, 1736, 1753, 1763, 1767,
-1779, 1814, 1827, 1889, 1891, 1892, 1908, 1917, 2015, 2025, 2031, 2042, 2058,
-2065, 2100, 2101, 2103, 2115, 2116 · `spiritualiteitskritiek` 1612 ·
-`spiritueel genezen` 1896 · `spirituele fabel` 2047 · `spirituele zoektocht`
-287, 524 · `sport` 20, 349, 1812, 2068 · `sportbiografie` 1834 ·
-`sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253 ·
-`spreken in het openbaar` 1682 · `spreker` 117, 134 · `spreuken` 1643 ·
-`sprookje` 1687, 1911 · `sprookjes` 1660, 1845 · `staartrisico` 494, 496, 811
-· `staat` 612 · `staatsgezag` 616 · `staatsgreep` 220 · `staatskritiek` 621,
-622, 623 · `staatskunst` 2114 · `staatsmacht` 1335, 1338 · `staatsvorming` 622
-· `stalking` 214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups`
-306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479,
-483, 484, 485, 497, 500, 502, 503, 507, 715, 804, 805, 811, 909, 946, 951,
-1283, 1287 · `statistiek van uitzonderingen` 274 · `status` 39, 66, 463 ·
-`steentijd` 1625 · `stem` 1699 · `stembevrijding` 1699 · `steppe` 1886 ·
-`stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295, 416, 516, 2000, 2118 ·
-`sterrenkunde` 99, 1139 · `sterven` 49, 95, 275, 447, 1506, 1524, 1601, 1691 ·
-`stervensbegeleiding` 1754, 1911 · `stijl` 18, 436 · `stilte` 1205, 1207,
-2015, 2078 · `Stoa` 1728 · `stoicijns` 75, 140, 142 · `stoïcijnse filosofie`
-153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
-`stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247, 248, 292, 516, 586,
-1710, 1838, 1916 · `stommiteit` 155 · `stoplichtmodel` 1803 · `stoppen met
-roken` 1638, 1733 · `storytelling` 253, 279, 1682 · `strategie` 212, 217, 218,
-219, 249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443, 450, 451,
-456, 694, 831, 901, 902, 907, 908, 2112 · `streken` 112 · `stress` 80, 87,
-106, 118, 187, 387, 458, 1503, 1599, 1628, 1647, 1672, 1683, 1696, 1722, 1731,
-1732, 1768, 1803, 1816, 1833, 1863, 1866, 1913, 2042, 2088, 2094, 2109, 2111 ·
-`stressfysiologie` 2062 · `stressmanagement` 153, 2063 · `stressregulatie` 372
-· `stressvermindering` 2053 · `strip` 452 · `structuur` 82, 511 ·
-`studiebijbel` 1811 · `studieboek` 421, 437, 497, 498, 507, 831, 2120 ·
-`studietechniek` 420 · `subcultuur` 834 · `subpersoonlijkheden` 1693 ·
-`succes` 75, 76, 274, 1766, 2103 · `suggestie` 1513 · `superkrachten` 203 ·
-`supplementen` 171, 316, 1865, 1866, 1894, 1895 · `Suriname` 1509 ·
-`surveillance` 393, 1757, 2023 · `syllogismen` 437 · `symbiose` 1862 ·
-`symboliek` 357, 360, 522, 605, 608, 610, 633, 635, 636, 829, 835, 1118, 1219,
-1225, 1234, 1624, 1689 · `symbolische macht` 723 · `symbooltheorie` 756 ·
-`symmetrie` 659 · `synchroniciteit` 362, 1591, 1779 · `synchronisatie` 303 ·
-`synesthesie` 1311 · `systeem` 22, 142 · `systeemdenken` 1861 ·
-`systeemtheorie` 165 · `systematisch handelen` 482, 502 · `systemen` 1877 ·
-`systemisch werk` 1510, 1602, 1636, 1637, 1844, 1914, 2034, 2044 ·
-`systemische therapie` 2043 · `taal` 26, 27, 436, 594, 664, 824, 829, 930,
-1113, 1213, 1265, 1277, 1312, 1553, 1593, 1716, 1757, 1887 · `taal en macht`
-344 · `taalfilosofie` 756 · `taaloorsprong` 762 · `taalspel` 1626 · `taboe`
-719 · `tactische empathie` 271 · `takenlijsten` 2029 · `talent` 23, 29, 274 ·
-`tandheelkunde` 1854, 1869 · `tantra` 1103, 1717, 1741, 1773, 1775, 1876 ·
-`Tao` 1840 · `Tao Te Ching` 1671, 2084 · `taoisme` 2084 · `taoïsme` 341, 394,
-1104, 1105, 1671, 1831, 1840, 2006, 2032, 2044, 2093 · `tapping` 2111 ·
-`Tarahumara` 1858 · `tarieven` 121 · `tarot` 644, 1234, 1690 · `teamcultuur`
-2061 · `teams` 42, 273, 364, 468, 1740 · `teamvorming` 260 · `teamwork` 156,
-256 · `techniek` 1, 6, 43, 61, 92, 1247, 1270, 1278, 1301, 1603 ·
-`techniekgeschiedenis` 666, 820, 1152 · `technische analyse` 483, 500, 1284,
-1285 · `technologie` 160, 288, 294, 306, 393, 499, 907, 1257, 1264, 1270,
-1718, 2035 · `technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267,
-1142 · `technologiekritiek` 297, 539, 674, 826, 1264 · `tegen-productiviteit`
-71 · `tegencultuur` 750, 1162, 1214, 1504, 1763 · `tegenslag` 30, 111, 174,
-570, 1168, 1582 · `tekenen` 15, 2041 · `tekstkritiek` 1568 · `tekstkwaliteit`
-124 · `televisie` 54, 674, 820 · `temperament` 33, 1523 · `tempo` 552 ·
-`termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5,
-385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644, 1239 ·
-`theologie` 578, 587, 830, 1236, 1577, 1580 · `theosofie` 605, 606, 645, 836,
-1221, 1806 · `therapeuten` 1623 · `therapie` 51, 107, 118, 119, 120, 121, 122,
-145, 466, 1606, 1655, 1844, 1914 · `thermodynamica` 1274 · `Thermopylae` 529 ·
-`Thoth` 1821 · `thriller` 101, 202 · `thuiskomst` 531 · `thuiswerken` 1913 ·
-`thuiszorg` 225 · `thule` 1695 · `Tibet` 1556, 1559, 1685, 1754, 1775, 1847 ·
-`Tibetaans boeddhisme` 1662 · `tien weken` 1912 · `tieners` 193 · `tijd` 71,
-232, 262, 292, 334, 442, 655, 1261, 1274, 1324, 1571, 1728, 1762, 1771, 1825,
-2042, 2045 · `tijdmanagement` 434 · `tijdsbeleving` 326 · `Tilopa` 1717 ·
-`timemanagement` 311, 448, 2029, 2030, 2053 · `tips` 1648 · `tirannie` 617 ·
-`Tiresias` 2119 · `TMS` 1668 · `toekomst` 236, 2035 · `toekomstroman` 1695 ·
-`toeval` 21, 64, 93, 137, 274, 362, 483, 1779 · `tolerantie` 2083 · `Tolkien`
-1567 · `Tolteeks` 27 · `tolteken` 1716 · `tonaliteit` 824 · `tonglen` 1560,
-1662 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport`
-422, 460, 545, 1834, 1916 · `totalitarisme` 384, 935, 1757 · `tourette` 1313 ·
-`trading` 492, 493, 495 · `traditionalisme` 1218 · `training` 376, 1682, 1860,
-2062 · `trance` 1546, 1661 · `Trans-Siberische spoorweg` 2089 ·
-`transactionele analyse` 1511 · `transcendentie` 1577 · `transformatie` 2116 ·
-`transgenerationeel` 1750 · `transpersoonlijke psychologie` 583, 1158, 1723 ·
-`trauma` 104, 119, 195, 229, 317, 386, 1293, 1303, 1520, 1539, 1617, 1622,
+`sociaal panorama` 1804 · `sociale angst` 2131 · `sociale besmetting` 303 ·
+`sociale klasse` 2119 · `sociale media` 53, 70, 194, 198, 204, 288, 365, 1718,
+1747, 1807, 1852, 2004 · `sociale psychologie` 215, 280, 302, 319, 1289, 1295,
+1804, 1900 · `sociale-vaardigheden` 398 · `socialisme` 618, 1334 ·
+`sociobiologie` 722, 1267 · `sociologie` 300, 622, 715, 721, 723, 805, 826,
+834, 939, 1201, 1290, 1301, 1302 · `socratisch gesprek` 1918, 1919 · `soedan`
+716 · `soefisme` 524, 526, 1108, 1538 · `software` 276, 484 · `somatic
+experiencing` 1656 · `Somatic Experiencing` 1622 · `somatologie` 1809 ·
+`somberheid` 119 · `soorten` 1677 · `spanning` 101 · `sparen` 21, 38, 159,
+233, 464 · `Sparta` 529, 1514 · `special forces` 2063, 2064 · `specialisatie`
+349, 803 · `speculatie` 808, 809, 1281, 1283, 1284, 1285 · `speedreading` 175
+· `spel` 550, 1298 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221,
+450, 451, 452, 453, 454, 455, 456, 656 · `spiegelneuronen` 303 ·
+`spiegeloefening` 380 · `spiegelogie` 108 · `spiegelwerk` 1586 · `spieropbouw`
+316 · `spijt` 447, 2001 · `spionage` 1345 · `spiritisme` 677, 1161, 1535, 1867
+· `spiritualisme` 1537 · `spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160,
+169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435, 449, 519, 526,
+556, 583, 590, 596, 603, 604, 614, 679, 754, 1101, 1205, 1224, 1231, 1236,
+1241, 1327, 1500, 1528, 1534, 1540, 1552, 1575, 1591, 1624, 1629, 1644, 1649,
+1650, 1671, 1716, 1736, 1753, 1763, 1767, 1779, 1814, 1827, 1889, 1891, 1892,
+1908, 1917, 2015, 2025, 2031, 2042, 2058, 2065, 2100, 2101, 2103, 2115, 2116 ·
+`spiritualiteitskritiek` 1612 · `spiritueel genezen` 1896 · `spirituele fabel`
+2047 · `spirituele zoektocht` 287, 524 · `sport` 20, 349, 1812, 2068 ·
+`sportbiografie` 1834 · `sportpsychologie` 372, 374, 441 · `sportwetenschap`
+461 · `spreekangst` 253 · `spreken in het openbaar` 1682 · `spreker` 117, 134
+· `spreuken` 1643 · `sprookje` 1687, 1911 · `sprookjes` 1660, 1845 ·
+`staartrisico` 494, 496, 811 · `staat` 612 · `staatsgezag` 616 · `staatsgreep`
+220 · `staatskritiek` 621, 622, 623 · `staatskunst` 2114 · `staatsmacht` 1335,
+1338 · `staatsvorming` 622 · `stalking` 214 · `standaarden` 396 · `Stanford`
+150, 388, 458 · `start-ups` 306 · `startups` 265 · `statistiek` 55, 65, 69,
+234, 268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507, 715,
+804, 805, 811, 909, 946, 951, 1283, 1287 · `statistiek van uitzonderingen` 274
+· `status` 39, 66, 463 · `steentijd` 1625 · `stem` 1699 · `stembevrijding`
+1699 · `steppe` 1886 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295,
+416, 516, 2000, 2118 · `sterrenkunde` 99, 1139 · `sterven` 49, 95, 275, 447,
+1506, 1524, 1601, 1691 · `stervensbegeleiding` 1754, 1911 · `stijl` 18, 436 ·
+`stilte` 1205, 1207, 2015, 2078 · `Stoa` 1728 · `stoicijns` 75, 140, 142 ·
+`stoïcijnse filosofie` 153, 228, 232, 286, 423, 459 · `stoïcijnse
+levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247,
+248, 292, 516, 586, 1710, 1838, 1916 · `stommiteit` 155 · `stoplichtmodel`
+1803 · `stoppen met roken` 1638, 1733 · `storytelling` 253, 279, 1682 ·
+`strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
+426, 440, 443, 450, 451, 456, 694, 831, 901, 902, 907, 908, 2112 · `streken`
+112 · `stress` 80, 87, 106, 118, 187, 387, 458, 1503, 1599, 1628, 1647, 1672,
+1683, 1696, 1722, 1731, 1732, 1768, 1803, 1816, 1833, 1863, 1866, 1913, 2042,
+2088, 2094, 2109, 2111 · `stressfysiologie` 2062 · `stressmanagement` 153,
+2063 · `stressregulatie` 372 · `stressvermindering` 2053 · `strip` 452 ·
+`structuur` 82, 511 · `studiebijbel` 1811 · `studieboek` 421, 437, 497, 498,
+507, 831, 2120, 2132, 2133, 2134 · `studietechniek` 420 · `subcultuur` 834 ·
+`subpersoonlijkheden` 1693 · `succes` 75, 76, 274, 1766, 2103 · `suggestie`
+1513 · `superkrachten` 203 · `supplementen` 171, 316, 1865, 1866, 1894, 1895 ·
+`Suriname` 1509 · `surveillance` 393, 1757, 2023 · `syllogismen` 437 ·
+`symbiose` 1862 · `symboliek` 357, 360, 522, 605, 608, 610, 633, 635, 636,
+829, 835, 1118, 1219, 1225, 1234, 1624, 1689 · `symbolische macht` 723 ·
+`symbooltheorie` 756 · `symmetrie` 659 · `synchroniciteit` 362, 1591, 1779 ·
+`synchronisatie` 303 · `synesthesie` 1311 · `systeem` 22, 142 ·
+`systeemdenken` 1861, 2121 · `systeemtheorie` 165 · `systematisch handelen`
+482, 502 · `systemen` 1877 · `systemisch werk` 1510, 1602, 1636, 1637, 1844,
+1914, 2034, 2044 · `systemische therapie` 2043 · `taal` 26, 27, 436, 594, 664,
+824, 829, 930, 1113, 1213, 1265, 1277, 1312, 1553, 1593, 1716, 1757, 1887 ·
+`taal en macht` 344 · `taalfilosofie` 756 · `taalmodellen` 2132, 2133, 2134 ·
+`taaloorsprong` 762 · `taalspel` 1626 · `taboe` 719 · `tactische empathie` 271
+· `takenlijsten` 2029 · `talent` 23, 29, 274 · `tandheelkunde` 1854, 1869 ·
+`tantra` 1103, 1717, 1741, 1773, 1775, 1876 · `Tao` 1840 · `Tao Te Ching`
+1671, 2084 · `taoisme` 2084 · `taoïsme` 341, 394, 1104, 1105, 1671, 1831,
+1840, 2006, 2032, 2044, 2093 · `tapping` 2111 · `Tarahumara` 1858 · `tarieven`
+121 · `tarot` 644, 1234, 1690 · `teamcultuur` 2061 · `teams` 42, 273, 364,
+468, 1740 · `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61,
+92, 1247, 1270, 1278, 1301, 1603 · `techniekgeschiedenis` 666, 820, 1152 ·
+`technische analyse` 483, 500, 1284, 1285 · `technologie` 160, 288, 294, 306,
+393, 499, 907, 1257, 1264, 1270, 1718, 2035, 2122 · `technologiebedrijven` 293
+· `technologiegeschiedenis` 231, 267, 1142 · `technologiekritiek` 297, 539,
+674, 826, 1264 · `tegen-productiviteit` 71 · `tegencultuur` 750, 1162, 1214,
+1504, 1763 · `tegenslag` 30, 111, 174, 570, 1168, 1582 · `tekenen` 15, 2041 ·
+`tekstkritiek` 1568 · `tekstkwaliteit` 124 · `televisie` 54, 674, 820 ·
+`temperament` 33, 1523 · `tempo` 552 · `termijnmarkten` 480, 482 · `testament`
+462 · `tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie`
+379 · `thelema` 644, 1239 · `theologie` 578, 587, 830, 1236, 1577, 1580 ·
+`theosofie` 605, 606, 645, 836, 1221, 1806 · `therapeuten` 1623 · `therapie`
+51, 107, 118, 119, 120, 121, 122, 145, 466, 1606, 1655, 1844, 1914 ·
+`thermodynamica` 1274 · `Thermopylae` 529 · `Thoth` 1821 · `thriller` 101, 202
+· `thuiskomst` 531 · `thuiswerken` 1913 · `thuiszorg` 225 · `thule` 1695 ·
+`Tibet` 1556, 1559, 1685, 1754, 1775, 1847 · `Tibetaans boeddhisme` 1662 ·
+`tien weken` 1912 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655,
+1261, 1274, 1324, 1571, 1728, 1762, 1771, 1825, 2042, 2045 · `tijdmanagement`
+434 · `tijdsbeleving` 326 · `Tilopa` 1717 · `timemanagement` 311, 448, 2029,
+2030, 2053 · `tips` 1648 · `tirannie` 617 · `Tiresias` 2119 · `TMS` 1668 ·
+`toekomst` 236, 2035 · `toekomstroman` 1695 · `toeval` 21, 64, 93, 137, 274,
+362, 483, 1779 · `tolerantie` 2083 · `Tolkien` 1567 · `Tolteeks` 27 ·
+`tolteken` 1716 · `tonaliteit` 824 · `tonglen` 1560, 1662 · `toon` 72, 118,
+119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460, 545, 1834, 1916
+· `totalitarisme` 384, 935, 1757 · `tourette` 1313 · `trading` 492, 493, 495 ·
+`traditionalisme` 1218 · `training` 376, 1682, 1860, 2062 · `trance` 1546,
+1661 · `Trans-Siberische spoorweg` 2089 · `transactionele analyse` 1511 ·
+`transcendentie` 1577 · `transformatie` 2116 · `transformer-architectuur` 2134
+· `transgenerationeel` 1750 · `transpersoonlijke psychologie` 583, 1158, 1723
+· `trauma` 104, 119, 195, 229, 317, 386, 1293, 1303, 1520, 1539, 1617, 1622,
 1628, 1655, 1656, 1684, 1696, 1719, 1720, 1731, 1741, 1751, 1771, 1862, 1912,
 2008, 2026, 2036, 2075 · `traumatherapie` 1665 · `TRE` 1628 · `treinreis` 2089
 · `trendvolgen` 480, 501, 1285 · `triggers` 1751 · `trilling` 127 ·
@@ -318595,15 +320596,16 @@ roken` 1638, 1733 · `storytelling` 253, 279, 1682 · `strategie` 212, 217, 218,
 `tumoronderdrukker` 419 · `Turkije` 1538 · `twaalf stappen` 2003 · `twaalf
 weken` 1871 · `twaalf-weken` 14 · `twaalfde eeuw` 525 ·
 `twaalfstappenstrategie` 2019 · `tweede levenshelft` 1566 · `tweede
-wereldoorlog` 2075 · `tweede-wereldoorlog` 115, 819, 1140 · `tweelingen` 1400
-· `tweelingonderzoek` 417 · `twijfel` 1724 · `twintigers` 51 · `twintigste
-eeuw` 682, 769 · `typologie` 361, 1809 · `ufo` 669, 678, 1150, 1157, 2020 ·
-`ufo's` 615, 675, 676, 1141, 1142, 1143, 1144 · `uitdaging-vaardigheid` 200 ·
-`uitgeven` 463 · `uithoudingsvermogen` 1514, 2066 · `uitleg` 99, 102 ·
-`uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513, 1584 ·
-`uitstellen` 16 · `uitvinding` 267, 1152 · `ultra-triatlon` 324 · `ultraloop`
-1858 · `ultralopen` 229 · `ultramarathon` 2040 · `umwelt` 322 · `Upanishaden`
-169 · `usp` 696 · `utopie` 681, 919 · `vaardigheden` 40, 50, 349, 397, 1738 ·
+wereldoorlog` 2075, 2122 · `tweede-wereldoorlog` 115, 819, 1140 · `tweelingen`
+1400 · `tweelingonderzoek` 417 · `twijfel` 1724 · `twintigers` 51 ·
+`twintigste eeuw` 682, 769 · `typologie` 361, 1809 · `ufo` 669, 678, 1150,
+1157, 2020 · `ufo's` 615, 675, 676, 1141, 1142, 1143, 1144 ·
+`uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uithoudingsvermogen` 1514,
+2066 · `uitleg` 99, 102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag`
+12, 311, 513, 1584 · `uitstellen` 16 · `uitvinding` 267, 1152 ·
+`ultra-triatlon` 324 · `ultraloop` 1858 · `ultralopen` 229 · `ultramarathon`
+2040 · `umwelt` 322 · `Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 ·
+`vaardigheden` 40, 50, 349, 397, 1738 · `vaardigheden leren` 2128 ·
 `vaardigheid` 64, 296 · `vader en zoon` 1573 · `vader-en-dochter` 178, 226 ·
 `vader-en-zoon` 1, 173, 287 · `vaders` 1598 · `vaderschap` 49, 226, 324, 385,
 1691, 1765, 1874, 2040, 2074 · `vaderverlies` 1512 · `Vadim Zeland` 1507 ·
@@ -318643,141 +320645,154 @@ harnish` 2072 · `vernistheorie` 1859 · `veroudering` 171, 387, 415, 1865, 2040
 314, 324, 325, 418, 554, 568, 583, 1162, 1620, 1638, 1709, 1719, 1730, 1731,
 1733, 1747, 1777, 1878, 1906, 2003, 2021, 2098 · `verstrikking` 2043 ·
 `vertaling` 1551, 1568, 1728, 2000 · `vertellen` 1851 · `Vertellis` 1673 ·
-`vertrouwen` 42, 273, 279, 319, 1509, 1859, 2070 · `vervloekt goud` 533 ·
-`vervolg` 74, 131 · `vervolgverhaal` 1557 · `vervreemding` 173 · `verwachting`
-387 · `verwachtingen` 425, 1893 · `verwachtingswaarde` 492 · `verwantschap`
-722 · `verwondering` 227, 1919 · `verzekeren` 496 · `verzet` 523, 2071 ·
-`verzorgingsproducten` 1853 · `veteranen` 1293, 2063, 2076 · `Victoriaans`
-1626 · `Victoriaans Engeland` 1557 · `vier deugden` 194 · `vijf fasen` 1601 ·
-`Viktor Frankl` 1539 · `vipassana` 1606 · `visioenen` 359, 758 ·
-`visualisatie` 259, 411, 540, 1818, 2013, 2014 · `visualiseren` 116 · `visueel
-denken` 2112 · `vitaliteit` 1669, 1913, 1915 · `vitamines` 1854 · `vlaams` 89,
-91, 98, 109 · `Vlaanderen` 1590, 1887 · `vlees` 1651 · `vluchtelingen` 1580,
-1618 · `voeding` 86, 88, 171, 313, 316, 329, 332, 417, 1129, 1134, 1135, 1136,
-1137, 1138, 1565, 1592, 1604, 1683, 1688, 1689, 1759, 1807, 1848, 1853, 1854,
-1860, 1864, 1865, 1866, 1881, 1883, 1894, 1895, 1899, 1915, 2016, 2052, 2068,
-2069, 2105, 2107, 2117 · `voedingswetenschap` 417 · `voedsel` 1592 ·
-`voetafdruk` 1651 · `vogeltrek` 2051 · `voice dialogue` 1693, 1803 · `Voice
-Dialogue` 1541, 1778 · `volatiliteit` 494, 495, 506 · `Volendam` 1512 ·
-`volharding` 29, 1501 · `volhouden` 1860 · `volksgezondheid` 1708 ·
-`volledigheid` 167 · `volwassen worden` 1597 · `Voor Positiviteit` 1643 ·
-`voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 · `voordrachten` 519 ·
-`voorgeboortelijk bestaan` 2025 · `voorkeuren` 89 · `voorlezen` 1681, 1686,
-1687 · `vooroordelen` 55, 283, 1765 · `voorouders` 2075 · `voorspellen` 455 ·
-`voorspellend brein` 1902 · `voorspellingen` 268 · `vooruitgang` 251 ·
-`vooruitgangsdenken` 298 · `voorzichtigheid` 216 · `vorming` 224 ·
-`vorstenspiegel` 536 · `vraag en antwoord` 1840 · `vragen` 1673 · `vragen
-stellen` 509, 1918, 1919, 2034 · `vragen-stellen` 475 · `vrede` 1644, 1891 ·
-`vreemden` 302 · `vreugde` 549, 1699, 1829 · `vriendelijkheid` 551 ·
-`vriendschap` 5, 7, 114, 292, 295, 319, 514, 1562, 1567, 1597, 1625, 1632,
-1633, 1634, 1666, 1746, 1837, 1870, 1874 · `vriendschap tussen vrouwen` 1758 ·
-`vrije markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339, 761,
-1316, 1629, 1679, 1680, 1856, 2090 · `vrije-markt` 1340 · `vrijhandel` 1335 ·
-`vrijheid` 61, 546, 620, 621, 626, 826, 1900 · `vrijmetselarij` 605, 635, 636,
-922, 923, 924, 1150 · `vroedvrouw` 1542 · `vroeg christendom` 614, 1151, 1223
-· `vroeg pensioen` 264 · `vroege kerk` 1611 · `vrouwelijke energie` 1819 ·
-`vrouwelijkheid` 1908 · `vrouwen` 1542, 1712, 1845, 1888, 1906 ·
-`vrouwengezondheid` 1881 · `vrouwenhaat` 110, 1226 · `vuistregels` 1870 ·
-`waardebeleggen` 144, 351, 817 · `waardecreatie` 246, 508 · `waarden` 72, 142,
-392, 457, 461, 553, 1526, 1527, 1842 · `waardering` 24, 34, 814, 815, 1802 ·
-`waardigheid` 2079 · `waarheid` 263, 2003 · `waarneming` 154, 283, 322, 541,
-582, 757, 767, 825, 828, 830, 930, 1171, 1268, 1303, 1307, 1311, 1317, 1320,
-1569, 1576 · `wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499, 1286
-· `Walter Russell` 1607 · `wanderers` 2020 · `water` 2050 · `Watermantijdperk`
-1537 · `wederkerigheid` 718, 1578 · `weer` 1839 · `weerbaarheid` 194, 2064 ·
-`weerstand` 12, 538 · `weesmeisje` 1686 · `WEIRD` 1553 · `welbevinden` 1743 ·
-`welvaart` 251, 334 · `welvaartsbewustzijn` 433 · `wensen` 1501, 1884 ·
-`wereldbeeld` 234, 932 · `wereldbouw` 192 · `wereldorde` 681 · `werk` 70, 78,
-151, 252, 466, 1670, 1874, 1882, 1890, 1901, 2029, 2032, 2053, 2079, 2094 ·
-`werk en privé` 1766 · `werk en rust` 512 · `werkbladen` 1655 · `werkboek` 14,
-122, 150, 1526, 1665, 1737, 1912, 2073, 2099 · `werkcultuur` 551 · `werkdruk`
-400, 1833, 2094 · `werkgewoonten` 1749 · `werkplek` 33, 43 · `werktempo` 400 ·
-`werkwijze` 16, 702 · `West-Afrika` 522, 1114 · `West-Papoea` 1593 ·
-`West-Point` 29 · `westen` 67 · `Westerbork` 2091 · `western` 5 · `Western
-States` 2040 · `westerse filosofie` 269, 341 · `westerse psychologie` 769 ·
-`wet van aanname` 1703 · `wet van aantrekking` 127, 190, 433, 543, 1748, 1818,
-1890, 1909, 1910 · `wetenschap` 63, 66, 93, 94, 328, 485, 1286, 1657, 2016,
-2067 · `wetenschap en religie` 609 · `wetenschappers` 239 ·
-`wetenschapsfilosofie` 483, 650, 653, 654, 664, 761, 767, 805, 929, 938, 1165,
-1167, 1173, 1247, 1260, 1261, 1266, 1267, 1271, 1274, 1275, 1281, 1318, 1320,
-1337, 1343 · `wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642,
-647, 649, 651, 654, 657, 658, 659, 660, 661, 662, 663, 805, 818, 819, 820,
-823, 932, 937, 938, 941, 944, 945, 946, 947, 948, 949, 951, 1149, 1153, 1163,
-1164, 1246, 1247, 1248, 1249, 1251, 1252, 1254, 1260, 1263, 1265, 1268, 1270,
-1272, 1277, 1282, 1310, 1322, 1658, 1677 · `wetenschapsjournalistiek` 387, 412
-· `wetenschapskritiek` 2050 · `White Eagle Lodge` 1537 · `wicca` 1228, 1230,
+`vertrouwen` 42, 273, 279, 319, 1509, 1859, 2070 · `verveling` 2130 ·
+`vervloekt goud` 533 · `vervolg` 74, 131 · `vervolgverhaal` 1557 ·
+`vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425, 1893 ·
+`verwachtingswaarde` 492 · `verwantschap` 722 · `verwondering` 227, 1919 ·
+`verzekeren` 496 · `verzet` 523, 2071 · `verzorgingsproducten` 1853 ·
+`veteranen` 1293, 2063, 2076 · `Victoriaans` 1626 · `Victoriaans Engeland`
+1557 · `vier deugden` 194 · `vijf fasen` 1601 · `Viktor Frankl` 1539 ·
+`vipassana` 1606 · `visioenen` 359, 758 · `visualisatie` 259, 411, 540, 1818,
+2013, 2014 · `visualiseren` 116 · `visueel denken` 2112 · `vitaliteit` 1669,
+1913, 1915 · `vitamines` 1854 · `vlaams` 89, 91, 98, 109 · `Vlaanderen` 1590,
+1887 · `vlees` 1651 · `vluchtelingen` 1580, 1618 · `voeding` 86, 88, 171, 313,
+316, 329, 332, 417, 1129, 1134, 1135, 1136, 1137, 1138, 1565, 1592, 1604,
+1683, 1688, 1689, 1759, 1807, 1848, 1853, 1854, 1860, 1864, 1865, 1866, 1881,
+1883, 1894, 1895, 1899, 1915, 2016, 2052, 2068, 2069, 2105, 2107, 2117 ·
+`voedingswetenschap` 417 · `voedsel` 1592 · `voetafdruk` 1651 · `vogeltrek`
+2051 · `voice dialogue` 1693, 1803 · `Voice Dialogue` 1541, 1778 ·
+`volatiliteit` 494, 495, 506 · `Volendam` 1512 · `volharding` 29, 1501 ·
+`volhouden` 1860 · `volksgezondheid` 1708 · `volledigheid` 167 · `volwassen
+worden` 1597 · `Voor Positiviteit` 1643 · `voorbede` 558 · `voorbeelden` 128 ·
+`voorbereiding` 82 · `voordrachten` 519 · `voorgeboortelijk bestaan` 2025 ·
+`voorkeuren` 89 · `voorlezen` 1681, 1686, 1687 · `vooroordelen` 55, 283, 1765
+· `voorouders` 2075 · `voorspellen` 455 · `voorspellend brein` 1902 ·
+`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
+`voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vraag en
+antwoord` 1840 · `vragen` 1673 · `vragen stellen` 509, 1918, 1919, 2034 ·
+`vragen-stellen` 475 · `vrede` 1644, 1891 · `vreemden` 302 · `vreugde` 549,
+1699, 1829 · `vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319,
+514, 1562, 1567, 1597, 1625, 1632, 1633, 1634, 1666, 1746, 1837, 1870, 1874 ·
+`vriendschap tussen vrouwen` 1758 · `vrije markt` 627 · `vrije tijd` 78, 288 ·
+`vrije wil` 10, 236, 339, 761, 1316, 1629, 1679, 1680, 1856, 2090 ·
+`vrije-markt` 1340 · `vrijhandel` 1335 · `vrijheid` 61, 546, 620, 621, 626,
+826, 1900 · `vrijmetselarij` 605, 635, 636, 922, 923, 924, 1150 · `vroedvrouw`
+1542 · `vroeg christendom` 614, 1151, 1223 · `vroeg pensioen` 264 · `vroege
+kerk` 1611 · `vrouwelijke energie` 1819 · `vrouwelijkheid` 1908 · `vrouwen`
+1542, 1712, 1845, 1888, 1906 · `vrouwengezondheid` 1881 · `vrouwenhaat` 110,
+1226 · `vuistregels` 1870 · `waardebeleggen` 144, 351, 817 · `waardecreatie`
+246, 508 · `waarden` 72, 142, 392, 457, 461, 553, 1526, 1527, 1842 ·
+`waardering` 24, 34, 814, 815, 1802 · `waardigheid` 2079 · `waarheid` 263,
+2003 · `waarneming` 154, 283, 322, 541, 582, 757, 767, 825, 828, 830, 930,
+1171, 1268, 1303, 1307, 1311, 1317, 1320, 1569, 1576 · `wabi-sabi` 379 ·
+`wales` 558 · `Wall Street` 144, 351, 499, 1286 · `Walter Russell` 1607 ·
+`wanderers` 2020 · `water` 2050 · `Watermantijdperk` 1537 · `wederkerigheid`
+718, 1578 · `weer` 1839 · `weerbaarheid` 194, 2064 · `weerstand` 12, 538 ·
+`weesmeisje` 1686 · `WEIRD` 1553 · `welbevinden` 1743 · `welvaart` 251, 334 ·
+`welvaartsbewustzijn` 433 · `wensen` 1501, 1884 · `wereldbeeld` 234, 932 ·
+`wereldbouw` 192 · `wereldorde` 681 · `werk` 70, 78, 151, 252, 466, 1670,
+1874, 1882, 1890, 1901, 2029, 2032, 2053, 2079, 2094 · `werk en privé` 1766 ·
+`werk en rust` 512 · `werkbladen` 1655 · `werkboek` 14, 122, 150, 1526, 1665,
+1737, 1912, 2073, 2099 · `werkcultuur` 551 · `werkdruk` 400, 1833, 2094 ·
+`werkgewoonten` 1749 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16,
+702 · `West-Afrika` 522, 1114 · `West-Papoea` 1593 · `West-Point` 29 ·
+`westen` 67 · `Westerbork` 2091 · `western` 5 · `Western States` 2040 ·
+`westerse filosofie` 269, 341 · `westerse psychologie` 769 · `wet van aanname`
+1703 · `wet van aantrekking` 127, 190, 433, 543, 1748, 1818, 1890, 1909, 1910
+· `wetenschap` 63, 66, 93, 94, 328, 485, 1286, 1657, 2016, 2067 · `wetenschap
+en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653,
+654, 664, 761, 767, 805, 929, 938, 1165, 1167, 1173, 1247, 1260, 1261, 1266,
+1267, 1271, 1274, 1275, 1281, 1318, 1320, 1337, 1343 ·
+`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642, 647, 649,
+651, 654, 657, 658, 659, 660, 661, 662, 663, 805, 818, 819, 820, 823, 932,
+937, 938, 941, 944, 945, 946, 947, 948, 949, 951, 1149, 1153, 1163, 1164,
+1246, 1247, 1248, 1249, 1251, 1252, 1254, 1260, 1263, 1265, 1268, 1270, 1272,
+1277, 1282, 1310, 1322, 1658, 1677 · `wetenschapsjournalistiek` 387, 412 ·
+`wetenschapskritiek` 2050 · `White Eagle Lodge` 1537 · `wicca` 1228, 1230,
 1244 · `wijn` 112 · `wijsheid` 596, 1566 · `wildernis` 1593 · `Wilhelm Reich`
 2049 · `Willem de Kooning` 1581 · `wilskracht` 238, 1733 · `Wim Hof` 1813 ·
 `wim hof methode` 2066 · `Windbridge` 1867 · `Wired` 473 · `wiskunde` 116,
 454, 456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661, 662, 812, 1256,
-1271, 1272, 1278, 1282, 1312, 1318 · `wisselstroom` 267 · `wit privilege` 1619
-· `woede` 119, 120, 1204, 1580, 1598 · `woestijn` 8, 1205 · `Wolfgang Pauli`
-362 · `wolken` 1839 · `wolven` 1625 · `woordenschat` 2002 · `workflow` 2030 ·
-`wortels` 1636 · `Wounded Knee` 2024 · `Wouter de Jong` 1872 · `wraak` 101,
-533, 1802 · `WRAP` 510 · `wrok` 530 · `wu wei` 394, 1105, 1671, 1840, 2044,
-2084 · `Yale` 215 · `Yaqui` 1608 · `yin-yang` 394 · `yoga` 195, 242, 518,
-1520, 1551, 1599, 1605, 1698, 1763, 1806, 1826, 2017, 2060, 2067 · `yoga
-nidra` 1732 · `young adult` 192 · `youtube` 245 · `Zaire` 1835 · `zakelijk`
-307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508 ·
-`zeepbellen` 808 · `zeereis` 36 · `zeevaart` 321 · `zeilen` 2097 · `zeldzaam`
-144 · `zelfaanvaarding` 1596 · `zelfacceptatie` 176, 335, 561, 1595, 1878 ·
-`zelfbedrog` 66, 1559, 1627 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138,
-197, 367, 372, 411, 439, 538, 540, 559, 575, 1308, 1309, 1543, 1639, 1716,
-1733, 1735, 1804, 1809, 2098 · `zelfbeheersing` 75, 148, 212, 248, 286, 314,
-382, 389, 396, 1627, 1916 · `zelfbescherming` 214 · `zelfbeschikking` 1333 ·
-`zelfcompassie` 32, 551, 1525, 1582, 1594, 1615, 1645, 1713, 1739, 1766, 1817,
-1871, 2036 · `zelfdiscipline` 2, 158, 229, 244, 311, 544, 2095 · `zelfdoding`
-715 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417, 1324, 1325, 1326,
-1714 · `zelfhaat` 575 · `zelfheling` 2009, 2026 · `zelfhulp` 15, 22, 25, 34,
-58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152,
-153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179, 181, 184,
-187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210, 211, 213,
-222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380, 389, 395, 398,
-401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465, 513, 540, 543,
-546, 548, 556, 557, 561, 569, 570, 768, 800, 802, 1242, 1297, 1329, 1500,
-1501, 1503, 1505, 1507, 1509, 1513, 1515, 1527, 1545, 1549, 1550, 1565, 1582,
-1584, 1586, 1589, 1604, 1613, 1616, 1638, 1646, 1648, 1653, 1654, 1663, 1671,
-1672, 1685, 1688, 1689, 1704, 1705, 1712, 1716, 1721, 1723, 1733, 1736, 1737,
-1739, 1743, 1745, 1748, 1751, 1752, 1753, 1756, 1759, 1760, 1761, 1762, 1764,
-1768, 1801, 1803, 1818, 1820, 1822, 1825, 1826, 1828, 1831, 1832, 1842, 1843,
-1852, 1860, 1866, 1868, 1870, 1873, 1882, 1889, 1893, 1896, 1909, 1910, 1912,
-2005, 2006, 2007, 2008, 2009, 2013, 2018, 2028, 2036, 2037, 2042, 2052, 2056,
-2059, 2064, 2073, 2076, 2079, 2080, 2088, 2095, 2099, 2100, 2103, 2108, 2111 ·
-`zelfhulpkritiek` 1769 · `zelfkennis` 258, 260, 361, 519, 526, 1640, 1778 ·
-`zelfkritiek` 1645, 1693 · `zelfleiderschap` 1598, 1669 · `zelfliefde` 190,
-195, 204, 380, 403, 549, 1517, 1549, 1739, 1817 · `zelfmoord` 1727 ·
-`zelfmoordpoging` 2001 · `zelfonderzoek` 315, 470, 520, 527, 579, 1101, 1203,
-1208, 1502, 1534, 1572, 1612, 1624, 1652, 1665, 1673, 1838, 1878, 1917, 2031 ·
-`zelfontdekking` 2047 · `zelfontplooiing` 393, 1234, 1614 · `zelfontwikkeling`
-179, 2115 · `zelforganisatie` 1274, 1861 · `zelfpraat` 161 · `zelfpromotie`
-388 · `zelfpublicatie` 174 · `zelfrapportage` 1610 · `zelfrealisatie` 2060 ·
+1271, 1272, 1278, 1282, 1312, 1318, 2132, 2133, 2134 · `wisselstroom` 267 ·
+`wit privilege` 1619 · `woede` 119, 120, 1204, 1580, 1598 · `woestijn` 8, 1205
+· `Wolfgang Pauli` 362 · `wolken` 1839 · `wolven` 1625 · `woordenschat` 2002 ·
+`workflow` 2030 · `wortels` 1636 · `Wounded Knee` 2024 · `Wouter de Jong` 1872
+· `wraak` 101, 533, 1802 · `WRAP` 510 · `wrok` 530 · `wu wei` 394, 1105, 1671,
+1840, 2044, 2084 · `Yale` 215 · `Yaqui` 1608 · `yin-yang` 394 · `yoga` 195,
+242, 518, 1520, 1551, 1599, 1605, 1698, 1763, 1806, 1826, 2017, 2060, 2067 ·
+`yoga nidra` 1732 · `young adult` 192 · `youtube` 245 · `Zaire` 1835 ·
+`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
+· `zeepbellen` 808 · `zeereis` 36 · `zeevaart` 321 · `zeilen` 2097 ·
+`zeldzaam` 144 · `zelfaanvaarding` 1596 · `zelfacceptatie` 176, 335, 561,
+1595, 1878 · `zelfbedrog` 66, 1559, 1627 · `zelfbeeld` 25, 27, 105, 107, 108,
+129, 138, 197, 367, 372, 411, 439, 538, 540, 559, 575, 1308, 1309, 1543, 1639,
+1716, 1733, 1735, 1804, 1809, 2098 · `zelfbeheersing` 75, 148, 212, 248, 286,
+314, 382, 389, 396, 1627, 1916 · `zelfbescherming` 214 · `zelfbeschikking`
+1333 · `zelfcompassie` 32, 551, 1525, 1582, 1594, 1615, 1645, 1713, 1739,
+1766, 1817, 1871, 2036 · `zelfdiscipline` 2, 158, 229, 244, 311, 544, 2095 ·
+`zelfdoding` 715 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417, 1324,
+1325, 1326, 1714 · `zelfhaat` 575 · `zelfheling` 2009, 2026 · `zelfhulp` 15,
+22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150,
+151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179,
+181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210,
+211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380, 389,
+395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465, 513,
+540, 543, 546, 548, 556, 557, 561, 569, 570, 768, 800, 802, 1242, 1297, 1329,
+1500, 1501, 1503, 1505, 1507, 1509, 1513, 1515, 1527, 1545, 1549, 1550, 1565,
+1582, 1584, 1586, 1589, 1604, 1613, 1616, 1638, 1646, 1648, 1653, 1654, 1663,
+1671, 1672, 1685, 1688, 1689, 1704, 1705, 1712, 1716, 1721, 1723, 1733, 1736,
+1737, 1739, 1743, 1745, 1748, 1751, 1752, 1753, 1756, 1759, 1760, 1761, 1762,
+1764, 1768, 1801, 1803, 1818, 1820, 1822, 1825, 1826, 1828, 1831, 1832, 1842,
+1843, 1852, 1860, 1866, 1868, 1870, 1873, 1882, 1889, 1893, 1896, 1909, 1910,
+1912, 2005, 2006, 2007, 2008, 2009, 2013, 2018, 2028, 2036, 2037, 2042, 2052,
+2056, 2059, 2064, 2073, 2076, 2079, 2080, 2088, 2095, 2099, 2100, 2103, 2108,
+2111, 2127, 2128, 2129, 2130, 2131 · `zelfhulpkritiek` 1769 · `zelfkennis`
+258, 260, 361, 519, 526, 1640, 1778 · `zelfkritiek` 1645, 1693 ·
+`zelfleiderschap` 1598, 1669 · `zelfliefde` 190, 195, 204, 380, 403, 549,
+1517, 1549, 1739, 1817 · `zelfmoord` 1727 · `zelfmoordpoging` 2001 ·
+`zelfonderzoek` 315, 470, 520, 527, 579, 1101, 1203, 1208, 1502, 1534, 1572,
+1612, 1624, 1652, 1665, 1673, 1838, 1878, 1917, 2031 · `zelfontdekking` 2047 ·
+`zelfontplooiing` 393, 1234, 1614 · `zelfontwikkeling` 179, 2115 ·
+`zelforganisatie` 1274, 1861 · `zelfpraat` 161 · `zelfpromotie` 388 ·
+`zelfpublicatie` 174 · `zelfrapportage` 1610 · `zelfrealisatie` 2060 ·
 `zelfredzaamheid` 2106 · `zelfreferentie` 656 · `zelfreflectie` 2039, 2097 ·
 `zelfregulatie` 153, 165, 177, 541, 542, 1628 · `zelfrespect` 2099 ·
-`zelfsabotage` 161, 344, 1598 · `zelfspot` 19 · `zelfspraak` 439 ·
+`zelfsabotage` 161, 344, 1598, 2131 · `zelfspot` 19 · `zelfspraak` 439 ·
 `zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
-198 · `zelfstandig starten` 210 · `zelfstudie` 2120 · `zelfsturing` 142, 168,
-1776, 1857 · `zelfuitgegeven` 123, 124, 125, 126, 1302 · `zelfverbetering` 243
-· `zelfvergeving` 1615 · `zelfvertrouwen` 157, 187, 312, 365, 440, 441, 1594,
-1721, 1768, 1832, 1852, 1872, 2099 · `zelfwaarde` 168, 1667 · `zelfwaardering`
-121, 1645 · `zelfzorg` 109, 225, 466, 1127, 1648, 1712, 1720, 1817, 1830,
-1894, 2096 · `zen` 141, 346, 441, 517, 528, 576, 769, 800, 952, 1106, 1504,
-1536, 1554, 1555, 1556, 1558, 1713, 1777 · `Zen.nl` 1555 · `zenboeddhisme`
-205, 379 · `zenmeditatie` 2027 · `zentraining` 2027 · `zenuwstelsel` 87, 1599,
-1622, 1623, 1628, 1655, 1656, 1668, 1732, 1813, 2067 · `zestiende eeuw` 573 ·
-`zeven dagen` 1743 · `zeven-stappen` 129 · `zeventiende eeuw` 1888 · `ziekte`
-74, 180, 295, 823, 1313 · `ziel` 1697, 2101 · `zielsplan` 1911 · `zingen` 1699
-· `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547,
-1323, 1566, 1572, 1575, 1727, 1736, 1764, 1915, 2019, 2118 · `zinloos werk`
-1901 · `zintuigen` 582 · `zitten` 84, 1855 · `zoekplaat` 2002 · `zorg` 96,
-1720 · `Zuid-Afrika` 26, 266, 523, 2087 · `Zuiden` 1519 · `zuinigheid` 39 ·
-`zuivere ervaring` 576 · `zusters` 1518 · `zwaar` 143 · `zwaardvechten` 346,
-517 · `zwangerschap` 1136, 1750 · `zwart bewustzijn` 523 · `zwarte gaten` 99,
-262, 651 · `Zwarte Piet` 1619 · `Zweden` 1217, 1597, 2071 · `zwijgen` 1618 ·
-`Zwitserland` 1650, 1891
+198 · `zelfstandig starten` 210 · `zelfstudie` 2120, 2128 · `zelfsturing` 142,
+168, 1776, 1857 · `zelfuitgegeven` 123, 124, 125, 126, 1302 ·
+`zelfverbetering` 243 · `zelfvergeving` 1615 · `zelfvertrouwen` 157, 187, 312,
+365, 440, 441, 1594, 1721, 1768, 1832, 1852, 1872, 2099 · `zelfwaarde` 168,
+1667 · `zelfwaardering` 121, 1645 · `zelfzorg` 109, 225, 466, 1127, 1648,
+1712, 1720, 1817, 1830, 1894, 2096 · `zen` 141, 346, 441, 517, 528, 576, 769,
+800, 952, 1106, 1504, 1536, 1554, 1555, 1556, 1558, 1713, 1777 · `Zen.nl` 1555
+· `zenboeddhisme` 205, 379 · `zenmeditatie` 2027 · `zentraining` 2027 ·
+`zenuwstelsel` 87, 1599, 1622, 1623, 1628, 1655, 1656, 1668, 1732, 1813, 2067
+· `zestiende eeuw` 573 · `zeven dagen` 1743 · `zeven-stappen` 129 ·
+`zeventiende eeuw` 1888 · `ziekte` 74, 180, 295, 823, 1313 · `ziel` 1697, 2101
+· `zielsplan` 1911 · `zingen` 1699 · `zingeving` 9, 48, 77, 91, 160, 183, 200,
+201, 237, 245, 255, 515, 547, 1323, 1566, 1572, 1575, 1727, 1736, 1764, 1915,
+2019, 2118 · `zinloos werk` 1901 · `zintuigen` 582 · `zitten` 84, 1855 ·
+`zoekplaat` 2002 · `zorg` 96, 1720 · `Zuid-Afrika` 26, 266, 523, 2087 ·
+`Zuiden` 1519 · `zuinigheid` 39 · `zuivere ervaring` 576 · `zusters` 1518 ·
+`zwaar` 143 · `zwaardvechten` 346, 517 · `zwangerschap` 1136, 1750 · `zwart
+bewustzijn` 523 · `zwarte gaten` 99, 262, 651 · `Zwarte Piet` 1619 · `Zweden`
+1217, 1597, 2071 · `zwijgen` 1618 · `Zwitserland` 1650, 1891
 
 ## Leesroutes
 
 Lijnen die door meer dan één titel heen lopen.
+
+**De wiskunde achter taalmodellen, drie boeken** (2132, 2133, 2134). 
+Drie recente boeken over dezelfde wiskunde achter grote taalmodellen, geen van
+alle door een gevestigde uitgeverij getoetst op de auteur zelf: Karpeles bouwt
+vanaf lineaire algebra, kansrekening en optimalisatie een breed overzicht op
+tot aan hallucinatie en abstentie, Baaquie, de enige met een naspeurbare
+wetenschappelijke achtergrond, klimt van bigrammen naar de transformer, en het
+pseudonieme Team Trex werkt alleen de transformer-architectuur zelf uit, van
+embedding tot sampling, in het meeste technische detail van de drie. Wie zeker
+wil zijn van de afleidingen, raadpleegt bij elk boek het onderliggende
+onderzoeksartikel.
 
 **Werken met je handen als denkoefening** (1, 6, 390, 1301). 
 Pirsig en Crawford gaan beide over motoren en over de vraag waarom sleutelen

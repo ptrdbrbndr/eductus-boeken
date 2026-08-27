@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Science of Rapid Skill Acquisition &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hollins' stelling is dat het tempo waarmee iemand een nieuwe vaardigheid leert, minder wordt bepaald door aanleg dan door de manier waarop het leerproces…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2128">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2128 &middot; Naslag en praktijk</p>
+    <h1>The Science of Rapid Skill Acquisition</h1>
+    <p class="lede">Peter Hollins</p>
+    <p class="stats">
+      <span><b>875</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2128"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hollins' stelling is dat het tempo waarmee iemand een nieuwe vaardigheid leert, minder wordt bepaald door aanleg dan door de manier waarop het leerproces is ingericht: de juiste vaardigheid kiezen, doelgericht in plaats van herhaald oefenen, de leeromgeving inrichten, en de eigen verwachtingen realistisch houden. Wie deze factoren bewust regelt, leert volgens hem sneller dan wie er ongestructureerd op los oefent.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De juiste vaardigheid kiezen</h3>
+      <p>Het eerste hoofdstuk behandelt niet hoe te leren maar wat te leren: Hollins benadrukt dat niet elke vaardigheid evenveel oplevert, en dat een vaardigheid die aansluit bij bestaande doelen sneller wordt volgehouden dan een die op zichzelf staat. Daarnaast onderscheidt hij verschillende fasen van leren, van onbewuste onbekwaamheid tot bewuste bekwaamheid, om aan te geven wat er in elke fase nodig is.</p>
+      <h3>Strategische planning en doelgericht oefenen</h3>
+      <p>Hollins pleit voor een plan voordat het oefenen begint: welke deelvaardigheden een grotere vaardigheid opbouwen, en in welke volgorde die het beste worden geoefend. Doelgericht oefenen, met directe feedback en gerichte aandacht voor de zwakste schakel, krijgt hier de nadruk boven ongestructureerde herhaling.</p>
+      <h3>Diepe comprehensie</h3>
+      <p>Voor Hollins is begrip een voorwaarde voor snelheid: wie de onderliggende logica van een vaardigheid doorziet, hoeft minder losse stappen apart te onthouden. Hij raadt aan een nieuw concept in eigen woorden uit te leggen als toets of het begrip er werkelijk is, in plaats van te vertrouwen op herkenning.</p>
+      <h3>Vaardigheden stapelen</h3>
+      <p>Met een verwijzing naar het skill-stacking-idee van cartoonist Scott Adams beschrijft Hollins hoe een combinatie van meerdere middelmatige vaardigheden een zeldzamere en waardevollere positie kan opleveren dan uitmuntendheid in één enkele vaardigheid. Dit hoofdstuk verschuift de vraag van hoe snel te leren naar welke vaardigheden de moeite waard zijn om te combineren.</p>
+      <h3>Omgeving en verwachtingen</h3>
+      <p>De laatste hoofdstukken behandelen de sociale en fysieke omgeving waarin wordt geoefend, en het belang van realistische verwachtingen over de leercurve. Hollins waarschuwt dat te hoge verwachtingen over de leersnelheid vaker tot opgeven leiden dan een gebrek aan aanleg. Een omgeving met afleiding of met mensen die het nut van de nieuwe vaardigheid ontkennen, kost volgens hem net zoveel voortgang als een verkeerde oefenmethode, ook al krijgt die omgevingsfactor in de meeste leerboeken minder aandacht dan de oefentechniek zelf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Doelgericht oefenen</td><td>Oefenen met een specifiek doel, directe feedback en gerichte aandacht voor de zwakste schakel, in plaats van ongestructureerde herhaling.</td></tr>
+          <tr><td class="term">Leerfasen</td><td>De opeenvolgende stadia van leren, van onbewuste onbekwaamheid tot bewuste bekwaamheid, die elk een andere aanpak vragen.</td></tr>
+          <tr><td class="term">Vaardigheden stapelen</td><td>Het combineren van meerdere middelmatige vaardigheden tot een zeldzame en waardevolle combinatie, ontleend aan cartoonist Scott Adams.</td></tr>
+          <tr><td class="term">Diepe comprehensie</td><td>Het begrijpen van de onderliggende logica van een vaardigheid, als voorwaarde om sneller te kunnen leren dan door losse feiten te onthouden.</td></tr>
+          <tr><td class="term">Verwachtingsmanagement</td><td>Het bijstellen van de eigen verwachtingen over de leersnelheid, om te voorkomen dat een trage start tot opgeven leidt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Hollins presenteert het boek als synthese van psychologische en productiviteitsliteratuur, met doelgericht oefenen als centraal begrip dat teruggaat op onderzoek naar expertiseontwikkeling. Het boek zelf citeert echter geen specifieke studies met naam en jaartal; de onderbouwing blijft op het niveau van algemene verwijzing naar bestaand onderzoek, niet van naspeurbare bronnen.</p>
+      <p>Het skill-stacking-hoofdstuk erkent zijn herkomst bij Scott Adams, wat opvalt tussen de overige hoofdstukken die geen bronnen noemen; dat maakt dit hoofdstuk het meest verifieerbare onderdeel van het boek. De overige hoofdstukken presenteren adviezen als vaststaand zonder aan te geven welk deel steunt op gepubliceerd onderzoek en welk deel op Hollins' eigen praktijkervaring als schrijver over dit onderwerp.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Hollins publiceert onder eigen naam een groot aantal gelijksoortig opgezette boeken over psychologie en zelfontwikkeling, wat bij dit boek de vraag oproept hoeveel oorspronkelijk denkwerk erin zit tegenover het herschikken van bestaande, algemeen bekende adviezen over leren en oefenen. Waar Hollins wel bestaand onderzoek noemt, blijft dat zonder brongegevens, zodat een lezer de claims niet zelf kan narekenen.</p>
+      <p>Het boek behandelt vaardigheidsverwerving in algemene termen die op vrijwel elke vaardigheid van toepassing worden gemaakt, van een taal tot een sport tot een technisch vak, zonder aandacht voor de verschillen tussen die domeinen. Wat voor een motorische vaardigheid als typen werkt, hoeft niet hetzelfde te zijn als wat voor een sociale vaardigheid als onderhandelen werkt, en dat onderscheid blijft in het boek onderbelicht.</p>
+      <p>De belofte in de titel, rapid skill acquisition, suggereert een tempo dat het boek zelf niet garandeert: de methoden die het aanreikt, doelgericht oefenen, structuur en realistische verwachtingen, verkorten de leertijd niet aantoonbaar meer dan wat in bredere literatuur over expertiseontwikkeling al bekend is, ook al presenteert de titel dat als iets nieuws.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies bewust welke vaardigheid je gaat leren op basis van hoe ze aansluit bij een bestaand doel, voordat je een leerschema opstelt.</li>
+        <li>Splits een vaardigheid in deelvaardigheden en oefen de zwakste eerst, in plaats van de vaardigheid als geheel te herhalen.</li>
+        <li>Leg een nieuw geleerd concept in eigen woorden uit aan iemand anders, als toets of het begrip er werkelijk is.</li>
+        <li>Stel voorafgaand aan een nieuw leertraject een realistische verwachting over de leercurve op papier, zodat een langzaam begin niet als reden geldt om te stoppen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>The Science of Rapid Skill Acquisition: Advanced Methods to Learn, Remember, and Master New Skills and Information</i>, deel 2 van Hollins' zelfstandig gepubliceerde reeks Learning how to Learn, inmiddels in een tweede editie. Hollins schrijft onder eigen naam een groot aantal vergelijkbaar opgezette boeken over psychologie en persoonlijke ontwikkeling. Precieze eerste-drukgegevens niet nagekeken. Nederlandse vertaling niet nagekeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Peter Hollins bundelt in dit boek adviezen over hoe een lezer een nieuwe vaardigheid sneller onder de knie krijgt, van het kiezen van de juiste vaardigheid tot het beheren van de eigen verwachtingen tijdens het leerproces. Het boek is opgebouwd als een praktische gids in zeven hoofdstukken, van strategische planning tot het combineren van al aanwezige vaardigheden tot een nieuwe, sterkere combinatie.</p><p>Hollins presenteert het boek als synthese van bestaande inzichten uit psychologie en productiviteitsliteratuur, niet als verslag van eigen onderzoek, en het wordt hier dan ook behandeld als overzicht van wat het aanraadt, niet als getoetste wetenschap.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vaardigheden leren</li><li>doelgericht oefenen</li><li>zelfstudie</li><li>productiviteit</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2127"><a href="2127.html">The Practicing Mind</a>. Sterner beschrijft vanuit eigen ervaring dezelfde nadruk op doelgericht, aandachtig oefenen die Hollins hier als synthese van bestaand onderzoek presenteert.</li>
+          <li value="376"><a href="376.html">Talent Is Overrated</a>. Colvin werkt het begrip doelgericht oefenen dat Hollins noemt, met naam en onderzoek uit, tot een uitgebreider en beter onderbouwd betoog.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

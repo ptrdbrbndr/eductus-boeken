@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power of Ignored Skills &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tripathi's stelling is dat succes minder afhangt van de vaardigheden die scholing en loopbaanadvies gewoonlijk benadrukken, zoals technische kennis of…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2129">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2129 &middot; Gewoontes en denken</p>
+    <h1>Power of Ignored Skills</h1>
+    <p class="lede">Manoj Tripathi</p>
+    <p class="stats">
+      <span><b>870</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2129"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tripathi's stelling is dat succes minder afhangt van de vaardigheden die scholing en loopbaanadvies gewoonlijk benadrukken, zoals technische kennis of gestructureerde planning, dan van negen minder zichtbare vaardigheden die mensen zelden bewust trainen: goed waarnemen, verbanden leggen tussen ongelijksoortige feiten, helder communiceren, een duidelijk doel voor ogen houden, groot durven dromen, buiten de gangbare kaders denken, volhouden bij tegenslag, een onderwerp grondig uitdiepen, en toekomstige ontwikkelingen aanvoelen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarneming en verbanden leggen</h3>
+      <p>De eerste twee vaardigheden vormen volgens Tripathi de basis van de overige zeven: wie goed waarneemt, ziet details die anderen missen, en wie die details met elkaar in verband brengt, ziet patronen voordat ze algemeen zichtbaar worden. Hij illustreert dit met voorbeelden van historische figuren die volgens hem juist door scherpe waarneming tot een doorbraak kwamen.</p>
+      <h3>Communicatie en doelgerichtheid</h3>
+      <p>Een waargenomen patroon heeft volgens Tripathi pas waarde zodra het overtuigend wordt overgebracht, en die overdracht werkt het beste wanneer ze aan een helder eigen doel is gekoppeld. Dit hoofdstuk koppelt communicatievaardigheid dus niet aan welsprekendheid op zich, maar aan de duidelijkheid van het onderliggende doel dat iemand probeert over te brengen.</p>
+      <h3>Dromen en buiten de lijnen denken</h3>
+      <p>Tripathi behandelt het vermogen om groot te dromen en het vermogen om buiten gangbare kaders te denken als twee kanten van dezelfde vaardigheid: de een levert de ambitie, de ander de originaliteit om er een weg naartoe te bedenken die nog niemand eerder bewandelde.</p>
+      <h3>Doorzettingsvermogen en diepgaand onderzoek</h3>
+      <p>De zevende en achtste vaardigheid gaan over volhouden bij tegenslag en over de bereidheid een onderwerp grondiger te doorgronden dan de meeste mensen nodig achten. Tripathi koppelt beide aan voorbeelden van figuren die pas na herhaalde mislukking of jarenlange verdieping tot hun bekendste prestatie kwamen.</p>
+      <h3>Voorspelling</h3>
+      <p>De laatste vaardigheid, het aanvoelen van een toekomstige ontwikkeling voordat die algemeen zichtbaar wordt, bouwt volgens Tripathi op de eerste acht voort: alleen wie waarneemt, verbanden legt, helder communiceert, een doel voor ogen houdt, durft te dromen, buiten de lijnen denkt, volhoudt en de diepte induikt, ontwikkelt uiteindelijk het soort inzicht waarmee een ontwikkeling vroeg wordt herkend. Tripathi noemt voorspelling daarom geen losse negende vaardigheid maar het resultaat waartoe de andere acht, samen geoefend, vanzelf leiden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Waarneming</td><td>Het vermogen om details op te merken die anderen over het hoofd zien, de basisvaardigheid waarop Tripathi de overige acht bouwt.</td></tr>
+          <tr><td class="term">Verbanden leggen</td><td>Het combineren van ogenschijnlijk losstaande waarnemingen tot een patroon.</td></tr>
+          <tr><td class="term">Doelgerichtheid</td><td>Een helder eigen doel voor ogen houden, waaraan Tripathi effectieve communicatie koppelt.</td></tr>
+          <tr><td class="term">Buiten de lijnen denken</td><td>Het bedenken van een oplossing die buiten de gangbare, algemeen aanvaarde aanpak valt.</td></tr>
+          <tr><td class="term">Diepe duik</td><td>De bereidheid een onderwerp grondiger te doorgronden dan de meeste mensen nodig achten.</td></tr>
+          <tr><td class="term">Voorspelling</td><td>Het aanvoelen van een toekomstige ontwikkeling voordat die algemeen zichtbaar wordt, volgens Tripathi de optelsom van de andere acht vaardigheden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Tripathi bouwt het boek op zestien jaar eigen werkervaring in sales en marketing en op voorbeelden van bekende historische figuren per hoofdstuk, niet op gepubliceerd onderzoek. Het boek noemt geen studies en bevat geen literatuurlijst. Elk hoofdstuk opent met een citaat van een bekende naam, wat het boek een aforistische toon geeft die dichter bij een verzameling lessen staat dan bij een doorlopend betoog.</p>
+      <p>De negen vaardigheden zijn Tripathi's eigen indeling; er is geen onafhankelijke bron die bevestigt dat precies deze negen, en niet meer of minder, de doorslaggevende factoren voor succes zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De voorbeelden van historische figuren zijn achteraf gekozen om bij een vaardigheid te passen, wat het patroon aannemelijker laat lijken dan het is: voor vrijwel elke vaardigheid zijn evengoed historische figuren te vinden die zonder die vaardigheid succesvol waren, of die de vaardigheid wel bezaten zonder succesvol te worden, en die tegenvoorbeelden ontbreken in het boek.</p>
+      <p>Zonder onderzoek naar hoeveel mensen deze negen vaardigheden trainen en met welk resultaat, blijft de kernclaim, dat ze genegeerd worden en dat training ervan tot succes leidt, een aanname die het boek zelf niet toetst.</p>
+      <p>De titel belooft dat het om genegeerde vaardigheden gaat, maar communicatie, doorzettingsvermogen en doelgerichtheid staan ook in talloze andere boeken in dezelfde rubriek centraal. Wat het boek onderscheidt is niet zozeer de keuze van de negen vaardigheden zelf, die grotendeels bekend terrein bestrijkt, maar de indeling waarin Tripathi ze samenbrengt en de volgorde waarin hij ze laat voortbouwen op waarneming als basis.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies één van de negen vaardigheden waarin je jezelf het zwakst inschat, en zoek een dagelijkse gelegenheid om die specifiek te oefenen.</li>
+        <li>Leg bij een probleem dat je niet oplost eerst vast wat je hebt waargenomen, voordat je naar een verklaring of oplossing zoekt.</li>
+        <li>Toets een gedroomd doel door het in een concreet plan te vertalen, in plaats van het als losse ambitie te laten staan.</li>
+        <li>Zoek bij een historisch voorbeeld dat je aanspreekt ook naar iemand met dezelfde vaardigheid die niet succesvol werd, om het verhaal niet klakkeloos als bewijs te lezen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Power of Ignored Skills: Change the Way You Think and Decide</i>, uitgegeven bij Notion Press (India); editiejaar niet met zekerheid vastgesteld, vermoedelijk 2020 of 2021. Tripathi werkt in sales en marketing bij Mercedes-Benz India en schrijft daarnaast als blogger. Nederlandse vertaling niet nagekeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Manoj Tripathi beschrijft negen vaardigheden die volgens hem structureel worden onderschat in opleiding en loopbaan: waarneming, het leggen van verbanden, communicatie, doelgerichtheid, dromen, buiten de lijnen denken, doorzettingsvermogen, diepgaand onderzoek en voorspelling. Elk hoofdstuk opent met een citaat en een definitie van de vaardigheid, gevolgd door voorbeelden van bekende historische figuren die er volgens Tripathi in uitblonken.</p><p>Het boek bevat geen citaten naar onderzoek en presenteert de negen vaardigheden als Tripathi's eigen indeling, opgebouwd uit zestien jaar werkervaring in plaats van uit een onafhankelijk getoetst model.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>denkvaardigheden</li><li>besluitvorming</li><li>observatie</li><li>zelfhulp</li><li>persoonlijke ontwikkeling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="376"><a href="376.html">Talent Is Overrated</a>. Colvin onderbouwt met onderzoek wat Tripathi met historische voorbeelden illustreert: dat vaardigheid uit gerichte training voortkomt en niet uit aangeboren talent.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft de denkfouten die het lastig maken om patronen, waarnemingen en voorspellingen betrouwbaar van toeval te onderscheiden, een kanttekening die Tripathi's boek niet behandelt.</li>
+          <li value="349"><a href="349.html">Range</a>. Epstein onderbouwt met breder vergelijkend onderzoek waarom veelzijdigheid vaak tot betere resultaten leidt dan vroege specialisatie, een these die dicht bij Tripathi's nadruk op brede, genegeerde vaardigheden ligt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
