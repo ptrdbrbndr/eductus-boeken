@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacking: The Art of Exploitation (2nd Edition) &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ericksons stelling is dat exploitatie een directe consequentie is van hoe computers geheugen, processen en netwerken beheren, en dat wie dat fundament…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2317">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2317 &middot; Digitale beveiliging en hacking</p>
+    <h1>Hacking: The Art of Exploitation (2nd Edition)</h1>
+    <p class="lede">Jon Erickson, 2003; 2e editie 2008</p>
+    <p class="stats">
+      <span><b>1421</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2317"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ericksons stelling is dat exploitatie een directe consequentie is van hoe computers geheugen, processen en netwerken beheren, en dat wie dat fundament kent zelf nieuwe kwetsbaarheden kan herkennen in plaats van bestaande exploits na te typen. Het boek voert die stelling door door de lezer eerst C en assembly te leren lezen zoals een aanvaller dat doet, met aandacht voor de stack, registers en geheugenindeling, en pas daarna exploitatietechnieken te introduceren als toepassing van die kennis. Die opbouw maakt het boek trager om doorheen te komen dan een receptenboek vol kant-en-klare exploits. Volgens Erickson is dat precies het punt: een aanvaller die alleen recepten kent, loopt vast zodra de omstandigheden net iets afwijken van het voorbeeld, terwijl wie het onderliggende geheugenmodel begrijpt zelf kan afleiden waarom een aangepaste exploit al dan niet zal werken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>0x100 Introduction</h3>
+      <p>Het openingshoofdstuk plaatst hacking als een manier van denken over systemen: het opzoeken van onbedoeld gedrag door precies te begrijpen hoe iets bedoeld is te werken. Dat kader keert de rest van het boek terug en onderscheidt Ericksons aanpak van een reeks losse trucs die toevallig werken. Hij besteedt hier ook kort aandacht aan de geschiedenis van de hackercultuur, om het onderwerp te ontdoen van het beeld van hacken als louter vandalisme.</p>
+      <h3>0x200 Programming</h3>
+      <p>Dit hoofdstuk leert C en x86-assembly vanaf de basis, met nadruk op geheugenindeling: hoe variabelen, functieaanroepen en de stack in het geheugen van een lopend programma terechtkomen. Zonder dit fundament zijn de exploitatietechnieken in de rest van het boek niet te volgen.</p>
+      <p>Erickson besteedt hier ook aandacht aan hoe een programma vanuit machinecode te lezen is met een debugger, een vaardigheid die in latere hoofdstukken steeds terugkeert om te controleren of een aanval het geheugen aanpast zoals bedoeld. Dat maakt dit hoofdstuk het langste van het boek en tegelijk het hoofdstuk waarop alle latere hoofdstukken leunen.</p>
+      <h3>0x300 Exploitation</h3>
+      <p>Het kernhoofdstuk behandelt buffer overflows op de stack en op de heap, en format string-kwetsbaarheden, met concrete C-programma's die de lezer zelf compileert, aanvalt en aanpast. Erickson laat bij elke techniek zien welke onvoorzichtige aanname in het geheugenbeheer haar mogelijk maakt.</p>
+      <p>De voorbeelden bouwen bewust op elkaar voort: een eenvoudige overflow zonder enige bescherming eerst, gevolgd door varianten waarin de lezer zelf een obstakel als een grenscontrole moet omzeilen.</p>
+      <h3>0x400 Networking</h3>
+      <p>Dit deel behandelt het OSI-model, sockets, het afluisteren van netwerkverkeer, het kapen van verbindingen en denial of service, en verbindt netwerkkennis met de exploitatietechnieken uit het vorige hoofdstuk door te laten zien hoe een kwetsbaarheid over een netwerk te bereiken is in plaats van alleen lokaal.</p>
+      <p>De voorbeelden over pakketsniffen en verbindingskaping laten zien hoe weinig een aanvaller op een gedeeld netwerksegment nodig heeft om verkeer van anderen te onderscheppen, iets wat het boek expliciet koppelt aan het ontbreken van versleuteling in veel destijds gangbare protocollen.</p>
+      <h3>0x500 Shellcode</h3>
+      <p>Hier schrijft de lezer eigen shellcode, inclusief port-binding shellcode die op een aanvaller wacht en connect-back shellcode die zelf een verbinding naar de aanvaller opzet, en leert waarom bepaalde bytes in shellcode vermeden moeten worden, bijvoorbeeld omdat een tekenreeks bij een null-byte afbreekt.</p>
+      <h3>0x600 Countermeasures en 0x700 Cryptology</h3>
+      <p>Het boek keert de rollen om en behandelt hoe exploitatiepogingen te detecteren zijn en hoe een niet-uitvoerbare stack werkt, met aandacht voor manieren waarop een aanvaller die maatregel alsnog kan omzeilen. Het sluit af met een hoofdstuk over cryptografie waarin het kraken van WEP-versleuteld wifiverkeer als praktijkvoorbeeld van een zwak cryptografisch ontwerp dient.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Buffer overflow</td><td>Het schrijven van meer gegevens naar een geheugenbuffer dan daarvoor gereserveerd is, waardoor aangrenzend geheugen overschreven kan worden.</td></tr>
+          <tr><td class="term">Format string-kwetsbaarheid</td><td>Een fout waarbij door de gebruiker aangeleverde invoer als opmaakstring aan een functie als printf wordt doorgegeven, waardoor geheugen te lezen of te schrijven is.</td></tr>
+          <tr><td class="term">Shellcode</td><td>Compacte machinecode die een aanvaller in een kwetsbaar programma injecteert om na uitvoering een shell of andere functionaliteit te openen.</td></tr>
+          <tr><td class="term">Stack en heap</td><td>De twee geheugengebieden waarin een programma respectievelijk lokale variabelen en functieaanroepen, en dynamisch gealloceerde gegevens bewaart.</td></tr>
+          <tr><td class="term">Niet-uitvoerbare stack (NX)</td><td>Een tegenmaatregel die voorkomt dat code op de stack wordt uitgevoerd, waarmee een groep klassieke buffer overflow-exploits wordt tegengehouden.</td></tr>
+          <tr><td class="term">Port-binding en connect-back shellcode</td><td>Twee manieren waarop shellcode een verbinding met de aanvaller tot stand brengt, respectievelijk door zelf te luisteren of door zelf naar buiten te verbinden.</td></tr>
+          <tr><td class="term">WEP</td><td>Een verouderd versleutelingsprotocol voor wifinetwerken met zwakheden waarmee de sleutel binnen afzienbare tijd te achterhalen is.</td></tr>
+          <tr><td class="term">Debugger</td><td>Gereedschap waarmee de uitvoering van een programma stap voor stap te volgen is, inclusief de inhoud van registers en geheugen op elk moment.</td></tr>
+          <tr><td class="term">OSI-model</td><td>Het gelaagde model waarmee netwerkcommunicatie wordt beschreven, van de fysieke laag tot de toepassingslaag, dat het boek gebruikt om netwerkaanvallen te plaatsen.</td></tr>
+          <tr><td class="term">Denial of service</td><td>Een aanval die een systeem of dienst onbeschikbaar maakt voor legitieme gebruikers, in het boek behandeld als tegenhanger van de aanvallen die juist toegang verschaffen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Erickson werkt als cryptoloog en security-specialist en spreekt regelmatig op computerbeveiligingsconferenties; het boek vertaalt die achtergrond naar een leerpad dat bij geheugenbeheer begint in plaats van bij kant-en-klare tools.</p>
+      <p>Het boek geldt sinds de eerste editie uit 2003 als een van de meest aangehaalde instapwerken in binaire exploitatie en wordt in cursorische literatuur en op universitaire cursussen over software-beveiliging aangehaald; op GitHub circuleren meerdere sets aantekeningen en oefencode van lezers die het boek als leidraad gebruikten.</p>
+      <p>De technieken die het behandelt, buffer overflows, format string-fouten en shellcode-injectie, zijn de basisbouwstenen waarop veel latere, specifiekere exploitatieliteratuur voortbouwt, ook al zijn de concrete voorbeelden intussen ouder dan de meeste andere titels in deze reeks.</p>
+      <p>No Starch Press is een uitgeverij die zich specifiek op technische vakliteratuur voor een securitypubliek richt, en de tweede editie voegde ten opzichte van de eerste onder meer een uitgebreider hoofdstuk over netwerken en de meegeleverde live-cd toe, wat wijst op een lopend redactioneel traject in plaats van een eenmalige uitgave.</p>
+      <p>Het boek wordt vaak genoemd naast andere klassiekers uit de vroege jaren van de beveiligingsliteratuur en blijft, ondanks de gedateerde voorbeelden, terugkomen in literatuurlijsten voor cursussen binaire exploitatie omdat de onderliggende uitleg van geheugenbeheer grotendeels overeind is gebleven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek dateert uit 2008 en de voorbeelden draaien op een 32-bit x86 Linux-omgeving zonder de mitigaties die op moderne systemen standaard zijn, zoals adresruimte-randomisatie. Wie de voorbeelden op een actueel 64-bit systeem probeert na te bouwen, stuit al snel op verschillen die het boek niet bespreekt.</p>
+      <p>De meegeleverde live-cd leunt op software uit 2008 en is als geheel niet meer bruikbaar op moderne hardware zonder aanpassing; lezers moeten tegenwoordig zelf een oudere virtuele machine inrichten om de voorbeelden exact te laten werken zoals beschreven.</p>
+      <p>Het boek vereist stevige voorkennis van C en, in mindere mate, assembly, die nergens als harde voorwaarde op de kaft staat. Wie zonder programmeerervaring begint, loopt in hoofdstuk twee al vast.</p>
+      <p>Het hoofdstuk over cryptografie is beperkt tot het kraken van WEP en behandelt geen moderne cryptografische aanvallen of protocollen; wie op zoek is naar actuele cryptografische kennis, vindt hier vooral een historisch voorbeeld.</p>
+      <p>Het boek behandelt vrijwel geen webapplicaties, terwijl dat inmiddels een groot deel van het aanvalsoppervlak vormt waarmee beveiligingsprofessionals dagelijks te maken hebben. Wie alleen dit boek leest, heeft een stevige basis in geheugenexploitatie maar geen zicht op web- of netwerkdienstenkwetsbaarheden zoals die vandaag het vaakst voorkomen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zorg voor basiskennis van C en assembly voordat je aan het exploitatiedeel begint.</li>
+        <li>Werk in een geïsoleerde, oudere (32-bit) testomgeving om de voorbeelden te laten werken zoals beschreven.</li>
+        <li>Vergelijk wat je leert met moderne mitigaties zoals adresruimte-randomisatie en stack canaries om te zien wat er sindsdien is veranderd.</li>
+        <li>Gebruik een debugger actief bij elk voorbeeld in plaats van alleen de broncode te lezen, want dat is waar het boek zelf op leunt.</li>
+        <li>Lees het cryptografiehoofdstuk als geschiedenis van een gebroken protocol, niet als handleiding voor actuele wifibeveiliging.</li>
+        <li>Bekijk na elk hoofdstuk welke moderne tegenmaatregel de beschreven techniek inmiddels afremt, zodat je het boek als historisch fundament leest in plaats van als actuele handleiding.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">No Starch Press, San Francisco, 2e editie, februari 2008, 488 blz., ISBN 978-1593271442, inclusief een live-cd met een Linux-omgeving voor de voorbeelden uit het boek. De eerste editie verscheen in 2003 bij dezelfde uitgeverij. Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Erickson, cryptoloog en security-onderzoeker, bouwt dit boek op vanaf de programmeertaal C en assembly, niet vanaf kant-en-klare aanvalstools. Het idee is dat wie begrijpt hoe een programma geheugen gebruikt, ook begrijpt waarom een buffer overflow of een format string-fout tot willekeurige code-uitvoering kan leiden.</p><p>Na de programmeerbasis behandelt het boek exploitatietechnieken zoals stack- en heap-overflows, netwerkaanvallen inclusief sniffen en het kapen van verbindingen, het schrijven van eigen shellcode, en tegenmaatregelen zoals een niet-uitvoerbare stack. Het sluit af met een hoofdstuk over cryptografie waarin onder meer het kraken van WEP-versleuteld wifiverkeer aan bod komt.</p><p>De bijgeleverde live-cd met een compleet Linux-systeem en alle voorbeelden was in 2008 een van de redenen dat het boek als praktisch instapwerk gold; wie de code zelf wilde compileren en uitproberen, hoefde geen eigen omgeving op te zetten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>exploitatie</li><li>buffer overflow</li><li>shellcode</li><li>C</li><li>assembly</li><li>netwerken</li><li>cryptografie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2307"><a href="2307.html">From Day Zero to Zero Day: A Hands-On Guide to Vulnerability Research</a>. From Day Zero to Zero Day bouwt voort op dezelfde geheugenkennis en past die toe op het zelf vinden van nieuwe kwetsbaarheden, in plaats van de bekende technieken uit dit boek te herhalen.</li>
+          <li value="2313"><a href="2313.html">Black Hat Python: Python Programming for Hackers and Pentesters (2nd Edition)</a>. Black Hat Python behandelt hoe met een hogere programmeertaal exploitatie- en aanvalsgereedschap te automatiseren is, een stap voorbij de handmatige C- en assemblytechnieken hier.</li>
+          <li value="2308"><a href="2308.html">Metasploit: The Penetration Tester's Guide (Second Edition)</a>. Metasploit laat zien hoe exploitatietechnieken als deze in een gestandaardiseerd raamwerk zijn ondergebracht, in plaats van zoals hier met de hand te worden geschreven en getest.</li>
+          <li value="2302"><a href="2302.html">Penetration Testing: A Hands-On Introduction to Hacking</a>. Penetration Testing: A Hands-On Introduction to Hacking plaatst binaire exploitatie in de bredere context van een volledige pentest, inclusief verkenning, webkwetsbaarheden en rapportage, waar dit boek zich tot geheugen en netwerken beperkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

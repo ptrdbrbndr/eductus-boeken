@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacking APIs: Breaking Web Application Programming Interfaces &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ball stelt dat API's een aparte aanvalsoppervlakte vormen die met de gangbare aanpak voor webapplicaties onvoldoende wordt getest: API's communiceren…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2305">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2305 &middot; Digitale beveiliging en hacking</p>
+    <h1>Hacking APIs: Breaking Web Application Programming Interfaces</h1>
+    <p class="lede">Corey J. Ball, 2022</p>
+    <p class="stats">
+      <span><b>1405</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2305"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ball stelt dat API's een aparte aanvalsoppervlakte vormen die met de gangbare aanpak voor webapplicaties onvoldoende wordt getest: API's communiceren zonder de gebruikersinterface die een reguliere scanner als aanknopingspunt gebruikt, en juist daardoor blijven fouten in autorisatie en gegevensvalidatie vaak onopgemerkt tot ze in productie worden misbruikt. Het boek werkt die stelling uit door de OWASP API Security Top 10 als leidraad te nemen en elke categorie te koppelen aan een concrete, herhaalbare oefening op een opzettelijk kwetsbare testomgeving. De onderliggende claim is dat wie API's alleen als variant van webapplicaties test, systematisch een deel van de kwetsbaarheden mist.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe webapplicaties en API's werken</h3>
+      <p>Het eerste deel herhaalt de basis van webapplicaties, HTTP, sessies en authenticatiemethoden, voordat het de opbouw van een API zelf behandelt: REST, SOAP en GraphQL, met hun verschillende manieren om verzoeken en antwoorden te structureren. Hoofdstuk drie zet de meest voorkomende kwetsbaarheidscategorieën op een rij, aan de hand van de OWASP API Security Top 10.</p>
+      <p>Ball opent daarnaast met een hoofdstuk over de voorbereiding van een test: welke toestemming nodig is, welke onderdelen van een API wel en niet getest mogen worden, en hoe rate limits en bestaande beveiligingsmaatregelen daarbij een rol spelen.</p>
+      <h3>Een testomgeving opzetten</h3>
+      <p>Het tweede deel behandelt het inrichten van een eigen hacking-systeem met tools als Postman, Burp Suite en specifieke API-testtools, gevolgd door het opzetten van bewust kwetsbare doelwit-API's om op te oefenen. Ball benadrukt dat elke techniek in het boek eerst op deze zelf beheerde doelwitten wordt geoefend.</p>
+      <p>De gebruikte oefendoelwitten zijn opzettelijk kwetsbaar gebouwde API's die vrij beschikbaar zijn voor trainingsdoeleinden, zodat de lezer dezelfde omgeving thuis kan nabouwen zonder een echte organisatie te benaderen.</p>
+      <h3>Een API in kaart brengen</h3>
+      <p>De hoofdstukken over discovery en endpointanalyse behandelen het vinden van API-endpoints die niet in de officiële documentatie staan en het herleiden van de functionaliteit van een endpoint uit de structuur van verzoeken en antwoorden.</p>
+      <p>Ball besteedt hierbij aandacht aan bronnen die vaak over het hoofd worden gezien, zoals JavaScript-bestanden van een webapplicatie of oude documentatieversies die per ongeluk online zijn blijven staan.</p>
+      <h3>Authenticatie en autorisatie aanvallen</h3>
+      <p>Twee hoofdstukken behandelen respectievelijk het aanvallen van authenticatie, waaronder zwakke of te ruim geldige tokens, en het aanvallen van autorisatie, waarbij een gebruiker toegang krijgt tot gegevens of functies waarvoor hij niet is geautoriseerd. Dit laatste, broken object level authorization, komt in het boek terug als de meest voorkomende praktijkfout.</p>
+      <p>Ball onderbouwt die stelling met verwijzingen naar openbaar gemaakte datalekken waarin precies dit type autorisatiefout de oorzaak was, zodat het geen abstract risico blijft maar een terugkerend patroon in werkelijke incidenten.</p>
+      <h3>Fuzzing, mass assignment en injectie</h3>
+      <p>Het boek behandelt fuzzing als systematische manier om een API met afwijkende invoer te bestoken, mass assignment als het onbedoeld kunnen wijzigen van velden die niet voor de gebruiker bedoeld zijn, en klassieke injectietechnieken toegepast op API-endpoints in plaats van webformulieren. Een van de labs laat zien hoe een verborgen veld in een verzoek, dat de documentatie niet vermeldt, de prijs van een bestelling kan wijzigen.</p>
+      <h3>Evasietechnieken en GraphQL</h3>
+      <p>Het dertiende hoofdstuk behandelt het omzeilen van rate limiting en andere beperkingen; het veertiende hoofdstuk gaat specifiek in op GraphQL, waarvan de flexibele querystructuur eigen aanvalsmogelijkheden oplevert die bij REST-API's niet bestaan. Ball behandelt onder meer het opvragen van velden die niet voor de gebruiker bedoeld zijn door de querystructuur zelf aan te passen, iets wat bij een vaste REST-respons niet mogelijk is.</p>
+      <h3>Praktijkgevallen en verantwoord melden</h3>
+      <p>Het laatste hoofdstuk bespreekt gedocumenteerde datalekken die via API's zijn ontstaan en hoe gevonden kwetsbaarheden via bug bounty-programma's te melden zijn. Een bijlage met een controlelijst vat de eerdere hoofdstukken samen tot een stappenplan voor een eigen test.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">REST</td><td>Architectuurstijl voor API's gebaseerd op HTTP-methoden en resources, het meest voorkomende type in het boek.</td></tr>
+          <tr><td class="term">GraphQL</td><td>Querytaal voor API's waarbij de client zelf bepaalt welke velden een antwoord bevat, met een eigen set aanvalsmogelijkheden.</td></tr>
+          <tr><td class="term">OWASP API Security Top 10</td><td>De door OWASP opgestelde lijst van de meest voorkomende API-kwetsbaarheidscategorieën, de leidraad van het boek.</td></tr>
+          <tr><td class="term">Broken Object Level Authorization (BOLA)</td><td>Het kunnen benaderen van andermans gegevens door alleen een identifier in een verzoek aan te passen.</td></tr>
+          <tr><td class="term">Mass assignment</td><td>Een kwetsbaarheid waarbij een API meer velden accepteert en verwerkt dan de ontwikkelaar bedoelde, waardoor een gebruiker beschermde velden kan wijzigen.</td></tr>
+          <tr><td class="term">JSON Web Token (JWT)</td><td>Veelgebruikt tokenformaat voor authenticatie, waarvan het boek de zwakke implementaties en signatuurfouten behandelt.</td></tr>
+          <tr><td class="term">Rate limiting</td><td>Een beperking op het aantal verzoeken per tijdseenheid, en de technieken die het boek bespreekt om die beperking te omzeilen.</td></tr>
+          <tr><td class="term">Postman</td><td>Tool voor het samenstellen en versturen van API-verzoeken, in het boek gebruikt naast Burp Suite.</td></tr>
+          <tr><td class="term">Fuzzing</td><td>Het automatisch bestoken van een doelwit met afwijkende of onverwachte invoer om fouten in de verwerking bloot te leggen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Ball bouwt het boek op meer dan vijftien jaar ervaring in IT-beveiliging in sectoren als lucht- en ruimtevaart, energie, fintech, overheid en gezondheidszorg, en op zijn werk als Head of Offensive Security bij APIsec. Hij richtte daarnaast APIsec University op, een gratis opleidingsplatform voor API-beveiliging met naar eigen zeggen meer dan honderdtwintigduizend cursisten. Naast de OSCP en CISSP houdt hij ook de CCISO- en CISM-certificering, wat aangeeft dat zijn achtergrond zowel het uitvoerende als het beleidsmatige deel van beveiligingswerk beslaat.</p>
+      <p>Het boek volgt de OWASP API Security Top 10 als structuur, een lijst die door een brede gemeenschap van beveiligingsonderzoekers wordt onderhouden en die inmiddels breed als referentiepunt geldt voor API-beveiligingswerk, ook buiten dit boek. Dat maakt de indeling van het boek herkenbaar voor wie al met andere OWASP-materiaal heeft gewerkt en verbindt de oefeningen aan een bredere, onafhankelijk onderhouden bron.</p>
+      <p>No Starch Press hanteert voor dit soort titels een technische redactie voorafgaand aan publicatie, en het boek werd na verschijnen positief besproken in onafhankelijke technische recensies die de opbouw van de labs en de aansluiting tussen theorie en oefening prijzen.</p>
+      <p>Het boek bevat negen uitgewerkte labs, van het opsommen van gebruikersaccounts in een REST-API tot het vervalsen van kortingscodes via NoSQL-injectie, waarmee elk theoretisch hoofdstuk direct aan een herhaalbare oefening is gekoppeld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Specifieke tools, testdoelwitten en versienummers uit 2022 verouderen sneller dan de onderliggende kwetsbaarheidscategorieën; een deel van de meegeleverde kwetsbare testapplicaties kan inmiddels zijn bijgewerkt of niet meer op dezelfde manier beschikbaar zijn.</p>
+      <p>Het boek veronderstelt basiskennis van webapplicaties, HTTP en op zijn minst één programmeertaal om aangeboden scripts te kunnen lezen; die voorkennis wordt genoemd maar niet vanaf nul opgebouwd, waardoor volledige beginners eerst elders moeten bijspijkeren.</p>
+      <p>Het verschil tussen oefenen op de meegeleverde kwetsbare doelwitten en het testen van een productie-API bij een opdrachtgever krijgt beperkte aandacht; wie de technieken in een echte opdracht toepast, heeft aanvullende afspraken over scope en toestemming nodig die het boek zelf niet uitwerkt. Het voorbereidingshoofdstuk noemt dat punt wel, maar werkt het niet met dezelfde diepgang uit als de latere aanvalshoofdstukken.</p>
+      <p>GraphQL en de nieuwste evasietechnieken bewegen sneller dan REST-gerelateerde onderwerpen; het hoofdstuk daarover is het meest kwetsbaar voor veroudering van alle hoofdstukken in het boek.</p>
+      <p>Het boek behandelt SOAP-API's slechts terloops, terwijl dat type nog altijd voorkomt in oudere bedrijfsapplicaties; wie voornamelijk met dergelijke systemen werkt, vindt in dit boek vooral achtergrond en geen uitgewerkte aanvalstechniek voor SOAP specifiek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zet eerst de meegeleverde kwetsbare testomgevingen lokaal op voordat je een techniek op een echte API probeert.</li>
+        <li>Loop de OWASP API Security Top 10 langs als checklist bij elke nieuwe API die je test.</li>
+        <li>Controleer bij elke endpoint expliciet of een gebruiker alleen bij zijn eigen gegevens kan, in plaats van dat aan te nemen, ook als de documentatie het tegendeel beweert.</li>
+        <li>Vraag schriftelijke toestemming en een vastgelegde scope voordat je deze technieken op een productie-API van een opdrachtgever toepast, en leg de afgesproken grenzen ook vast in het testverslag.</li>
+        <li>Gebruik de controlelijst in de bijlage als vast stappenplan bij een eigen test, niet alleen bij het doorwerken van het boek.</li>
+        <li>Werk de negen labs in volgorde door, ook als je een hoofdstuk inhoudelijk al kent, zodat de opbouw van eenvoudige naar samengestelde aanvallen intact blijft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">No Starch Press, San Francisco, 2022, 368 blz., ISBN 9781718502444 (paperback), ISBN 9781718502451 (e-book). Eerste druk; er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Corey Ball behandelt het testen van webapplicatie-API's als een apart vakgebied, met een eigen opbouw: eerst web-API's begrijpen, dan een eigen testomgeving met kwetsbare doelwitten opzetten, en pas daarna aanvallen op authenticatie, autorisatie, invoervalidatie en de limieten van een API.</p><p>Het boek werkt met concrete, opzettelijk kwetsbare API's als oefenmateriaal en met gangbare tools als Postman en Burp Suite. Afzonderlijke hoofdstukken behandelen mass assignment, injectie, GraphQL en het omzeilen van rate limiting, met een laatste deel over het melden van gevonden kwetsbaarheden via bug bounty-programma's.</p><p>Ball is Head of Offensive Security bij APIsec en oprichter van APIsec University; hij werkte eerder in IT-beveiliging in de lucht- en ruimtevaart, energie, fintech en gezondheidszorg en houdt onder meer de OSCP- en CISSP-certificering.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>api-beveiliging</li><li>rest</li><li>graphql</li><li>burp suite</li><li>postman</li><li>owasp api top 10</li><li>bug bounty</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2312"><a href="2312.html">Web Hacking Arsenal: A Practical Guide to Modern Web Pentesting</a>. Waar dit boek zich toespitst op API's, behandelt <i>Web Hacking Arsenal</i> de bredere laag van webapplicaties waar diezelfde API's vaak achter hangen.</li>
+          <li value="2314"><a href="2314.html">Bug Bounty Bootcamp: The Guide to Finding and Reporting Web Vulnerabilities</a>. Het melden van gevonden kwetsbaarheden dat dit boek in het laatste hoofdstuk aansnijdt, is het hoofdonderwerp van <i>Bug Bounty Bootcamp</i>.</li>
+          <li value="2313"><a href="2313.html">Black Hat Python: Python Programming for Hackers and Pentesters (2nd Edition)</a>. Voor de scripts en automatisering die Ball terloops gebruikt, geeft <i>Black Hat Python</i> de technische verdieping in Python voor beveiligingswerk.</li>
+          <li value="2309"><a href="2309.html">Ethical Hacking: A Hands-on Introduction to Breaking In</a>. Wie eerst de bredere basis van ethisch hacken wil leggen voordat hij zich op API's toespitst, vindt die in <i>Ethical Hacking: A Hands-on Introduction to Breaking In</i>.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

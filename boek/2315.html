@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pentesting Active Directory and Windows-based Infrastructure &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Isakov behandelt Active Directory als het zenuwstelsel van een Windows-netwerk: de dienst die vastlegt wie welk systeem mag benaderen en wie welke rechten…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2315">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2315 &middot; Digitale beveiliging en hacking</p>
+    <h1>Pentesting Active Directory and Windows-based Infrastructure</h1>
+    <p class="lede">Denis Isakov, 2023</p>
+    <p class="stats">
+      <span><b>1454</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2315"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Isakov behandelt Active Directory als het zenuwstelsel van een Windows-netwerk: de dienst die vastlegt wie welk systeem mag benaderen en wie welke rechten heeft. Zijn stelling is dat wie begrijpt hoe AD vertrouwen, authenticatie en beheer regelt, vanaf een enkel gecompromitteerd account in stappen een heel bedrijfsnetwerk kan overnemen. Het boek bouwt die aanval op als een keten: verkenning, het buitmaken van inloggegevens, laterale beweging tussen machines en domeinen, escalatie naar domeinbeheerder en ten slotte persistentie op de domeincontroller zelf. Elke schakel in die keten leunt op een eigenschap van Kerberos, NTLM of AD-machtigingen die zo is ontworpen dat gebruiksgemak zwaarder weegt dan wantrouwen tussen systemen, en het boek laat stap voor stap zien wat dat ontwerp een aanvaller oplevert. Isakov benadrukt daarbij dat vrijwel geen van de gebruikte functies een fout in de klassieke zin is: het gaat telkens om standaardgedrag van Windows dat, opgeteld over een heel netwerk, een aaneengesloten route naar de hoogste rechten vormt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het lab en de eerste opening via Exchange</h3>
+      <p>Het eerste hoofdstuk richt een eigen testomgeving in met een domeincontroller, werkstations en een Exchange-server, en gebruikt die server meteen als voorbeeld van een eerste voet aan de grond. Exchange staat in veel organisaties met een deel van zijn functionaliteit open naar buiten, wat het een realistisch startpunt maakt voor de rest van het boek.</p>
+      <p>Isakov kiest bewust voor een reproduceerbare labopstelling met vaste versienummers, zodat elke oefening in het boek herhaalbaar is. Dat maakt het geschikt als naslagwerk waarnaar teruggegrepen kan worden, mits de lezer beseft dat een echte omgeving zelden zo schoon is ingericht als het lab.</p>
+      <h3>Onopgemerkt blijven</h3>
+      <p>Voordat het boek verder de aanval in gaat, behandelt het hoe detectie door antivirus- en EDR-software te omzeilen is, onder meer door signaturen te ontwijken en bekende tools aan te passen. Dat hoofdstuk plaatst de latere technieken meteen in een context waarin een verdediger meekijkt, in plaats van te doen alsof een testomgeving nooit gemonitord wordt.</p>
+      <h3>Het domein in kaart brengen</h3>
+      <p>Met tools als BloodHound en PowerView brengt de lezer gebruikers, groepen, vertrouwensrelaties en machtigingen in het domein in kaart. Dit hoofdstuk legt de basis voor alles wat volgt: zonder zicht op wie waarmee mag praten, is er geen route naar de domeincontroller te plannen.</p>
+      <p>Het boek besteedt bewust tijd aan het interpreteren van de grafieken die BloodHound produceert, omdat het herkennen van een kort pad tussen een laag geprivilegieerd account en de domeinbeheerdersgroep de rest van de aanval bepaalt.</p>
+      <h3>Inloggegevens buitmaken</h3>
+      <p>Dit deel behandelt het onderscheppen van hashes, het afdwingen van authenticatie via protocollen als MS-RPRN en MS-EFSR, en het roosteren van Kerberos-tickets om wachtwoorden offline te kunnen kraken. Isakov legt uit welk protocolgedrag elke techniek mogelijk maakt, in plaats van alleen commando's op te sommen.</p>
+      <h3>Zijwaarts door domein en bos</h3>
+      <p>Met pass-the-hash, pass-the-ticket en misbruik van Kerberos-delegatie beweegt de aanvaller zich van het eerste gecompromitteerde systeem naar andere machines en zelfs andere domeinen binnen hetzelfde bos. Het hoofdstuk besteedt aandacht aan de Bronze Bit-aanval (CVE-2020-17049) als voorbeeld van hoe een specifiek gepatcht lek de rest van de keten opende.</p>
+      <p>Ook trustrelaties tussen domeinen komen aan bod: een aanvaller die het ene domein volledig beheerst, kan onder bepaalde voorwaarden ook een vertrouwd domein binnendringen zonder daar zelf ooit eerder voet aan de grond te hebben gehad.</p>
+      <h3>Van gebruiker naar domeinbeheerder</h3>
+      <p>Password spraying, hernieuwd misbruik van kerberoasting, zwakke plekken in LAPS en gMSA-beheer en het uitlezen van domeingeheimen via DCSync komen hier samen in een route naar volledige domeinrechten. Isakov laat bij elke route zien welke standaardconfiguratie ze mogelijk maakt en welke instelling die juist zou dichten.</p>
+      <h3>Blijven zitten: persistentie en aanpalende systemen</h3>
+      <p>De laatste hoofdstukken behandelen persistentietechnieken zoals vervalste tickets, een Golden gMSA en een Skeleton Key op de domeincontroller, en breiden de aanval uit naar Microsoft SQL Server en beheersoftware als WSUS en SCCM. Wie die laatste twee overneemt, kan in veel omgevingen software naar elke machine in het netwerk pushen.</p>
+      <p>Het boek sluit deze hoofdstukken telkens af met een korte blik op detectie: welke logregel of gebeurtenis een verdediger op het spoor van de techniek zou kunnen zetten, zodat de lezer niet alleen leert aanvallen maar ook waar te kijken valt.</p>
+      <p>De aandacht voor WSUS en SCCM onderscheidt dit boek van veel andere Active Directory-titels, die zich doorgaans beperken tot het domein zelf. Isakov laat zien dat beheersoftware die is bedoeld om een netwerk centraal te onderhouden, in verkeerde handen dezelfde centrale rol tegen de organisatie kan keren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kerberoasting</td><td>Het opvragen van een Kerberos-serviceticket voor een account met een servicenaam om het bijbehorende wachtwoord vervolgens offline te kraken.</td></tr>
+          <tr><td class="term">Pass-the-hash</td><td>Inloggen met een gestolen wachtwoordhash zonder het bijbehorende wachtwoord ooit in leesbare vorm te kennen.</td></tr>
+          <tr><td class="term">BloodHound</td><td>Een tool die relaties, groepslidmaatschappen en machtigingen in Active Directory in kaart brengt en de kortste aanvalsroute naar domeinbeheerder berekent.</td></tr>
+          <tr><td class="term">DCSync</td><td>Een techniek waarbij een aanvaller zich voordoet als een domeincontroller om wachtwoordgegevens van alle domeinaccounts te repliceren.</td></tr>
+          <tr><td class="term">Kerberos-delegatie</td><td>Een functie waarmee een dienst zich namens een gebruiker bij een andere dienst mag aanmelden; verkeerd geconfigureerd opent dit een route naar hogere rechten.</td></tr>
+          <tr><td class="term">Golden gMSA</td><td>Een persistentietechniek waarbij de sleutel achter groepsbeheerde serviceaccounts wordt buitgemaakt om nieuwe geldige wachtwoorden voor zo'n account te berekenen.</td></tr>
+          <tr><td class="term">Skeleton Key</td><td>Malware die op een domeincontroller een extra, universeel wachtwoord invoegt waarmee elk account benaderbaar wordt zonder het echte wachtwoord.</td></tr>
+          <tr><td class="term">LAPS</td><td>Local Administrator Password Solution, de Microsoft-functie die lokale beheerderswachtwoorden per machine willekeurig maakt en centraal opslaat.</td></tr>
+          <tr><td class="term">NTLM-relay</td><td>Het doorsturen van een onderschepte authenticatiepoging naar een ander systeem, zodat de aanvaller zich daar aanmeldt met de identiteit van het slachtoffer.</td></tr>
+          <tr><td class="term">Password spraying</td><td>Het proberen van een klein aantal veelgebruikte wachtwoorden bij een groot aantal accounts, om detectie op basis van herhaalde pogingen op één account te vermijden.</td></tr>
+          <tr><td class="term">WSUS en SCCM</td><td>Microsoft-systemen voor het centraal uitrollen van updates en software op werkstations en servers, die bij misbruik een aanvaller dezelfde centrale distributie geven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De autoriteit van het boek rust op Isakovs eigen loopbaan: ruim tien jaar in incident response en penetratietesten, met certificeringen als OSCP en GXPN en een focus op Active Directory en offensive security tegen Microsoft-omgevingen. De beschreven technieken komen uit opdrachten die hij zelf heeft uitgevoerd, niet uit theorie alleen.</p>
+      <p>Een deel van de beschreven aanvallen is gekoppeld aan gedocumenteerde kwetsbaarheden, zoals de Bronze Bit-aanval die als CVE-2020-17049 is geregistreerd. Andere technieken, zoals kerberoasting en DCSync, zijn breed erkende categorieën binnen het MITRE ATT&CK-raamwerk en komen terug in vrijwel elke serieuze Active Directory-pentest.</p>
+      <p>Het boek verschijnt bij Packt, een uitgever die zich specifiek op technische vakliteratuur voor IT-professionals richt, en sluit aan bij een reeks vergelijkbare titels over red teaming en Windows-beveiliging van dezelfde uitgeverij. De positieve klantbeoordelingen op de uitgeverspagina komen overwegend van lezers die het boek in een lopend pentesttraject hebben gebruikt, wat past bij het praktische karakter van de tekst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Active Directory-beveiliging verandert voortdurend. Microsoft patcht regelmatig het gedrag waarop specifieke technieken leunen, zoals eerder gebeurde met de PetitPotam-authenticatiedwang. Een boek dat op een bepaald moment een compleet overzicht geeft, veroudert daardoor sneller dan het aantal drukken doet vermoeden.</p>
+      <p>Het boek vermeldt niet expliciet hoeveel voorkennis het vereist, maar leunt zwaar op vertrouwdheid met Windows-serverbeheer, PowerShell en netwerkprotocollen. Wie dat niet al kent, zal veel commando's kunnen overtypen zonder te begrijpen waarom ze werken.</p>
+      <p>De oefeningen spelen zich af in een eigen, stil lab zonder detectiemechanismen die in een echte omgeving meekijken, afgezien van het hoofdstuk over evasion. Een geautoriseerde pentest bij een klant vraagt daarnaast om scoping, rapportage en overleg met de opdrachtgever, onderdelen van het vak die in dit technische boek nauwelijks aan bod komen.</p>
+      <p>Doordat het boek techniek voor techniek behandelt, blijft het opbouwen van een compleet aanvalsverhaal voor een rapportage aan de opdrachtgever grotendeels aan de lezer zelf over. Wie na dit boek voor het eerst een rapport moet schrijven, vindt daarvoor elders meer houvast.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bouw eerst een eigen labomgeving voordat je een van deze technieken uitprobeert.</li>
+        <li>Leer BloodHound gebruiken om aanvalspaden te lezen voordat je losse technieken toepast.</li>
+        <li>Vraag altijd expliciete, schriftelijke toestemming voordat je iets uit dit boek op het netwerk van een opdrachtgever toepast.</li>
+        <li>Volg de patchstatus van Microsoft, want een deel van deze technieken wordt na verloop van tijd gemitigeerd.</li>
+        <li>Noteer bij elke techniek ook het detectiespoor dat het boek noemt, zodat je de bevinding aan de opdrachtgever kunt uitleggen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Packt Publishing, Birmingham, 2023, 360 blz., ISBN 9781804611364 (ook als e-book onder ISBN 9781804618271). Eerste druk, geen latere editie bekend. Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Isakov, een pentester met ruim tien jaar ervaring in incident response en offensive security, bouwt dit boek op als een doorlopende aanvalsketen tegen een Windows-domein. De lezer begint met een eigen labomgeving en een eerste opening via een Exchange-server, en werkt van daaruit stap voor stap toe naar volledige controle over de domeincontroller.</p><p>Onderweg komen verkenning met tools als BloodHound, het buitmaken van Kerberos-tickets en NTLM-hashes, laterale beweging tussen machines en domeinen, en escalatie naar domeinbeheerder aan bod. De laatste hoofdstukken behandelen persistentie op domeinniveau en de overname van beheersoftware zoals WSUS en SCCM, waarmee een aanvaller zich toegang tot een hele omgeving kan verschaffen.</p><p>Het boek is gericht op mensen die al bekend zijn met Windows-beheer en die de overstap maken naar offensief testen van Active Directory-omgevingen, niet op wie voor het eerst met een terminal werkt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>pentesting</li><li>Active Directory</li><li>Windows</li><li>red teaming</li><li>Kerberos</li><li>laterale beweging</li><li>domeincontroller</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2304"><a href="2304.html">Advanced Penetration Testing: Hacking the World's Most Secure Networks</a>. Advanced Penetration Testing plaatst technieken als deze in de bredere context van een volledige red-teamoperatie tegen goed verdedigde netwerken.</li>
+          <li value="2308"><a href="2308.html">Metasploit: The Penetration Tester's Guide (Second Edition)</a>. Metasploit behandelt het raamwerk waarmee veel van de exploitatie- en post-exploitatiestappen uit dit boek in de praktijk worden uitgevoerd.</li>
+          <li value="2311"><a href="2311.html">Red Team Engineering: The Art of Building Offensive Tools and Infrastructure</a>. Red Team Engineering gaat over de infrastructuur die achter een operatie als deze moet staan, van command-and-control tot het schuilhouden van de aanvaller zelf.</li>
+          <li value="2302"><a href="2302.html">Penetration Testing: A Hands-On Introduction to Hacking</a>. Penetration Testing: A Hands-On Introduction to Hacking biedt de bredere, minder Windows-specifieke basis waarop dit meer gespecialiseerde boek voortbouwt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

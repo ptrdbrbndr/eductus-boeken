@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metasploit: The Penetration Tester's Guide (Second Edition) &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De auteurs stellen dat een pentester zonder gestructureerde methode een verzameling losse trucs uitvoert, terwijl Metasploit juist gebouwd is om die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2308">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2308 &middot; Digitale beveiliging en hacking</p>
+    <h1>Metasploit: The Penetration Tester's Guide (Second Edition)</h1>
+    <p class="lede">David Kennedy, Mati Aharoni, Devon Kearns, Jim O'Gorman en Daniel G. Graham, 2025</p>
+    <p class="stats">
+      <span><b>1436</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2308"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De auteurs stellen dat een pentester zonder gestructureerde methode een verzameling losse trucs uitvoert, terwijl Metasploit juist gebouwd is om die trucs, van verkenning tot exploitatie tot het vasthouden van toegang, in een herhaalbaar en documenteerbaar proces te gieten. Hun stelling is dat het framework niet simpelweg een verzameling kant en klare exploits is, maar een omgeving waarin een tester zelf modules kan bouwen, aanpassen en combineren, en dat wie het framework alleen als menu van bestaande exploits gebruikt de eigenlijke waarde ervan mist. Deze tweede editie voegt daaraan toe dat diezelfde methode ook op cloudomgevingen moet worden toegepast, omdat een aanzienlijk deel van de infrastructuur die getest moet worden inmiddels niet meer op een fysiek netwerk staat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De basis van een pentest</h3>
+      <p>De eerste twee hoofdstukken leggen de grondslag: wat een geautoriseerde penetratietest onderscheidt van ongeoorloofd binnendringen, welke juridische en contractuele stappen daaraan voorafgaan, en hoe het Metasploit Framework is opgebouwd uit modules, payloads en encoders.</p>
+      <h3>Verkenning en kwetsbaarheidsanalyse</h3>
+      <p>Hoofdstuk drie en vier behandelen het verzamelen van informatie over een doelwit, van openbare bronnen tot actieve scans, en het koppelen van die informatie aan bekende kwetsbaarheden met hulpmiddelen zoals Nessus, geintegreerd met Metasploit.</p>
+      <p>Het boek legt uit hoe de resultaten van een scanner automatisch in Metasploit worden geimporteerd, zodat de tester per gevonden kwetsbaarheid direct kan zien welke exploitmodules daarop aansluiten, in plaats van handmatig een scanrapport naast de moduledatabase te leggen.</p>
+      <h3>Exploitatie en Meterpreter</h3>
+      <p>De kern van het boek behandelt het daadwerkelijk uitvoeren van exploits en het werken met Meterpreter, de payload waarmee een tester na een geslaagde exploit opdrachten op het doelsysteem uitvoert, bestanden overzet en zich verder in het netwerk beweegt. Een apart hoofdstuk gaat over het omzeilen van detectie door antivirussoftware en monitoring.</p>
+      <p>Het boek besteedt daarbij aandacht aan pivoting: het gebruiken van een al gecompromitteerd systeem als tussenstation om andere machines te bereiken die niet rechtstreeks vanaf de aanvaller zijn te benaderen, een techniek die in vrijwel elke test op een groter netwerk terugkomt.</p>
+      <h3>Client-side en social engineering</h3>
+      <p>Waar eerdere hoofdstukken uitgaan van een kwetsbare server, richten deze hoofdstukken zich op aanvallen die op een gebruiker inspelen: kwaadaardige documenten, phishing-scenario's en het misbruiken van vertrouwen, aangevuld met een hoofdstuk over aanvallen op draadloze netwerken.</p>
+      <p>De auxiliary modules die in dit deel worden behandeld, gaan niet over het uitvoeren van een exploit maar over ondersteunende taken zoals het testen van wachtwoorden of het opzetten van een nagemaakt toegangspunt, en laten zien dat Metasploit breder inzetbaar is dan alleen als exploitmachine.</p>
+      <h3>Eigen modules en exploits bouwen</h3>
+      <p>Drie hoofdstukken behandelen het overzetten van een bestaande, losstaande exploit naar het Metasploit-formaat, het schrijven van eigen hulpmodules, en het van de grond af opbouwen van een nieuwe exploit voor een niet eerder gedocumenteerde kwetsbaarheid.</p>
+      <p>Deze hoofdstukken vragen meer van de lezer dan de rest van het boek: ze veronderstellen kennis van geheugenopbouw en van hoe een programma instructies uitvoert, omdat het schrijven van een werkende exploit zonder die achtergrond nauwelijks mogelijk is.</p>
+      <h3>Een gesimuleerde test en de cloud</h3>
+      <p>Het boek sluit af met een volledige, gesimuleerde pentest waarin de eerdere hoofdstukken samenkomen, en met het nieuwe hoofdstuk over het testen van cloudomgevingen, waarin de aanpak van het framework wordt toegepast op cloudspecifieke configuratiefouten en identiteitsbeheer.</p>
+      <p>Dit laatste hoofdstuk behandelt onder meer verkeerd ingestelde toegangsrechten en te ruim toegekende rollen in cloudomgevingen, een categorie fouten die in on-premise netwerken minder speelt maar in cloudinfrastructuur juist veel voorkomt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Metasploit Framework</td><td>Het open source platform waarmee exploits, payloads en hulpmodules worden gebouwd, beheerd en uitgevoerd.</td></tr>
+          <tr><td class="term">Meterpreter</td><td>Een geavanceerde payload binnen Metasploit waarmee een tester na een geslaagde exploit interactief opdrachten op het doelsysteem uitvoert.</td></tr>
+          <tr><td class="term">Payload</td><td>De code die na een geslaagde exploit daadwerkelijk op het doelsysteem wordt uitgevoerd, bijvoorbeeld om een verbinding terug naar de aanvaller op te zetten.</td></tr>
+          <tr><td class="term">Auxiliary module</td><td>Een hulpmodule binnen Metasploit die geen exploit uitvoert maar bijvoorbeeld scant, wachtwoorden test of informatie verzamelt.</td></tr>
+          <tr><td class="term">Pivoting</td><td>Het gebruiken van een al gecompromitteerd systeem als tussenstation om andere, niet direct bereikbare systemen in hetzelfde netwerk te bereiken.</td></tr>
+          <tr><td class="term">PTES</td><td>Penetration Testing Execution Standard, een veelgebruikt raamwerk voor de fasering van een pentest waarnaar het boek zich richt.</td></tr>
+          <tr><td class="term">Social engineering</td><td>Het misbruiken van menselijk vertrouwen of onoplettendheid om toegang tot een systeem te krijgen, bijvoorbeeld via phishing.</td></tr>
+          <tr><td class="term">Cloud pentesting</td><td>Het testen van omgevingen die op clouddiensten draaien, met eigen aandachtspunten zoals identiteits- en toegangsbeheer in plaats van alleen netwerkconfiguratie.</td></tr>
+          <tr><td class="term">Exploit</td><td>Code die misbruik maakt van een specifieke kwetsbaarheid om ongeautoriseerd gedrag op een doelsysteem af te dwingen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Mati Aharoni en Devon Kearns behoren tot de oprichters van Offensive Security, het bedrijf achter de OSCP-certificering en de Kali Linux-distributie, waarin Metasploit standaard is opgenomen. David Kennedy is oprichter van het beveiligingsbedrijf TrustedSec, houder van certificeringen als OSCP, OSCE en CISSP, en maker van het Social-Engineer Toolkit dat in het boek als aanvullend gereedschap wordt genoemd.</p>
+      <p>De eerste editie uit 2011 werd geruime tijd als bestseller in de beveiligingscategorie op Amazon gevoerd en gold meer dan een decennium als het standaardwerk voor Metasploit, ook binnen trainingstrajecten die naar certificeringen als de OSCP toewerken. Dat de tweede editie pas veertien jaar later verscheen, laat zien dat de uitgever en de auteurs een volledige herziening pas de moeite waard vonden toen het framework en het bredere vakgebied genoeg waren veranderd, in plaats van tussentijds met kleine correcties bij te sturen.</p>
+      <p>De tweede editie is geen herdruk maar een herziening: het aantal bladzijden is teruggebracht ten opzichte van de eerste editie en het cloudhoofdstuk is nieuw toegevoegd, wat aangeeft dat verouderde onderdelen zijn geschrapt in plaats van alleen aangevuld.</p>
+      <p>Het boek beperkt zich niet tot het bedienen van bestaande modules maar legt ook uit hoe die modules intern zijn opgebouwd, in de Ruby-taal waarin het framework zelf is geschreven. Daarmee onderscheidt het zich van kortere handleidingen die alleen de gebruikersinterface van Metasploit doornemen zonder de werking eronder te verklaren.</p>
+      <p>Dat vier van de vijf auteurs zelf aan de kern van het framework of aan de bijbehorende certificering hebben gewerkt, betekent dat het boek niet van buitenaf beschrijft hoe Metasploit werkt maar vanuit de makers zelf, met toegang tot de overwegingen achter ontwerpkeuzes die een buitenstaander niet had kunnen navertellen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Metasploit zelf wordt voortdurend bijgewerkt, met nieuwe modules en een veranderende command-syntax; een boek dat op een specifieke versie is gebaseerd, veroudert sneller dan het onderliggende idee van een gestructureerde pentestmethode.</p>
+      <p>Het boek concentreert zich op een enkel framework, terwijl een deel van het vak juist bestaat uit het combineren van meerdere, losse tools; wie alleen dit boek leest kan de indruk krijgen dat Metasploit voor elke situatie volstaat, wat niet het geval is.</p>
+      <p>De gesimuleerde pentest aan het eind van het boek speelt zich af in een omgeving die voor het boek is ingericht; een echte, geautoriseerde test verloopt onder tijdsdruk, met een klant die rapportage verwacht en met systemen die niet speciaal kwetsbaar zijn gemaakt.</p>
+      <p>Voor de hoofdstukken over het schrijven van eigen exploits is kennis van geheugenbeheer en assembly nodig die het boek zelf niet van de grond af opbouwt; lezers zonder die achtergrond zullen die hoofdstukken als een aparte leercurve ervaren.</p>
+      <p>Doordat Metasploit veel voorwerk automatiseert, bijvoorbeeld het samenstellen van een payload of het aanpassen van een exploit aan de doelconfiguratie, kan een lezer de indruk krijgen dat pentesten grotendeels bestaat uit het aanroepen van het juiste commando, terwijl de analyse die daaraan voorafgaat minstens zo veel tijd kost.</p>
+      <p>De vijf auteurs schrijven vanuit hun eigen ervaring met het framework en met Offensive Security, wat het boek gezag geeft maar ook een blinde vlek kan opleveren voor kritiek op Metasploit zelf, zoals de vraag hoe gemakkelijk het framework ook door minder ervaren gebruikers voor ongeoorloofde doeleinden kan worden ingezet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zorg voor schriftelijke autorisatie en een vastgelegde scope voordat je een van de technieken uit het boek toepast.</li>
+        <li>Werk de gebruikte Metasploit-modules bij naar de actuele versie voordat je een oefening uit het boek uitvoert.</li>
+        <li>Documenteer bij elke stap wat je hebt gedaan, zoals het boek in de rapportagefase aanbeveelt.</li>
+        <li>Vul de kennis over eigen exploits aan met een aparte bron over geheugenbeheer als die achtergrond ontbreekt.</li>
+        <li>Controleer bij een cloudomgeving eerst de toegangsrechten en rolconfiguratie voordat je de netwerkgerichte technieken uit eerdere hoofdstukken toepast.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Tweede, herziene editie, No Starch Press, San Francisco, 2025, 288 blz., ISBN 9781718502987 (paperback). De eerste editie verscheen in 2011 bij dezelfde uitgever (ISBN 9781593272883). Er bestaat geen Nederlandse vertaling van beide edities.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Metasploit: The Penetration Tester's Guide legt uit hoe het Metasploit Framework, het bekendste open source gereedschap voor het bouwen en uitvoeren van exploits, in de praktijk van een pentest wordt ingezet. Het boek volgt de fasen van een geautoriseerde test: verkenning, kwetsbaarheidsanalyse, exploitatie, post-exploitatie en rapportage, en werkt daarbij consequent met Metasploit als centraal gereedschap.</p><p>De eerste editie verscheen in 2011 en gold meer dan tien jaar als standaardwerk voor wie met Metasploit leerde werken. Deze tweede editie werkt de inhoud bij naar de huidige versie van het framework en voegt een hoofdstuk toe over het testen van cloudomgevingen, een onderwerp dat in de eerste editie nog ontbrak.</p><p>Vier van de vijf auteurs waren betrokken bij de ontwikkeling van Metasploit zelf of bij Offensive Security, het bedrijf achter de OSCP-certificering en de Kali Linux-distributie; de vijfde, Daniel G. Graham, is voor deze editie toegevoegd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>metasploit</li><li>exploitatie</li><li>pentesten</li><li>meterpreter</li><li>social engineering</li><li>cloud</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2300"><a href="2300.html">Ultimate Penetration Testing with Nmap: Master Cybersecurity Assessments for Network Security, Monitoring, and Scanning Using Nmap</a>. Penetration Testing with Nmap behandelt het scangereedschap dat in de verkenningsfase van dit boek als aanvulling op Metasploit wordt ingezet.</li>
+          <li value="2304"><a href="2304.html">Advanced Penetration Testing: Hacking the World's Most Secure Networks</a>. Advanced Penetration Testing bouwt voort op dezelfde fasering maar gaat verder dan een enkel framework.</li>
+          <li value="2311"><a href="2311.html">Red Team Engineering: The Art of Building Offensive Tools and Infrastructure</a>. Red Team Engineering behandelt het bouwen van eigen offensieve infrastructuur, een stap verder dan het gebruiken van een bestaand framework als Metasploit.</li>
+          <li value="2306"><a href="2306.html">Black Hat Bash: Creative Scripting for Hackers and Pentesters</a>. Black Hat Bash laat zien hoe dezelfde aanvalsfasen ook zonder een framework als Metasploit, met alleen shellscripts, kunnen worden uitgevoerd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

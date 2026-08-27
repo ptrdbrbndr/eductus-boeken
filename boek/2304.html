@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advanced Penetration Testing: Hacking the World's Most Secure Networks &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Allsopp stelt dat de meeste penetratietesten, ook de gecertificeerde, een verkeerd dreigingsmodel simuleren: ze testen tegen een aanvaller met een paar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2304">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2304 &middot; Digitale beveiliging en hacking</p>
+    <h1>Advanced Penetration Testing: Hacking the World's Most Secure Networks</h1>
+    <p class="lede">Wil Allsopp, 2017</p>
+    <p class="stats">
+      <span><b>1409</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2304"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Allsopp stelt dat de meeste penetratietesten, ook de gecertificeerde, een verkeerd dreigingsmodel simuleren: ze testen tegen een aanvaller met een paar dagen tijd en generieke tools, terwijl een werkelijke advanced persistent threat weken of maanden de tijd neemt, op maat gemaakte malware gebruikt en precies één organisatie als doelwit heeft. Het boek voert die stelling uit in acht scenario's, elk toegespitst op een andere sector, waarin techniek, social engineering en soms fysieke toegang worden gecombineerd tot een aanval die realistischer is dan wat de meeste certificeringstrajecten oefenen. De consequentie die Allsopp daaraan verbindt, is dat verdedigers die alleen tegen generieke scans testen, een vals gevoel van veiligheid overhouden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Gezondheidszorg: elektronische patiëntendossiers</h3>
+      <p>Het eerste hoofdstuk opent met een aanval op de patiëntendossiers van een ziekenhuis en introduceert meteen de kernaanpak van het boek: een VBA-macro als eerste toegang, gevolgd door een zelfgebouwde command-and-control-verbinding. Allsopp legt uit waarom een kant-en-klare payload uit Metasploit door detectiesoftware wordt herkend en hoe een eigen, generiek gehouden variant die herkenning vermijdt.</p>
+      <p>Het hoofdstuk werkt met een uitgeschreven briefing zoals een opdrachtgever die zou geven, inclusief de vraag welke gegevens precies als doelwit gelden, om van meet af aan te laten zien dat een aanval zonder afgebakende scope niet begint.</p>
+      <h3>Onderzoek en academia</h3>
+      <p>Het tweede hoofdstuk verplaatst het decor naar een universitair onderzoekslab en behandelt phishing gericht op specifieke medewerkers, spear-phishing, als toegangsweg. Allsopp besteedt hier aandacht aan de voorbereiding: het in kaart brengen van personeel, publicaties en interne systemen voordat er ook maar één e-mail wordt verstuurd.</p>
+      <p>Een deel van het hoofdstuk gaat over het schrijven van een geloofwaardige aanleiding voor de phishingmail, afgestemd op de manier waarop onderzoekers binnen een universiteit met elkaar communiceren, in plaats van een generiek sjabloon te gebruiken.</p>
+      <h3>Financiële sector</h3>
+      <p>In het hoofdstuk over een fictieve grootschalige overval op een bank staat de opbouw van een langlopende aanwezigheid in het netwerk centraal, inclusief het omzeilen van detectie over een langere periode. Het hoofdstuk maakt expliciet dat dit geen beschrijving van een werkelijk gebeurde overval is, maar een samengestelde, realistische simulatie.</p>
+      <p>Allsopp besteedt in dit hoofdstuk relatief veel ruimte aan het segmenteren van een bankennetwerk en aan de vraag hoe een aanvaller van het ene segment naar het andere beweegt zonder daarbij op te vallen bij het beveiligingsteam.</p>
+      <h3>Farmaceutische industrie</h3>
+      <p>Het vierde hoofdstuk richt zich op bedrijfsspionage bij een farmaceutisch bedrijf en behandelt onder meer het misbruiken van vertrouwde leveranciersrelaties als ingang. Allsopp laat zien hoe een aanvaller de vertrouwensketen tussen organisaties in kaart brengt en gebruikt.</p>
+      <p>Het hoofdstuk gaat ook in op het verbergen van gestolen onderzoeksgegevens in ogenschijnlijk onschuldig uitgaand verkeer, een vorm van data-exfiltratie die de rest van het boek als terugkerend thema aanhoudt.</p>
+      <h3>Defensie-industrie en militaire simulaties</h3>
+      <p>De hoofdstukken over de wapenindustrie en over een defensienetwerk behandelen omgevingen met een hoger beveiligingsniveau, waar netwerksegmentatie en van het internet afgesloten systemen de aanpak dwingen te verschuiven naar fysieke en sociale elementen naast de technische aanval.</p>
+      <p>Allsopp benadrukt in deze hoofdstukken dat de moeilijkste doelwitten zelden via één technische kwetsbaarheid vallen, maar via de optelsom van kleine zwakke plekken in mens, proces en techniek samen.</p>
+      <h3>Opsporing en criminele inlichtingen</h3>
+      <p>Het hoofdstuk over criminele inlichtingendiensten behandelt het verzamelen en misbruiken van open bronnen, OSINT, om een doelwit voor te bereiden, en de manier waarop diezelfde technieken door kwaadwillenden tegen opsporingsdiensten zelf kunnen worden ingezet.</p>
+      <p>Allsopp beschrijft hier ook hoe sociale-mediaprofielen van individuele medewerkers, op zichzelf onschuldig, samen een profiel opleveren dat een aanvaller kan gebruiken om vertrouwen te winnen.</p>
+      <h3>Media en journalistiek</h3>
+      <p>Het laatste hoofdstuk verlegt het doelwit naar journalisten en redacties, met aandacht voor het compromitteren van bronnen en communicatiekanalen. Allsopp sluit het boek af met de constatering dat de technieken uit de eerdere hoofdstukken zich evengoed tegen de pers laten inzetten als tegen een bank of een ziekenhuis.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Advanced persistent threat (APT)</td><td>Een aanvaller die met geduld en op maat gemaakte middelen langdurig op één doelwit gericht is, in tegenstelling tot een opportunistische aanval.</td></tr>
+          <tr><td class="term">Spear-phishing</td><td>Phishing die is toegespitst op een specifiek persoon of een kleine groep, op basis van vooraf verzamelde informatie.</td></tr>
+          <tr><td class="term">VBA-macropayload</td><td>Kwaadaardige code verstopt in een macro van een Office-document, in het boek de meest gebruikte eerste toegangsweg.</td></tr>
+          <tr><td class="term">Command and control (C2)</td><td>De infrastructuur waarmee een aanvaller op afstand instructies naar gecompromitteerde systemen stuurt en resultaten terugkrijgt.</td></tr>
+          <tr><td class="term">Domain fronting</td><td>Een techniek om C2-verkeer te verbergen achter het verkeer van een legitieme, vertrouwde dienst.</td></tr>
+          <tr><td class="term">Red teaming</td><td>Een aanvalssimulatie die niet alleen kwetsbaarheden zoekt maar de volledige aanvalsketen van een realistische tegenstander nabootst.</td></tr>
+          <tr><td class="term">OSINT (open source intelligence)</td><td>Het verzamelen van doelwitinformatie uit openbaar toegankelijke bronnen als voorbereiding op een aanval.</td></tr>
+          <tr><td class="term">Social engineering</td><td>Het manipuleren van mensen om toegang of informatie te verkrijgen, in het boek stelselmatig gecombineerd met technische middelen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Allsopp bouwt het boek op zijn eigen ervaring als penetratietester voor grote Britse banken, overheidsdiensten en Fortune 100-bedrijven en schreef eerder <i>Unauthorised Access</i> (2009), een boek over fysieke penetratietesten met een voorwoord van Kevin Mitnick. Die eerdere titel laat zien dat zijn aanpak, techniek combineren met fysieke en sociale elementen, geen nieuwe koers is maar een voortzetting van zijn werkwijze.</p>
+      <p>Het boek onderscheidt zich expliciet van certificeringsgerichte literatuur door te stellen dat trajecten als OSCP een aanvaller met beperkte tijd en generieke tools simuleren, niet de langere, op maat gemaakte campagne die het boek zelf uitwerkt. Die claim is inhoudelijk te volgen aan de hand van de eigen payloads en C2-opzet die elk hoofdstuk beschrijft, maar blijft verder een stellingname van de auteur.</p>
+      <p>De scenario's zijn samengestelde, realistische casussen en geen verslag van gedocumenteerde, werkelijk gebeurde incidenten; de onderbouwing rust op de vakbekwaamheid en ervaring van de auteur, niet op extern te verifiëren gebeurtenissen.</p>
+      <p>Het boek wordt in besprekingen en op fora van red teamers regelmatig genoemd als voorbeeld van hoe een campagnegerichte aanpak, in plaats van losse kwetsbaarheden, eruitziet; die erkenning binnen het vakgebied zegt meer over de bruikbaarheid van de aanpak dan over de juistheid van elk technisch detail. Dat Allsopp eerder al met Kevin Mitnick als voorwoordschrijver publiceerde, plaatst het boek bovendien in een herkenbare traditie van praktijkboeken door werkende penetratietesters, niet door buitenstaanders die alleen over het vak schrijven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek dateert uit 2017, en een deel van de beschreven technieken, met name rond het omzeilen van antivirus- en detectiesoftware, is sindsdien minder effectief geworden doordat endpoint detection and response zich snel heeft ontwikkeld. Wie het boek nu gebruikt, moet de evasietechnieken als voorbeeld lezen, niet als recept dat vandaag nog ongewijzigd werkt.</p>
+      <p>De scenario's zijn nadrukkelijk fictief samengesteld en niet gebaseerd op openbaar gedocumenteerde incidenten; dat maakt ze leerzaam als constructie, maar oncontroleerbaar als bewijs dat de beschreven aanpak in de praktijk zo werkt.</p>
+      <p>Het boek veronderstelt aanzienlijke voorkennis: scripting, netwerken en besturingssysteeminterna komen niet vanaf de basis aan bod, terwijl de titel zich wel tot een breder publiek lijkt te richten dan alleen ervaren red teamers.</p>
+      <p>Aan de juridische en organisatorische kant van een red team-opdracht, scope, schriftelijke toestemming, afspraken over wat wel en niet mag, besteedt het boek weinig ruimte in verhouding tot de technische uitwerking van elk scenario.</p>
+      <p>Doordat elk hoofdstuk op zichzelf staat, ontbreekt een doorlopende leerlijn tussen de scenario's; wie het boek van begin tot eind leest, ziet variaties op eenzelfde aanpak eerder dan een opbouw van eenvoudig naar complex.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag altijd expliciete, schriftelijke toestemming voordat je een van de beschreven technieken op een echt netwerk toepast.</li>
+        <li>Lees de evasietechnieken als voorbeeld van een aanpak uit 2017, en toets ze tegen actuele detectiesoftware voordat je erop vertrouwt.</li>
+        <li>Werk elk scenario eerst in een eigen testlab uit voordat je het vertaalt naar een opdracht bij een klant, en noteer bij elke stap welke aanname over het doelwit je maakt.</li>
+        <li>Leg scope en grenzen van een assessment net zo gedetailleerd vast als de auteur zijn technische stappen beschrijft.</li>
+        <li>Bouw eigen payloads generiek genoeg op om herkenning te vermijden, maar documenteer wat je bouwt zodat de opdrachtgever achteraf kan nagaan wat er is ingezet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Wiley, Indianapolis, 2017, 288 blz., ISBN 9781119367680 (paperback), ISBN 9781119367666 (e-book). Eerste druk; er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Wil Allsopp beschrijft in acht op zichzelf staande hoofdstukken hoe een aanvaller die zich voordoet als een advanced persistent threat, een langdurige, doelgerichte campagne tegen een specifieke organisatie opbouwt. Elk hoofdstuk simuleert een andere sector: een ziekenhuis, een onderzoeksinstelling, een bank, een farmaceutisch bedrijf, de wapenindustrie, de opsporing, defensie en de media.</p><p>Het boek verlaat bewust het terrein van kant-en-klare scanners en Metasploit-modules. Allsopp bouwt eigen payloads met VBA-macro's en Java-applets, zet zelf command-and-control-infrastructuur op en combineert technische inbraak met social engineering en fysieke elementen, op de manier waarop een werkelijke langetermijnaanvaller dat zou doen.</p><p>Allsopp werkte als penetratietester voor grote Britse banken, overheidsinstellingen en een deel van de Fortune 100 en schreef eerder <i>Unauthorised Access</i> (2009, met een voorwoord van Kevin Mitnick) over fysieke penetratietesten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>advanced persistent threat</li><li>red teaming</li><li>social engineering</li><li>command and control</li><li>malware op maat</li><li>doelwitgerichte aanvallen</li><li>casussen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2310"><a href="2310.html">Social Engineering: The Science of Human Hacking</a>. Waar Allsopp social engineering als één onderdeel van een grotere campagne behandelt, werkt <i>Social Engineering: The Science of Human Hacking</i> die techniek op zichzelf uit.</li>
+          <li value="2311"><a href="2311.html">Red Team Engineering: The Art of Building Offensive Tools and Infrastructure</a>. Wie de C2-infrastructuur uit dit boek zelf wil bouwen, vindt in <i>Red Team Engineering</i> de technische verdieping op dat specifieke onderdeel.</li>
+          <li value="2307"><a href="2307.html">From Day Zero to Zero Day: A Hands-On Guide to Vulnerability Research</a>. Het zoeken naar de kwetsbaarheid die een campagne als deze mogelijk maakt, is het onderwerp van <i>From Day Zero to Zero Day</i>.</li>
+          <li value="2302"><a href="2302.html">Penetration Testing: A Hands-On Introduction to Hacking</a>. Wie eerst de basis van een reguliere pentest wil beheersen voordat hij aan een langlopende APT-simulatie begint, vindt die basis in <i>Penetration Testing: A Hands-On Introduction to Hacking</i>.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

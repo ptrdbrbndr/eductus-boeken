@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Penetration Testing: A Hands-On Introduction to Hacking &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Weidmans stelling is dat een pentester pas begrijpt wat een aanval doet zodra hij weet wat er in het geheugen en op de kabel gebeurt, en dat losse…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2302">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2302 &middot; Digitale beveiliging en hacking</p>
+    <h1>Penetration Testing: A Hands-On Introduction to Hacking</h1>
+    <p class="lede">Georgia Weidman, 2014</p>
+    <p class="stats">
+      <span><b>1427</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2302"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Weidmans stelling is dat een pentester pas begrijpt wat een aanval doet zodra hij weet wat er in het geheugen en op de kabel gebeurt, en dat losse tool-kennis zonder die achtergrond snel veroudert. Het boek voert die stelling uit door elke fase van een test, van verkenning tot het schrijven van een eigen exploit, in een zelfgebouwd virtueel lab te laten uitvoeren, zodat de lezer dezelfde stappen zet als de schrijver zelf. Daarmee positioneert het zich tussen een handleiding voor specifieke tools en een leerboek over de onderliggende werking van besturingssystemen en netwerken. De keerzijde van die opzet is dat het boek leunt op software en kwetsbaarheden uit het jaar van verschijnen, waardoor de precieze stappen na verloop van tijd niet meer letterlijk werken, ook al blijft het onderliggende principe overeind staan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het lab en de basis</h3>
+      <p>Het boek opent met de inrichting van een eigen virtueel lab met kwetsbare doelmachines, een inleiding in Kali Linux, elementaire scripting en een eerste kennismaking met het Metasploit-raamwerk, dat in de rest van het boek terugkeert als vast gereedschap.</p>
+      <p>Dat lab bestaat uit een aantal met opzet verouderde en fout geconfigureerde systemen, zodat elke latere aanval eerst tegen een vaste, herhaalbare omgeving geoefend kan worden voordat er sprake is van een echte opdracht bij een klant.</p>
+      <h3>Verkenning en kwetsbaarheden</h3>
+      <p>Aan de hand van open bronnen, whois-opzoekingen, de poortscanner Nmap en de kwetsbaarheidsscanner Nessus brengt de lezer een doelnetwerk in kaart en koppelt gevonden diensten aan bekende zwakke plekken, aangevuld met een hoofdstuk over het afvangen van netwerkverkeer.</p>
+      <p>Weidman benadrukt in dit deel het onderscheid tussen automatisch gegenereerde scanresultaten en de handmatige controle die nodig is om te bepalen welke gevonden zwakke plek in de gegeven omgeving werkelijk bruikbaar is.</p>
+      <h3>Exploitatie en wachtwoorden</h3>
+      <p>Dit deel behandelt het daadwerkelijk misbruiken van gevonden kwetsbaarheden met Metasploit en gaat apart in op wachtwoordaanvallen, van het kraken van hashes tot het raden van inloggegevens over een netwerk.</p>
+      <p>De hoofdstukken laten zien hoe eenzelfde kwetsbaarheid met verschillende hulpmiddelen te misbruiken is, zodat de lezer leert kiezen tussen een kant-en-klare exploitmodule en een aanpassing op maat.</p>
+      <h3>Client-side aanvallen en social engineering</h3>
+      <p>Hier verschuift de aandacht van de server naar de gebruiker: client-side exploitatie via kwaadaardige documenten en links, social engineering met het Social-Engineer Toolkit, en manieren om antivirussoftware te omzeilen zonder dat een aanval gedetecteerd wordt.</p>
+      <p>Deze hoofdstukken laten zien dat een netwerk technisch goed afgeschermd kan zijn en toch kwetsbaar blijft zodra een gebruiker overgehaald wordt om een bijlage te openen of een wachtwoord af te geven.</p>
+      <h3>Na de inbraak, webapplicaties en draadloze netwerken</h3>
+      <p>Na een geslaagde inbraak behandelt het boek wat een tester vervolgens doet: rechten uitbreiden, sporen beperken en gegevens verzamelen. Losse hoofdstukken zijn gewijd aan het testen van webapplicaties met Burp Suite en aan aanvallen op draadloze netwerken.</p>
+      <p>Deze drie onderwerpen staan los van elkaar in het boek, maar delen dezelfde werkwijze: eerst de omgeving begrijpen zoals een gewone gebruiker die ziet, en pas daarna zoeken naar de plek waar de aanname van de ontwerper niet klopt.</p>
+      <h3>Exploits schrijven</h3>
+      <p>Het vierde deel behandelt exploitontwikkeling in engere zin: stack-based buffer overflows op Linux en Windows, het overschrijven van structured exception handlers, en fuzzing en het overzetten van bestaande exploits naar nieuwe doelen.</p>
+      <p>Deze hoofdstukken vereisen het meeste van de lezer, omdat ze bekendheid met assembly en geheugenindeling veronderstellen die eerder in het boek maar kort wordt aangestipt. De opbouw is bewust klein gestapt: elke stap in het overschrijven van een registerinhoud wordt apart getoond voordat de volgende volgt.</p>
+      <h3>Mobiele beveiliging</h3>
+      <p>Het laatste deel gaat over het testen van smartphones, met het Smartphone Pentest Framework dat Weidman zelf ontwikkelde als resultaat van een DARPA-subsidie, en met een emulatoromgeving om mobiele aanvallen zonder fysiek toestel te oefenen.</p>
+      <p>Dit deel behandelt mobiele apparaten als volwaardig onderdeel van een netwerk in plaats van als bijzaak, met aandacht voor hoe een toestel vanaf afstand te benaderen is en welke gegevens erop te bemachtigen zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Metasploit Framework</td><td>Het open source raamwerk voor het ontwikkelen en uitvoeren van exploits, dat het boek als vast gereedschap gebruikt vanaf het eerste deel.</td></tr>
+          <tr><td class="term">Kali Linux</td><td>De Linux-distributie met voorgeïnstalleerde beveiligingstools waarmee alle oefeningen in het boek worden uitgevoerd.</td></tr>
+          <tr><td class="term">Nmap</td><td>De poortscanner waarmee de lezer diensten en open poorten op een doelsysteem in kaart brengt tijdens de verkenningsfase.</td></tr>
+          <tr><td class="term">Social-Engineer Toolkit (SET)</td><td>Het hulpmiddel waarmee het boek social-engineeringaanvallen zoals nagemaakte inlogpagina's en phishingmails opzet en test.</td></tr>
+          <tr><td class="term">Buffer overflow</td><td>Een programmeerfout waarbij meer data in een geheugenbuffer wordt geschreven dan er past, waardoor een aanvaller de uitvoering van het programma kan overnemen; kernonderwerp van het deel over exploitontwikkeling.</td></tr>
+          <tr><td class="term">SEH-overwrite</td><td>Een exploittechniek op Windows waarbij de structured exception handler wordt overschreven om alsnog controle over een programma te krijgen wanneer een gewone stack-overflow niet werkt.</td></tr>
+          <tr><td class="term">Fuzzing</td><td>Het automatisch voeden van een programma met afwijkende of willekeurige invoer om crashes en mogelijke kwetsbaarheden op te sporen.</td></tr>
+          <tr><td class="term">Smartphone Pentest Framework</td><td>Het door Weidman ontwikkelde gereedschap voor het testen van mobiele apparaten, ontstaan uit een door DARPA gefinancierd onderzoeksproject.</td></tr>
+          <tr><td class="term">Post-exploitation</td><td>De fase na een geslaagde inbraak waarin een tester rechten uitbreidt, zich verplaatst binnen een netwerk en bewijs van de toegang verzamelt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Weidman schreef het boek vanuit haar eigen werk als penetratietester en trainer. Zij houdt de certificeringen OSCP, CEH en CISSP, richtte het beveiligingsbedrijf Bulb Security op en ontving een DARPA Cyber Fast Track-subsidie voor het Smartphone Pentest Framework dat in het laatste deel van het boek terugkomt. Zij trad op als spreker en trainer op Black Hat en DEF CON, wat de technische inhoud onderbouwt met praktijkervaring buiten het boek om.</p>
+      <p>Het boek wordt in recensies en cursusmateriaal herhaaldelijk genoemd als eerste volledige introductie in het vak, bruikbaar naast de voorbereiding op certificeringen zoals OSCP, al is het geen officieel examenboek voor die certificering.</p>
+      <p>De opzet met een zelf te bouwen virtueel lab maakt de aanpak controleerbaar: de lezer voert dezelfde stappen uit als beschreven en kan het resultaat zelf verifiëren, in plaats van beweringen op gezag van de auteur aan te nemen.</p>
+      <p>Onderdelen van het boek zijn terug te voeren op bekende, gedocumenteerde kwetsbaarheden en publiek beschikbare exploitmodules in Metasploit, wat het mogelijk maakt om de beschreven technieken te herleiden naar hun oorspronkelijke bron en tijdstip van openbaarmaking.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek verscheen in 2014 en steunt op specifieke versies van Kali Linux, Metasploit en de kwetsbare doelmachines uit die tijd. Reviewers wijzen erop dat een deel van de stapsgewijze voorbeelden inmiddels niet meer letterlijk werkt omdat software is bijgewerkt of kwetsbaarheden zijn gedicht; het onderliggende principe blijft bruikbaar, de exacte commando's vaak niet meer.</p>
+      <p>Ondanks het woord introductie in de titel veronderstelt het boek al vroeg kennis van programmeren, Linux en de werking van TCP/IP. Wie die basis niet heeft, loopt vooral in het laatste deel over exploitontwikkeling vast op assembly en geheugenindeling die eerder in het boek slechts kort worden uitgelegd.</p>
+      <p>Het boek behandelt het technische handwerk uitgebreider dan het juridische en organisatorische kader eromheen. Aan toestemming, reikwijdte en rapportage, wat het verschil maakt tussen een geautoriseerde pentest en een strafbare inbraak, wordt slechts kort aandacht besteed, terwijl dat onderscheid in de praktijk minstens zo belangrijk is als de techniek zelf.</p>
+      <p>Het boek behandelt elk onderwerp op een niveau dat past bij een eerste kennismaking; wie na het lezen echt zelfstandig een buffer overflow wil vinden en misbruiken in software die niet in het boek staat, heeft daarnaast oefening nodig die het boek zelf niet biedt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bouw eerst het virtuele lab op zoals in het eerste deel beschreven staat voordat je met latere hoofdstukken begint.</li>
+        <li>Vul verouderde versienummers en commando's aan met actuele documentatie van de gebruikte tools voordat je ze in een echte test toepast.</li>
+        <li>Lees de hoofdstukken over exploitontwikkeling pas na de basisexploitatie, en ververs zo nodig eerst je kennis van assembly en geheugenindeling.</li>
+        <li>Gebruik het boek als eerste doorloop van het hele vak, niet als naslagwerk voor actuele kwetsbaarheden.</li>
+        <li>Zoek er apart onderbouwing bij over toestemming en reikwijdte voordat je een techniek uit het boek buiten het eigen lab toepast.</li>
+        <li>Leg na het lezen een tweede, actuelere bron naast het boek voordat je een van de beschreven technieken op een niet-verouderd systeem probeert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">No Starch Press, San Francisco, eerste druk, 14 juni 2014, 528 blz., ISBN 9781593275648. Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Georgia Weidman bouwt dit boek op rond een eigen virtueel laboratorium: een reeks kwetsbare doelmachines die de lezer stap voor stap aanvalt met Kali Linux als uitvalsbasis. Het boek begint bij de opzet van dat lab en het Metasploit-raamwerk en werkt via verkenning en het opsporen van kwetsbaarheden naar wachtwoordaanvallen, client-side exploitatie en social engineering. De laatste hoofdstukken behandelen het schrijven van eigen exploits, met stack-based buffer overflows op Linux en Windows, en een deel over het testen van mobiele apparaten met het Smartphone Pentest Framework dat Weidman zelf ontwikkelde.</p><p>Het boek onderscheidt zich van veel toolgerichte handleidingen doordat het steeds ook uitlegt waarom een aanval werkt, tot op het niveau van geheugenlay-out en de werking van TCP/IP. Weidman schreef het vanuit haar eigen werk als pentester en trainer en vanuit een DARPA-subsidie voor onderzoek naar mobiele beveiliging.</p><p>Het is opgezet als een volledige doorloop van het vak, van verkenning tot exploitontwikkeling, niet als een losse verzameling trucs.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>penetration testing</li><li>Kali Linux</li><li>Metasploit</li><li>buffer overflow</li><li>social engineering</li><li>exploitontwikkeling</li><li>mobiele beveiliging</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2308"><a href="2308.html">Metasploit: The Penetration Tester's Guide (Second Edition)</a>. Voor wie na dit boek dieper in Metasploit wil, gaat deze titel uitgebreider in op het raamwerk dat Weidman hier als basisgereedschap introduceert.</li>
+          <li value="2317"><a href="2317.html">Hacking: The Art of Exploitation (2nd Edition)</a>. Dit boek behandelt exploitontwikkeling en geheugenaanvallen grondiger dan het laatste deel van Weidmans introductie en veronderstelt vergelijkbare voorkennis.</li>
+          <li value="2313"><a href="2313.html">Black Hat Python: Python Programming for Hackers and Pentesters (2nd Edition)</a>. Wie de scripting in Weidmans hoofdstuk over programmeren te beperkt vindt, kan hier verder met Python als gereedschap voor pentesters.</li>
+          <li value="2309"><a href="2309.html">Ethical Hacking: A Hands-on Introduction to Breaking In</a>. Een vergelijkbare hands-on introductie in het vak, bruikbaar om de eigen aanpak van Weidman naast een andere auteur te leggen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

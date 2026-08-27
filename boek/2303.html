@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethical Hacking and Network Analysis with Wireshark &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sharma redeneert dat een groot deel van netwerkbeveiliging draait om het kunnen lezen van het verkeer zelf, in plaats van te vertrouwen op de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2303">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2303 &middot; Digitale beveiliging en hacking</p>
+    <h1>Ethical Hacking and Network Analysis with Wireshark</h1>
+    <p class="lede">Manish Sharma, 2024</p>
+    <p class="stats">
+      <span><b>1415</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2303"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sharma redeneert dat een groot deel van netwerkbeveiliging draait om het kunnen lezen van het verkeer zelf, in plaats van te vertrouwen op de waarschuwingen van een kant-en-klaar detectiesysteem. Wie de opbouw van protocollen als TCP/IP, 802.11 en SSL/TLS kent en Wireshark vlot bedient, ziet volgens hem afwijkend gedrag eerder dan wie alleen op automatische meldingen wacht. Het boek voert die stelling uit als een opeenvolging van vaardigheden, van eenvoudig sniffen tot het ontcijferen van versleuteld verkeer, en beargumenteert daarmee dat pakketanalyse geen aanvullende vaardigheid is naast andere hackingtechnieken, maar de basis waarop de rest rust.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Netwerkbasis en Wireshark instellen</h3>
+      <p>De eerste hoofdstukken herhalen de basis van netwerken, van het OSI-model tot IP-adressering, voordat Wireshark ter sprake komt. Sharma besteedt bewust tijd aan het installeren en instellen van de applicatie: interfaces selecteren, promiscuous mode inschakelen en de eerste capture- en displayfilters schrijven.</p>
+      <p>Dat startpunt maakt het boek ook bruikbaar voor wie Wireshark wel kent maar de onderliggende protocollen nooit systematisch heeft doorgenomen; de nadruk ligt op het kunnen teruglezen van wat er precies over de lijn gaat, niet op het onthouden van menuopties.</p>
+      <p>Sharma richt zich daarbij expliciet op lezers die al met IT werken, netwerkbeheerders, helpdeskmedewerkers of mensen op een security operations center, en niet op een algemeen publiek zonder technische achtergrond.</p>
+      <h3>Pakketten sniffen</h3>
+      <p>Het derde hoofdstuk behandelt het opzetten van een sniffing-omgeving en het lezen van een eerste pakketopname regel voor regel. De lezer leert het verschil tussen een capture filter, die bepaalt wat wordt opgeslagen, en een display filter, die bepaalt wat wordt getoond, en oefent met beide op voorbeeldverkeer.</p>
+      <p>Het hoofdstuk werkt bewust met een klein, overzichtelijk testnetwerk, zodat de lezer de opbouw van een sessie stap voor stap kan volgen voordat de latere hoofdstukken met grotere en drukkere pakketopnamen werken.</p>
+      <h3>Draadloze netwerken aftappen</h3>
+      <p>Hoofdstuk vier verlegt de aandacht naar 802.11-netwerken: het zetten van een netwerkkaart in monitor mode, het onderscheppen van beacon- en managementframes en het lezen van een WPA-handshake. Het boek behandelt dit als onderdeel van netwerkanalyse, niet als een op zichzelf staande cursus draadloze beveiliging.</p>
+      <p>Sharma benadrukt daarbij dat het onderscheppen van een handshake op zichzelf geen wachtwoord oplevert; het kraken ervan valt grotendeels buiten het bestek van het boek en wordt slechts kort aangestipt.</p>
+      <h3>Gevoelige gegevens onderscheppen</h3>
+      <p>In het vijfde hoofdstuk laat Sharma zien hoe onversleuteld verkeer, van formulierdata tot bestandsoverdrachten, in een pakketopname terug te vinden is. De strekking is niet dat dit een nieuwe aanvalstechniek is, maar dat het zichtbaar maakt waarom onversleutelde protocollen in een productieomgeving een risico blijven.</p>
+      <h3>Protocollen ontleden en versleuteld verkeer ontcijferen</h3>
+      <p>De hoofdstukken zes en zeven vormen de kern van het boek. Eerst worden veelgebruikte protocollen laag voor laag ontleed, van ARP en DNS tot HTTP; daarna behandelt Sharma het ontcijferen van SSL/TLS-verkeer met een sessiesleutel-logbestand of een privésleutel, een techniek die zonder medewerking van de sleutelbeheerder niet werkt en die het boek dan ook uitdrukkelijk aan een eigen testomgeving koppelt.</p>
+      <p>Deze twee hoofdstukken liggen technisch het dichtst bij wat een netwerkonderzoeker in de praktijk doet: verkeer dat op het eerste gezicht onleesbaar is, herleiden tot een concrete oorzaak. Als voorbeeld gebruikt het hoofdstuk onder meer een DNS-opname waarin een spoofing-poging zichtbaar wordt aan tegenstrijdige antwoorden op dezelfde vraag, een patroon dat de lezer daarna zelf leert herkennen.</p>
+      <h3>Bedrijfsapplicaties en VoIP</h3>
+      <p>Hoofdstuk acht en negen passen dezelfde methode toe op specifieke omgevingen: enterprise-applicaties met eigen protocollen en VoIP-verkeer op basis van SIP en RTP. De lezer leert een gesprek uit een pakketopname te reconstrueren en applicatieverkeer te onderscheiden van ruis.</p>
+      <p>Het boek waarschuwt daarbij dat het afluisteren van een VoIP-gesprek, ook als oefening, alleen mag met uitdrukkelijke toestemming van alle betrokkenen en in een omgeving die daarvoor is ingericht.</p>
+      <h3>Aanvallen herkennen en problemen oplossen</h3>
+      <p>De laatste hoofdstukken behandelen het herkennen van aanvalspatronen, zoals scans en spoofing, in een pakketopname, en het gebruik van dezelfde vaardigheid voor prestatieproblemen: een trage verbinding of een verbroken sessie laat zich met dezelfde filters analyseren als een aanval. Sharma sluit daarmee de cirkel die het boek opent: pakketanalyse als generieke vaardigheid, niet als losse tool.</p>
+      <p>De afsluitende oefeningen combineren meerdere eerder behandelde protocollen in één pakketopname, zodat de lezer moet bepalen welk deel van het verkeer relevant is voordat hij een conclusie trekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wireshark</td><td>Opensource pakketanalysator die netwerkverkeer live of uit een opname toont.</td></tr>
+          <tr><td class="term">Capture filter</td><td>Filter dat bepaalt welk verkeer Wireshark tijdens het opnemen vastlegt.</td></tr>
+          <tr><td class="term">Display filter</td><td>Filter dat bepaalt welk deel van een al opgenomen sessie wordt getoond.</td></tr>
+          <tr><td class="term">Promiscuous mode</td><td>Netwerkkaartinstelling waarbij ook pakketten worden verwerkt die niet voor het eigen apparaat bestemd zijn.</td></tr>
+          <tr><td class="term">Monitor mode</td><td>Vergelijkbare instelling voor draadloze kaarten, nodig om 802.11-frames van andere netwerken te lezen.</td></tr>
+          <tr><td class="term">WPA-handshake</td><td>De uitwisseling bij het verbinden met een beveiligd wifinetwerk, waaruit het wachtwoord onder voorwaarden is te herleiden.</td></tr>
+          <tr><td class="term">TLS-sessiesleutel-logbestand</td><td>Bestand waarin een browser of applicatie de sleutels van een TLS-sessie wegschrijft, waarmee Wireshark die sessie kan ontcijferen.</td></tr>
+          <tr><td class="term">SIP en RTP</td><td>Protocollen voor het opzetten (SIP) en versturen (RTP) van VoIP-gesprekken.</td></tr>
+          <tr><td class="term">Three-way handshake</td><td>De opbouw van een TCP-verbinding via SYN, SYN-ACK en ACK, een terugkerend referentiepunt in het boek.</td></tr>
+          <tr><td class="term">Pcap</td><td>Het bestandsformaat waarin Wireshark en vergelijkbare tools pakketopnamen opslaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Sharma onderbouwt het boek vanuit zijn eigen praktijk als oprichter van het beveiligingsbedrijf Ducara en als houder van de certificeringen CEH, CHFI, ECSA en LPT, stuk voor stuk gericht op forensisch onderzoek en ethisch hacken. Het boek is doorlopend praktijkgericht: elk hoofdstuk werkt met een eigen pakketopname of testomgeving in plaats van uitsluitend theorie.</p>
+      <p>BPB Publications is een Indiase uitgeverij die zich specifiek op IT-vakliteratuur richt en al decennia technische titels uitgeeft voor de Indiase en internationale markt; het boek verscheen niet in eigen beheer maar doorliep een regulier uitgeversproces. De uitgeverij levert het boek zowel in gedrukte als in digitale vorm en biedt daarnaast een online leesomgeving aan, wat wijst op een reguliere distributie richting bibliotheken en opleidingen.</p>
+      <p>Wat aan onafhankelijke onderbouwing ontbreekt, is een spoor van citaten in ander vakwerk of een koppeling aan een specifieke certificering zoals de meeste No Starch- of Wiley-titels in deze reeks wel hebben; dat spoor is met de beschikbare bronnen niet vast te stellen.</p>
+      <p>Vergeleken met bredere Wireshark-naslagwerken kiest Sharma bewust voor een smallere insteek, ethisch hacken via netwerkanalyse, in plaats van een volledig naslagwerk over alle mogelijke protocollen; die keuze maakt het boek compacter, maar minder een naslagwerk om op terug te vallen bij een protocol dat niet aan bod komt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>BPB Publications is aanzienlijk minder bekend dan No Starch Press of Wiley, en buiten retailerpagina's zijn geen onafhankelijke technische recensies van dit specifieke boek te vinden; hoeveel technische redactie het manuscript doorliep, is met de beschikbare bronnen niet vast te stellen.</p>
+      <p>Het boek besteedt nauwelijks aandacht aan het automatiseren van pakketanalyse met scripts, bijvoorbeeld via tshark of een programmeertaal; wie grote hoeveelheden verkeer moet doorzoeken, zal die vaardigheid ergens anders moeten halen.</p>
+      <p>Wireshark zelf verandert traag, maar de schermafbeeldingen en menupaden in een boek uit 2024 verouderen sneller dan de onderliggende protocollen; wie het boek over een paar jaar gebruikt, moet rekening houden met een andere interface dan op de afbeeldingen.</p>
+      <p>Het boek veronderstelt kennis van TCP/IP-basisbegrippen die het weliswaar kort herhaalt maar niet vanaf nul opbouwt; wie nog nooit met subnetten of poorten heeft gewerkt, mist een stap die het boek zelf niet expliciet als vereiste noemt.</p>
+      <p>Het onderscheid tussen een testlab en een echt netwerk krijgt weinig aandacht: technieken als het ontcijferen van TLS-verkeer werken alleen met medewerking van de sleutelbeheerder of in een eigen omgeving, en het boek had daar explicieter bij kunnen stilstaan dan met een enkele waarschuwing.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zet een eigen testnetwerk op voordat je een van de oefeningen probeert.</li>
+        <li>Leer capture- en displayfilters allebei apart schrijven, niet alleen de kant-en-klare voorbeelden uit het boek.</li>
+        <li>Oefen het ontcijferen van TLS-verkeer alleen met sessiesleutels uit je eigen browser of testomgeving.</li>
+        <li>Bouw een klein draadloos testlab met een eigen router om 802.11-frames te bekijken.</li>
+        <li>Vergelijk elke vermeende afwijking altijd met een pakketopname van normaal verkeer voordat je een conclusie trekt.</li>
+        <li>Documenteer bij elke oefening welke toestemming je hebt om het onderzochte verkeer te bekijken, ook in een eigen testomgeving.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">BPB Publications, New Delhi, 2024, 402 blz., ISBN 9789355517722 (paperback), ISBN 9789355518958 (e-book). Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Manish Sharma behandelt ethisch hacken vanuit het perspectief van de netwerkanalist: niet de exploit zelf staat centraal, maar het lezen van het verkeer dat een aanval, een lek of een storing veroorzaakt. Het boek leert de lezer Wireshark installeren en configureren en bouwt van daaruit op: eerst de basis van pakketten sniffen, dan draadloze netwerken, dan het onderscheppen van wachtwoorden en bestanden, en ten slotte het ontcijferen van versleuteld verkeer en het herkennen van aanvallen in een pakketopname.</p><p>Elk hoofdstuk werkt met concrete protocollen: TCP/IP, 802.11, SSL/TLS, SNMP en VoIP-protocollen als SIP komen stuk voor stuk aan bod, telkens met oefeningen op meegeleverde of zelf opgezette pakketopnamen. Het boek besteedt ook aandacht aan het analyseren van bedrijfsapplicaties en aan troubleshooting: dezelfde vaardigheid die een aanval blootlegt, verklaart ook een trage applicatie of een verbroken verbinding.</p><p>Sharma is oprichter en directeur van het beveiligingsbedrijf Ducara en houdt de certificeringen CEH, CHFI, ECSA en LPT. Het boek verscheen in 2024 bij BPB Publications, een Indiase uitgeverij die zich specialiseert in technische vakliteratuur.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wireshark</li><li>netwerkanalyse</li><li>pakketanalyse</li><li>ethisch hacken</li><li>protocollen</li><li>tcp/ip</li><li>forensisch onderzoek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2300"><a href="2300.html">Ultimate Penetration Testing with Nmap: Master Cybersecurity Assessments for Network Security, Monitoring, and Scanning Using Nmap</a>. Nmap-scanresultaten en een Wireshark-opname vullen elkaar aan: het ene boek vindt de open poort, het andere laat zien wat er werkelijk overheen gaat.</li>
+          <li value="2308"><a href="2308.html">Metasploit: The Penetration Tester's Guide (Second Edition)</a>. Metasploit levert de exploit die dit boek leert herkennen in het verkeer dat hij veroorzaakt.</li>
+          <li value="2317"><a href="2317.html">Hacking: The Art of Exploitation (2nd Edition)</a>. Waar dit boek het verkeer op protocolniveau leest, gaat <i>Hacking: The Art of Exploitation</i> een laag dieper, naar de machinecode zelf.</li>
+          <li value="2304"><a href="2304.html">Advanced Penetration Testing: Hacking the World's Most Secure Networks</a>. Allsopp beschrijft aanvalscampagnes waarvan de sporen precies het soort verkeer opleveren dat dit boek leert lezen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

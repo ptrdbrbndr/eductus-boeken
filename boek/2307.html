@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Day Zero to Zero Day: A Hands-On Guide to Vulnerability Research &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lim betoogt dat vulnerabilityresearch geen kwestie van geluk of van het simpelweg loslaten van een fuzzer is, maar een vak met een herhaalbare methode:…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2307">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2307 &middot; Digitale beveiliging en hacking</p>
+    <h1>From Day Zero to Zero Day: A Hands-On Guide to Vulnerability Research</h1>
+    <p class="lede">Eugene Lim, 2025</p>
+    <p class="stats">
+      <span><b>1429</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2307"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lim betoogt dat vulnerabilityresearch geen kwestie van geluk of van het simpelweg loslaten van een fuzzer is, maar een vak met een herhaalbare methode: eerst nagaan waar externe invoer een programma binnenkomt, dan die route volgen tot de plek waar ze gevaarlijk wordt, en pas daarna gereedschap kiezen dat op dat specifieke traject is toegesneden. Zijn stelling is dat de meeste cursussen en boeken beginnen bij het gereedschap, bij fuzzers en debuggers, terwijl het echte werk zit in het beperken van de zoekruimte voordat er iets wordt gedraaid. Om dat te bewijzen ontleedt hij bestaande, gepubliceerde kwetsbaarheden en herbouwt hij de redenering waarmee de oorspronkelijke onderzoeker er kwam, van de eerste blik op de broncode tot de uiteindelijke crash.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar invoer een programma binnenkomt</h3>
+      <p>Het boek opent met taintanalyse: het volgen van gebruikersinvoer door een programma heen om te zien waar die invoer ongefilterd in een gevaarlijke functie terechtkomt. Deze techniek vormt de basis voor bijna alle latere hoofdstukken.</p>
+      <p>Daarop volgt het in kaart brengen van het aanvalsoppervlak: welk deel van een grote codebase daadwerkelijk bereikbaar is voor een externe aanvaller, en welk deel dat niet is en dus minder onderzoek verdient.</p>
+      <h3>Van een enkele kwetsbaarheid naar een familie</h3>
+      <p>Met automated variant analysis laat Lim zien hoe je, uitgaand van een bekende, opgeloste kwetsbaarheid, zoekt naar vergelijkbare fouten elders in dezelfde of een andere codebase, omdat dezelfde programmeerfout zich vaak op meerdere plekken herhaalt, bijvoorbeeld doordat een onveilige functie op meerdere plaatsen in een project is gekopieerd.</p>
+      <p>Deze aanpak wordt in de praktijk van bug bounty-programma's veel gebruikt, omdat een al gepatchte kwetsbaarheid vaak wijst naar een patroon dat de ontwikkelaars elders in dezelfde codebase over het hoofd hebben gezien. Lim laat aan de hand van een concreet voorbeeld zien hoe een enkele gerapporteerde fout tot meerdere, afzonderlijk te melden kwetsbaarheden kan leiden.</p>
+      <h3>Onderzoek zonder broncode</h3>
+      <p>De hoofdstukken over binary taxonomy en source/sink discovery behandelen het analyseren van gecompileerde programma's waarvan de broncode niet beschikbaar is, met technieken om functies te herkennen en de route van invoer naar gevaarlijke code ook zonder leesbare code te reconstrueren.</p>
+      <p>Hybrid binary analysis combineert statische inspectie van de code met het daadwerkelijk draaien van het programma om plekken te vinden die met alleen statische analyse over het hoofd worden gezien. Lim bespreekt daarbij ook de grenzen van beide technieken afzonderlijk: statische analyse mist gedrag dat pas bij uitvoering ontstaat, terwijl dynamische analyse alleen ziet wat daadwerkelijk wordt aangeroepen tijdens de gekozen testrun.</p>
+      <h3>Fuzzing, van eenvoudig naar geautomatiseerd</h3>
+      <p>Het boek bouwt fuzzing in drie stappen op: een eenvoudige, snel op te zetten fuzzer met beperkte dekking, een coverage-guided fuzzer die bijhoudt welke delen van de code al zijn geraakt en zijn invoer daarop aanpast, en ten slotte het schaalbaar fuzzen van meerdere doelen tegelijk.</p>
+      <p>Bij elke stap laat Lim zien hoe de resultaten van de voorgaande hoofdstukken, de taintanalyse en de afbakening van het aanvalsoppervlak, worden gebruikt om de fuzzer te richten op de plekken waar een crash het meest waarschijnlijk is, in plaats van het hele programma blind te bestoken.</p>
+      <h3>Na de vondst</h3>
+      <p>Het slothoofdstuk gaat in op wat er na het vinden van een kwetsbaarheid gebeurt: hoe je die verantwoord meldt, hoe een CVE tot stand komt, en hoe de gevonden techniek weer als uitgangspunt kan dienen voor het volgende onderzoek. Lim beschrijft daarbij ook hoe een crash die een fuzzer oplevert nog moet worden herleid tot een daadwerkelijk bruikbare kwetsbaarheid, omdat niet elke crash op een uitbuitbare fout wijst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Taint analysis</td><td>Het volgen van gebruikersinvoer door een programma om te zien welke functies die invoer ongecontroleerd verwerken.</td></tr>
+          <tr><td class="term">Aanvalsoppervlak</td><td>Het deel van een programma dat daadwerkelijk bereikbaar is voor invoer van buitenaf en dus onderzoekswaardig is.</td></tr>
+          <tr><td class="term">Variant analysis</td><td>Het zoeken naar kwetsbaarheden die lijken op een al bekende fout, uitgaand van het patroon van die eerdere fout.</td></tr>
+          <tr><td class="term">Fuzzing</td><td>Het automatisch aanbieden van grote hoeveelheden afwijkende invoer aan een programma om het te laten crashen of fout gedrag te ontlokken.</td></tr>
+          <tr><td class="term">Coverage-guided fuzzing</td><td>Een vorm van fuzzing die bijhoudt welke coderegels al zijn bereikt en de invoer daarop aanpast om nieuwe delen van het programma te raken.</td></tr>
+          <tr><td class="term">Source en sink</td><td>De plek waar invoer een programma binnenkomt (source) en de plek waar die invoer een gevaarlijke functie bereikt (sink).</td></tr>
+          <tr><td class="term">Binary analysis</td><td>Het onderzoeken van een gecompileerd programma zonder toegang tot de oorspronkelijke broncode.</td></tr>
+          <tr><td class="term">CVE</td><td>Common Vulnerabilities and Exposures, het publieke registratiesysteem waarmee ontdekte kwetsbaarheden een eigen, doorlopend nummer krijgen.</td></tr>
+          <tr><td class="term">Bug bounty</td><td>Een programma waarbij een organisatie onderzoekers beloont voor het verantwoord melden van kwetsbaarheden in haar eigen systemen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Lim, actief onder de naam spaceraccoon, stond in 2021 als een van vijf onderzoekers wereldwijd, uit een pool van ongeveer een miljoen deelnemers op het platform HackerOne, in de H1-Elite Hall of Fame en bereikte de tweede plaats op het wereldwijde HackerOne-klassement. Hij meldde onder meer een kritieke SQL-injectiekwetsbaarheid bij Starbucks, waarvoor hij een beloning van 4000 dollar ontving, en was topvinder in het bug bounty-programma van het Singaporese ministerie van Defensie.</p>
+      <p>Zijn onderzoekstools zijn gepresenteerd op Black Hat Arsenal en DEF CON, en zijn werk is behandeld in vakpublicaties. Het boek herleidt bovendien bestaande, gepubliceerde CVE's in plaats van verzonnen voorbeelden, waardoor de methode te toetsen is aan het oorspronkelijke, publiek gedocumenteerde onderzoek.</p>
+      <p>Zijn positie op het HackerOne-klassement en de opname in de H1-Elite Hall of Fame zijn openbare, door het platform zelf gepubliceerde gegevens en dus onafhankelijk te controleren, wat voor de meeste auteurs in dit genre niet geldt: hun ervaring is vaak alleen via de eigen presentatie van de auteur te toetsen.</p>
+      <p>Anders dan boeken die zich richten op het toepassen van reeds bekende exploits, behandelt dit boek het stadium ervoor: het zelf vinden van een kwetsbaarheid die nog niet bekend is. Dat is een kleiner en specialistischer deel van het vakgebied, waarin het aantal auteurs met aantoonbare eigen vondsten beperkt is.</p>
+      <p>De IEEE Cipher, het boekenbulletin van de IEEE Computer Society Technical Committee on Security and Privacy, besprak het boek in 2025 en plaatste het uitdrukkelijk in de categorie vulnerabilityresearch in plaats van bij de bredere pentestliteratuur, wat aansluit bij hoe het boek zichzelf positioneert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek veronderstelt vertrouwdheid met programmeren en, in de hoofdstukken over binary analysis, met assembly en het lezen van gedecompileerde code; lezers zonder die achtergrond zullen een deel van het boek als instapdrempel ervaren die niet steeds expliciet wordt benoemd.</p>
+      <p>Fuzzing-gereedschap zoals de coverage-guided fuzzers die het boek gebruikt, wordt actief doorontwikkeld; specifieke commando's en configuraties kunnen na verschijning van het boek zijn veranderd, terwijl de onderliggende methode overeind blijft.</p>
+      <p>Omdat de voorbeelden teruggaan op reeds opgeloste, gepubliceerde CVE's, is de uitkomst van elke oefening vooraf bekend; dat maakt het leerproces gecontroleerd maar wijkt af van echt onderzoek, waarbij vooraf niet vaststaat of er uberhaupt iets te vinden is.</p>
+      <p>Het vinden van een kwetsbaarheid is niet hetzelfde als haar verantwoord melden binnen een bug bounty-programma of aan een leverancier; het boek besteedt daar in het slothoofdstuk aandacht aan, maar minder uitgebreid dan aan de technische zoekmethode zelf.</p>
+      <p>Het boek behandelt vooral kwetsbaarheden in software die op een server of op een apparaat draait; webapplicatiespecifieke fouten zoals cross-site scripting of logische fouten in een betaalproces komen nauwelijks aan bod, terwijl die in de bredere bug bounty-praktijk een groot deel van de gemelde kwetsbaarheden uitmaken.</p>
+      <p>De nadruk op reeds bekende, gepatchte CVE's betekent ook dat het boek weinig zegt over hoe lang onderzoek naar een enkele, hardnekkige kwetsbaarheid in de praktijk kan duren; in echt onderzoek wisselen weken zonder resultaat af met een plotselinge doorbraak, iets wat een boek met een vaste hoofdstukindeling moeilijk kan weergeven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin met taintanalyse op een kleine, open source codebase voordat je een fuzzer inzet.</li>
+        <li>Baken eerst het aanvalsoppervlak af en kies pas daarna gereedschap.</li>
+        <li>Herleid een bestaande, gepubliceerde CVE stap voor stap voordat je eigen onderzoek start.</li>
+        <li>Meld een gevonden kwetsbaarheid altijd via een erkend bug bounty-programma of rechtstreeks aan de leverancier, nooit publiekelijk voordat er een patch is.</li>
+        <li>Noteer bij elke crash die een fuzzer oplevert eerst of hij daadwerkelijk uitbuitbaar is, voordat je er tijd in het melden van steekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">No Starch Press, San Francisco, eerste druk 2025, 344 blz., ISBN 9781718503946 (paperback). Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>From Day Zero to Zero Day gaat niet over het exploiteren van bekende kwetsbaarheden maar over het vinden van nieuwe. Lim, die onder de naam spaceraccoon actief is als bug bounty-onderzoeker, herleidt in dit boek een reeks bestaande CVE's stap voor stap: hij laat zien hoe de oorspronkelijke onderzoekers de kwetsbare code vonden, niet alleen wat de kwetsbaarheid uiteindelijk was.</p><p>Het boek behandelt zowel broncode-analyse als het onderzoeken van gecompileerde programma's waarvan de broncode niet beschikbaar is, en bouwt van handmatige technieken op naar geautomatiseerde fuzzing, waarbij een programma met grote hoeveelheden afwijkende invoer wordt gebombardeerd om het te laten crashen.</p><p>De opbouw volgt een onderzoeksproces: eerst begrijpen waar in een programma gebruikersinvoer terechtkomt, dan bepalen welk deel van de code dat aanvalsoppervlak vormt, en pas daarna gereedschap inzetten om dat gebied automatisch af te zoeken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vulnerability research</li><li>fuzzing</li><li>reverse engineering</li><li>cve</li><li>bug bounty</li><li>binary analysis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2314"><a href="2314.html">Bug Bounty Bootcamp: The Guide to Finding and Reporting Web Vulnerabilities</a>. Bug Bounty Bootcamp behandelt het bredere proces van bug bounty-jagen waarin Lim zelf actief is, van eerste vondst tot het schrijven van een rapport.</li>
+          <li value="2317"><a href="2317.html">Hacking: The Art of Exploitation (2nd Edition)</a>. Hacking: The Art of Exploitation gaat dieper in op de onderliggende technieken van geheugenmisbruik die in de binary analysis-hoofdstukken van dit boek worden aangeraakt.</li>
+          <li value="2304"><a href="2304.html">Advanced Penetration Testing: Hacking the World's Most Secure Networks</a>. Advanced Penetration Testing behandelt het bredere traject van een pentest, waarbinnen een gevonden kwetsbaarheid zoals in dit boek maar een van de stappen is.</li>
+          <li value="2305"><a href="2305.html">Hacking APIs: Breaking Web Application Programming Interfaces</a>. Hacking APIs richt zich op een specifiek aanvalsoppervlak, webAPI's, waar de aanvalsoppervlakanalyse uit dit boek eveneens op toepasbaar is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

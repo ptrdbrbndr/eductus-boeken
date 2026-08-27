@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bug Bounty Bootcamp: The Guide to Finding and Reporting Web Vulnerabilities &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Li's stelling is dat bug bounty-werk een vak is met een herhaalbare methode, niet een kwestie van geluk of aangeboren intuïtie: wie de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2314">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2314 &middot; Digitale beveiliging en hacking</p>
+    <h1>Bug Bounty Bootcamp: The Guide to Finding and Reporting Web Vulnerabilities</h1>
+    <p class="lede">Vickie Li, 2021</p>
+    <p class="stats">
+      <span><b>1416</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2314"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Li's stelling is dat bug bounty-werk een vak is met een herhaalbare methode, niet een kwestie van geluk of aangeboren intuïtie: wie de kwetsbaarheidsklassen een voor een systematisch doorloopt, weet waar te zoeken, hoe een vondst te bevestigen en hoe die te melden op een manier die een programma serieus neemt. Het boek presenteert daarom geen losse trucs maar een vaste structuur per kwetsbaarheidsklasse, van mechanisme via preventie en opsporing tot omzeiling en automatisering, zodat de lezer die structuur op nieuwe, nog niet behandelde situaties kan toepassen. Tegelijk erkent het boek dat het vinden van een kwetsbaarheid maar het halve werk is: het tweede deel van de titel, het rapporteren, krijgt evenveel gewicht, met een eigen hoofdstuk over hoe een bug bounty-carrière op langere termijn wordt volgehouden in plaats van uitgeput na de eerste paar meldingen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De bug bounty-industrie</h3>
+      <p>Het boek opent met hoe bug bounty-programma's werken, hoe een programma gekozen wordt op basis van scope en beloning, en hoe een hunter een langlopende praktijk opbouwt zonder op te branden aan een industrie die veel afwijzingen en dubbele meldingen kent.</p>
+      <p>Li besteedt hier ook aandacht aan de scheve verhouding tussen tijd geïnvesteerd en beloning ontvangen: de meeste meldingen leveren niets op, en het hoofdstuk behandelt hoe daarmee om te gaan zonder de motivatie te verliezen na de eerste reeks afwijzingen.</p>
+      <h3>Basiskennis van het internet en verkenning</h3>
+      <p>Voor wie de technische basis nog niet scherp heeft, legt Li uit hoe het internet en HTTP werken, hoe verkeer onderschept wordt met een proxy, en hoe reconnaissance wordt opgezet om het aanvalsoppervlak van een doelwit in kaart te brengen voordat er naar specifieke kwetsbaarheden gezocht wordt.</p>
+      <p>Het reconnaissance-hoofdstuk bespreekt onder meer hoe subdomeinen en vergeten endpoints worden opgespoord met open-source-informatie en eenvoudige automatisering, als basis voor waar in een later hoofdstuk specifiek naar gezocht wordt.</p>
+      <h3>Clientzijdige en sessiegerelateerde kwetsbaarheden</h3>
+      <p>Een reeks hoofdstukken behandelt cross-site scripting, open redirects, clickjacking en cross-site request forgery: kwetsbaarheden die draaien om wat een browser laat gebeuren zonder dat de gebruiker het doorheeft.</p>
+      <p>Voor elke klasse volgt Li hetzelfde patroon: eerst het mechanisme in de browser dat misbruikt wordt, dan de manier waarop een ontwikkelaar dat normaal voorkomt, en pas daarna hoe een hunter systematisch naar afwijkingen van die preventie zoekt.</p>
+      <h3>Serverzijdige en structurele kwetsbaarheden</h3>
+      <p>Hierna volgen IDOR, SQL-injectie, race conditions, SSRF, onveilige deserialisatie, XXE en template-injectie, kwetsbaarheden die zich dieper in de serverlogica bevinden en vaak grotere gevolgen hebben dan een clientzijdig lek.</p>
+      <p>Het hoofdstuk over businesslogicafwijkingen en gebroken toegangscontrole sluit hier bewust op aan: niet elke kwetsbaarheid past in een technische categorie, sommige zijn puur een fout in de aanname van de ontwikkelaar.</p>
+      <h3>Ernstige en identiteitsgerelateerde kwetsbaarheden</h3>
+      <p>Remote code execution, same origin policy-problemen, single sign-on-fouten en informatielekken vormen het zwaarste blok van het boek, met de nadruk op hoe zulke bevindingen aangetoond worden zonder verder te gaan dan nodig is om het risico te bewijzen.</p>
+      <p>Li benadrukt bij dit blok herhaaldelijk het onderscheid tussen het aantonen van een risico en het daadwerkelijk uitbuiten ervan: een programma verwacht bewijs dat een kwetsbaarheid bestaat, niet dat de hunter zo ver mogelijk doordringt in productiesystemen.</p>
+      <h3>Verdiepende technieken</h3>
+      <p>Het laatste deel behandelt codereview als methode om kwetsbaarheden op te sporen wanneer broncode beschikbaar is, het testen van Android-apps, API-specifieke aanvalstechnieken en het gebruik van fuzzers om automatisch onverwacht gedrag in een applicatie te vinden.</p>
+      <p>Deze hoofdstukken vragen meer voorkennis dan de rest van het boek, en Li presenteert ze uitdrukkelijk als vervolgstap voor wie de eerdere kwetsbaarheidsklassen al beheerst en zoekt naar terrein dat minder hunters bestrijken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">IDOR</td><td>Insecure direct object reference, een fout waarbij een applicatie toegang geeft tot een object, zoals een bestand of record, enkel op basis van een aanpasbare identificator zonder de rechten van de gebruiker te controleren.</td></tr>
+          <tr><td class="term">Race condition</td><td>Een kwetsbaarheid die ontstaat doordat twee gelijktijdige verzoeken elkaar doorkruisen op een manier die de ontwikkelaar niet voorzag, bijvoorbeeld een actie die twee keer wordt uitgevoerd terwijl dat maar een keer mocht.</td></tr>
+          <tr><td class="term">Template-injectie</td><td>Een aanval waarbij invoer van een gebruiker terechtkomt in een sjabloon-engine en daar als code wordt geïnterpreteerd in plaats van als tekst.</td></tr>
+          <tr><td class="term">Same origin policy</td><td>Het browsermechanisme dat scripts van de ene oorsprong verhindert gegevens van een andere oorsprong te lezen; fouten hierin kunnen leiden tot het lekken van gegevens tussen websites.</td></tr>
+          <tr><td class="term">Fuzzing</td><td>Het automatisch aanbieden van grote hoeveelheden onverwachte of misvormde invoer aan een applicatie om crashes of ander onverwacht gedrag op te sporen dat op een kwetsbaarheid kan wijzen.</td></tr>
+          <tr><td class="term">Scope</td><td>De vooraf vastgelegde grenzen van een bug bounty-programma: welke systemen, domeinen en soorten kwetsbaarheden wel en niet gemeld mogen worden.</td></tr>
+          <tr><td class="term">Businesslogicafwijking</td><td>Een kwetsbaarheid die voortkomt uit een fout in de aanname achter een functie, zoals een stap die overgeslagen kan worden, in plaats van uit een technisch invoerlek.</td></tr>
+          <tr><td class="term">Codereview voor beveiliging</td><td>Het doorlopen van broncode met als doel kwetsbaarheden te vinden, in tegenstelling tot een functionele review die op correctheid van de code zelf let.</td></tr>
+          <tr><td class="term">Open redirect</td><td>Een functie die een gebruiker op basis van een aanpasbare parameter doorstuurt naar een andere pagina, wat misbruikt kan worden om iemand ongemerkt naar een kwaadaardige site te leiden via een vertrouwd domein.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Vickie Li begon als softwareontwikkelaar en stapte via bug bounty-werk de beveiligingswereld in; zij heeft sindsdien gewerkt als pentester, security consultant, developer advocate en security engineer, onder meer bij het applicatiebeveiligingsbedrijf ShiftLeft. Zij meldde kwetsbaarheden bij onder andere Facebook, Yelp en Starbucks, wat het boek een basis van eigen gevonden en gemelde bugs geeft in plaats van alleen theorie.</p>
+      <p>Het boek wordt in de bug bounty-gemeenschap regelmatig genoemd als een van de weinige titels die de volle breedte van webkwetsbaarheden combineert met concrete meldpraktijk, en Li is daarnaast actief als spreker en schrijver van technische blogposts over dezelfde onderwerpen, wat de consistentie van de per-kwetsbaarheid-structuur in het boek verklaart.</p>
+      <p>Een onafhankelijke bespreking op de blog van SAS Workshops prees vooral het reconnaissance-hoofdstuk en de vaste opbouw per kwetsbaarheidsklasse als sterk punt voor een beginnende hunter, en noemde de latere hoofdstukken over codereview, Android-apps, API's en fuzzers als geslaagde uitbreiding op de kernstof.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek biedt geen eigen labomgeving of interactieve oefeningen; het is een uitleg- en naslagwerk, geen platform om de besproken kwetsbaarheden meteen zelf uit te proberen. Wie liever al doende leert, moet daarvoor zelf een oefenomgeving zoeken, zoals een van de bekende kwetsbare testapplicaties.</p>
+      <p>Doordat het boek twintig kwetsbaarheidsklassen in een vast stramien behandelt, blijft de diepgang per onderwerp beperkt vergeleken met een boek dat zich op een enkele kwetsbaarheidsklasse richt; voor gevorderde hunters kan een deel van de stof al bekend terrein zijn.</p>
+      <p>De genoemde tools, bug bounty-platformen en beloningsbedragen dateren uit 2021 en verschuiven met de markt; wie het boek nu leest, moet de praktische details over programma's en beloningen als voorbeeld lezen, niet als actuele stand van zaken. Ook de concurrentie binnen programma's is sinds 2021 toegenomen, waardoor een kwetsbaarheid die destijds nog relatief snel gevonden werd, inmiddels vaker al door een andere hunter is gemeld voordat de melding wordt ingediend.</p>
+      <p>Het verschil tussen een bug bounty-programma en een geautoriseerde pentest is groot: een programma stelt zelf de scope vast en betaalt naar bevinding, terwijl een pentest een vaste opdracht met vaste vergoeding is. Het boek is duidelijk over die scope-regels, maar wie ze niet naleeft overtreedt de voorwaarden van het programma, ook al is het doelwit in theorie toegankelijk.</p>
+      <p>Het boek gaat er verder van uit dat de lezer al kan programmeren en met een besturingssysteem naar keuze overweg kan, iets wat pas in de latere, meer technische hoofdstukken echt nodig is; wie enkel de eerste kwetsbaarheidshoofdstukken doorloopt, komt met minder voorkennis toe, maar dat wordt in het boek zelf niet expliciet onderscheiden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies eerst een programma met een scope die aansluit bij wat er in het boek behandeld wordt, voordat er gezocht wordt.</li>
+        <li>Volg bij elke kwetsbaarheidsklasse het vaste stramien van het boek: mechanisme, opsporing, bevestiging, impact, melding.</li>
+        <li>Zoek een eigen oefenomgeving, zoals een bekende kwetsbare testapplicatie, om de hoofdstukken naast het lezen ook praktisch te doorlopen.</li>
+        <li>Lees het hoofdstuk over het volhouden van een bug bounty-praktijk voordat de eerste teleurstellende afwijzingen ontmoedigen, en plan bewust vaste momenten in om terug te lezen wat een eerdere melding wel of niet werd geaccepteerd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">1e druk, No Starch Press, San Francisco, 2021, 416 blz., ISBN 9781718501546. Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vickie Li schrijft voor wie geld wil verdienen met het vinden en melden van beveiligingslekken in bug bounty-programma's. Het boek doorloopt eerst hoe de industrie werkt en hoe een programma gekozen wordt, legt daarna de technische basis van internet en verkenning uit, en behandelt vervolgens twintig kwetsbaarheidsklassen stuk voor stuk: cross-site scripting, open redirects, clickjacking, CSRF, IDOR, SQL-injectie, race conditions, SSRF, onveilige deserialisatie, XXE, template-injectie, businesslogicafwijkingen, remote code execution, same origin policy-problemen, SSO-fouten en informatielekken.</p><p>De laatste hoofdstukken gaan verder dan de standaardlijst en behandelen codereview, het testen van Android-apps, API-hacking en het gebruik van fuzzers om kwetsbaarheden automatisch op te sporen. Elk kwetsbaarheidshoofdstuk volgt hetzelfde stramien: hoe het werkt, hoe het voorkomen wordt, hoe het gezocht wordt, welke omzeilingen bestaan en hoe de impact aangetoond wordt.</p><p>Het boek is opgezet als naslagwerk en leidraad tegelijk: iemand die net een eerste kwetsbaarheid heeft gevonden en niet weet wat er daarna komt, vindt hier de stappen van melding tot en met het opbouwen van een langetermijnpraktijk in bug bounty-werk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bug bounty</li><li>webkwetsbaarheden</li><li>xss</li><li>sql-injectie</li><li>api-beveiliging</li><li>fuzzing</li><li>kwetsbaarheidsrapportage</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2312"><a href="2312.html">Web Hacking Arsenal: A Practical Guide to Modern Web Pentesting</a>. Web Hacking Arsenal behandelt dezelfde kwetsbaarhedenlijst vanuit het perspectief van een opdrachtgestuurde pentest in plaats van individuele bug bounty-meldingen.</li>
+          <li value="2305"><a href="2305.html">Hacking APIs: Breaking Web Application Programming Interfaces</a>. Hacking APIs werkt het hoofdstuk over API-hacking uit dit boek verder uit tot een boek op zichzelf.</li>
+          <li value="2309"><a href="2309.html">Ethical Hacking: A Hands-on Introduction to Breaking In</a>. Ethical Hacking: A Hands-on Introduction to Breaking In geeft de bredere, meer labgerichte inleiding waar dit boek de gerichte, meldingsgerichte vervolgstap op is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

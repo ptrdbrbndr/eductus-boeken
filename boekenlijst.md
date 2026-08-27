@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 27
-augustus 2026: 1535 titels in 21 rubrieken.
+augustus 2026: 1553 titels in 22 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -33,6 +33,7 @@ bij de volgende build verloren.
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831, 1127, 1129, 1132, 1133, 1136, 1137, 1243, 1530, 1533, 1546, 1554, 1605, 1623, 1630, 1655, 1698, 1804, 1844, 1846, 1869, 1914, 2002, 2007, 2027, 2043, 2044, 2059, 2084, 2106, 2111, 2120, 2121, 2128, 2132, 2133, 2134 |
 | Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769, 835, 836, 932, 936, 937, 940, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1112, 1115, 1117, 1118, 1119, 1120, 1122, 1123, 1124, 1125, 1126, 1139, 1140, 1141, 1142, 1143, 1144, 1147, 1149, 1150, 1151, 1152, 1154, 1156, 1157, 1158, 1161, 1163, 1164, 1165, 1166, 1167, 1169, 1170, 1207, 1214, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1227, 1228, 1229, 1230, 1231, 1232, 1234, 1235, 1236, 1237, 1238, 1239, 1241, 1242, 1244, 1266, 1268, 1296, 1300, 1324, 1502, 1504, 1508, 1520, 1535, 1536, 1537, 1540, 1551, 1552, 1555, 1558, 1559, 1568, 1569, 1575, 1577, 1579, 1580, 1606, 1607, 1608, 1612, 1621, 1624, 1629, 1640, 1644, 1650, 1652, 1660, 1661, 1662, 1684, 1690, 1697, 1717, 1727, 1734, 1735, 1741, 1742, 1754, 1763, 1770, 1773, 1774, 1775, 1800, 1805, 1806, 1819, 1820, 1821, 1826, 1845, 1847, 1848, 1856, 1867, 1876, 1891, 1892, 1904, 1908, 1911, 1917, 2000, 2015, 2017, 2020, 2021, 2023, 2025, 2031, 2039, 2045, 2046, 2058, 2060, 2065, 2067, 2078, 2080, 2101, 2115, 2116 |
 | Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 753, 826, 827, 910, 935, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1657, 1900, 2033, 2114 |
+| Digitale beveiliging en hacking | hoe systemen aangevallen en verdedigd worden, techniek en methode | 2300, 2301, 2302, 2303, 2304, 2305, 2306, 2307, 2308, 2309, 2310, 2311, 2312, 2313, 2314, 2315, 2316, 2317 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -319379,6 +319380,3924 @@ taalmodellen, met minder technisch detail per stap.
 naar dezelfde architectuur toe vanuit klassieke taalmodellen, in een boek met
 de redactionele toetsing die dit boek mist.
 
+## 2300. Ultimate Penetration Testing with Nmap: Master Cybersecurity Assessments for Network Security, Monitoring, and Scanning Using Nmap
+
+Travis DeForge, 2024. Eerste editie, AVA (An Orange Education Label),
+uitgegeven via BPB Publications, New Delhi, 2024. 204 blz., ISBN 9788197081866
+(eISBN 9788197081880). Er bestaat geen Nederlandse vertaling van dit boek.
+Rubriek: digitale beveiliging en hacking.
+Tags: `nmap`, `pentesten`, `netwerkscanning`, `reconnaissance`,
+`cybersecurity`, `firewall-evasion`, `kwetsbaarheidsonderzoek`
+
+DeForge, die als manager cybersecurity engineering werkt bij het Amerikaanse
+bedrijf Gotham Security, schreef samen met collega Michael Hallman een
+handboek dat één programma centraal stelt: Nmap, het scanprogramma waarmee
+pentesters en netwerkbeheerders in kaart brengen welke apparaten en diensten
+in een netwerk bereikbaar zijn. Het boek volgt de stappen van een assessment:
+van het opzetten van een oefenomgeving tot het scannen van een enkel systeem,
+het in kaart brengen van een groot netwerk, en het omzeilen van firewalls en
+detectiesystemen die een scan proberen te blokkeren.
+
+Een apart deel is gewijd aan de Nmap Scripting Engine, waarmee Nmap verder
+gaat dan poorten tellen en ook specifieke diensten kan onderzoeken op bekende
+zwakke plekken. Het boek besteedt daarnaast aandacht aan grafische
+hulpmiddelen als Zenmap en Legion, die de resultaten van een scan
+overzichtelijker maken voor wie met grote netwerken werkt.
+
+Het boek is met 204 bladzijden compact en richt zich op één instrument in
+plaats van op een volledige pentestmethodiek. Wie op zoek is naar een bredere
+inleiding in ethisch hacken, met onderwerpen als social engineering of
+webapplicaties, vindt dat elders in deze rubriek; hier gaat het uitsluitend om
+verkenning en enumeratie met Nmap.
+
+### Uitgebreide samenvatting
+
+**De stelling.** DeForge behandelt Nmap niet als een los commando dat een
+poortenlijst oplevert, maar als het instrument waarmee het hele eerste deel
+van een pentest staat of valt: zonder een juiste en volledige kaart van een
+netwerk is elke latere stap giswerk. Zijn stelling is dat de meeste gebruikers
+van Nmap de mogelijkheden van het programma onderbenutten door zich tot een
+standaardscan te beperken, terwijl juist de obfuscatietechnieken, de
+scripting-engine en het combineren met andere hulpmiddelen het verschil maken
+tussen een oppervlakkige en een bruikbare beoordeling. Het boek voert die
+stelling uit als een opeenvolging van steeds complexere scenario's, van een
+enkele testmachine tot een netwerk met firewalls en inbraakdetectie die actief
+proberen de scan te verstoren.
+
+#### De gang van het boek
+
+**Kennismaking en labomgeving**
+
+De eerste hoofdstukken leggen uit wat Nmap doet en hoe het zich verhoudt tot
+een security assessment in bredere zin: verkenning, kwetsbaarheidsanalyse en
+rapportage. Daarna zet het boek een oefenomgeving op met virtuele machines,
+zodat de latere hoofdstukken op een gecontroleerde, wettelijk toegestane
+opstelling kunnen worden uitgevoerd in plaats van op een netwerk zonder
+toestemming.
+
+DeForge besteedt daarbij aandacht aan de installatie van Nmap op verschillende
+besturingssystemen en aan het inrichten van bewust kwetsbare doelsystemen in
+het lab, zodat een lezer de uitkomst van een scan kan controleren tegen een
+bekende configuratie in plaats van te gissen naar wat een resultaat betekent.
+
+**Het aanvalsoppervlak in kaart brengen**
+
+Vervolgens introduceert DeForge het begrip attack surface mapping: het
+systematisch vaststellen welke hosts, poorten en diensten vanaf een bepaald
+punt bereikbaar zijn. Dit hoofdstuk behandelt de basisscans van Nmap en de
+manier waarop de uitkomst een eerste beeld geeft van waar een netwerk
+kwetsbaar kan zijn.
+
+Aan bod komen het verschil tussen TCP- en UDP-scans, de timingsjablonen
+waarmee Nmap de snelheid en dus ook de opvallendheid van een scan regelt, en
+de manier waarop de resultaten van een eerste, brede scan de basis vormen voor
+een tweede, gerichte scan op interessante poorten.
+
+**Kwetsbaarheden vinden via enumeratie**
+
+Het boek gaat daarna dieper in op enumeratie: het achterhalen van
+versienummers van draaiende diensten en het koppelen daarvan aan bekende
+kwetsbaarheden. Dit is het hoofdstuk waarin de scanresultaten van het vorige
+deel worden omgezet in concrete aanknopingspunten voor verder onderzoek.
+
+Onderdeel daarvan is banner grabbing, het uitlezen van de
+identificatiegegevens die een dienst bij verbinding prijsgeeft, en het naslaan
+van die gegevens in openbare kwetsbaarheidsdatabases. DeForge waarschuwt
+daarbij dat een gevonden versienummer een aanwijzing is, geen bewijs, en dat
+verificatie nodig blijft voordat een uitkomst in een rapport terechtkomt.
+
+**Grote netwerken en visuele hulpmiddelen**
+
+Voor omgevingen met veel hosts behandelt DeForge strategieën om een scan
+behapbaar te houden, en bespreekt hij de grafische tools Zenmap en Legion, die
+scanresultaten visueel weergeven. Voor een team dat honderden systemen moet
+doorlopen is dat overzicht volgens het boek net zo belangrijk als de scan
+zelf.
+
+**Obfuscatie en firewall-ontwijking**
+
+Een van de langere hoofdstukken beschrijft hoe firewalls en systemen voor
+inbraakdetectie een scan kunnen opmerken en blokkeren, en welke technieken
+Nmap biedt om minder op te vallen. DeForge behandelt dit op het niveau van
+uitleg en herkenning, als onderdeel van een geautoriseerde test waarbij de
+opdrachtgever weet dat er getest wordt, niet als handleiding voor
+ongeautoriseerde toegang.
+
+Aansluitend komt de Nmap Scripting Engine aan bod, waarmee Nmap losse scripts
+kan uitvoeren tegen specifieke diensten, bijvoorbeeld om te controleren of een
+bekende kwetsbaarheid aanwezig is. Het boek legt uit hoe de engine werkt en
+welke categorieën scripts er bestaan, zonder een volledige catalogus van
+scripts te herhalen die ook in de officiële Nmap-documentatie staat.
+
+**Praktijk, grenzen en naslag**
+
+Het laatste hoofdstuk bespreekt best practices: wanneer een scan verantwoord
+is, hoe je resultaten rapporteert en welke grenzen een pentester in de
+praktijk respecteert. De twee bijlagen bevatten oefenvragen en een compact
+overzicht van Nmap-commando's als naslagwerk voor na het lezen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Nmap | Het open source scanprogramma waarmee de bereikbaarheid van hosts en poorten in een netwerk wordt vastgesteld; het onderwerp van het hele boek. |
+| Attack surface mapping | Het systematisch in kaart brengen van alle hosts, poorten en diensten die vanaf een bepaald punt in een netwerk bereikbaar zijn. |
+| Enumeratie | Het achterhalen van details over een gevonden dienst, zoals softwareversie, om vast te stellen of er bekende kwetsbaarheden bij horen. |
+| Nmap Scripting Engine (NSE) | De uitbreiding van Nmap waarmee losse scripts tegen een dienst kunnen worden uitgevoerd, bijvoorbeeld om een specifieke kwetsbaarheid te controleren. |
+| Zenmap | De officiële grafische schil rond Nmap, die scanresultaten visueel weergeeft in plaats van als platte tekst. |
+| Legion | Een tool die Nmap-scans en verdere verkenning combineert in één grafische omgeving, gericht op grotere netwerken. |
+| Firewall-evasion | Technieken om een scan minder herkenbaar te maken voor firewalls en inbraakdetectiesystemen, binnen een geautoriseerde test. |
+| Labomgeving | Een afgeschermde, virtuele opstelling waarin scantechnieken worden geoefend zonder een productienetwerk te raken. |
+| Poortscan (TCP/UDP) | De basisbewerking van Nmap: vaststellen welke poorten op een host open, gesloten of gefilterd zijn, met een eigen aanpak per protocol. |
+| Banner grabbing | Het uitlezen van de identificatiegegevens die een netwerkdienst bij verbinding meestuurt, gebruikt om softwareversies te achterhalen. |
+
+#### Waar het argument op rust
+
+DeForge werkt als manager cybersecurity engineering bij Gotham Security, een
+Amerikaans bureau dat penetratietesten uitvoert voor bedrijven; zijn coauteur
+Michael Hallman is bij hetzelfde bedrijf actief als associate security
+engineer, gericht op applicatietests en social engineering. De voorbeelden in
+het boek zijn opgebouwd vanuit die dagelijkse praktijk van betaalde,
+geautoriseerde assessments, niet vanuit een puur theoretische beschrijving van
+het programma.
+
+De autoriteit van het boek ligt vooral in de scope: het beperkt zich tot één,
+breed gebruikt en gratis instrument dat in vrijwel elke pentestopleiding en
+-certificering terugkomt, en behandelt dat instrument in de volgorde waarin
+het in een echte opdracht wordt ingezet. De twee bijlagen, met oefenvragen en
+een commandoreferentie, zijn bedoeld voor gebruik na het lezen en wijzen op
+een opzet die met opleiding en training voor ogen is geschreven.
+
+Het boek bevat geen wetenschappelijk onderzoek of cijfers over de
+effectiviteit van Nmap; het is een praktijkhandleiding, geen studie. De
+onderbouwing bestaat uit de ervaring van de auteurs en de gevestigde status
+van Nmap zelf, dat al sinds 1997 bestaat en in vrijwel elk overzicht van
+pentesttools wordt genoemd.
+
+Nmap komt terug in de leerstof van certificeringen als OSCP en CEH, en de
+opzet van het boek, van eerste scan tot scripting engine, volgt grofweg
+dezelfde opbouw als die examens hanteren. Dat maakt het boek ook bruikbaar als
+voorbereiding op zo'n certificering, al is het zelf geen examentraining.
+
+#### Wat er tegen in te brengen valt
+
+Het boek behandelt één programma, niet een volledige pentestmethodiek. Wie
+verwacht ook exploitatie, rapportage op ondernemingsniveau of samenwerking met
+een team te leren, moet dat elders zoeken; DeForge stopt bij het punt waarop
+enumeratie overgaat in exploitatie.
+
+Nmap zelf verandert weinig, maar de omgeving waarin het wordt ingezet wel:
+firewalls, inbraakdetectie en netwerkconfiguraties van 2024 zijn niet dezelfde
+als die van over een paar jaar, en een boek van 204 bladzijden heeft geen
+ruimte om dat bij te houden. Wie het boek later leest, doet er goed aan de
+officiële Nmap-documentatie ernaast te leggen voor recente scriptcategorieën.
+
+Het boek veronderstelt basiskennis van TCP/IP, poorten en het werken met een
+terminal, maar legt dat niet expliciet uit; een lezer zonder netwerkervaring
+zal eerst elders die basis moeten leggen voordat de hoofdstukken over
+obfuscatie en de scripting engine goed landen.
+
+De labomgeving uit het boek is per definitie schoner en voorspelbaarder dan
+een echt bedrijfsnetwerk. Een geautoriseerde pentest in de praktijk kent
+overleg met een opdrachtgever, een afgebakende scope en juridische afspraken
+vooraf; dat traject rond de techniek komt in dit technische handboek
+nauwelijks aan bod.
+
+Met 204 bladzijden voor negen hoofdstukken plus twee bijlagen blijft ook de
+scripting engine, toch een van de meest uitgebreide onderdelen van Nmap,
+beperkt tot één hoofdstuk. Wie daar dieper in wil, moet uitwijken naar de
+officiële documentatie of naar gespecialiseerde bronnen over
+scriptontwikkeling.
+
+#### Wat er concreet mee te doen is
+
+- Zet eerst een eigen labomgeving op met virtuele machines voordat je een van
+de scantechnieken uittest.
+- Gebruik de basisscans om een eerste overzicht te krijgen voordat je
+overstapt op de Scripting Engine.
+- Leg scanresultaten van grotere netwerken vast in Zenmap of Legion in plaats
+van in platte tekstbestanden.
+- Test firewall-evasietechnieken alleen in een omgeving waarvoor uitdrukkelijk
+toestemming is gegeven.
+- Sla de commandoreferentie in de bijlage op als naslagwerk voor tijdens een
+opdracht.
+- Controleer een gevonden versienummer altijd tegen een actuele
+kwetsbaarheidsdatabase voordat je het in een rapport opneemt.
+- Bespreek scope en toestemming met de opdrachtgever voordat je een van de
+obfuscatietechnieken uit het boek toepast.
+
+#### Wat je hierna leest
+
+- 2302. Penetration Testing: A Hands-On Introduction to Hacking. Dat boek
+plaatst de verkenningstechnieken uit dit boek terug in een volledige
+pentestmethodiek, van eerste scan tot rapportage.
+- 2303. Ethical Hacking and Network Analysis with Wireshark. Wireshark laat
+zien wat er op pakketniveau gebeurt tijdens en na een Nmap-scan, als
+aanvulling op wat Nmap zelf rapporteert.
+- 2308. Metasploit: The Penetration Tester's Guide (Second Edition).
+Metasploit behandelt de stap die op enumeratie volgt: het daadwerkelijk
+benutten van een kwetsbaarheid die met Nmap is gevonden.
+- 2315. Pentesting Active Directory and Windows-based Infrastructure. Dat boek
+werkt de scanresultaten van een Nmap-onderzoek verder uit in een Windows- en
+Active Directory-omgeving specifiek.
+
+## 2301. Ultimate Splunk for Cybersecurity: Practical Strategies for SIEM Using Splunk's Enterprise Security (ES) for Threat Detection, Forensic Investigation, and Cloud Security
+
+Jit Sinha, 2024. Eerste editie, AVA (An Orange Education Label), uitgegeven
+via BPB Publications, New Delhi, 2024. 412 blz., ISBN 9788196815028 (eISBN
+9788196815004). Er bestaat geen Nederlandse vertaling van dit boek. Rubriek:
+digitale beveiliging en hacking.
+Tags: `splunk`, `siem`, `threat detection`, `forensisch onderzoek`, `soar`,
+`cloud security`, `cybersecurity`
+
+Jit Sinha, gecertificeerd solution architect voor Splunk en voor de drie grote
+cloudplatformen, schreef een handboek over Splunk als platform voor
+security-monitoring. Splunk verzamelt logbestanden uit servers,
+netwerkapparatuur en applicaties en maakt ze doorzoekbaar; het boek legt uit
+hoe die basis wordt opgebouwd en hoe daar bovenop, met de aanvullende module
+Enterprise Security, daadwerkelijk dreigingen worden opgespoord.
+
+Het boek doorloopt het hele traject van een SIEM-implementatie: het aansluiten
+van databronnen, het normaliseren van die data tot een bruikbaar formaat, het
+inrichten van detectieregels en dashboards, en het gebruik van die gegevens
+bij forensisch onderzoek na een incident. Latere hoofdstukken behandelen
+geautomatiseerde respons met SOAR, integratie met andere beveiligingstools, en
+het gebruik van Splunk in cloudomgevingen en compliance-trajecten.
+
+Met 412 bladzijden is dit een van de omvangrijkere titels in deze rubriek en
+het enige boek in de batch dat vanuit het perspectief van de verdediger is
+geschreven in plaats van dat van de aanvaller. Wie eerst wil weten hoe de
+aanvallen eruitzien die Splunk moet opsporen, leest dat boek beter naast dit
+boek dan in plaats ervan.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sinha's stelling is dat de waarde van een SIEM-platform als
+Splunk niet in de detectieregels zelf zit, maar in de kwaliteit van de data
+die eraan wordt gevoerd: zonder correcte inputconfiguratie en normalisatie
+levert ook de duurste Enterprise Security-licentie ruis op in plaats van
+bruikbare signalen. Het boek bouwt dat argument stap voor stap op, van de
+eerste dataverbinding tot de geautomatiseerde respons, en behandelt Splunk
+daarmee niet als los stuk software maar als de spil van een security-operatie
+die logs uit heel de organisatie moet samenbrengen, van on-premise servers tot
+cloudomgevingen.
+
+#### De gang van het boek
+
+**Splunk en cybersecurity**
+
+De opening plaatst Splunk in de bredere praktijk van security operations:
+waarom organisaties logs centraliseren, en welke rol een platform als Splunk
+daarin speelt naast andere beveiligingsmaatregelen. Dit hoofdstuk is bedoeld
+als oriëntatie voor lezers die Splunk nog niet kennen.
+
+Sinha schetst daarbij het onderscheid tussen Splunk als algemeen platform voor
+het doorzoeken van machine-data en Splunk als onderdeel van een security
+operations center, waar dezelfde data wordt gebruikt om afwijkingen op te
+sporen in plaats van alleen bedrijfsprocessen te monitoren.
+
+**Architectuur**
+
+Het tweede hoofdstuk beschrijft hoe Splunk is opgebouwd: de onderdelen die
+data verzamelen, indexeren en doorzoekbaar maken, en hoe die onderdelen samen
+schalen naar grotere omgevingen. Zonder dit beeld van de architectuur zijn de
+latere hoofdstukken over inrichting en optimalisatie moeilijk te volgen.
+
+Aan bod komen de rolverdeling tussen forwarders die data aanleveren, indexers
+die data opslaan en doorzoekbaar maken, en search heads waarmee een analist
+die data bevraagt, en hoe die rollen bij een groeiend datavolume over meerdere
+servers worden verdeeld.
+
+**Data binnenhalen en normaliseren**
+
+Twee opeenvolgende hoofdstukken behandelen het aansluiten van databronnen en
+het omzetten van ruwe logs naar een gestandaardiseerd formaat. Sinha benadrukt
+dat deze stap, hoewel minder aansprekend dan een dashboard met waarschuwingen,
+bepaalt of latere detectieregels betrouwbaar werken.
+
+Het boek bespreekt uiteenlopende bronnen, van firewalls en endpoints tot
+cloudapplicaties, en de manier waarop Splunk die met behulp van het Common
+Information Model in een gemeenschappelijke set velden onderbrengt, zodat een
+detectieregel niet voor elke bron apart hoeft te worden geschreven.
+
+**SIEM en Enterprise Security**
+
+Hierna komt het eigenlijke SIEM-werk aan bod: wat een security information and
+event management-systeem doet, en hoe Splunk Enterprise Security, de betaalde
+uitbreiding op de kernsoftware, correlatieregels, dashboards en risicoscores
+biedt om afwijkend gedrag te herkennen tussen de vele losse gebeurtenissen.
+
+**Threat intelligence en forensisch onderzoek**
+
+Het boek behandelt vervolgens hoe externe dreigingsinformatie in Splunk wordt
+verwerkt om bekende kwaadaardige indicatoren te herkennen, en hoe een analist
+na een incident in de verzamelde logs terug kan zoeken naar wat er precies is
+gebeurd, met wie en wanneer.
+
+Voor het forensische deel beschrijft Sinha hoe een tijdlijn van een incident
+wordt gereconstrueerd uit losse logregels, en hoe die tijdlijn de basis vormt
+voor een rapportage aan het management of, waar nodig, aan een toezichthouder.
+
+**Integratie, compliance en automatisering**
+
+Drie hoofdstukken beschrijven de koppeling van Splunk met andere
+beveiligingstools, het gebruik ervan om te voldoen aan compliance- en
+rapportageverplichtingen, en geautomatiseerde respons met SOAR, waarbij vaste
+reeksen acties worden gestart zodra een detectieregel afgaat.
+
+**Cloud, DevOps en afronding**
+
+De laatste hoofdstukken behandelen Splunk in cloudomgevingen, de rol van het
+platform binnen DevOps-teams, en een verzameling best practices. Het boek
+eindigt met een hoofdstuk dat de eerdere onderdelen terugbrengt tot een
+overzicht, gericht op de lezer die het boek als naslagwerk wil blijven
+gebruiken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| SIEM | Security information and event management: het samenbrengen en analyseren van logs uit een hele organisatie om beveiligingsincidenten te herkennen. |
+| Splunk Enterprise Security (ES) | De betaalde uitbreiding op de kern van Splunk, met kant-en-klare correlatieregels, dashboards en risicoscores gericht op security-monitoring. |
+| Data-normalisatie | Het omzetten van logs uit uiteenlopende bronnen naar een gestandaardiseerd veldformaat, nodig om ze onderling te kunnen vergelijken en doorzoeken. |
+| Threat intelligence | Externe informatie over bekende kwaadaardige adressen, bestanden of gedragspatronen, die in Splunk wordt gebruikt om vergelijkbare signalen te herkennen. |
+| SOAR | Security orchestration, automation and response: het automatisch starten van een vaste reeks acties zodra een detectieregel een dreiging signaleert. |
+| Forensisch onderzoek | Het na afloop van een incident terugzoeken in vastgelegde logs om vast te stellen wat er is gebeurd, met welke systemen en op welk moment. |
+| Correlatieregel | Een regel binnen Enterprise Security die losse gebeurtenissen aan elkaar koppelt om een patroon te herkennen dat op zichzelf onopvallend zou blijven. |
+| Compliance-rapportage | Het gebruik van vastgelegde logdata om aan te tonen dat een organisatie aan wettelijke of sectorale beveiligingseisen voldoet. |
+| Forwarder, indexer, search head | De drie rollen waarin een Splunk-omgeving is opgedeeld: data aanleveren, data opslaan en doorzoekbaar maken, en data bevragen. |
+| Common Information Model | Het gestandaardiseerde veldenschema van Splunk waarmee data uit uiteenlopende bronnen onder dezelfde begrippen doorzoekbaar wordt. |
+
+#### Waar het argument op rust
+
+Sinha presenteert zichzelf als solution architect met meer dan twaalf jaar
+ervaring en certificeringen op Splunk zelf en op de drie grote
+cloudplatformen; de hoofdstukken over cloud security en DevOps sluiten aan bij
+die achtergrond. Het boek is opgebouwd rond Enterprise Security, de officiële
+en breed gebruikte security-module van Splunk, wat aansluit bij hoe
+organisaties het platform in de praktijk voor beveiliging inzetten.
+
+De autoriteit van het boek rust op de status van Splunk zelf als een van de
+meest gebruikte SIEM-platformen in grotere organisaties en op het feit dat het
+de gehele keten behandelt, van ruwe data tot geautomatiseerde respons, in
+plaats van alleen een enkel onderdeel eruit te lichten. Dat maakt het
+bruikbaar als overzicht voor wie voor het eerst met een SIEM-implementatie te
+maken krijgt.
+
+Het boek bevat geen onafhankelijk onderzoek naar de effectiviteit van Splunk
+ten opzichte van andere SIEM-platformen en presenteert zich niet als zodanig;
+het is een praktijkgerichte handleiding voor wie met dit specifieke product
+werkt, geschreven vanuit ervaring met implementaties, niet vanuit vergelijkend
+onderzoek.
+
+Dat het boek de compliance-hoofdstukken koppelt aan concrete regelgeving, in
+plaats van alleen in algemene termen over rapportageverplichtingen te spreken,
+sluit aan bij hoe Enterprise Security in de praktijk wordt aangeschaft: vaak
+juist om aan een auditeis of een sectorale norm te kunnen voldoen, niet alleen
+uit technische overweging.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is opgebouwd rond Enterprise Security, een betaalde licentie die niet
+in elke Splunk-installatie aanwezig is. Lezers die alleen de gratis of de
+reguliere Splunk-versie gebruiken, kunnen een deel van de hoofdstukken niet
+zelf uitproberen en zijn aangewezen op de beschrijving in het boek.
+
+Met 412 bladzijden voor vijftien hoofdstukken blijft de diepgang per onderwerp
+beperkt; forensisch onderzoek, SOAR en compliance komen elk in een enkel
+hoofdstuk aan bod, terwijl elk van die onderwerpen op zichzelf een boek zou
+kunnen vullen. Wie zich specialiseert in bijvoorbeeld SOAR-automatisering, zal
+aanvullende bronnen nodig hebben.
+
+Het boek veronderstelt voorkennis van netwerken en van beveiligingsbegrippen
+als logging en detectie, maar bouwt die niet expliciet op; wie voor het eerst
+met SIEM in aanraking komt, kan de architectuurhoofdstukken lastig vinden
+zonder eerdere ervaring met logbeheer.
+
+Omdat het boek uitsluitend het verdedigersperspectief behandelt, ontbreekt het
+aan een beeld van hoe de aanvallen die Splunk moet opsporen er in de praktijk
+uitzien; dat maakt sommige detectiehoofdstukken abstracter dan wanneer ze
+naast een aanvalsgericht boek zouden zijn gelezen. Splunk zelf verandert
+bovendien regelmatig van interface en cloudaanbod, wat een boek uit 2024 op
+onderdelen sneller laat verouderen dan de onderliggende principes.
+
+Vijftien hoofdstukken in één band suggereren een volledigheid die de tekst
+niet overal waarmaakt: het laatste hoofdstuk herhaalt grotendeels wat eerder
+al is behandeld, en had als korte bijlage net zo goed dienst kunnen doen. Ook
+het onderscheid tussen wat de kernsoftware van Splunk zelf kan en wat
+specifiek aan Enterprise Security is voorbehouden, wordt niet op elke
+bladzijde even scherp gehouden, waardoor een lezer soms zelf moet uitzoeken of
+een beschreven functie ook zonder de betaalde module bereikbaar is.
+
+#### Wat er concreet mee te doen is
+
+- Richt eerst de dataverbindingen en normalisatie goed in voordat je
+detectieregels gaat bouwen.
+- Gebruik de architectuurhoofdstukken als referentie bij het schalen van een
+Splunk-omgeving.
+- Test SOAR-automatisering eerst op een beperkt aantal detectieregels voordat
+je die organisatiebreed uitrolt.
+- Leg forensische zoekopdrachten van een eerder incident vast als sjabloon
+voor toekomstig onderzoek.
+- Vergelijk het boek met een aanvalsgericht handboek om te begrijpen wat de
+detectieregels precies moeten herkennen.
+- Toets welke compliance-hoofdstukken relevant zijn voor de eigen sector
+voordat je ze doorwerkt.
+- Gebruik het Common Information Model als leidraad bij het aansluiten van een
+nieuwe databron.
+
+#### Wat je hierna leest
+
+- 2300. Ultimate Penetration Testing with Nmap: Master Cybersecurity
+Assessments for Network Security, Monitoring, and Scanning Using Nmap. De
+verkenningstechnieken uit dat boek laten sporen na in netwerklogs; dit boek
+beschrijft hoe zulke sporen in Splunk worden herkend.
+- 2308. Metasploit: The Penetration Tester's Guide (Second Edition).
+Metasploit behandelt de aanvalstechnieken waarvan de logsporen in dit boek als
+uitgangspunt voor detectieregels dienen.
+- 2306. Black Hat Bash: Creative Scripting for Hackers and Pentesters. Black
+Hat Bash laat zien welke scripttechnieken aanvallers gebruiken; dit boek
+beschrijft hoe zulk gedrag in logdata opvalt.
+- 2312. Web Hacking Arsenal: A Practical Guide to Modern Web Pentesting. Web
+Hacking Arsenal beschrijft webaanvallen vanuit de aanvaller; dit boek
+beschrijft hoe de sporen daarvan in een SIEM te herkennen zijn.
+
+## 2302. Penetration Testing: A Hands-On Introduction to Hacking
+
+Georgia Weidman, 2014. No Starch Press, San Francisco, eerste druk, 14 juni
+2014, 528 blz., ISBN 9781593275648. Er bestaat geen Nederlandse vertaling.
+Rubriek: digitale beveiliging en hacking.
+Tags: `penetration testing`, `Kali Linux`, `Metasploit`, `buffer overflow`,
+`social engineering`, `exploitontwikkeling`, `mobiele beveiliging`
+
+Georgia Weidman bouwt dit boek op rond een eigen virtueel laboratorium: een
+reeks kwetsbare doelmachines die de lezer stap voor stap aanvalt met Kali
+Linux als uitvalsbasis. Het boek begint bij de opzet van dat lab en het
+Metasploit-raamwerk en werkt via verkenning en het opsporen van kwetsbaarheden
+naar wachtwoordaanvallen, client-side exploitatie en social engineering. De
+laatste hoofdstukken behandelen het schrijven van eigen exploits, met
+stack-based buffer overflows op Linux en Windows, en een deel over het testen
+van mobiele apparaten met het Smartphone Pentest Framework dat Weidman zelf
+ontwikkelde.
+
+Het boek onderscheidt zich van veel toolgerichte handleidingen doordat het
+steeds ook uitlegt waarom een aanval werkt, tot op het niveau van
+geheugenlay-out en de werking van TCP/IP. Weidman schreef het vanuit haar
+eigen werk als pentester en trainer en vanuit een DARPA-subsidie voor
+onderzoek naar mobiele beveiliging.
+
+Het is opgezet als een volledige doorloop van het vak, van verkenning tot
+exploitontwikkeling, niet als een losse verzameling trucs.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Weidmans stelling is dat een pentester pas begrijpt wat een
+aanval doet zodra hij weet wat er in het geheugen en op de kabel gebeurt, en
+dat losse tool-kennis zonder die achtergrond snel veroudert. Het boek voert
+die stelling uit door elke fase van een test, van verkenning tot het schrijven
+van een eigen exploit, in een zelfgebouwd virtueel lab te laten uitvoeren,
+zodat de lezer dezelfde stappen zet als de schrijver zelf. Daarmee
+positioneert het zich tussen een handleiding voor specifieke tools en een
+leerboek over de onderliggende werking van besturingssystemen en netwerken. De
+keerzijde van die opzet is dat het boek leunt op software en kwetsbaarheden
+uit het jaar van verschijnen, waardoor de precieze stappen na verloop van tijd
+niet meer letterlijk werken, ook al blijft het onderliggende principe overeind
+staan.
+
+#### De gang van het boek
+
+**Het lab en de basis**
+
+Het boek opent met de inrichting van een eigen virtueel lab met kwetsbare
+doelmachines, een inleiding in Kali Linux, elementaire scripting en een eerste
+kennismaking met het Metasploit-raamwerk, dat in de rest van het boek
+terugkeert als vast gereedschap.
+
+Dat lab bestaat uit een aantal met opzet verouderde en fout geconfigureerde
+systemen, zodat elke latere aanval eerst tegen een vaste, herhaalbare omgeving
+geoefend kan worden voordat er sprake is van een echte opdracht bij een klant.
+
+**Verkenning en kwetsbaarheden**
+
+Aan de hand van open bronnen, whois-opzoekingen, de poortscanner Nmap en de
+kwetsbaarheidsscanner Nessus brengt de lezer een doelnetwerk in kaart en
+koppelt gevonden diensten aan bekende zwakke plekken, aangevuld met een
+hoofdstuk over het afvangen van netwerkverkeer.
+
+Weidman benadrukt in dit deel het onderscheid tussen automatisch gegenereerde
+scanresultaten en de handmatige controle die nodig is om te bepalen welke
+gevonden zwakke plek in de gegeven omgeving werkelijk bruikbaar is.
+
+**Exploitatie en wachtwoorden**
+
+Dit deel behandelt het daadwerkelijk misbruiken van gevonden kwetsbaarheden
+met Metasploit en gaat apart in op wachtwoordaanvallen, van het kraken van
+hashes tot het raden van inloggegevens over een netwerk.
+
+De hoofdstukken laten zien hoe eenzelfde kwetsbaarheid met verschillende
+hulpmiddelen te misbruiken is, zodat de lezer leert kiezen tussen een
+kant-en-klare exploitmodule en een aanpassing op maat.
+
+**Client-side aanvallen en social engineering**
+
+Hier verschuift de aandacht van de server naar de gebruiker: client-side
+exploitatie via kwaadaardige documenten en links, social engineering met het
+Social-Engineer Toolkit, en manieren om antivirussoftware te omzeilen zonder
+dat een aanval gedetecteerd wordt.
+
+Deze hoofdstukken laten zien dat een netwerk technisch goed afgeschermd kan
+zijn en toch kwetsbaar blijft zodra een gebruiker overgehaald wordt om een
+bijlage te openen of een wachtwoord af te geven.
+
+**Na de inbraak, webapplicaties en draadloze netwerken**
+
+Na een geslaagde inbraak behandelt het boek wat een tester vervolgens doet:
+rechten uitbreiden, sporen beperken en gegevens verzamelen. Losse hoofdstukken
+zijn gewijd aan het testen van webapplicaties met Burp Suite en aan aanvallen
+op draadloze netwerken.
+
+Deze drie onderwerpen staan los van elkaar in het boek, maar delen dezelfde
+werkwijze: eerst de omgeving begrijpen zoals een gewone gebruiker die ziet, en
+pas daarna zoeken naar de plek waar de aanname van de ontwerper niet klopt.
+
+**Exploits schrijven**
+
+Het vierde deel behandelt exploitontwikkeling in engere zin: stack-based
+buffer overflows op Linux en Windows, het overschrijven van structured
+exception handlers, en fuzzing en het overzetten van bestaande exploits naar
+nieuwe doelen.
+
+Deze hoofdstukken vereisen het meeste van de lezer, omdat ze bekendheid met
+assembly en geheugenindeling veronderstellen die eerder in het boek maar kort
+wordt aangestipt. De opbouw is bewust klein gestapt: elke stap in het
+overschrijven van een registerinhoud wordt apart getoond voordat de volgende
+volgt.
+
+**Mobiele beveiliging**
+
+Het laatste deel gaat over het testen van smartphones, met het Smartphone
+Pentest Framework dat Weidman zelf ontwikkelde als resultaat van een
+DARPA-subsidie, en met een emulatoromgeving om mobiele aanvallen zonder fysiek
+toestel te oefenen.
+
+Dit deel behandelt mobiele apparaten als volwaardig onderdeel van een netwerk
+in plaats van als bijzaak, met aandacht voor hoe een toestel vanaf afstand te
+benaderen is en welke gegevens erop te bemachtigen zijn.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Metasploit Framework | Het open source raamwerk voor het ontwikkelen en uitvoeren van exploits, dat het boek als vast gereedschap gebruikt vanaf het eerste deel. |
+| Kali Linux | De Linux-distributie met voorgeïnstalleerde beveiligingstools waarmee alle oefeningen in het boek worden uitgevoerd. |
+| Nmap | De poortscanner waarmee de lezer diensten en open poorten op een doelsysteem in kaart brengt tijdens de verkenningsfase. |
+| Social-Engineer Toolkit (SET) | Het hulpmiddel waarmee het boek social-engineeringaanvallen zoals nagemaakte inlogpagina's en phishingmails opzet en test. |
+| Buffer overflow | Een programmeerfout waarbij meer data in een geheugenbuffer wordt geschreven dan er past, waardoor een aanvaller de uitvoering van het programma kan overnemen; kernonderwerp van het deel over exploitontwikkeling. |
+| SEH-overwrite | Een exploittechniek op Windows waarbij de structured exception handler wordt overschreven om alsnog controle over een programma te krijgen wanneer een gewone stack-overflow niet werkt. |
+| Fuzzing | Het automatisch voeden van een programma met afwijkende of willekeurige invoer om crashes en mogelijke kwetsbaarheden op te sporen. |
+| Smartphone Pentest Framework | Het door Weidman ontwikkelde gereedschap voor het testen van mobiele apparaten, ontstaan uit een door DARPA gefinancierd onderzoeksproject. |
+| Post-exploitation | De fase na een geslaagde inbraak waarin een tester rechten uitbreidt, zich verplaatst binnen een netwerk en bewijs van de toegang verzamelt. |
+
+#### Waar het argument op rust
+
+Weidman schreef het boek vanuit haar eigen werk als penetratietester en
+trainer. Zij houdt de certificeringen OSCP, CEH en CISSP, richtte het
+beveiligingsbedrijf Bulb Security op en ontving een DARPA Cyber Fast
+Track-subsidie voor het Smartphone Pentest Framework dat in het laatste deel
+van het boek terugkomt. Zij trad op als spreker en trainer op Black Hat en DEF
+CON, wat de technische inhoud onderbouwt met praktijkervaring buiten het boek
+om.
+
+Het boek wordt in recensies en cursusmateriaal herhaaldelijk genoemd als
+eerste volledige introductie in het vak, bruikbaar naast de voorbereiding op
+certificeringen zoals OSCP, al is het geen officieel examenboek voor die
+certificering.
+
+De opzet met een zelf te bouwen virtueel lab maakt de aanpak controleerbaar:
+de lezer voert dezelfde stappen uit als beschreven en kan het resultaat zelf
+verifiëren, in plaats van beweringen op gezag van de auteur aan te nemen.
+
+Onderdelen van het boek zijn terug te voeren op bekende, gedocumenteerde
+kwetsbaarheden en publiek beschikbare exploitmodules in Metasploit, wat het
+mogelijk maakt om de beschreven technieken te herleiden naar hun
+oorspronkelijke bron en tijdstip van openbaarmaking.
+
+#### Wat er tegen in te brengen valt
+
+Het boek verscheen in 2014 en steunt op specifieke versies van Kali Linux,
+Metasploit en de kwetsbare doelmachines uit die tijd. Reviewers wijzen erop
+dat een deel van de stapsgewijze voorbeelden inmiddels niet meer letterlijk
+werkt omdat software is bijgewerkt of kwetsbaarheden zijn gedicht; het
+onderliggende principe blijft bruikbaar, de exacte commando's vaak niet meer.
+
+Ondanks het woord introductie in de titel veronderstelt het boek al vroeg
+kennis van programmeren, Linux en de werking van TCP/IP. Wie die basis niet
+heeft, loopt vooral in het laatste deel over exploitontwikkeling vast op
+assembly en geheugenindeling die eerder in het boek slechts kort worden
+uitgelegd.
+
+Het boek behandelt het technische handwerk uitgebreider dan het juridische en
+organisatorische kader eromheen. Aan toestemming, reikwijdte en rapportage,
+wat het verschil maakt tussen een geautoriseerde pentest en een strafbare
+inbraak, wordt slechts kort aandacht besteed, terwijl dat onderscheid in de
+praktijk minstens zo belangrijk is als de techniek zelf.
+
+Het boek behandelt elk onderwerp op een niveau dat past bij een eerste
+kennismaking; wie na het lezen echt zelfstandig een buffer overflow wil vinden
+en misbruiken in software die niet in het boek staat, heeft daarnaast oefening
+nodig die het boek zelf niet biedt.
+
+#### Wat er concreet mee te doen is
+
+- Bouw eerst het virtuele lab op zoals in het eerste deel beschreven staat
+voordat je met latere hoofdstukken begint.
+- Vul verouderde versienummers en commando's aan met actuele documentatie van
+de gebruikte tools voordat je ze in een echte test toepast.
+- Lees de hoofdstukken over exploitontwikkeling pas na de basisexploitatie, en
+ververs zo nodig eerst je kennis van assembly en geheugenindeling.
+- Gebruik het boek als eerste doorloop van het hele vak, niet als naslagwerk
+voor actuele kwetsbaarheden.
+- Zoek er apart onderbouwing bij over toestemming en reikwijdte voordat je een
+techniek uit het boek buiten het eigen lab toepast.
+- Leg na het lezen een tweede, actuelere bron naast het boek voordat je een
+van de beschreven technieken op een niet-verouderd systeem probeert.
+
+#### Wat je hierna leest
+
+- 2308. Metasploit: The Penetration Tester's Guide (Second Edition). Voor wie
+na dit boek dieper in Metasploit wil, gaat deze titel uitgebreider in op het
+raamwerk dat Weidman hier als basisgereedschap introduceert.
+- 2317. Hacking: The Art of Exploitation (2nd Edition). Dit boek behandelt
+exploitontwikkeling en geheugenaanvallen grondiger dan het laatste deel van
+Weidmans introductie en veronderstelt vergelijkbare voorkennis.
+- 2313. Black Hat Python: Python Programming for Hackers and Pentesters (2nd
+Edition). Wie de scripting in Weidmans hoofdstuk over programmeren te beperkt
+vindt, kan hier verder met Python als gereedschap voor pentesters.
+- 2309. Ethical Hacking: A Hands-on Introduction to Breaking In. Een
+vergelijkbare hands-on introductie in het vak, bruikbaar om de eigen aanpak
+van Weidman naast een andere auteur te leggen.
+
+## 2303. Ethical Hacking and Network Analysis with Wireshark
+
+Manish Sharma, 2024. BPB Publications, New Delhi, 2024, 402 blz., ISBN
+9789355517722 (paperback), ISBN 9789355518958 (e-book). Er bestaat geen
+Nederlandse vertaling. Rubriek: digitale beveiliging en hacking.
+Tags: `wireshark`, `netwerkanalyse`, `pakketanalyse`, `ethisch hacken`,
+`protocollen`, `tcp/ip`, `forensisch onderzoek`
+
+Manish Sharma behandelt ethisch hacken vanuit het perspectief van de
+netwerkanalist: niet de exploit zelf staat centraal, maar het lezen van het
+verkeer dat een aanval, een lek of een storing veroorzaakt. Het boek leert de
+lezer Wireshark installeren en configureren en bouwt van daaruit op: eerst de
+basis van pakketten sniffen, dan draadloze netwerken, dan het onderscheppen
+van wachtwoorden en bestanden, en ten slotte het ontcijferen van versleuteld
+verkeer en het herkennen van aanvallen in een pakketopname.
+
+Elk hoofdstuk werkt met concrete protocollen: TCP/IP, 802.11, SSL/TLS, SNMP en
+VoIP-protocollen als SIP komen stuk voor stuk aan bod, telkens met oefeningen
+op meegeleverde of zelf opgezette pakketopnamen. Het boek besteedt ook
+aandacht aan het analyseren van bedrijfsapplicaties en aan troubleshooting:
+dezelfde vaardigheid die een aanval blootlegt, verklaart ook een trage
+applicatie of een verbroken verbinding.
+
+Sharma is oprichter en directeur van het beveiligingsbedrijf Ducara en houdt
+de certificeringen CEH, CHFI, ECSA en LPT. Het boek verscheen in 2024 bij BPB
+Publications, een Indiase uitgeverij die zich specialiseert in technische
+vakliteratuur.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sharma redeneert dat een groot deel van netwerkbeveiliging
+draait om het kunnen lezen van het verkeer zelf, in plaats van te vertrouwen
+op de waarschuwingen van een kant-en-klaar detectiesysteem. Wie de opbouw van
+protocollen als TCP/IP, 802.11 en SSL/TLS kent en Wireshark vlot bedient, ziet
+volgens hem afwijkend gedrag eerder dan wie alleen op automatische meldingen
+wacht. Het boek voert die stelling uit als een opeenvolging van vaardigheden,
+van eenvoudig sniffen tot het ontcijferen van versleuteld verkeer, en
+beargumenteert daarmee dat pakketanalyse geen aanvullende vaardigheid is naast
+andere hackingtechnieken, maar de basis waarop de rest rust.
+
+#### De gang van het boek
+
+**Netwerkbasis en Wireshark instellen**
+
+De eerste hoofdstukken herhalen de basis van netwerken, van het OSI-model tot
+IP-adressering, voordat Wireshark ter sprake komt. Sharma besteedt bewust tijd
+aan het installeren en instellen van de applicatie: interfaces selecteren,
+promiscuous mode inschakelen en de eerste capture- en displayfilters
+schrijven.
+
+Dat startpunt maakt het boek ook bruikbaar voor wie Wireshark wel kent maar de
+onderliggende protocollen nooit systematisch heeft doorgenomen; de nadruk ligt
+op het kunnen teruglezen van wat er precies over de lijn gaat, niet op het
+onthouden van menuopties.
+
+Sharma richt zich daarbij expliciet op lezers die al met IT werken,
+netwerkbeheerders, helpdeskmedewerkers of mensen op een security operations
+center, en niet op een algemeen publiek zonder technische achtergrond.
+
+**Pakketten sniffen**
+
+Het derde hoofdstuk behandelt het opzetten van een sniffing-omgeving en het
+lezen van een eerste pakketopname regel voor regel. De lezer leert het
+verschil tussen een capture filter, die bepaalt wat wordt opgeslagen, en een
+display filter, die bepaalt wat wordt getoond, en oefent met beide op
+voorbeeldverkeer.
+
+Het hoofdstuk werkt bewust met een klein, overzichtelijk testnetwerk, zodat de
+lezer de opbouw van een sessie stap voor stap kan volgen voordat de latere
+hoofdstukken met grotere en drukkere pakketopnamen werken.
+
+**Draadloze netwerken aftappen**
+
+Hoofdstuk vier verlegt de aandacht naar 802.11-netwerken: het zetten van een
+netwerkkaart in monitor mode, het onderscheppen van beacon- en
+managementframes en het lezen van een WPA-handshake. Het boek behandelt dit
+als onderdeel van netwerkanalyse, niet als een op zichzelf staande cursus
+draadloze beveiliging.
+
+Sharma benadrukt daarbij dat het onderscheppen van een handshake op zichzelf
+geen wachtwoord oplevert; het kraken ervan valt grotendeels buiten het bestek
+van het boek en wordt slechts kort aangestipt.
+
+**Gevoelige gegevens onderscheppen**
+
+In het vijfde hoofdstuk laat Sharma zien hoe onversleuteld verkeer, van
+formulierdata tot bestandsoverdrachten, in een pakketopname terug te vinden
+is. De strekking is niet dat dit een nieuwe aanvalstechniek is, maar dat het
+zichtbaar maakt waarom onversleutelde protocollen in een productieomgeving een
+risico blijven.
+
+**Protocollen ontleden en versleuteld verkeer ontcijferen**
+
+De hoofdstukken zes en zeven vormen de kern van het boek. Eerst worden
+veelgebruikte protocollen laag voor laag ontleed, van ARP en DNS tot HTTP;
+daarna behandelt Sharma het ontcijferen van SSL/TLS-verkeer met een
+sessiesleutel-logbestand of een privésleutel, een techniek die zonder
+medewerking van de sleutelbeheerder niet werkt en die het boek dan ook
+uitdrukkelijk aan een eigen testomgeving koppelt.
+
+Deze twee hoofdstukken liggen technisch het dichtst bij wat een
+netwerkonderzoeker in de praktijk doet: verkeer dat op het eerste gezicht
+onleesbaar is, herleiden tot een concrete oorzaak. Als voorbeeld gebruikt het
+hoofdstuk onder meer een DNS-opname waarin een spoofing-poging zichtbaar wordt
+aan tegenstrijdige antwoorden op dezelfde vraag, een patroon dat de lezer
+daarna zelf leert herkennen.
+
+**Bedrijfsapplicaties en VoIP**
+
+Hoofdstuk acht en negen passen dezelfde methode toe op specifieke omgevingen:
+enterprise-applicaties met eigen protocollen en VoIP-verkeer op basis van SIP
+en RTP. De lezer leert een gesprek uit een pakketopname te reconstrueren en
+applicatieverkeer te onderscheiden van ruis.
+
+Het boek waarschuwt daarbij dat het afluisteren van een VoIP-gesprek, ook als
+oefening, alleen mag met uitdrukkelijke toestemming van alle betrokkenen en in
+een omgeving die daarvoor is ingericht.
+
+**Aanvallen herkennen en problemen oplossen**
+
+De laatste hoofdstukken behandelen het herkennen van aanvalspatronen, zoals
+scans en spoofing, in een pakketopname, en het gebruik van dezelfde
+vaardigheid voor prestatieproblemen: een trage verbinding of een verbroken
+sessie laat zich met dezelfde filters analyseren als een aanval. Sharma sluit
+daarmee de cirkel die het boek opent: pakketanalyse als generieke vaardigheid,
+niet als losse tool.
+
+De afsluitende oefeningen combineren meerdere eerder behandelde protocollen in
+één pakketopname, zodat de lezer moet bepalen welk deel van het verkeer
+relevant is voordat hij een conclusie trekt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Wireshark | Opensource pakketanalysator die netwerkverkeer live of uit een opname toont. |
+| Capture filter | Filter dat bepaalt welk verkeer Wireshark tijdens het opnemen vastlegt. |
+| Display filter | Filter dat bepaalt welk deel van een al opgenomen sessie wordt getoond. |
+| Promiscuous mode | Netwerkkaartinstelling waarbij ook pakketten worden verwerkt die niet voor het eigen apparaat bestemd zijn. |
+| Monitor mode | Vergelijkbare instelling voor draadloze kaarten, nodig om 802.11-frames van andere netwerken te lezen. |
+| WPA-handshake | De uitwisseling bij het verbinden met een beveiligd wifinetwerk, waaruit het wachtwoord onder voorwaarden is te herleiden. |
+| TLS-sessiesleutel-logbestand | Bestand waarin een browser of applicatie de sleutels van een TLS-sessie wegschrijft, waarmee Wireshark die sessie kan ontcijferen. |
+| SIP en RTP | Protocollen voor het opzetten (SIP) en versturen (RTP) van VoIP-gesprekken. |
+| Three-way handshake | De opbouw van een TCP-verbinding via SYN, SYN-ACK en ACK, een terugkerend referentiepunt in het boek. |
+| Pcap | Het bestandsformaat waarin Wireshark en vergelijkbare tools pakketopnamen opslaan. |
+
+#### Waar het argument op rust
+
+Sharma onderbouwt het boek vanuit zijn eigen praktijk als oprichter van het
+beveiligingsbedrijf Ducara en als houder van de certificeringen CEH, CHFI,
+ECSA en LPT, stuk voor stuk gericht op forensisch onderzoek en ethisch hacken.
+Het boek is doorlopend praktijkgericht: elk hoofdstuk werkt met een eigen
+pakketopname of testomgeving in plaats van uitsluitend theorie.
+
+BPB Publications is een Indiase uitgeverij die zich specifiek op
+IT-vakliteratuur richt en al decennia technische titels uitgeeft voor de
+Indiase en internationale markt; het boek verscheen niet in eigen beheer maar
+doorliep een regulier uitgeversproces. De uitgeverij levert het boek zowel in
+gedrukte als in digitale vorm en biedt daarnaast een online leesomgeving aan,
+wat wijst op een reguliere distributie richting bibliotheken en opleidingen.
+
+Wat aan onafhankelijke onderbouwing ontbreekt, is een spoor van citaten in
+ander vakwerk of een koppeling aan een specifieke certificering zoals de
+meeste No Starch- of Wiley-titels in deze reeks wel hebben; dat spoor is met
+de beschikbare bronnen niet vast te stellen.
+
+Vergeleken met bredere Wireshark-naslagwerken kiest Sharma bewust voor een
+smallere insteek, ethisch hacken via netwerkanalyse, in plaats van een
+volledig naslagwerk over alle mogelijke protocollen; die keuze maakt het boek
+compacter, maar minder een naslagwerk om op terug te vallen bij een protocol
+dat niet aan bod komt.
+
+#### Wat er tegen in te brengen valt
+
+BPB Publications is aanzienlijk minder bekend dan No Starch Press of Wiley, en
+buiten retailerpagina's zijn geen onafhankelijke technische recensies van dit
+specifieke boek te vinden; hoeveel technische redactie het manuscript
+doorliep, is met de beschikbare bronnen niet vast te stellen.
+
+Het boek besteedt nauwelijks aandacht aan het automatiseren van pakketanalyse
+met scripts, bijvoorbeeld via tshark of een programmeertaal; wie grote
+hoeveelheden verkeer moet doorzoeken, zal die vaardigheid ergens anders moeten
+halen.
+
+Wireshark zelf verandert traag, maar de schermafbeeldingen en menupaden in een
+boek uit 2024 verouderen sneller dan de onderliggende protocollen; wie het
+boek over een paar jaar gebruikt, moet rekening houden met een andere
+interface dan op de afbeeldingen.
+
+Het boek veronderstelt kennis van TCP/IP-basisbegrippen die het weliswaar kort
+herhaalt maar niet vanaf nul opbouwt; wie nog nooit met subnetten of poorten
+heeft gewerkt, mist een stap die het boek zelf niet expliciet als vereiste
+noemt.
+
+Het onderscheid tussen een testlab en een echt netwerk krijgt weinig aandacht:
+technieken als het ontcijferen van TLS-verkeer werken alleen met medewerking
+van de sleutelbeheerder of in een eigen omgeving, en het boek had daar
+explicieter bij kunnen stilstaan dan met een enkele waarschuwing.
+
+#### Wat er concreet mee te doen is
+
+- Zet een eigen testnetwerk op voordat je een van de oefeningen probeert.
+- Leer capture- en displayfilters allebei apart schrijven, niet alleen de
+kant-en-klare voorbeelden uit het boek.
+- Oefen het ontcijferen van TLS-verkeer alleen met sessiesleutels uit je eigen
+browser of testomgeving.
+- Bouw een klein draadloos testlab met een eigen router om 802.11-frames te
+bekijken.
+- Vergelijk elke vermeende afwijking altijd met een pakketopname van normaal
+verkeer voordat je een conclusie trekt.
+- Documenteer bij elke oefening welke toestemming je hebt om het onderzochte
+verkeer te bekijken, ook in een eigen testomgeving.
+
+#### Wat je hierna leest
+
+- 2300. Ultimate Penetration Testing with Nmap: Master Cybersecurity
+Assessments for Network Security, Monitoring, and Scanning Using Nmap.
+Nmap-scanresultaten en een Wireshark-opname vullen elkaar aan: het ene boek
+vindt de open poort, het andere laat zien wat er werkelijk overheen gaat.
+- 2308. Metasploit: The Penetration Tester's Guide (Second Edition).
+Metasploit levert de exploit die dit boek leert herkennen in het verkeer dat
+hij veroorzaakt.
+- 2317. Hacking: The Art of Exploitation (2nd Edition). Waar dit boek het
+verkeer op protocolniveau leest, gaat *Hacking: The Art of Exploitation* een
+laag dieper, naar de machinecode zelf.
+- 2304. Advanced Penetration Testing: Hacking the World's Most Secure
+Networks. Allsopp beschrijft aanvalscampagnes waarvan de sporen precies het
+soort verkeer opleveren dat dit boek leert lezen.
+
+## 2304. Advanced Penetration Testing: Hacking the World's Most Secure Networks
+
+Wil Allsopp, 2017. Wiley, Indianapolis, 2017, 288 blz., ISBN 9781119367680
+(paperback), ISBN 9781119367666 (e-book). Eerste druk; er bestaat geen
+Nederlandse vertaling. Rubriek: digitale beveiliging en hacking.
+Tags: `advanced persistent threat`, `red teaming`, `social engineering`,
+`command and control`, `malware op maat`, `doelwitgerichte aanvallen`,
+`casussen`
+
+Wil Allsopp beschrijft in acht op zichzelf staande hoofdstukken hoe een
+aanvaller die zich voordoet als een advanced persistent threat, een
+langdurige, doelgerichte campagne tegen een specifieke organisatie opbouwt.
+Elk hoofdstuk simuleert een andere sector: een ziekenhuis, een
+onderzoeksinstelling, een bank, een farmaceutisch bedrijf, de wapenindustrie,
+de opsporing, defensie en de media.
+
+Het boek verlaat bewust het terrein van kant-en-klare scanners en
+Metasploit-modules. Allsopp bouwt eigen payloads met VBA-macro's en
+Java-applets, zet zelf command-and-control-infrastructuur op en combineert
+technische inbraak met social engineering en fysieke elementen, op de manier
+waarop een werkelijke langetermijnaanvaller dat zou doen.
+
+Allsopp werkte als penetratietester voor grote Britse banken,
+overheidsinstellingen en een deel van de Fortune 100 en schreef eerder
+*Unauthorised Access* (2009, met een voorwoord van Kevin Mitnick) over fysieke
+penetratietesten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Allsopp stelt dat de meeste penetratietesten, ook de
+gecertificeerde, een verkeerd dreigingsmodel simuleren: ze testen tegen een
+aanvaller met een paar dagen tijd en generieke tools, terwijl een werkelijke
+advanced persistent threat weken of maanden de tijd neemt, op maat gemaakte
+malware gebruikt en precies één organisatie als doelwit heeft. Het boek voert
+die stelling uit in acht scenario's, elk toegespitst op een andere sector,
+waarin techniek, social engineering en soms fysieke toegang worden
+gecombineerd tot een aanval die realistischer is dan wat de meeste
+certificeringstrajecten oefenen. De consequentie die Allsopp daaraan verbindt,
+is dat verdedigers die alleen tegen generieke scans testen, een vals gevoel
+van veiligheid overhouden.
+
+#### De gang van het boek
+
+**Gezondheidszorg: elektronische patiëntendossiers**
+
+Het eerste hoofdstuk opent met een aanval op de patiëntendossiers van een
+ziekenhuis en introduceert meteen de kernaanpak van het boek: een VBA-macro
+als eerste toegang, gevolgd door een zelfgebouwde
+command-and-control-verbinding. Allsopp legt uit waarom een kant-en-klare
+payload uit Metasploit door detectiesoftware wordt herkend en hoe een eigen,
+generiek gehouden variant die herkenning vermijdt.
+
+Het hoofdstuk werkt met een uitgeschreven briefing zoals een opdrachtgever die
+zou geven, inclusief de vraag welke gegevens precies als doelwit gelden, om
+van meet af aan te laten zien dat een aanval zonder afgebakende scope niet
+begint.
+
+**Onderzoek en academia**
+
+Het tweede hoofdstuk verplaatst het decor naar een universitair onderzoekslab
+en behandelt phishing gericht op specifieke medewerkers, spear-phishing, als
+toegangsweg. Allsopp besteedt hier aandacht aan de voorbereiding: het in kaart
+brengen van personeel, publicaties en interne systemen voordat er ook maar één
+e-mail wordt verstuurd.
+
+Een deel van het hoofdstuk gaat over het schrijven van een geloofwaardige
+aanleiding voor de phishingmail, afgestemd op de manier waarop onderzoekers
+binnen een universiteit met elkaar communiceren, in plaats van een generiek
+sjabloon te gebruiken.
+
+**Financiële sector**
+
+In het hoofdstuk over een fictieve grootschalige overval op een bank staat de
+opbouw van een langlopende aanwezigheid in het netwerk centraal, inclusief het
+omzeilen van detectie over een langere periode. Het hoofdstuk maakt expliciet
+dat dit geen beschrijving van een werkelijk gebeurde overval is, maar een
+samengestelde, realistische simulatie.
+
+Allsopp besteedt in dit hoofdstuk relatief veel ruimte aan het segmenteren van
+een bankennetwerk en aan de vraag hoe een aanvaller van het ene segment naar
+het andere beweegt zonder daarbij op te vallen bij het beveiligingsteam.
+
+**Farmaceutische industrie**
+
+Het vierde hoofdstuk richt zich op bedrijfsspionage bij een farmaceutisch
+bedrijf en behandelt onder meer het misbruiken van vertrouwde
+leveranciersrelaties als ingang. Allsopp laat zien hoe een aanvaller de
+vertrouwensketen tussen organisaties in kaart brengt en gebruikt.
+
+Het hoofdstuk gaat ook in op het verbergen van gestolen onderzoeksgegevens in
+ogenschijnlijk onschuldig uitgaand verkeer, een vorm van data-exfiltratie die
+de rest van het boek als terugkerend thema aanhoudt.
+
+**Defensie-industrie en militaire simulaties**
+
+De hoofdstukken over de wapenindustrie en over een defensienetwerk behandelen
+omgevingen met een hoger beveiligingsniveau, waar netwerksegmentatie en van
+het internet afgesloten systemen de aanpak dwingen te verschuiven naar fysieke
+en sociale elementen naast de technische aanval.
+
+Allsopp benadrukt in deze hoofdstukken dat de moeilijkste doelwitten zelden
+via één technische kwetsbaarheid vallen, maar via de optelsom van kleine
+zwakke plekken in mens, proces en techniek samen.
+
+**Opsporing en criminele inlichtingen**
+
+Het hoofdstuk over criminele inlichtingendiensten behandelt het verzamelen en
+misbruiken van open bronnen, OSINT, om een doelwit voor te bereiden, en de
+manier waarop diezelfde technieken door kwaadwillenden tegen
+opsporingsdiensten zelf kunnen worden ingezet.
+
+Allsopp beschrijft hier ook hoe sociale-mediaprofielen van individuele
+medewerkers, op zichzelf onschuldig, samen een profiel opleveren dat een
+aanvaller kan gebruiken om vertrouwen te winnen.
+
+**Media en journalistiek**
+
+Het laatste hoofdstuk verlegt het doelwit naar journalisten en redacties, met
+aandacht voor het compromitteren van bronnen en communicatiekanalen. Allsopp
+sluit het boek af met de constatering dat de technieken uit de eerdere
+hoofdstukken zich evengoed tegen de pers laten inzetten als tegen een bank of
+een ziekenhuis.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Advanced persistent threat (APT) | Een aanvaller die met geduld en op maat gemaakte middelen langdurig op één doelwit gericht is, in tegenstelling tot een opportunistische aanval. |
+| Spear-phishing | Phishing die is toegespitst op een specifiek persoon of een kleine groep, op basis van vooraf verzamelde informatie. |
+| VBA-macropayload | Kwaadaardige code verstopt in een macro van een Office-document, in het boek de meest gebruikte eerste toegangsweg. |
+| Command and control (C2) | De infrastructuur waarmee een aanvaller op afstand instructies naar gecompromitteerde systemen stuurt en resultaten terugkrijgt. |
+| Domain fronting | Een techniek om C2-verkeer te verbergen achter het verkeer van een legitieme, vertrouwde dienst. |
+| Red teaming | Een aanvalssimulatie die niet alleen kwetsbaarheden zoekt maar de volledige aanvalsketen van een realistische tegenstander nabootst. |
+| OSINT (open source intelligence) | Het verzamelen van doelwitinformatie uit openbaar toegankelijke bronnen als voorbereiding op een aanval. |
+| Social engineering | Het manipuleren van mensen om toegang of informatie te verkrijgen, in het boek stelselmatig gecombineerd met technische middelen. |
+
+#### Waar het argument op rust
+
+Allsopp bouwt het boek op zijn eigen ervaring als penetratietester voor grote
+Britse banken, overheidsdiensten en Fortune 100-bedrijven en schreef eerder
+*Unauthorised Access* (2009), een boek over fysieke penetratietesten met een
+voorwoord van Kevin Mitnick. Die eerdere titel laat zien dat zijn aanpak,
+techniek combineren met fysieke en sociale elementen, geen nieuwe koers is
+maar een voortzetting van zijn werkwijze.
+
+Het boek onderscheidt zich expliciet van certificeringsgerichte literatuur
+door te stellen dat trajecten als OSCP een aanvaller met beperkte tijd en
+generieke tools simuleren, niet de langere, op maat gemaakte campagne die het
+boek zelf uitwerkt. Die claim is inhoudelijk te volgen aan de hand van de
+eigen payloads en C2-opzet die elk hoofdstuk beschrijft, maar blijft verder
+een stellingname van de auteur.
+
+De scenario's zijn samengestelde, realistische casussen en geen verslag van
+gedocumenteerde, werkelijk gebeurde incidenten; de onderbouwing rust op de
+vakbekwaamheid en ervaring van de auteur, niet op extern te verifiëren
+gebeurtenissen.
+
+Het boek wordt in besprekingen en op fora van red teamers regelmatig genoemd
+als voorbeeld van hoe een campagnegerichte aanpak, in plaats van losse
+kwetsbaarheden, eruitziet; die erkenning binnen het vakgebied zegt meer over
+de bruikbaarheid van de aanpak dan over de juistheid van elk technisch detail.
+Dat Allsopp eerder al met Kevin Mitnick als voorwoordschrijver publiceerde,
+plaatst het boek bovendien in een herkenbare traditie van praktijkboeken door
+werkende penetratietesters, niet door buitenstaanders die alleen over het vak
+schrijven.
+
+#### Wat er tegen in te brengen valt
+
+Het boek dateert uit 2017, en een deel van de beschreven technieken, met name
+rond het omzeilen van antivirus- en detectiesoftware, is sindsdien minder
+effectief geworden doordat endpoint detection and response zich snel heeft
+ontwikkeld. Wie het boek nu gebruikt, moet de evasietechnieken als voorbeeld
+lezen, niet als recept dat vandaag nog ongewijzigd werkt.
+
+De scenario's zijn nadrukkelijk fictief samengesteld en niet gebaseerd op
+openbaar gedocumenteerde incidenten; dat maakt ze leerzaam als constructie,
+maar oncontroleerbaar als bewijs dat de beschreven aanpak in de praktijk zo
+werkt.
+
+Het boek veronderstelt aanzienlijke voorkennis: scripting, netwerken en
+besturingssysteeminterna komen niet vanaf de basis aan bod, terwijl de titel
+zich wel tot een breder publiek lijkt te richten dan alleen ervaren red
+teamers.
+
+Aan de juridische en organisatorische kant van een red team-opdracht, scope,
+schriftelijke toestemming, afspraken over wat wel en niet mag, besteedt het
+boek weinig ruimte in verhouding tot de technische uitwerking van elk
+scenario.
+
+Doordat elk hoofdstuk op zichzelf staat, ontbreekt een doorlopende leerlijn
+tussen de scenario's; wie het boek van begin tot eind leest, ziet variaties op
+eenzelfde aanpak eerder dan een opbouw van eenvoudig naar complex.
+
+#### Wat er concreet mee te doen is
+
+- Vraag altijd expliciete, schriftelijke toestemming voordat je een van de
+beschreven technieken op een echt netwerk toepast.
+- Lees de evasietechnieken als voorbeeld van een aanpak uit 2017, en toets ze
+tegen actuele detectiesoftware voordat je erop vertrouwt.
+- Werk elk scenario eerst in een eigen testlab uit voordat je het vertaalt
+naar een opdracht bij een klant, en noteer bij elke stap welke aanname over
+het doelwit je maakt.
+- Leg scope en grenzen van een assessment net zo gedetailleerd vast als de
+auteur zijn technische stappen beschrijft.
+- Bouw eigen payloads generiek genoeg op om herkenning te vermijden, maar
+documenteer wat je bouwt zodat de opdrachtgever achteraf kan nagaan wat er is
+ingezet.
+
+#### Wat je hierna leest
+
+- 2310. Social Engineering: The Science of Human Hacking. Waar Allsopp social
+engineering als één onderdeel van een grotere campagne behandelt, werkt
+*Social Engineering: The Science of Human Hacking* die techniek op zichzelf
+uit.
+- 2311. Red Team Engineering: The Art of Building Offensive Tools and
+Infrastructure. Wie de C2-infrastructuur uit dit boek zelf wil bouwen, vindt
+in *Red Team Engineering* de technische verdieping op dat specifieke
+onderdeel.
+- 2307. From Day Zero to Zero Day: A Hands-On Guide to Vulnerability Research.
+Het zoeken naar de kwetsbaarheid die een campagne als deze mogelijk maakt, is
+het onderwerp van *From Day Zero to Zero Day*.
+- 2302. Penetration Testing: A Hands-On Introduction to Hacking. Wie eerst de
+basis van een reguliere pentest wil beheersen voordat hij aan een langlopende
+APT-simulatie begint, vindt die basis in *Penetration Testing: A Hands-On
+Introduction to Hacking*.
+
+## 2305. Hacking APIs: Breaking Web Application Programming Interfaces
+
+Corey J. Ball, 2022. No Starch Press, San Francisco, 2022, 368 blz., ISBN
+9781718502444 (paperback), ISBN 9781718502451 (e-book). Eerste druk; er
+bestaat geen Nederlandse vertaling. Rubriek: digitale beveiliging en hacking.
+Tags: `api-beveiliging`, `rest`, `graphql`, `burp suite`, `postman`, `owasp
+api top 10`, `bug bounty`
+
+Corey Ball behandelt het testen van webapplicatie-API's als een apart
+vakgebied, met een eigen opbouw: eerst web-API's begrijpen, dan een eigen
+testomgeving met kwetsbare doelwitten opzetten, en pas daarna aanvallen op
+authenticatie, autorisatie, invoervalidatie en de limieten van een API.
+
+Het boek werkt met concrete, opzettelijk kwetsbare API's als oefenmateriaal en
+met gangbare tools als Postman en Burp Suite. Afzonderlijke hoofdstukken
+behandelen mass assignment, injectie, GraphQL en het omzeilen van rate
+limiting, met een laatste deel over het melden van gevonden kwetsbaarheden via
+bug bounty-programma's.
+
+Ball is Head of Offensive Security bij APIsec en oprichter van APIsec
+University; hij werkte eerder in IT-beveiliging in de lucht- en ruimtevaart,
+energie, fintech en gezondheidszorg en houdt onder meer de OSCP- en
+CISSP-certificering.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ball stelt dat API's een aparte aanvalsoppervlakte vormen die
+met de gangbare aanpak voor webapplicaties onvoldoende wordt getest: API's
+communiceren zonder de gebruikersinterface die een reguliere scanner als
+aanknopingspunt gebruikt, en juist daardoor blijven fouten in autorisatie en
+gegevensvalidatie vaak onopgemerkt tot ze in productie worden misbruikt. Het
+boek werkt die stelling uit door de OWASP API Security Top 10 als leidraad te
+nemen en elke categorie te koppelen aan een concrete, herhaalbare oefening op
+een opzettelijk kwetsbare testomgeving. De onderliggende claim is dat wie
+API's alleen als variant van webapplicaties test, systematisch een deel van de
+kwetsbaarheden mist.
+
+#### De gang van het boek
+
+**Hoe webapplicaties en API's werken**
+
+Het eerste deel herhaalt de basis van webapplicaties, HTTP, sessies en
+authenticatiemethoden, voordat het de opbouw van een API zelf behandelt: REST,
+SOAP en GraphQL, met hun verschillende manieren om verzoeken en antwoorden te
+structureren. Hoofdstuk drie zet de meest voorkomende
+kwetsbaarheidscategorieën op een rij, aan de hand van de OWASP API Security
+Top 10.
+
+Ball opent daarnaast met een hoofdstuk over de voorbereiding van een test:
+welke toestemming nodig is, welke onderdelen van een API wel en niet getest
+mogen worden, en hoe rate limits en bestaande beveiligingsmaatregelen daarbij
+een rol spelen.
+
+**Een testomgeving opzetten**
+
+Het tweede deel behandelt het inrichten van een eigen hacking-systeem met
+tools als Postman, Burp Suite en specifieke API-testtools, gevolgd door het
+opzetten van bewust kwetsbare doelwit-API's om op te oefenen. Ball benadrukt
+dat elke techniek in het boek eerst op deze zelf beheerde doelwitten wordt
+geoefend.
+
+De gebruikte oefendoelwitten zijn opzettelijk kwetsbaar gebouwde API's die
+vrij beschikbaar zijn voor trainingsdoeleinden, zodat de lezer dezelfde
+omgeving thuis kan nabouwen zonder een echte organisatie te benaderen.
+
+**Een API in kaart brengen**
+
+De hoofdstukken over discovery en endpointanalyse behandelen het vinden van
+API-endpoints die niet in de officiële documentatie staan en het herleiden van
+de functionaliteit van een endpoint uit de structuur van verzoeken en
+antwoorden.
+
+Ball besteedt hierbij aandacht aan bronnen die vaak over het hoofd worden
+gezien, zoals JavaScript-bestanden van een webapplicatie of oude
+documentatieversies die per ongeluk online zijn blijven staan.
+
+**Authenticatie en autorisatie aanvallen**
+
+Twee hoofdstukken behandelen respectievelijk het aanvallen van authenticatie,
+waaronder zwakke of te ruim geldige tokens, en het aanvallen van autorisatie,
+waarbij een gebruiker toegang krijgt tot gegevens of functies waarvoor hij
+niet is geautoriseerd. Dit laatste, broken object level authorization, komt in
+het boek terug als de meest voorkomende praktijkfout.
+
+Ball onderbouwt die stelling met verwijzingen naar openbaar gemaakte
+datalekken waarin precies dit type autorisatiefout de oorzaak was, zodat het
+geen abstract risico blijft maar een terugkerend patroon in werkelijke
+incidenten.
+
+**Fuzzing, mass assignment en injectie**
+
+Het boek behandelt fuzzing als systematische manier om een API met afwijkende
+invoer te bestoken, mass assignment als het onbedoeld kunnen wijzigen van
+velden die niet voor de gebruiker bedoeld zijn, en klassieke
+injectietechnieken toegepast op API-endpoints in plaats van webformulieren.
+Een van de labs laat zien hoe een verborgen veld in een verzoek, dat de
+documentatie niet vermeldt, de prijs van een bestelling kan wijzigen.
+
+**Evasietechnieken en GraphQL**
+
+Het dertiende hoofdstuk behandelt het omzeilen van rate limiting en andere
+beperkingen; het veertiende hoofdstuk gaat specifiek in op GraphQL, waarvan de
+flexibele querystructuur eigen aanvalsmogelijkheden oplevert die bij
+REST-API's niet bestaan. Ball behandelt onder meer het opvragen van velden die
+niet voor de gebruiker bedoeld zijn door de querystructuur zelf aan te passen,
+iets wat bij een vaste REST-respons niet mogelijk is.
+
+**Praktijkgevallen en verantwoord melden**
+
+Het laatste hoofdstuk bespreekt gedocumenteerde datalekken die via API's zijn
+ontstaan en hoe gevonden kwetsbaarheden via bug bounty-programma's te melden
+zijn. Een bijlage met een controlelijst vat de eerdere hoofdstukken samen tot
+een stappenplan voor een eigen test.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| REST | Architectuurstijl voor API's gebaseerd op HTTP-methoden en resources, het meest voorkomende type in het boek. |
+| GraphQL | Querytaal voor API's waarbij de client zelf bepaalt welke velden een antwoord bevat, met een eigen set aanvalsmogelijkheden. |
+| OWASP API Security Top 10 | De door OWASP opgestelde lijst van de meest voorkomende API-kwetsbaarheidscategorieën, de leidraad van het boek. |
+| Broken Object Level Authorization (BOLA) | Het kunnen benaderen van andermans gegevens door alleen een identifier in een verzoek aan te passen. |
+| Mass assignment | Een kwetsbaarheid waarbij een API meer velden accepteert en verwerkt dan de ontwikkelaar bedoelde, waardoor een gebruiker beschermde velden kan wijzigen. |
+| JSON Web Token (JWT) | Veelgebruikt tokenformaat voor authenticatie, waarvan het boek de zwakke implementaties en signatuurfouten behandelt. |
+| Rate limiting | Een beperking op het aantal verzoeken per tijdseenheid, en de technieken die het boek bespreekt om die beperking te omzeilen. |
+| Postman | Tool voor het samenstellen en versturen van API-verzoeken, in het boek gebruikt naast Burp Suite. |
+| Fuzzing | Het automatisch bestoken van een doelwit met afwijkende of onverwachte invoer om fouten in de verwerking bloot te leggen. |
+
+#### Waar het argument op rust
+
+Ball bouwt het boek op meer dan vijftien jaar ervaring in IT-beveiliging in
+sectoren als lucht- en ruimtevaart, energie, fintech, overheid en
+gezondheidszorg, en op zijn werk als Head of Offensive Security bij APIsec.
+Hij richtte daarnaast APIsec University op, een gratis opleidingsplatform voor
+API-beveiliging met naar eigen zeggen meer dan honderdtwintigduizend
+cursisten. Naast de OSCP en CISSP houdt hij ook de CCISO- en
+CISM-certificering, wat aangeeft dat zijn achtergrond zowel het uitvoerende
+als het beleidsmatige deel van beveiligingswerk beslaat.
+
+Het boek volgt de OWASP API Security Top 10 als structuur, een lijst die door
+een brede gemeenschap van beveiligingsonderzoekers wordt onderhouden en die
+inmiddels breed als referentiepunt geldt voor API-beveiligingswerk, ook buiten
+dit boek. Dat maakt de indeling van het boek herkenbaar voor wie al met andere
+OWASP-materiaal heeft gewerkt en verbindt de oefeningen aan een bredere,
+onafhankelijk onderhouden bron.
+
+No Starch Press hanteert voor dit soort titels een technische redactie
+voorafgaand aan publicatie, en het boek werd na verschijnen positief besproken
+in onafhankelijke technische recensies die de opbouw van de labs en de
+aansluiting tussen theorie en oefening prijzen.
+
+Het boek bevat negen uitgewerkte labs, van het opsommen van gebruikersaccounts
+in een REST-API tot het vervalsen van kortingscodes via NoSQL-injectie,
+waarmee elk theoretisch hoofdstuk direct aan een herhaalbare oefening is
+gekoppeld.
+
+#### Wat er tegen in te brengen valt
+
+Specifieke tools, testdoelwitten en versienummers uit 2022 verouderen sneller
+dan de onderliggende kwetsbaarheidscategorieën; een deel van de meegeleverde
+kwetsbare testapplicaties kan inmiddels zijn bijgewerkt of niet meer op
+dezelfde manier beschikbaar zijn.
+
+Het boek veronderstelt basiskennis van webapplicaties, HTTP en op zijn minst
+één programmeertaal om aangeboden scripts te kunnen lezen; die voorkennis
+wordt genoemd maar niet vanaf nul opgebouwd, waardoor volledige beginners
+eerst elders moeten bijspijkeren.
+
+Het verschil tussen oefenen op de meegeleverde kwetsbare doelwitten en het
+testen van een productie-API bij een opdrachtgever krijgt beperkte aandacht;
+wie de technieken in een echte opdracht toepast, heeft aanvullende afspraken
+over scope en toestemming nodig die het boek zelf niet uitwerkt. Het
+voorbereidingshoofdstuk noemt dat punt wel, maar werkt het niet met dezelfde
+diepgang uit als de latere aanvalshoofdstukken.
+
+GraphQL en de nieuwste evasietechnieken bewegen sneller dan REST-gerelateerde
+onderwerpen; het hoofdstuk daarover is het meest kwetsbaar voor veroudering
+van alle hoofdstukken in het boek.
+
+Het boek behandelt SOAP-API's slechts terloops, terwijl dat type nog altijd
+voorkomt in oudere bedrijfsapplicaties; wie voornamelijk met dergelijke
+systemen werkt, vindt in dit boek vooral achtergrond en geen uitgewerkte
+aanvalstechniek voor SOAP specifiek.
+
+#### Wat er concreet mee te doen is
+
+- Zet eerst de meegeleverde kwetsbare testomgevingen lokaal op voordat je een
+techniek op een echte API probeert.
+- Loop de OWASP API Security Top 10 langs als checklist bij elke nieuwe API
+die je test.
+- Controleer bij elke endpoint expliciet of een gebruiker alleen bij zijn
+eigen gegevens kan, in plaats van dat aan te nemen, ook als de documentatie
+het tegendeel beweert.
+- Vraag schriftelijke toestemming en een vastgelegde scope voordat je deze
+technieken op een productie-API van een opdrachtgever toepast, en leg de
+afgesproken grenzen ook vast in het testverslag.
+- Gebruik de controlelijst in de bijlage als vast stappenplan bij een eigen
+test, niet alleen bij het doorwerken van het boek.
+- Werk de negen labs in volgorde door, ook als je een hoofdstuk inhoudelijk al
+kent, zodat de opbouw van eenvoudige naar samengestelde aanvallen intact
+blijft.
+
+#### Wat je hierna leest
+
+- 2312. Web Hacking Arsenal: A Practical Guide to Modern Web Pentesting. Waar
+dit boek zich toespitst op API's, behandelt *Web Hacking Arsenal* de bredere
+laag van webapplicaties waar diezelfde API's vaak achter hangen.
+- 2314. Bug Bounty Bootcamp: The Guide to Finding and Reporting Web
+Vulnerabilities. Het melden van gevonden kwetsbaarheden dat dit boek in het
+laatste hoofdstuk aansnijdt, is het hoofdonderwerp van *Bug Bounty Bootcamp*.
+- 2313. Black Hat Python: Python Programming for Hackers and Pentesters (2nd
+Edition). Voor de scripts en automatisering die Ball terloops gebruikt, geeft
+*Black Hat Python* de technische verdieping in Python voor beveiligingswerk.
+- 2309. Ethical Hacking: A Hands-on Introduction to Breaking In. Wie eerst de
+bredere basis van ethisch hacken wil leggen voordat hij zich op API's
+toespitst, vindt die in *Ethical Hacking: A Hands-on Introduction to Breaking
+In*.
+
+## 2306. Black Hat Bash: Creative Scripting for Hackers and Pentesters
+
+Nick Aleks en Dolev Farhi, 2024. No Starch Press, San Francisco, eerste druk
+2024, 344 blz., ISBN 9781718503748 (paperback). Er bestaat geen Nederlandse
+vertaling. Rubriek: digitale beveiliging en hacking.
+Tags: `bash`, `scripting`, `pentesten`, `linux`, `reconnaissance`, `privilege
+escalation`, `reverse shell`
+
+Black Hat Bash behandelt de shell zelf als aanvalsgereedschap. In plaats van
+losse tools als nmap, hydra of netcat apart te leren, laat het boek zien hoe
+je die tools met bash-scripts aan elkaar knoopt tot herhaalbare
+reconnaissance-, exploitatie- en post-exploitatieroutines. De opbouw volgt de
+gangbare fasen van een pentest, van het opzetten van een testlab tot het
+wegschrijven van buitgemaakte gegevens.
+
+Het uitgangspunt is dat bash op vrijwel elk Linux-systeem al aanwezig is, van
+servers tot containers en embedded apparaten, waardoor scripts die er gebruik
+van maken zonder extra software kunnen draaien op de machine van het doelwit.
+Dat principe, bekend als living off the land, loopt als rode draad door het
+boek.
+
+Aleks en Farhi schreven eerder *Black Hat GraphQL* bij dezelfde uitgever en
+werken allebei als security engineer; het boek bouwt op oefeningen die zij in
+eigen trainingen en conferentiepresentaties hebben gebruikt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Aleks en Farhi stellen dat bash-scripting geen bijzaak is
+naast de bekende pentesttools maar een vaardigheid op zichzelf, omdat elke
+Linux-machine er al over beschikt en scripts dus zonder extra installaties op
+een doelsysteem kunnen draaien. Hun stelling is dat wie alleen losse tools
+bedient afhankelijk blijft van wat die tools toevallig aanbieden, terwijl wie
+bash beheerst zelf routines bouwt die aansluiten op de situatie: een
+aangepaste scanner, een reverse shell die om een specifiek filter heen werkt,
+een script dat sporen na afloop opruimt. Het boek voert die stelling door van
+de eerste verkenning van een doelwit tot het wegsluizen van buitgemaakte
+gegevens, en behandelt bash daarbij niet als opstapje naar een taal als Python
+maar als volwaardig instrument voor de hele aanvalsketen.
+
+#### De gang van het boek
+
+**Bash als gereedschap**
+
+De eerste twee hoofdstukken herhalen de basis van bash: variabelen, functies,
+loops, conditionele logica en tekstverwerking met tools als grep, sed en awk.
+Dat gebeurt niet als losstaande cursus maar steeds met een voorbeeld uit de
+rest van het boek in het vooruitzicht, zoals het parsen van scanoutput of het
+filteren van logbestanden.
+
+De auteurs besteden aandacht aan foutafhandeling en aan het schrijven van
+scripts die op meerdere Linux-distributies werken, omdat een script dat alleen
+op de eigen machine van de auteur draait in de praktijk weinig waard is.
+
+**Een testomgeving opzetten**
+
+Hoofdstuk drie beschrijft het inrichten van een eigen hacking lab met
+kwetsbare virtuele machines, zodat de latere hoofdstukken op een
+gecontroleerde omgeving kunnen worden geoefend in plaats van op systemen
+waarvoor geen toestemming bestaat.
+
+**Verkenning en scanning**
+
+Met bash-wrappers om nmap, masscan en eigen poortscanners bouwt het boek
+reconnaissance-scripts die resultaten automatisch loggen en filteren. De
+output van zo'n scan wordt vervolgens met sed en awk teruggebracht tot een
+lijst van doelen die de moeite van nader onderzoek waard zijn, zodat de tester
+niet handmatig door ruwe scanresultaten hoeft te bladeren.
+
+Daarna volgt fuzzing: het systematisch aanbieden van afwijkende invoer aan
+webformulieren en parameters om kwetsbaarheden zoals SQL-injectie en
+padtraversal aan het licht te brengen. Het boek laat zien hoe een eenvoudige
+bash-loop, gecombineerd met een woordenlijst, hetzelfde effect kan bereiken
+als gespecialiseerde scanners, met als voordeel dat de aanvaller precies weet
+wat het script doet en waarom.
+
+**Een eerste voet aan de grond**
+
+De hoofdstukken over webshells en reverse shells laten zien hoe bash-only
+technieken, zonder extra programma's op het doelsysteem, een verbinding terug
+naar de aanvaller kunnen opzetten via bijvoorbeeld /dev/tcp. Het boek
+bespreekt daarbij ook hoe firewalls en eenvoudige detectie zulke verbindingen
+kunnen opmerken, en welke aanpassingen aan het script die herkenning
+bemoeilijken.
+
+Ook komt aan de orde hoe een verbinding stabiel wordt gehouden zodra ze
+eenmaal staat, bijvoorbeeld door de shell na een onderbreking automatisch
+opnieuw te laten opstarten, en hoe uitvoer die normaal in een interactieve
+terminal verschijnt alsnog leesbaar wordt gemaakt over een eenvoudige
+netcat-verbinding.
+
+**Na de inbraak**
+
+Eenmaal binnen richt het boek zich op het verzamelen van lokale informatie
+over gebruikers, rechten en configuratie, op het verhogen van rechten via
+misconfiguraties en achterstallige patches, en op het achterlaten van
+persistentie, bijvoorbeeld via cronjobs of gewijzigde opstartscripts.
+
+Elke techniek wordt gekoppeld aan een controle: hoe herken je dezelfde
+achterdeur als verdediger, en welk spoor laat ze na in logbestanden. Zo
+behandelt het boek naast een script dat rechten probeert te verhogen ook een
+script dat diezelfde omgeving juist doorzoekt op tekenen dat dat al is
+gebeurd, waarmee het de twee kanten van dezelfde techniek naast elkaar zet.
+
+**Door het netwerk en weer weg**
+
+De laatste hoofdstukken behandelen het in kaart brengen van een intern netwerk
+vanaf een gecompromitteerde machine, het zich zijwaarts verplaatsen naar
+andere systemen, en het omzeilen van detectiemechanismen bij het naar buiten
+sluizen van gegevens. Het boek sluit af met een overzicht van hoe bash-sporen
+in logs en shellhistorie kunnen worden gewist of juist worden teruggevonden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Living off the land | De aanpak waarbij een aanvaller alleen gereedschap gebruikt dat al op het doelsysteem aanwezig is, zoals bash zelf, in plaats van extra software te installeren die opvalt. |
+| Reverse shell | Een verbinding die vanaf het doelsysteem naar de aanvaller wordt opgezet, zodat die laatste opdrachten kan uitvoeren ook als het doelsysteem achter een firewall staat. |
+| Webshell | Een script dat op een webserver wordt geplaatst en via een browser of HTTP-verzoek opdrachten op die server laat uitvoeren. |
+| Fuzzing | Het systematisch aanbieden van onverwachte of afwijkende invoer aan een programma of webformulier om fouten en kwetsbaarheden op te sporen. |
+| Privilege escalation | Het vergroten van de rechten die een aanvaller op een gecompromitteerd systeem heeft, van een gewone gebruiker naar beheerdersrechten. |
+| Persistence | Technieken om toegang tot een systeem te behouden nadat de eerste verbinding is verbroken, bijvoorbeeld via een geplande taak die zichzelf herstart. |
+| Lateral movement | Het vanaf een gecompromitteerde machine doordringen naar andere systemen in hetzelfde netwerk. |
+| Defense evasion | Technieken om detectie door firewalls, antivirussoftware of monitoring te omzeilen. |
+| Hacking lab | Een afgeschermde, eigen verzameling kwetsbare virtuele machines waarop technieken worden geoefend zonder dat er toestemming van derden nodig is. |
+
+#### Waar het argument op rust
+
+Farhi is security engineer en heeft trainingsmateriaal geschreven voor
+officiele Linux-certificeringstrajecten; Aleks leidt een eigen
+beveiligingsbedrijf en is medeoprichter van DEFCON Toronto, met meer dan tien
+jaar ervaring in offensieve security. Beide auteurs schreven eerder *Black Hat
+GraphQL* bij dezelfde uitgever, wat het boek plaatst in een reeks die zich
+richt op een specifiek technisch aanvalsoppervlak per titel.
+
+Het boek bouwt uitsluitend op bestaande, breed erkende tools als nmap, hydra
+en netcat en behandelt bash als de lijm daartussen, niet als vervanging. Dat
+maakt de onderliggende technieken controleerbaar tegen de documentatie van die
+tools zelf, ook waar het boek ze op een eigen manier combineert.
+
+Een deel van de voorbeelden is direct herleidbaar tot bekende, publiek
+gedocumenteerde kwetsbaarheidscategorieen zoals onveilige cronjobs en
+SUID-binaries, technieken die ook terugkomen in het examenmateriaal van
+certificeringen als de OSCP.
+
+Het boek onderscheidt zich van algemenere pentestboeken doordat het steeds bij
+het gereedschap blijft dat op het doelsysteem zelf al aanwezig is. Die keuze
+sluit aan bij wat in het vakgebied living off the land wordt genoemd en wordt
+in beveiligingsonderzoek erkend als een aanpak waarmee aanvallers detectie
+door endpoint-beveiliging kunnen bemoeilijken, juist omdat er geen extra,
+herkenbare software wordt geinstalleerd.
+
+#### Wat er tegen in te brengen valt
+
+Bash-scripts die in het boek staan, zijn geschreven voor Linux-doelwitten; wie
+met Windows-omgevingen werkt heeft aan dit boek weinig, en het boek maakt dat
+onderscheid niet altijd vooraf duidelijk.
+
+De aanpak leunt op tools als nmap en hydra die regelmatig worden bijgewerkt;
+specifieke commandoregelopties kunnen tussen versies verschuiven, waardoor
+sommige scripts na een tool-update aanpassing nodig hebben.
+
+Het boek veronderstelt dat de lezer al bekend is met de Linux-commandoregel,
+basale netwerkbegrippen als poorten en protocollen, en reguliere expressies;
+wie dat niet is, zal de eerste hoofdstukken traag vinden en de latere
+hoofdstukken lastig.
+
+Zoals bij vrijwel elk boek in dit genre geldt dat een kwetsbare virtuele
+machine in een lab zich anders gedraagt dan een productieomgeving met
+monitoring, patchbeleid en een beveiligingsteam dat meekijkt; het boek
+benadrukt zelf dat elke techniek alleen met schriftelijke toestemming mag
+worden toegepast.
+
+Het boek behandelt bash als aanvalsgereedschap uitgebreid, maar besteedt
+aanzienlijk minder ruimte aan wat een verdediger met dezelfde kennis kan doen.
+Wie op zoek is naar een evenwichtig beeld van aanval en verdediging zal een
+aanvullende bron nodig hebben om de blauwe kant van dezelfde technieken te
+begrijpen.
+
+Doordat het boek zich toespitst op een enkele scripttaal, komen technieken die
+beter in een andere taal passen, zoals het parsen van complexe binaire
+protocollen, slechts zijdelings aan bod. De auteurs erkennen die grens zelf
+door in het boek te verwijzen naar Python als aanvullende taal voor de
+gevallen waarin bash tekortschiet.
+
+#### Wat er concreet mee te doen is
+
+- Zet eerst het beschreven testlab op voordat je een van de scripts uittest.
+- Vergelijk elk script met de actuele documentatie van de onderliggende tool
+voordat je het op een recente systeemversie gebruikt.
+- Leg voor elke oefening vast welke sporen het script achterlaat, en gebruik
+dat als checklist voor detectie.
+- Vraag altijd schriftelijke toestemming voordat je een van de technieken
+buiten het eigen lab toepast.
+- Test scripts eerst op een oudere en een recente distributie naast elkaar,
+zodat verschillen in gedrag meteen opvallen.
+
+#### Wat je hierna leest
+
+- 2313. Black Hat Python: Python Programming for Hackers and Pentesters (2nd
+Edition). Black Hat Python behandelt dezelfde aanvalsketen maar dan in Python,
+een taal die meer mogelijkheden biedt zodra bash tekortschiet.
+- 2300. Ultimate Penetration Testing with Nmap: Master Cybersecurity
+Assessments for Network Security, Monitoring, and Scanning Using Nmap.
+Penetration Testing with Nmap gaat dieper in op het scangereedschap dat Black
+Hat Bash in eigen wrapper-scripts inzet.
+- 2315. Pentesting Active Directory and Windows-based Infrastructure.
+Pentesting Active Directory behandelt Windows-omgevingen waarvoor de
+bash-scripts uit dit boek niet zijn geschreven.
+- 2311. Red Team Engineering: The Art of Building Offensive Tools and
+Infrastructure. Red Team Engineering bouwt voort op het idee van eigen tooling
+en beschrijft hoe je daar een infrastructuur omheen zet.
+
+## 2307. From Day Zero to Zero Day: A Hands-On Guide to Vulnerability Research
+
+Eugene Lim, 2025. No Starch Press, San Francisco, eerste druk 2025, 344 blz.,
+ISBN 9781718503946 (paperback). Er bestaat geen Nederlandse vertaling.
+Rubriek: digitale beveiliging en hacking.
+Tags: `vulnerability research`, `fuzzing`, `reverse engineering`, `cve`, `bug
+bounty`, `binary analysis`
+
+From Day Zero to Zero Day gaat niet over het exploiteren van bekende
+kwetsbaarheden maar over het vinden van nieuwe. Lim, die onder de naam
+spaceraccoon actief is als bug bounty-onderzoeker, herleidt in dit boek een
+reeks bestaande CVE's stap voor stap: hij laat zien hoe de oorspronkelijke
+onderzoekers de kwetsbare code vonden, niet alleen wat de kwetsbaarheid
+uiteindelijk was.
+
+Het boek behandelt zowel broncode-analyse als het onderzoeken van
+gecompileerde programma's waarvan de broncode niet beschikbaar is, en bouwt
+van handmatige technieken op naar geautomatiseerde fuzzing, waarbij een
+programma met grote hoeveelheden afwijkende invoer wordt gebombardeerd om het
+te laten crashen.
+
+De opbouw volgt een onderzoeksproces: eerst begrijpen waar in een programma
+gebruikersinvoer terechtkomt, dan bepalen welk deel van de code dat
+aanvalsoppervlak vormt, en pas daarna gereedschap inzetten om dat gebied
+automatisch af te zoeken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lim betoogt dat vulnerabilityresearch geen kwestie van geluk
+of van het simpelweg loslaten van een fuzzer is, maar een vak met een
+herhaalbare methode: eerst nagaan waar externe invoer een programma
+binnenkomt, dan die route volgen tot de plek waar ze gevaarlijk wordt, en pas
+daarna gereedschap kiezen dat op dat specifieke traject is toegesneden. Zijn
+stelling is dat de meeste cursussen en boeken beginnen bij het gereedschap,
+bij fuzzers en debuggers, terwijl het echte werk zit in het beperken van de
+zoekruimte voordat er iets wordt gedraaid. Om dat te bewijzen ontleedt hij
+bestaande, gepubliceerde kwetsbaarheden en herbouwt hij de redenering waarmee
+de oorspronkelijke onderzoeker er kwam, van de eerste blik op de broncode tot
+de uiteindelijke crash.
+
+#### De gang van het boek
+
+**Waar invoer een programma binnenkomt**
+
+Het boek opent met taintanalyse: het volgen van gebruikersinvoer door een
+programma heen om te zien waar die invoer ongefilterd in een gevaarlijke
+functie terechtkomt. Deze techniek vormt de basis voor bijna alle latere
+hoofdstukken.
+
+Daarop volgt het in kaart brengen van het aanvalsoppervlak: welk deel van een
+grote codebase daadwerkelijk bereikbaar is voor een externe aanvaller, en welk
+deel dat niet is en dus minder onderzoek verdient.
+
+**Van een enkele kwetsbaarheid naar een familie**
+
+Met automated variant analysis laat Lim zien hoe je, uitgaand van een bekende,
+opgeloste kwetsbaarheid, zoekt naar vergelijkbare fouten elders in dezelfde of
+een andere codebase, omdat dezelfde programmeerfout zich vaak op meerdere
+plekken herhaalt, bijvoorbeeld doordat een onveilige functie op meerdere
+plaatsen in een project is gekopieerd.
+
+Deze aanpak wordt in de praktijk van bug bounty-programma's veel gebruikt,
+omdat een al gepatchte kwetsbaarheid vaak wijst naar een patroon dat de
+ontwikkelaars elders in dezelfde codebase over het hoofd hebben gezien. Lim
+laat aan de hand van een concreet voorbeeld zien hoe een enkele gerapporteerde
+fout tot meerdere, afzonderlijk te melden kwetsbaarheden kan leiden.
+
+**Onderzoek zonder broncode**
+
+De hoofdstukken over binary taxonomy en source/sink discovery behandelen het
+analyseren van gecompileerde programma's waarvan de broncode niet beschikbaar
+is, met technieken om functies te herkennen en de route van invoer naar
+gevaarlijke code ook zonder leesbare code te reconstrueren.
+
+Hybrid binary analysis combineert statische inspectie van de code met het
+daadwerkelijk draaien van het programma om plekken te vinden die met alleen
+statische analyse over het hoofd worden gezien. Lim bespreekt daarbij ook de
+grenzen van beide technieken afzonderlijk: statische analyse mist gedrag dat
+pas bij uitvoering ontstaat, terwijl dynamische analyse alleen ziet wat
+daadwerkelijk wordt aangeroepen tijdens de gekozen testrun.
+
+**Fuzzing, van eenvoudig naar geautomatiseerd**
+
+Het boek bouwt fuzzing in drie stappen op: een eenvoudige, snel op te zetten
+fuzzer met beperkte dekking, een coverage-guided fuzzer die bijhoudt welke
+delen van de code al zijn geraakt en zijn invoer daarop aanpast, en ten slotte
+het schaalbaar fuzzen van meerdere doelen tegelijk.
+
+Bij elke stap laat Lim zien hoe de resultaten van de voorgaande hoofdstukken,
+de taintanalyse en de afbakening van het aanvalsoppervlak, worden gebruikt om
+de fuzzer te richten op de plekken waar een crash het meest waarschijnlijk is,
+in plaats van het hele programma blind te bestoken.
+
+**Na de vondst**
+
+Het slothoofdstuk gaat in op wat er na het vinden van een kwetsbaarheid
+gebeurt: hoe je die verantwoord meldt, hoe een CVE tot stand komt, en hoe de
+gevonden techniek weer als uitgangspunt kan dienen voor het volgende
+onderzoek. Lim beschrijft daarbij ook hoe een crash die een fuzzer oplevert
+nog moet worden herleid tot een daadwerkelijk bruikbare kwetsbaarheid, omdat
+niet elke crash op een uitbuitbare fout wijst.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Taint analysis | Het volgen van gebruikersinvoer door een programma om te zien welke functies die invoer ongecontroleerd verwerken. |
+| Aanvalsoppervlak | Het deel van een programma dat daadwerkelijk bereikbaar is voor invoer van buitenaf en dus onderzoekswaardig is. |
+| Variant analysis | Het zoeken naar kwetsbaarheden die lijken op een al bekende fout, uitgaand van het patroon van die eerdere fout. |
+| Fuzzing | Het automatisch aanbieden van grote hoeveelheden afwijkende invoer aan een programma om het te laten crashen of fout gedrag te ontlokken. |
+| Coverage-guided fuzzing | Een vorm van fuzzing die bijhoudt welke coderegels al zijn bereikt en de invoer daarop aanpast om nieuwe delen van het programma te raken. |
+| Source en sink | De plek waar invoer een programma binnenkomt (source) en de plek waar die invoer een gevaarlijke functie bereikt (sink). |
+| Binary analysis | Het onderzoeken van een gecompileerd programma zonder toegang tot de oorspronkelijke broncode. |
+| CVE | Common Vulnerabilities and Exposures, het publieke registratiesysteem waarmee ontdekte kwetsbaarheden een eigen, doorlopend nummer krijgen. |
+| Bug bounty | Een programma waarbij een organisatie onderzoekers beloont voor het verantwoord melden van kwetsbaarheden in haar eigen systemen. |
+
+#### Waar het argument op rust
+
+Lim, actief onder de naam spaceraccoon, stond in 2021 als een van vijf
+onderzoekers wereldwijd, uit een pool van ongeveer een miljoen deelnemers op
+het platform HackerOne, in de H1-Elite Hall of Fame en bereikte de tweede
+plaats op het wereldwijde HackerOne-klassement. Hij meldde onder meer een
+kritieke SQL-injectiekwetsbaarheid bij Starbucks, waarvoor hij een beloning
+van 4000 dollar ontving, en was topvinder in het bug bounty-programma van het
+Singaporese ministerie van Defensie.
+
+Zijn onderzoekstools zijn gepresenteerd op Black Hat Arsenal en DEF CON, en
+zijn werk is behandeld in vakpublicaties. Het boek herleidt bovendien
+bestaande, gepubliceerde CVE's in plaats van verzonnen voorbeelden, waardoor
+de methode te toetsen is aan het oorspronkelijke, publiek gedocumenteerde
+onderzoek.
+
+Zijn positie op het HackerOne-klassement en de opname in de H1-Elite Hall of
+Fame zijn openbare, door het platform zelf gepubliceerde gegevens en dus
+onafhankelijk te controleren, wat voor de meeste auteurs in dit genre niet
+geldt: hun ervaring is vaak alleen via de eigen presentatie van de auteur te
+toetsen.
+
+Anders dan boeken die zich richten op het toepassen van reeds bekende
+exploits, behandelt dit boek het stadium ervoor: het zelf vinden van een
+kwetsbaarheid die nog niet bekend is. Dat is een kleiner en specialistischer
+deel van het vakgebied, waarin het aantal auteurs met aantoonbare eigen
+vondsten beperkt is.
+
+De IEEE Cipher, het boekenbulletin van de IEEE Computer Society Technical
+Committee on Security and Privacy, besprak het boek in 2025 en plaatste het
+uitdrukkelijk in de categorie vulnerabilityresearch in plaats van bij de
+bredere pentestliteratuur, wat aansluit bij hoe het boek zichzelf
+positioneert.
+
+#### Wat er tegen in te brengen valt
+
+Het boek veronderstelt vertrouwdheid met programmeren en, in de hoofdstukken
+over binary analysis, met assembly en het lezen van gedecompileerde code;
+lezers zonder die achtergrond zullen een deel van het boek als instapdrempel
+ervaren die niet steeds expliciet wordt benoemd.
+
+Fuzzing-gereedschap zoals de coverage-guided fuzzers die het boek gebruikt,
+wordt actief doorontwikkeld; specifieke commando's en configuraties kunnen na
+verschijning van het boek zijn veranderd, terwijl de onderliggende methode
+overeind blijft.
+
+Omdat de voorbeelden teruggaan op reeds opgeloste, gepubliceerde CVE's, is de
+uitkomst van elke oefening vooraf bekend; dat maakt het leerproces
+gecontroleerd maar wijkt af van echt onderzoek, waarbij vooraf niet vaststaat
+of er uberhaupt iets te vinden is.
+
+Het vinden van een kwetsbaarheid is niet hetzelfde als haar verantwoord melden
+binnen een bug bounty-programma of aan een leverancier; het boek besteedt daar
+in het slothoofdstuk aandacht aan, maar minder uitgebreid dan aan de
+technische zoekmethode zelf.
+
+Het boek behandelt vooral kwetsbaarheden in software die op een server of op
+een apparaat draait; webapplicatiespecifieke fouten zoals cross-site scripting
+of logische fouten in een betaalproces komen nauwelijks aan bod, terwijl die
+in de bredere bug bounty-praktijk een groot deel van de gemelde kwetsbaarheden
+uitmaken.
+
+De nadruk op reeds bekende, gepatchte CVE's betekent ook dat het boek weinig
+zegt over hoe lang onderzoek naar een enkele, hardnekkige kwetsbaarheid in de
+praktijk kan duren; in echt onderzoek wisselen weken zonder resultaat af met
+een plotselinge doorbraak, iets wat een boek met een vaste hoofdstukindeling
+moeilijk kan weergeven.
+
+#### Wat er concreet mee te doen is
+
+- Begin met taintanalyse op een kleine, open source codebase voordat je een
+fuzzer inzet.
+- Baken eerst het aanvalsoppervlak af en kies pas daarna gereedschap.
+- Herleid een bestaande, gepubliceerde CVE stap voor stap voordat je eigen
+onderzoek start.
+- Meld een gevonden kwetsbaarheid altijd via een erkend bug bounty-programma
+of rechtstreeks aan de leverancier, nooit publiekelijk voordat er een patch
+is.
+- Noteer bij elke crash die een fuzzer oplevert eerst of hij daadwerkelijk
+uitbuitbaar is, voordat je er tijd in het melden van steekt.
+
+#### Wat je hierna leest
+
+- 2314. Bug Bounty Bootcamp: The Guide to Finding and Reporting Web
+Vulnerabilities. Bug Bounty Bootcamp behandelt het bredere proces van bug
+bounty-jagen waarin Lim zelf actief is, van eerste vondst tot het schrijven
+van een rapport.
+- 2317. Hacking: The Art of Exploitation (2nd Edition). Hacking: The Art of
+Exploitation gaat dieper in op de onderliggende technieken van
+geheugenmisbruik die in de binary analysis-hoofdstukken van dit boek worden
+aangeraakt.
+- 2304. Advanced Penetration Testing: Hacking the World's Most Secure
+Networks. Advanced Penetration Testing behandelt het bredere traject van een
+pentest, waarbinnen een gevonden kwetsbaarheid zoals in dit boek maar een van
+de stappen is.
+- 2305. Hacking APIs: Breaking Web Application Programming Interfaces. Hacking
+APIs richt zich op een specifiek aanvalsoppervlak, webAPI's, waar de
+aanvalsoppervlakanalyse uit dit boek eveneens op toepasbaar is.
+
+## 2308. Metasploit: The Penetration Tester's Guide (Second Edition)
+
+David Kennedy, Mati Aharoni, Devon Kearns, Jim O'Gorman en Daniel G. Graham,
+2025. Tweede, herziene editie, No Starch Press, San Francisco, 2025, 288 blz.,
+ISBN 9781718502987 (paperback). De eerste editie verscheen in 2011 bij
+dezelfde uitgever (ISBN 9781593272883). Er bestaat geen Nederlandse vertaling
+van beide edities. Rubriek: digitale beveiliging en hacking.
+Tags: `metasploit`, `exploitatie`, `pentesten`, `meterpreter`, `social
+engineering`, `cloud`
+
+Metasploit: The Penetration Tester's Guide legt uit hoe het Metasploit
+Framework, het bekendste open source gereedschap voor het bouwen en uitvoeren
+van exploits, in de praktijk van een pentest wordt ingezet. Het boek volgt de
+fasen van een geautoriseerde test: verkenning, kwetsbaarheidsanalyse,
+exploitatie, post-exploitatie en rapportage, en werkt daarbij consequent met
+Metasploit als centraal gereedschap.
+
+De eerste editie verscheen in 2011 en gold meer dan tien jaar als
+standaardwerk voor wie met Metasploit leerde werken. Deze tweede editie werkt
+de inhoud bij naar de huidige versie van het framework en voegt een hoofdstuk
+toe over het testen van cloudomgevingen, een onderwerp dat in de eerste editie
+nog ontbrak.
+
+Vier van de vijf auteurs waren betrokken bij de ontwikkeling van Metasploit
+zelf of bij Offensive Security, het bedrijf achter de OSCP-certificering en de
+Kali Linux-distributie; de vijfde, Daniel G. Graham, is voor deze editie
+toegevoegd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De auteurs stellen dat een pentester zonder gestructureerde
+methode een verzameling losse trucs uitvoert, terwijl Metasploit juist gebouwd
+is om die trucs, van verkenning tot exploitatie tot het vasthouden van
+toegang, in een herhaalbaar en documenteerbaar proces te gieten. Hun stelling
+is dat het framework niet simpelweg een verzameling kant en klare exploits is,
+maar een omgeving waarin een tester zelf modules kan bouwen, aanpassen en
+combineren, en dat wie het framework alleen als menu van bestaande exploits
+gebruikt de eigenlijke waarde ervan mist. Deze tweede editie voegt daaraan toe
+dat diezelfde methode ook op cloudomgevingen moet worden toegepast, omdat een
+aanzienlijk deel van de infrastructuur die getest moet worden inmiddels niet
+meer op een fysiek netwerk staat.
+
+#### De gang van het boek
+
+**De basis van een pentest**
+
+De eerste twee hoofdstukken leggen de grondslag: wat een geautoriseerde
+penetratietest onderscheidt van ongeoorloofd binnendringen, welke juridische
+en contractuele stappen daaraan voorafgaan, en hoe het Metasploit Framework is
+opgebouwd uit modules, payloads en encoders.
+
+**Verkenning en kwetsbaarheidsanalyse**
+
+Hoofdstuk drie en vier behandelen het verzamelen van informatie over een
+doelwit, van openbare bronnen tot actieve scans, en het koppelen van die
+informatie aan bekende kwetsbaarheden met hulpmiddelen zoals Nessus,
+geintegreerd met Metasploit.
+
+Het boek legt uit hoe de resultaten van een scanner automatisch in Metasploit
+worden geimporteerd, zodat de tester per gevonden kwetsbaarheid direct kan
+zien welke exploitmodules daarop aansluiten, in plaats van handmatig een
+scanrapport naast de moduledatabase te leggen.
+
+**Exploitatie en Meterpreter**
+
+De kern van het boek behandelt het daadwerkelijk uitvoeren van exploits en het
+werken met Meterpreter, de payload waarmee een tester na een geslaagde exploit
+opdrachten op het doelsysteem uitvoert, bestanden overzet en zich verder in
+het netwerk beweegt. Een apart hoofdstuk gaat over het omzeilen van detectie
+door antivirussoftware en monitoring.
+
+Het boek besteedt daarbij aandacht aan pivoting: het gebruiken van een al
+gecompromitteerd systeem als tussenstation om andere machines te bereiken die
+niet rechtstreeks vanaf de aanvaller zijn te benaderen, een techniek die in
+vrijwel elke test op een groter netwerk terugkomt.
+
+**Client-side en social engineering**
+
+Waar eerdere hoofdstukken uitgaan van een kwetsbare server, richten deze
+hoofdstukken zich op aanvallen die op een gebruiker inspelen: kwaadaardige
+documenten, phishing-scenario's en het misbruiken van vertrouwen, aangevuld
+met een hoofdstuk over aanvallen op draadloze netwerken.
+
+De auxiliary modules die in dit deel worden behandeld, gaan niet over het
+uitvoeren van een exploit maar over ondersteunende taken zoals het testen van
+wachtwoorden of het opzetten van een nagemaakt toegangspunt, en laten zien dat
+Metasploit breder inzetbaar is dan alleen als exploitmachine.
+
+**Eigen modules en exploits bouwen**
+
+Drie hoofdstukken behandelen het overzetten van een bestaande, losstaande
+exploit naar het Metasploit-formaat, het schrijven van eigen hulpmodules, en
+het van de grond af opbouwen van een nieuwe exploit voor een niet eerder
+gedocumenteerde kwetsbaarheid.
+
+Deze hoofdstukken vragen meer van de lezer dan de rest van het boek: ze
+veronderstellen kennis van geheugenopbouw en van hoe een programma instructies
+uitvoert, omdat het schrijven van een werkende exploit zonder die achtergrond
+nauwelijks mogelijk is.
+
+**Een gesimuleerde test en de cloud**
+
+Het boek sluit af met een volledige, gesimuleerde pentest waarin de eerdere
+hoofdstukken samenkomen, en met het nieuwe hoofdstuk over het testen van
+cloudomgevingen, waarin de aanpak van het framework wordt toegepast op
+cloudspecifieke configuratiefouten en identiteitsbeheer.
+
+Dit laatste hoofdstuk behandelt onder meer verkeerd ingestelde toegangsrechten
+en te ruim toegekende rollen in cloudomgevingen, een categorie fouten die in
+on-premise netwerken minder speelt maar in cloudinfrastructuur juist veel
+voorkomt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Metasploit Framework | Het open source platform waarmee exploits, payloads en hulpmodules worden gebouwd, beheerd en uitgevoerd. |
+| Meterpreter | Een geavanceerde payload binnen Metasploit waarmee een tester na een geslaagde exploit interactief opdrachten op het doelsysteem uitvoert. |
+| Payload | De code die na een geslaagde exploit daadwerkelijk op het doelsysteem wordt uitgevoerd, bijvoorbeeld om een verbinding terug naar de aanvaller op te zetten. |
+| Auxiliary module | Een hulpmodule binnen Metasploit die geen exploit uitvoert maar bijvoorbeeld scant, wachtwoorden test of informatie verzamelt. |
+| Pivoting | Het gebruiken van een al gecompromitteerd systeem als tussenstation om andere, niet direct bereikbare systemen in hetzelfde netwerk te bereiken. |
+| PTES | Penetration Testing Execution Standard, een veelgebruikt raamwerk voor de fasering van een pentest waarnaar het boek zich richt. |
+| Social engineering | Het misbruiken van menselijk vertrouwen of onoplettendheid om toegang tot een systeem te krijgen, bijvoorbeeld via phishing. |
+| Cloud pentesting | Het testen van omgevingen die op clouddiensten draaien, met eigen aandachtspunten zoals identiteits- en toegangsbeheer in plaats van alleen netwerkconfiguratie. |
+| Exploit | Code die misbruik maakt van een specifieke kwetsbaarheid om ongeautoriseerd gedrag op een doelsysteem af te dwingen. |
+
+#### Waar het argument op rust
+
+Mati Aharoni en Devon Kearns behoren tot de oprichters van Offensive Security,
+het bedrijf achter de OSCP-certificering en de Kali Linux-distributie, waarin
+Metasploit standaard is opgenomen. David Kennedy is oprichter van het
+beveiligingsbedrijf TrustedSec, houder van certificeringen als OSCP, OSCE en
+CISSP, en maker van het Social-Engineer Toolkit dat in het boek als aanvullend
+gereedschap wordt genoemd.
+
+De eerste editie uit 2011 werd geruime tijd als bestseller in de
+beveiligingscategorie op Amazon gevoerd en gold meer dan een decennium als het
+standaardwerk voor Metasploit, ook binnen trainingstrajecten die naar
+certificeringen als de OSCP toewerken. Dat de tweede editie pas veertien jaar
+later verscheen, laat zien dat de uitgever en de auteurs een volledige
+herziening pas de moeite waard vonden toen het framework en het bredere
+vakgebied genoeg waren veranderd, in plaats van tussentijds met kleine
+correcties bij te sturen.
+
+De tweede editie is geen herdruk maar een herziening: het aantal bladzijden is
+teruggebracht ten opzichte van de eerste editie en het cloudhoofdstuk is nieuw
+toegevoegd, wat aangeeft dat verouderde onderdelen zijn geschrapt in plaats
+van alleen aangevuld.
+
+Het boek beperkt zich niet tot het bedienen van bestaande modules maar legt
+ook uit hoe die modules intern zijn opgebouwd, in de Ruby-taal waarin het
+framework zelf is geschreven. Daarmee onderscheidt het zich van kortere
+handleidingen die alleen de gebruikersinterface van Metasploit doornemen
+zonder de werking eronder te verklaren.
+
+Dat vier van de vijf auteurs zelf aan de kern van het framework of aan de
+bijbehorende certificering hebben gewerkt, betekent dat het boek niet van
+buitenaf beschrijft hoe Metasploit werkt maar vanuit de makers zelf, met
+toegang tot de overwegingen achter ontwerpkeuzes die een buitenstaander niet
+had kunnen navertellen.
+
+#### Wat er tegen in te brengen valt
+
+Metasploit zelf wordt voortdurend bijgewerkt, met nieuwe modules en een
+veranderende command-syntax; een boek dat op een specifieke versie is
+gebaseerd, veroudert sneller dan het onderliggende idee van een
+gestructureerde pentestmethode.
+
+Het boek concentreert zich op een enkel framework, terwijl een deel van het
+vak juist bestaat uit het combineren van meerdere, losse tools; wie alleen dit
+boek leest kan de indruk krijgen dat Metasploit voor elke situatie volstaat,
+wat niet het geval is.
+
+De gesimuleerde pentest aan het eind van het boek speelt zich af in een
+omgeving die voor het boek is ingericht; een echte, geautoriseerde test
+verloopt onder tijdsdruk, met een klant die rapportage verwacht en met
+systemen die niet speciaal kwetsbaar zijn gemaakt.
+
+Voor de hoofdstukken over het schrijven van eigen exploits is kennis van
+geheugenbeheer en assembly nodig die het boek zelf niet van de grond af
+opbouwt; lezers zonder die achtergrond zullen die hoofdstukken als een aparte
+leercurve ervaren.
+
+Doordat Metasploit veel voorwerk automatiseert, bijvoorbeeld het samenstellen
+van een payload of het aanpassen van een exploit aan de doelconfiguratie, kan
+een lezer de indruk krijgen dat pentesten grotendeels bestaat uit het
+aanroepen van het juiste commando, terwijl de analyse die daaraan voorafgaat
+minstens zo veel tijd kost.
+
+De vijf auteurs schrijven vanuit hun eigen ervaring met het framework en met
+Offensive Security, wat het boek gezag geeft maar ook een blinde vlek kan
+opleveren voor kritiek op Metasploit zelf, zoals de vraag hoe gemakkelijk het
+framework ook door minder ervaren gebruikers voor ongeoorloofde doeleinden kan
+worden ingezet.
+
+#### Wat er concreet mee te doen is
+
+- Zorg voor schriftelijke autorisatie en een vastgelegde scope voordat je een
+van de technieken uit het boek toepast.
+- Werk de gebruikte Metasploit-modules bij naar de actuele versie voordat je
+een oefening uit het boek uitvoert.
+- Documenteer bij elke stap wat je hebt gedaan, zoals het boek in de
+rapportagefase aanbeveelt.
+- Vul de kennis over eigen exploits aan met een aparte bron over
+geheugenbeheer als die achtergrond ontbreekt.
+- Controleer bij een cloudomgeving eerst de toegangsrechten en rolconfiguratie
+voordat je de netwerkgerichte technieken uit eerdere hoofdstukken toepast.
+
+#### Wat je hierna leest
+
+- 2300. Ultimate Penetration Testing with Nmap: Master Cybersecurity
+Assessments for Network Security, Monitoring, and Scanning Using Nmap.
+Penetration Testing with Nmap behandelt het scangereedschap dat in de
+verkenningsfase van dit boek als aanvulling op Metasploit wordt ingezet.
+- 2304. Advanced Penetration Testing: Hacking the World's Most Secure
+Networks. Advanced Penetration Testing bouwt voort op dezelfde fasering maar
+gaat verder dan een enkel framework.
+- 2311. Red Team Engineering: The Art of Building Offensive Tools and
+Infrastructure. Red Team Engineering behandelt het bouwen van eigen offensieve
+infrastructuur, een stap verder dan het gebruiken van een bestaand framework
+als Metasploit.
+- 2306. Black Hat Bash: Creative Scripting for Hackers and Pentesters. Black
+Hat Bash laat zien hoe dezelfde aanvalsfasen ook zonder een framework als
+Metasploit, met alleen shellscripts, kunnen worden uitgevoerd.
+
+## 2309. Ethical Hacking: A Hands-on Introduction to Breaking In
+
+Daniel G. Graham, 2021. Eerste editie, No Starch Press, San Francisco, 2021,
+376 blz., ISBN 9781718501874. Er bestaat geen Nederlandse vertaling. Rubriek:
+digitale beveiliging en hacking.
+Tags: `ethisch hacken`, `penetratietesten`, `netwerkbeveiliging`,
+`cryptografie`, `social engineering`, `exploitatie`, `Kali Linux`
+
+Daniel Graham, computerwetenschapper aan de University of Virginia, bouwt dit
+boek op rond een reeks labs in een eigen virtuele omgeving. De lezer zet eerst
+een netwerk van virtuele machines op en gaat van daaruit stap voor stap door
+onderwerpen als ARP-spoofing, ransomware, phishing, fuzzing, trojans, rootkits
+en het overnemen van een Windows-netwerk.
+
+Het boek is geschreven voor wie met de techniek zelf aan de slag wil: elk
+hoofdstuk eindigt met opdrachten die in de labomgeving uitgevoerd moeten
+worden. Graham voegt bij elke techniek uitleg over de onderliggende werking
+toe, van TCP-handshakes tot Diffie-Hellman-sleuteluitwisseling, zodat de
+aanval niet als trucje maar als toepassing van een principe wordt behandeld.
+
+Het boek groeide uit een cursus die Graham aan de universiteit gaf en draagt
+een voorwoord van Juan Gilbert. Graham werkte later mee aan de tweede editie
+van *Metasploit: The Penetration Tester's Guide*, wat aangeeft dat zijn plek
+in het veld verder reikt dan dit ene boek.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Graham stelt dat ethisch hacken pas beklijft wanneer de lezer
+de aanval zelf laat draaien in een omgeving die hij begrijpt, niet wanneer hij
+een beschrijving van een aanval leest. Het boek voert die stelling uit door
+elke techniek te koppelen aan een op te zetten labnetwerk van virtuele
+machines, waarin de lezer als aanvaller optreedt tegen doelen die hij zelf
+beheert. Onderliggend staat de aanname dat een goede pentester eerst begrijpt
+waarom een protocol of algoritme werkt zoals het werkt, voordat hij het
+misbruikt: het boek besteedt daarom relatief veel ruimte aan de mechaniek van
+TCP, ARP en Diffie-Hellman voordat het naar de aanval zelf overgaat. Het is
+daarmee vooral een leerboek voor wie een curriculum wil doorlopen, niet een
+naslagwerk voor wie snel een specifieke techniek wil opzoeken. De opbouw volgt
+bewust de volgorde van een echte aanval, van verkenning via social engineering
+naar exploitatie en het overnemen van een netwerk, zodat de lezer aan het eind
+niet alleen losse technieken kent maar ook ziet hoe die technieken in een
+aaneengesloten aanval op elkaar volgen.
+
+#### De gang van het boek
+
+**Netwerkgrondslagen**
+
+De eerste vier hoofdstukken zetten de labomgeving op en behandelen
+ARP-spoofing om verkeer te onderscheppen, de analyse van dat verkeer met
+Wireshark, en het bouwen van TCP-shells en eenvoudige botnets. Graham bouwt
+hier de vaardigheden op waarop de rest van het boek voortbouwt: een netwerk
+aftappen en de resultaten lezen.
+
+De labomgeving bestaat uit een set virtuele machines die de lezer zelf
+inricht: een aanvalsmachine, een of meer doelmachines en een netwerk
+daartussen. Die opzet keert in elk volgend hoofdstuk terug, zodat de lezer
+telkens dezelfde omgeving uitbreidt in plaats van bij elk onderwerp opnieuw te
+beginnen.
+
+**Cryptografie**
+
+Hoofdstuk vijf en zes behandelen ransomware als toepassing van symmetrische en
+asymmetrische versleuteling, en TLS met Diffie-Hellman-sleuteluitwisseling. De
+lezer bouwt een eigen, sterk vereenvoudigde ransomware na om te zien hoe
+versleuteling als aanvalsmiddel werkt, niet om een werkend exemplaar te
+verspreiden.
+
+Graham legt bij beide onderwerpen eerst de wiskundige basis uit, met
+sleutelparen en modulaire rekenkunde, voordat hij naar de toepassing gaat. Dat
+maakt dit deel dichter bij een cursus cryptografie dan bij een verzameling
+kant-en-klare aanvalsscripts.
+
+**Social engineering**
+
+In het derde deel komt phishing aan bod, inclusief het gebruik van deepfakes
+als hulpmiddel bij overtuigingskracht, gevolgd door het scannen van doelen om
+aanvalsoppervlak in kaart te brengen. Dit deel is korter dan de technische
+delen en dient vooral als brug naar de exploitatiehoofdstukken.
+
+De phishinglab bouwt een neppagina en een verzendmechanisme na binnen de eigen
+labomgeving, zodat de lezer ziet hoe een phishingcampagne technisch in elkaar
+zit, zonder dat er e-mails naar een echt publiek worden verstuurd.
+
+**Exploitatie**
+
+Het vierde deel, het zwaartepunt van het boek, behandelt fuzzing om onbekende
+kwetsbaarheden op te sporen, het bouwen van trojans en Linux-rootkits, het
+kraken van wachtwoorden en cross-site scripting. Elk onderwerp krijgt een
+eigen lab waarin de lezer een werkend, beperkt voorbeeld bouwt in de eigen
+virtuele omgeving.
+
+Bij het wachtwoorden kraken behandelt Graham zowel woordenboekaanvallen als
+het gebruik van rainbow tables, en legt hij uit waarom gehashte en gesalte
+wachtwoorden een ander soort aanval vereisen dan platte tekst. Bij cross-site
+scripting werkt hij zowel een opgeslagen als een gereflecteerde variant uit.
+
+**De controle over het netwerk**
+
+De laatste hoofdstukken behandelen pivoting en rechtenverhoging, het bewegen
+door een Windows-bedrijfsnetwerk met Active Directory, en sluiten af met een
+hoofdstuk over vervolgstappen, waaronder certificeringen en verdere
+literatuur.
+
+Het hoofdstuk over het Windows-netwerk simuleert een klein bedrijfsnetwerk met
+een domeincontroller en enkele werkstations, waarin de lezer vanaf een eerste
+overgenomen machine naar bredere toegang binnen het domein werkt.
+
+Het slothoofdstuk wijst nadrukkelijk naar vervolgstappen buiten het boek:
+certificeringen zoals OSCP, capture-the-flag-oefeningen en gespecialiseerdere
+titels voor wie zich in een van de behandelde onderwerpen verder wil
+verdiepen. Graham presenteert zijn boek daarmee zelf als een opstap, niet als
+eindpunt van een opleiding.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| ARP-spoofing | Het vervalsen van ARP-antwoorden zodat netwerkverkeer via de machine van de aanvaller loopt en onderschept kan worden. |
+| Ransomware | Kwaadaardige software die bestanden versleutelt en losgeld eist voor de sleutel; in het boek nagebouwd om de onderliggende cryptografie te tonen. |
+| TLS en Diffie-Hellman | Het protocol voor versleutelde verbindingen en de sleuteluitwisselingsmethode waarmee twee partijen zonder vooraf gedeeld geheim een sessiesleutel afspreken. |
+| Fuzzing | Een programma bestoken met willekeurige of half-willekeurige invoer om crashes en onbekende kwetsbaarheden op te sporen. |
+| Rootkit | Software die zich in de kern van een besturingssysteem nestelt om aanwezigheid en activiteit voor de gebruiker te verbergen. |
+| Cross-site scripting (XSS) | Het injecteren van kwaadaardige scripts in een webpagina die vervolgens in de browser van andere bezoekers wordt uitgevoerd. |
+| Pivoting | Vanaf een reeds overgenomen machine verder het netwerk intrekken om andere, niet direct bereikbare systemen te benaderen. |
+| Rechtenverhoging (privilege escalation) | Het vergroten van de eigen toegangsrechten op een systeem, van gewone gebruiker naar beheerder. |
+| Deepfake | Met machine learning gegenereerd nagemaakt beeld-, video- of geluidsmateriaal, in het boek ingezet als hulpmiddel bij phishing om een bericht geloofwaardiger te maken. |
+
+#### Waar het argument op rust
+
+Graham is universitair hoofddocent aan de University of Virginia School of
+Data Science, met een promotie in computerwetenschappen aan William and Mary
+en industrie-ervaring bij Microsoft. Het boek is voortgekomen uit een cursus
+die hij aan honderden studenten tegelijk gaf, wat verklaart waarom de labopzet
+zo strak is uitgewerkt.
+
+Dat Graham nadien werd gevraagd mee te schrijven aan de tweede editie van
+*Metasploit: The Penetration Tester's Guide*, samen met de oorspronkelijke
+Metasploit-auteurs David Kennedy, Mati Aharoni, Devon Kearns en Jim O'Gorman,
+is een aanwijzing dat zijn werk binnen het vakgebied als gedegen wordt gezien.
+
+Het boek verscheen bij No Starch Press, een uitgever die zich specifiek op
+technische, praktijkgerichte handboeken over informatiebeveiliging richt en
+waarvan meerdere titels in deze reeks afkomstig zijn.
+
+Het voorwoord is geschreven door Juan Gilbert, hoogleraar
+computerwetenschappen aan de University of Florida, wat het boek een plek
+geeft binnen een breder academisch netwerk rond het onderwijzen van
+beveiliging, naast de puur technische inhoud.
+
+#### Wat er tegen in te brengen valt
+
+De labs draaien op specifieke versies van virtuele machines, tools en
+besturingssystemen die op het moment van verschijnen actueel waren.
+Software-updates, gewijzigde standaardinstellingen en aangescherpte
+beveiliging maken dat een deel van de stappen na verloop van tijd niet meer
+zonder aanpassing werkt; dat is inherent aan elk boek dat commando's en
+tool-versies vastlegt.
+
+Het boek veronderstelt al enige bekendheid met de opdrachtregel,
+basisbegrippen van netwerken en een beetje programmeerervaring, zonder dat
+expliciet als voorwaarde te noemen. Wie zonder die achtergrond begint, loopt
+vast op stappen die als vanzelfsprekend worden gepresenteerd.
+
+Het laboratoriumkarakter is tegelijk de kracht en de beperking van het boek.
+Een eigen, geïsoleerd netwerk van virtuele machines overnemen is iets anders
+dan een echte, geautoriseerde pentest bij een opdrachtgever, waar scoping, een
+schriftelijke opdracht, rapportage aan een klant en juridische grenzen
+minstens zoveel tijd kosten als de techniek zelf. Dat onderdeel van het vak
+komt in dit boek nauwelijks aan bod.
+
+Doordat het boek uit een universiteitscursus is voortgekomen, is de toon
+didactisch en de opbouw streng lineair. Wie al met een van de onderwerpen
+bekend is, zal delen als overbekend ervaren; wie een specifiek probleem uit de
+eigen praktijk wil oplossen, vindt eerder een cursus dan een naslagwerk waarin
+snel te bladeren valt.
+
+De ethische kant van het vak, autorisatie, scope en de grens tussen een lab en
+een echte opdracht, komt vooral in de inleiding aan bod en wordt daarna niet
+meer bij elk hoofdstuk herhaald. Voor een boek dat expliciet als ethisch
+hacken wordt aangeprezen, staat die herinnering verder van de techniek af dan
+je zou verwachten.
+
+#### Wat er concreet mee te doen is
+
+- Zet de labomgeving op een geïsoleerd netwerk op, nooit op een netwerk dat
+ook voor iets anders wordt gebruikt.
+- Doorloop de hoofdstukken in volgorde; latere labs bouwen voort op
+vaardigheden uit eerdere hoofdstukken.
+- Controleer bij elke tool de actuele documentatie naast het boek, omdat
+commando's en interfaces kunnen zijn gewijzigd sinds 2021.
+- Gebruik het boek als opstap naar een specifieke certificering of
+vervolgtitel, niet als eindpunt.
+- Leg voorafgaand aan elk hoofdstuk vast welke systemen in de labomgeving het
+doelwit zijn, ook al is het een eigen, geïsoleerde opstelling; die gewoonte
+sluit aan bij wat later in een echte, geautoriseerde opdracht verplicht is.
+
+#### Wat je hierna leest
+
+- 2308. Metasploit: The Penetration Tester's Guide (Second Edition). Graham
+schreef mee aan deze tweede editie van Metasploit, het logische vervolg voor
+wie na dit boek met een volwaardig exploitatieraamwerk wil werken.
+- 2300. Ultimate Penetration Testing with Nmap: Master Cybersecurity
+Assessments for Network Security, Monitoring, and Scanning Using Nmap. Voor
+wie de netwerkverkenning uit de eerste hoofdstukken van dit boek wil
+verdiepen, behandelt dit boek een van de scantools die daarbij hoort.
+- 2317. Hacking: The Art of Exploitation (2nd Edition). Wie na de rootkit- en
+exploitatiehoofdstukken de onderliggende technieken van geheugencorruptie wil
+begrijpen, vindt hier de diepere, lagere-niveau-uitwerking.
+- 2315. Pentesting Active Directory and Windows-based Infrastructure. Het
+slothoofdstuk over het Windows-bedrijfsnetwerk raakt aan Active Directory; dit
+boek behandelt dat onderwerp uitgebreider en gaat verder dan de labopzet van
+Graham.
+
+## 2310. Social Engineering: The Science of Human Hacking
+
+Christopher Hadnagy, 2010. Tweede editie, een herziene en hernoemde versie van
+*Social Engineering: The Art of Human Hacking* (2010), Wiley, Indianapolis,
+2018, 320 blz., ISBN 9781119433385. Er bestaat geen Nederlandse vertaling.
+Rubriek: digitale beveiliging en hacking.
+Tags: `social engineering`, `manipulatie`, `psychologie`, `OSINT`,
+`pretexting`, `beïnvloeding`
+
+Christopher Hadnagy behandelt social engineering als een vak met een eigen
+methode, niet als een verzameling losse trucs. Het boek volgt de opbouw van
+een aanval: informatie verzamelen over een doelwit, een geloofwaardige rol
+bedenken, vertrouwen winnen, en dat vertrouwen gebruiken om iemand iets te
+laten doen of zeggen dat hij anders niet zou doen.
+
+Voor elke stap zoekt Hadnagy aansluiting bij bestaand onderzoek: het
+DISC-model voor communicatiestijlen, Robert Cialdini's beïnvloedingsprincipes
+en observaties over lichaamstaal worden telkens vertaald naar wat een social
+engineer er in de praktijk mee kan. De tweede editie voegt een hoofdstuk over
+open source intelligence toe en werkt voorbeelden bij die in de eerste editie
+uit 2010 nog ontbraken.
+
+Hadnagy richtte Social-Engineer LLC op en bouwde de Social Engineering Capture
+the Flag-wedstrijd van DEF CON mee op, waarin deelnemers via
+telefoongesprekken met bedrijven informatie moeten loskrijgen. Die achtergrond
+kleurt het boek: het is geschreven vanuit de praktijk van betaalde,
+geautoriseerde social-engineering-opdrachten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hadnagy's stelling is dat social engineering geen
+improvisatietalent is maar een vak met herhaalbare stappen: informatie
+verzamelen, een profiel opstellen, een pretext bouwen, vertrouwen winnen via
+beïnvloedingsprincipes en het resultaat vastleggen. Het boek presenteert die
+stappen als een cyclus die te leren en te trainen valt, en onderbouwt elke
+stap met verwijzingen naar communicatietheorie en sociale psychologie. De
+impliciete tegenstelling is met het beeld van de social engineer als geboren
+manipulator: Hadnagy stelt dat vrijwel iedereen de vaardigheden kan aanleren,
+wat het boek zowel een handleiding voor pentesters als een waarschuwing voor
+iedereen die met klanten, collega's of vreemden aan de telefoon werkt. Waar de
+eerste editie uit 2010 nog vooral als curiositeit werd gelezen, een blik
+achter de schermen van een ongewoon beroep, presenteert deze tweede editie
+zich uitdrukkelijker als een methode die organisaties kunnen inzetten om hun
+eigen mensen te testen en te trainen, met OSINT als aangescherpt startpunt van
+elke oefening.
+
+#### De gang van het boek
+
+**Wat social engineering is**
+
+Het openingshoofdstuk plaatst social engineering als vakgebied en legt uit
+waarom Hadnagy een tweede editie schreef: de eerste editie uit 2010 miste de
+opmars van open source intelligence en van geautomatiseerde tools voor
+informatieverzameling.
+
+Hadnagy trekt hier meteen de grens die door het hele boek blijft gelden:
+social engineering als beroep gebeurt met toestemming van een opdrachtgever en
+binnen een vastgelegde scope, en verschilt daarin van fraude of oplichting die
+dezelfde technieken gebruikt zonder die toestemming.
+
+**Informatie verzamelen**
+
+Het tweede hoofdstuk behandelt open source intelligence, het verzamelen van
+bruikbare informatie over een doelwit uit publiek beschikbare bronnen zoals
+sociale media, bedrijfswebsites en gelekte gegevens, als basis voor elke
+volgende stap.
+
+Hadnagy waarschuwt in dit hoofdstuk expliciet dat informatieverzameling zelf
+al een risico kan zijn: een social engineer die te opvallend zoekt, kan een
+doelwit alarmeren voordat de eigenlijke aanpak begint. Hij bespreekt daarom
+ook hoe informatieverzameling zelf binnen de afgesproken scope moet blijven,
+met name bij het doorzoeken van sociale media van individuele medewerkers.
+
+**Profileren en een rol bouwen**
+
+Hoofdstuk drie introduceert het DISC-model om iemands communicatiestijl in te
+schatten. Hoofdstuk vier behandelt pretexting: het uitwerken van een
+geloofwaardige rol, inclusief achtergrondverhaal, uiterlijk en gedrag, waarmee
+de social engineer zich toegang verschaft.
+
+Een goede pretext moet volgens Hadnagy op elk detail standhouden: naam,
+werkgever, telefoonnummer en achtergrondverhaal moeten bij navraag consistent
+blijven, anders valt de rol door de mand zodra het doelwit ook maar een klein
+detail controleert.
+
+Hadnagy onderscheidt in dit hoofdstuk pretexting nadrukkelijk van liegen in
+het algemeen: een pretext is opgebouwd uit voorbereiding, een uitgewerkte
+achtergrond en oefening, en niet uit improvisatie op het moment zelf.
+
+**Vertrouwen en beïnvloeding**
+
+De hoofdstukken over rapport bouwen en beïnvloeding bespreken hoe social
+engineers vertrouwen winnen en welke psychologische hefbomen daarbij werken,
+met Cialdini's principes van wederkerigheid, schaarste, autoriteit en sociale
+bewijskracht als uitgangspunt.
+
+Daarop volgen hoofdstukken over framing en elicitatie, het sturen van een
+gesprek zodat het doelwit vrijwillig informatie prijsgeeft zonder dat er
+expliciet naar gevraagd wordt.
+
+Hadnagy werkt bij elk beïnvloedingsprincipe een voorbeeldgesprek uit uit eigen
+opdrachten, waarbij hij telkens aangeeft welk principe op welk moment wordt
+ingezet en waarom het op dat moment werkt.
+
+**Nonverbale signalen en verdediging**
+
+Een hoofdstuk over lichaamstaal en het vaststellen van iemands basisgedrag
+helpt bij het beoordelen of een gesprekspartner ongemakkelijk of achterdochtig
+wordt. De laatste hoofdstukken gaan over hoe organisaties zich tegen deze
+technieken kunnen wapenen en hoe een social-engineeringopdracht professioneel
+wordt uitgevoerd en gerapporteerd.
+
+In de slothoofdstukken beschrijft Hadnagy hoe een opdracht wordt afgesloten
+met een rapport aan de klant, inclusief aanbevelingen voor training en
+procedures, zodat de organisatie iets overhoudt aan de test buiten de blote
+constatering dat de aanval slaagde.
+
+Hadnagy besteedt in dit deel ook aandacht aan de grens die een social engineer
+voor zichzelf moet trekken: welke onderwerpen, zoals gezinssituaties of
+medische informatie, hij afraadt om als hefboom te gebruiken, ook als de scope
+van de opdracht dat zou toestaan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Pretexting | Het uitwerken van een geloofwaardige, verzonnen rol, inclusief achtergrondverhaal en gedrag, om toegang of vertrouwen te krijgen. |
+| OSINT (open source intelligence) | Het verzamelen van bruikbare informatie over een doelwit uit vrij toegankelijke bronnen. |
+| DISC-model | Een indeling van communicatiestijlen in vier voorkeuren, gebruikt om een gesprek aan te passen op de gesprekspartner. |
+| Elicitatie | Een gesprek zo sturen dat het doelwit vrijwillig informatie deelt, zonder dat er rechtstreeks naar gevraagd wordt. |
+| Beïnvloedingsprincipes | De reeks psychologische hefbomen, waaronder wederkerigheid, schaarste en autoriteit, die mensen vaker overhalen zonder dat zij zich daarvan bewust zijn. |
+| Framing | De manier waarop een verzoek of situatie wordt gepresenteerd, die bepaalt hoe iemand die inschat en erop reageert. |
+| Baseline gedrag | Het normale, ontspannen gedrag van iemand, waartegen afwijkingen zoals ongemak of achterdocht af te lezen zijn. |
+| Social Engineering Capture the Flag (SECTF) | De wedstrijd op DEF CON waarin deelnemers via telefoongesprekken met bedrijven proberen vooraf afgesproken informatie los te krijgen. |
+| Rapport | De staat van wederzijds vertrouwen en welwillendheid tussen twee gesprekspartners, in het boek de basis waarop elke verdere beïnvloeding rust. |
+
+#### Waar het argument op rust
+
+Hadnagy richtte Social-Engineer LLC op en bouwde de Social Engineering Capture
+the Flag-competitie van DEF CON mee op, waarmee hij jarenlang praktijkervaring
+met betaalde social-engineeringopdrachten opdeed voordat hij het boek schreef.
+
+Het boek verwijst voor de beïnvloedingsprincipes expliciet naar het werk van
+Robert Cialdini en voor de communicatie-analyse naar het DISC-model, twee
+kaders die buiten de informatiebeveiliging al langer in onderzoek en
+bedrijfstrainingen worden gebruikt. Hadnagy past ze toe op een nieuwe context,
+maar het onderliggende onderzoek komt niet uit het vakgebied zelf.
+
+Het boek is de tweede editie van een titel die sinds 2010 als een van de
+weinige boekuitgaven specifiek over social engineering geldt en dat jarenlang
+bleef, wat de invloed ervan op trainingen en certificeringstrajecten in dit
+deelgebied verklaart.
+
+De voorbeelden in het boek zijn volgens Hadnagy afkomstig uit eigen,
+geautoriseerde opdrachten van Social-Engineer LLC, met bedrijfsnamen en
+details veranderd. Dat maakt de voorbeelden concreet, maar ook niet
+onafhankelijk te verifiëren buiten zijn eigen weergave.
+
+De aanhoudende vraag naar de tweede editie, jaren nadat de eerste editie
+uitverkocht was, is zelf een aanwijzing dat het boek als naslagwerk werd
+gebruikt in trainingen voor pentesters, niet alleen als eenmalig gelezen
+titel.
+
+#### Wat er tegen in te brengen valt
+
+In februari 2022 werd Hadnagy door de organisatie van DEF CON permanent
+geweerd wegens schendingen van de gedragscode; in de rechtszaak die hij daarna
+tegen DEF CON aanspande, kwamen verklaringen van meer dan een dozijn mensen
+naar buiten over verbaal geweld en seksuele intimidatie. De rechter wees zijn
+smaadclaim in 2025 definitief af. Dat staat los van de inhoud van het boek,
+maar het weegt mee bij de vraag hoe onafhankelijk zijn positie als boegbeeld
+van het vakgebied nog is.
+
+Sommige onderbouwing leunt zwaarder op populaire toepassingen van psychologie,
+zoals bepaalde interpretaties van neurolinguïstisch programmeren, dan op
+onderzoek dat binnen de psychologie zelf breed als degelijk geldt. Het boek
+maakt dat onderscheid niet altijd expliciet.
+
+De technieken zijn beschreven op het niveau van een raamwerk en een houding,
+niet als woordelijk uit te voeren script. Wie een pasklare gesprekstechniek
+verwacht, komt bedrogen uit; wie het als denkkader voor eigen oefening
+gebruikt, heeft er meer aan.
+
+Het boek is geschreven vanuit en voor de context van geautoriseerde, betaalde
+opdrachten met een klant, een scope en een rapportageverplichting. Die
+randvoorwaarden krijgen aandacht, maar minder dan de technieken zelf, terwijl
+juist die randvoorwaarden het verschil maken tussen een legitieme oefening en
+misbruik van dezelfde kennis.
+
+De casussen komen bijna allemaal uit de Amerikaanse bedrijfscontext waarin
+Hadnagy zelf werkte. Hoe dezelfde technieken uitpakken bij andere talen,
+culturen of organisatiestructuren dan de Amerikaanse kantooromgeving, komt in
+het boek nauwelijks aan bod.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het DISC-model als startpunt om een gesprekspartner in te schatten,
+niet als sluitend etiket.
+- Bouw een pretext pas uit nadat de informatieverzameling is afgerond, zodat
+het verhaal aansluit bij wat al bekend is.
+- Leg bij elke oefening vooraf schriftelijk vast wie toestemming heeft gegeven
+en binnen welke grenzen.
+- Oefen het herkennen van baseline-gedrag bij collega's voordat het bij een
+onbekende gesprekspartner wordt toegepast.
+- Sluit elke oefening af met een rapport dat niet alleen meldt of de aanval
+slaagde, maar ook welke concrete training of procedure de organisatie daarna
+kan invoeren.
+
+#### Wat je hierna leest
+
+- 2309. Ethical Hacking: A Hands-on Introduction to Breaking In. Graham
+behandelt phishing en deepfakes als technische opstap naar social engineering;
+dit boek werkt de menselijke kant daarvan uit.
+- 2314. Bug Bounty Bootcamp: The Guide to Finding and Reporting Web
+Vulnerabilities. Bug bounty-jagers gebruiken zelden social engineering, maar
+de informatieverzameling die dit boek beschrijft komt in vergelijkbare vorm
+terug bij het opsporen van webkwetsbaarheden.
+- 2306. Black Hat Bash: Creative Scripting for Hackers and Pentesters. Waar
+dit boek zich op mensen richt, behandelt dit boek scripting voor de technische
+kant van een pentest of red-teamoperatie.
+- 2311. Red Team Engineering: The Art of Building Offensive Tools and
+Infrastructure. De phishinghoofdstukken van Erdmann bouwen op de eerste
+toegang die social engineering oplevert; dit boek behandelt wat daarna met die
+toegang gebeurt.
+
+## 2311. Red Team Engineering: The Art of Building Offensive Tools and Infrastructure
+
+Casey Erdmann, 2026. Eerste editie, No Starch Press, San Francisco, 2026, 352
+blz., ISBN 9781718504264. Er bestaat geen Nederlandse vertaling. Rubriek:
+digitale beveiliging en hacking.
+Tags: `red teaming`, `offensive security`, `command and control`, `malware`,
+`netwerkinfrastructuur`, `penetratietesten`
+
+Casey Erdmann richt dit boek niet op de eerste stap in een pentest, maar op
+wat een gewone penetratietest overstijgt: het bouwen en beheren van de eigen
+infrastructuur van een red team. Het boek behandelt webapplicatie-exploits,
+aanvallen op authenticatie en het maken van maatwerk-malware als bouwstenen,
+en werkt daarna toe naar het geautomatiseerd opzetten van
+command-and-control-servers, VPN-tunnels en redirectors.
+
+Waar veel inleidende boeken stoppen bij het overnemen van een enkel systeem,
+behandelt Erdmann wat daarna komt: hoe een operatie meerdere weken volhoudt,
+hoe meerdere operators tegelijk met dezelfde infrastructuur werken en hoe die
+infrastructuur zo wordt ingericht dat zij niet meteen naar de aanvaller
+herleidbaar is.
+
+Erdmann is oprichter van Injection Software and Security LLC, sprak op het
+eerste Red Team Village van DEF CON 27 en heeft meerdere kwetsbaarheden als
+CVE gepubliceerd. Dit is zijn eerste boek; het bouwt uitdrukkelijk voort op
+kennis die de lezer als penetratietester al geacht wordt te hebben.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Erdmanns stelling is dat het verschil tussen een
+penetratietester en een red-teamoperator niet in de aanvalstechnieken zit,
+maar in de engineering eromheen: infrastructuur die geautomatiseerd wordt
+opgezet, weken meegaat, meerdere operators tegelijk bedient en niet bij de
+eerste blokkade instort. Het boek behandelt aanvalstechnieken zoals
+webexploits en maatwerk-malware kort en functioneel, en besteedt de meeste
+ruimte aan het bouwen, automatiseren en beheren van
+command-and-control-infrastructuur, VPN-tunnels en redirectors. Daarmee
+positioneert het boek zich uitdrukkelijk als vervolgstap op penetratietesten,
+niet als introductie erop. Een penetratietest levert volgens die redenering
+vooral een lijst kwetsbaarheden op, terwijl een red-teamoperatie test of een
+organisatie een langdurige, volgehouden aanval ook daadwerkelijk opmerkt en
+erop reageert; die verschuiving in doel verklaart waarom het boek zoveel
+aandacht besteedt aan infrastructuur die stand houdt en niet meteen opvalt.
+
+#### De gang van het boek
+
+**Offensieve ontwikkeling**
+
+Het eerste deel behandelt webapplicatie-exploits, aanvallen op
+authenticatiesystemen en het ontwikkelen en verspreiden van maatwerk-malware,
+als de technische basisvaardigheden waarop de rest van het boek voortbouwt.
+
+Erdmann behandelt deze technieken bewust kort: het boek gaat ervan uit dat de
+lezer webexploitatie en basale malware-ontwikkeling al kent uit eerder werk of
+ervaring, en gebruikt dit deel vooral om een gedeeld vertrekpunt vast te
+leggen voor de infrastructuurhoofdstukken die volgen.
+
+Bij de malware-ontwikkeling ligt de nadruk op het ontwijken van detectie door
+bestaande beveiligingsproducten, niet op het uitvinden van nieuwe
+kwetsbaarheden; het hoofdstuk behandelt technieken om code te verhullen en
+gedrag te spreiden zodat het minder opvalt in logbestanden.
+
+**Infrastructuurautomatisering**
+
+Het tweede deel begint met het geautomatiseerd uitrollen van offensieve
+infrastructuur. Erdmann werkt met scripts die servers, domeinen en
+configuratie in een keer opzetten en weer afbreken, zodat een operatie niet
+afhankelijk is van handmatig herhaalbaar werk en zodat sporen na afloop
+makkelijker op te ruimen zijn.
+
+Hij bespreekt daarbij ook het gebruik van wegwerpdomeinen en het periodiek
+verhuizen van infrastructuur, zodat een eenmaal herkend patroon niet meteen de
+hele operatie blootlegt. Die automatisering is volgens het boek ook nodig om
+een operatie na ontdekking van een deel van de infrastructuur snel te kunnen
+verplaatsen.
+
+**C2 en tunneling**
+
+Vervolgens past het boek algemene netwerkgrondslagen toe op de inrichting van
+command-and-control-verbindingen: welke poorten, protocollen en
+timinginstellingen een C2-kanaal minder laten opvallen tussen normaal
+netwerkverkeer.
+
+Het hoofdstuk over reverse VPN-tunneling laat zien hoe een aanvaller, eenmaal
+binnen een netwerksegment, dat segment via een tunnel toegankelijk maakt voor
+verdere tools, zonder dat daarvoor telkens nieuwe toegang tot het doelsysteem
+nodig is.
+
+**Offensieve security in de praktijk**
+
+Het derde deel brengt de eerdere delen samen in praktijkscenario's:
+exploitatie met Metasploit, het opzetten van een dropbox als tussenstation in
+het netwerk, een phishingaanval met redirectors voor de
+command-and-control-verbinding, en het inrichten van infrastructuur waarop
+meerdere operators tegelijk kunnen werken.
+
+Het hoofdstuk over meerdere operators behandelt hoe een team dezelfde
+C2-infrastructuur deelt zonder elkaars sessies te verstoren, met afspraken
+over wie welk segment van het doelnetwerk voor zijn rekening neemt.
+
+Het phishinghoofdstuk in dit deel bouwt voort op het eerdere hoofdstuk over
+authenticatie-aanvallen: de phishingpagina wordt gebruikt om inloggegevens te
+onderscheppen, waarna de redirectors ervoor zorgen dat het vervolgverkeer niet
+rechtstreeks naar de eigenlijke C2-server leidt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Command and control (C2) | De infrastructuur waarmee een aanvaller op afstand met overgenomen systemen communiceert en ze aanstuurt. |
+| Redirector | Een tussenliggende server die verkeer doorstuurt naar de eigenlijke C2-server, zodat die laatste niet direct zichtbaar is voor het doelwit. |
+| Reverse VPN-tunnel | Een VPN-verbinding die vanuit het overgenomen netwerk naar de aanvaller wordt opgezet, waardoor die als deel van dat netwerk kan opereren. |
+| Dropbox | Een tussenstation binnen een netwerk waar gegevens of instructies tijdelijk worden neergezet zodat aanvaller en geïnfecteerd systeem niet rechtstreeks hoeven te communiceren. |
+| Maatwerk-malware | Zelf ontwikkelde kwaadaardige software, gebouwd om detectie door bestaande beveiligingsproducten te vermijden. |
+| Infrastructuurautomatisering | Het met scripts en configuratiebestanden geautomatiseerd opzetten en afbreken van servers en netwerkcomponenten voor een operatie. |
+| Red team versus penetratietest | Het onderscheid tussen een kortlopende, technisch gerichte test en een langer lopende operatie die ook detectie en respons van een organisatie test. |
+| Authenticatie-aanval | Een aanval gericht op het inlogmechanisme zelf, zoals het raden, hergebruiken of onderscheppen van inloggegevens, in plaats van op een fout in de applicatielogica. |
+| Blue team | Het verdedigende team binnen een organisatie dat aanvallen probeert te detecteren en erop te reageren, de tegenpartij van het red team. |
+| Wegwerpdomein | Een domeinnaam die kortstondig voor een deel van een operatie wordt gebruikt en daarna wordt afgestoten, om herkenning en blokkade te bemoeilijken. |
+
+#### Waar het argument op rust
+
+Erdmann bouwde volgens eigen opgave meer dan tien jaar ervaring op in IT, van
+softwareontwikkeling en incidentonderzoek tot offensieve security engineering,
+en specialiseert zich sindsdien in maatwerktools en de fase na de eerste
+toegang tot een systeem.
+
+Hij sprak op het eerste Red Team Village van DEF CON 27 over geautomatiseerde
+offensieve infrastructuur en heeft meerdere kwetsbaarheden gepubliceerd die
+als CVE zijn geregistreerd, wat aangeeft dat zijn technische claims extern
+zijn getoetst.
+
+Het boek verscheen bij No Starch Press, dezelfde uitgever als een reeks andere
+gevestigde titels over penetratietesten in dit vakgebied, waaronder Metasploit
+en Black Hat Python.
+
+Erdmann is daarnaast oprichter van Injection Software and Security LLC en
+maker van meerdere online cursussen over offensieve tooling, wat aangeeft dat
+het lesgeven over dit onderwerp al langer een deel van zijn werk is en niet
+pas bij dit boek begon.
+
+Het boek noemt expliciet dat de beschreven werkwijzen zijn opgebouwd uit
+ervaring met meerdere red-teamoperaties, waarbij dezelfde
+infrastructuurpatronen telkens terugkwamen. Die herhaling binnen zijn eigen
+praktijk is de belangrijkste onderbouwing die het boek zelf aandraagt, naast
+de verwijzingen naar bestaande, breed gebruikte tools zoals Metasploit.
+
+Dat het boek voortbouwt op Metasploit, een raamwerk met een lange staat van
+dienst en een grote gebruikersgroep, in plaats van uitsluitend op eigen,
+ongeteste tooling, maakt de praktijkhoofdstukken makkelijker te volgen voor
+wie dat raamwerk al kent.
+
+#### Wat er tegen in te brengen valt
+
+Het boek verscheen in 2026 en heeft daardoor nog geen langere
+reviewgeschiedenis opgebouwd; het is bovendien Erdmanns eerste boek, zonder
+eerdere titels waaraan de kwaliteit van zijn uitleg af te meten valt. Bij een
+boek dat zich uitdrukkelijk als vervolgstap positioneert, is dat gebrek aan
+een langere staat van dienst een groter punt van zorg dan bij een inleidend
+werk waarvan de basisstof al breed getoetst is.
+
+C2-frameworks, VPN-tooling en detectiemechanismen veranderen snel; instructies
+voor het opzetten van specifieke infrastructuur verouderen sneller dan de
+onderliggende principes van engineering en automatisering die het boek ook
+behandelt.
+
+Het boek is uitdrukkelijk geen inleiding. Wie de basis van webexploits,
+authenticatie-aanvallen en Metasploit niet al beheerst, mist het fundament
+waarop de infrastructuurhoofdstukken voortbouwen, ook al noemt het boek die
+voorkennis niet steeds met zoveel woorden.
+
+Het onderwerp, infrastructuur die niet direct naar de aanvaller herleidbaar
+is, ligt dicht tegen technieken die ook buiten geautoriseerde opdrachten
+bruikbaar zijn. Het boek benadrukt autorisatie en scope, maar de afstand
+tussen een eigen testlab en een echte, geautoriseerde red-teamoperatie bij een
+opdrachtgever is groter dan de hoofdstukken suggereren.
+
+Het boek besteedt relatief weinig ruimte aan de kant van de verdediger: hoe
+een blue team de beschreven infrastructuur zou kunnen herkennen of
+tegenhouden. Voor een boek dat expliciet gaat over volgehouden, moeilijk te
+detecteren operaties is dat een opvallende leemte, ook al ligt de nadruk
+bewust op de aanvallende kant.
+
+De titel spreekt over kunst, maar het boek zelf is vooral ingenieurswerk:
+scripts, configuratie en herhaalbare processen. Wie op zoek is naar een
+verhalende inkijk in red-teamoperaties krijgt eerder een reeks technische
+recepten dan een verslag van hoe zulke operaties in de praktijk verlopen.
+
+#### Wat er concreet mee te doen is
+
+- Doorloop eerst de basistechnieken uit deel een voordat de
+infrastructuurhoofdstukken worden opgepakt.
+- Automatiseer het opzetten en afbreken van testinfrastructuur vanaf het
+begin, in plaats van dat later handmatig te doen.
+- Leg vooraf vast binnen welke scope en met welke toestemming een oefening met
+C2-infrastructuur plaatsvindt.
+- Vergelijk elke C2- of redirector-configuratie met de actuele documentatie
+van de gebruikte tools, omdat versies snel wijzigen.
+- Bouw na afloop van een oefening een vast opruimscript, zodat
+testinfrastructuur niet onbedoeld blijft draaien.
+- Documenteer bij een operatie met meerdere operators vooraf wie welk deel van
+de infrastructuur beheert, om te voorkomen dat twee operators onbedoeld
+dezelfde sessie verstoren.
+- Test elk onderdeel van de infrastructuur eerst in een eigen, geïsoleerde
+omgeving voordat het tegen een doelnetwerk wordt ingezet.
+
+#### Wat je hierna leest
+
+- 2308. Metasploit: The Penetration Tester's Guide (Second Edition). Erdmann
+gebruikt Metasploit als exploitatiemiddel in zijn praktijkhoofdstukken; dit
+boek behandelt dat raamwerk in de volle breedte.
+- 2304. Advanced Penetration Testing: Hacking the World's Most Secure
+Networks. Beide boeken richten zich op de gevorderde fase van een aanval; dit
+boek legt meer nadruk op het netwerk zelf overnemen dan op de infrastructuur
+eromheen.
+- 2306. Black Hat Bash: Creative Scripting for Hackers and Pentesters. De
+scripting- en automatiseringsvaardigheden die dit boek bepleit voor het
+opzetten van infrastructuur, worden hier specifiek voor Bash uitgewerkt.
+- 2315. Pentesting Active Directory and Windows-based Infrastructure. Wie na
+dit boek een doelnetwerk met Active Directory wil binnendringen in plaats van
+de infrastructuur errond op te zetten, vindt hier de uitwerking daarvan.
+
+## 2312. Web Hacking Arsenal: A Practical Guide to Modern Web Pentesting
+
+Rafay Baloch, 2024. 1e druk, Routledge/CRC Press, Boca Raton, 2024, 548 blz.,
+ISBN 9781032447193 (paperback). Het boek verschijnt niet bij No Starch Press
+maar bij Routledge/CRC Press; er bestaat geen Nederlandse vertaling. Rubriek:
+digitale beveiliging en hacking.
+Tags: `webhacking`, `pentesting`, `injectie-aanvallen`, `business logic`,
+`ssrf`, `waf`, `rapportage`
+
+Rafay Baloch behandelt het testen van webapplicaties hoofdstuk voor hoofdstuk
+langs de aanvalsoppervlakken die een pentester tegenkomt: van verkenning en
+enumeratie tot server- en clientzijdige injectie, sessie- en
+authenticatieproblemen, businesslogicafwijkingen, XXE en SSRF, request
+smuggling, onveilige deserialisatie en het testen van webservices en
+cloudomgevingen. Het boek sluit af met hoofdstukken over HTML5-specifieke
+aanvalsvectoren, het omzeilen van web application firewalls en het schrijven
+van een pentestrapport.
+
+De opzet volgt de praktijk van een opdracht: eerst begrijpen hoe de browser en
+het protocol werken, dan de kwetsbaarheidsklassen een voor een doorlopen, en
+uiteindelijk de bevindingen vastleggen in een rapport dat een klant kan
+gebruiken. Baloch werkt met concrete voorbeelden per kwetsbaarheidsklasse en
+bespreekt telkens ook de tegenmaatregel en hoe een WAF die kwetsbaarheid
+probeert te blokkeren.
+
+Het boek is bedoeld voor wie al met webapplicaties en HTTP overweg kan en zich
+wil verdiepen in de volle breedte van webapplicatiepentesten, inclusief de
+onderdelen die in inleidende boeken vaak worden overgeslagen, zoals
+businesslogicafwijkingen en WAF-omzeiling.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Baloch's stelling is dat een webapplicatiepentest niet
+ophoudt bij de bekende OWASP-kwetsbaarhedenlijst, maar dat de businesslogica
+van een applicatie, de manier waarop componenten met elkaar praten en de
+beveiligingsmaatregelen die eromheen zijn gebouwd, net zo vaak de zwakke plek
+vormen als een ontbrekende invoervalidatie. Injectieklassen als SQL-injectie
+en cross-site scripting krijgen hun plaats, maar het boek besteedt evenveel
+aandacht aan wat er gebeurt nadat een applicatie technisch correct is gebouwd
+en toch misbruikt kan worden, doordat een wachtwoordreset-stroom een stap
+overslaat of doordat een API-aanroep een object teruggeeft waarvoor de
+gebruiker geen rechten had. Die verschuiving van kwetsbaarheid-als-bug naar
+kwetsbaarheid-als-ontwerpfout is het argument dat het boek door alle
+hoofdstukken heen volhoudt, tot en met het hoofdstuk over het omzeilen van
+firewalls, waarin dezelfde gedachte wordt toegepast op de verdediging zelf:
+een WAF filtert patronen, geen bedoelingen, en daarmee is elke filterregel in
+beginsel te omzeilen met een andere formulering van dezelfde aanval.
+
+#### De gang van het boek
+
+**Verkenning en de browser**
+
+De eerste hoofdstukken leggen uit hoe browsers en het HTTP-protocol werken en
+hoe een pentester een doelwit in kaart brengt: subdomeinen,
+technologieherkenning, endpoints en de eerste indruk van het aanvalsoppervlak.
+Baloch behandelt dit als het fundament waarop de rest van het boek voortbouwt,
+niet als losstaand hoofdstuk.
+
+De keuze om met de browser te beginnen in plaats van met een enkele
+kwetsbaarheidsklasse hangt samen met de rest van het boek: bijna elke latere
+aanval, van injectie tot WAF-omzeiling, veronderstelt dat de lezer weet hoe
+een verzoek van browser naar server precies is opgebouwd en welke velden
+daarin door de gebruiker te beïnvloeden zijn.
+
+**Server- en clientzijdige injectie**
+
+Een blok hoofdstukken werkt de klassieke injectieklassen af: SQL-injectie en
+andere serverzijdige injecties, gevolgd door clientzijdige injectie zoals
+cross-site scripting en aanvallen op het bestandssysteem van de webapplicatie.
+Elk hoofdstuk volgt hetzelfde stramien van mechanisme, voorbeeld en detectie.
+
+Baloch besteedt binnen dit blok ook aandacht aan minder besproken varianten
+van injectie, zoals aanvallen op bestandsuploadfunctionaliteit en
+padmanipulatie op het bestandssysteem van de server, onderwerpen die in
+kortere inleidingen tot webhacking vaak worden overgeslagen ten gunste van de
+bekendere SQL-injectie en cross-site scripting.
+
+**Sessies, authenticatie en businesslogica**
+
+Hierna volgen cross-site request forgery, authenticatie- en autorisatiefouten
+inclusief single sign-on, en een apart hoofdstuk over
+businesslogicafwijkingen: fouten die niet uit een technisch lek voortkomen
+maar uit een aanname die de ontwikkelaar niet expliciet heeft gemaakt, zoals
+een korting die meerdere keren toegepast kan worden.
+
+Dit hoofdstuk markeert een omslag in het boek: de eerdere hoofdstukken zijn te
+herkennen aan een handtekening in het verkeer of de broncode, terwijl een
+businesslogicafwijking pas zichtbaar wordt door de applicatie te gebruiken
+zoals hij bedoeld is en te kijken waar de bedoelde volgorde van stappen
+doorbroken kan worden.
+
+**XXE, SSRF en serialisatie**
+
+Een technisch dichter hoofdstukblok behandelt XML external entity-aanvallen,
+server-side request forgery, request smuggling en onveilige deserialisatie,
+kwetsbaarheden die vaak dieper in de architectuur zitten dan een los
+invoerveld en die grotere gevolgen kunnen hebben, tot toegang tot interne
+systemen aan toe.
+
+Baloch legt bij elk van deze klassen uit waarom ze zich vaak pas laten zien
+nadat de meer voor de hand liggende injectiepunten al zijn afgesloten, omdat
+ze meestal zitten in de manier waarop componenten onderling berichten
+uitwisselen in plaats van in een zichtbaar invoerveld van de applicatie zelf.
+
+**Webservices, cloud en HTML5**
+
+Het boek besteedt een hoofdstuk aan het testen van webservices en
+clouddiensten, waarbij de aanvalsoppervlakte verschuift van een enkele
+applicatie naar API's en achterliggende infrastructuur, en een hoofdstuk aan
+aanvalsvectoren die specifiek uit HTML5 voortkomen, zoals nieuwe opslag- en
+communicatiemechanismen in de browser.
+
+Voor beide onderwerpen geldt dat de klassieke checklist van webkwetsbaarheden
+niet volstaat: cloudconfiguratie brengt eigen foutcategorieën met zich mee,
+zoals te ruim ingestelde toegangsrechten op opslagbuckets, en HTML5-functies
+zoals lokale opslag in de browser hebben andere beveiligingsgrenzen dan
+cookies.
+
+**WAF-omzeiling en rapportage**
+
+De laatste twee hoofdstukken sluiten de cirkel: eerst het omzeilen van web
+application firewalls, met technieken om filterregels te ontwijken zonder de
+onderliggende aanval te veranderen, en daarna het schrijven van een
+pentestrapport dat een technische bevinding vertaalt naar iets dat een
+opdrachtgever kan begrijpen en opvolgen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Businesslogicafwijking | Een kwetsbaarheid die niet uit een technische fout voortkomt maar uit een aanname in het ontwerp van de applicatie die een aanvaller kan misbruiken, zoals een stap die overgeslagen kan worden in een betaalproces. |
+| SSRF | Server-side request forgery, waarbij een aanvaller de server een verzoek laat sturen naar een doel dat de aanvaller zelf niet rechtstreeks kan bereiken, bijvoorbeeld een intern systeem. |
+| XXE | XML external entity-aanval, waarbij een kwetsbare XML-parser externe entiteiten verwerkt en zo bestanden van de server kan laten prijsgeven of verzoeken kan laten uitvoeren. |
+| Request smuggling | Een techniek waarbij verschillen in hoe voorliggende en achterliggende servers een HTTP-verzoek interpreteren worden gebruikt om een verzoek te laten doorwerken op een manier die niet bedoeld is. |
+| Onveilige deserialisatie | Het zonder controle omzetten van binnenkomende, door een gebruiker aan te passen data terug naar objecten, waardoor een aanvaller code kan laten uitvoeren of gedrag van de applicatie kan sturen. |
+| Web application firewall (WAF) | Een filter voor webverkeer dat bekende aanvalspatronen probeert te herkennen en te blokkeren, en dat het boek behandelt als omzeilbaar omdat het op patronen filtert, niet op bedoeling. |
+| Single sign-on (SSO) | Een authenticatiemechanisme waarbij een gebruiker met een enkele login toegang krijgt tot meerdere diensten, met eigen kwetsbaarheden rond tokenverificatie en vertrouwen tussen partijen. |
+| Enumeratie | Het systematisch in kaart brengen van een doelwit, zoals subdomeinen, endpoints en gebruikte technologie, voorafgaand aan het testen van individuele kwetsbaarheden. |
+| HTML5-opslagmechanisme | Nieuwere manieren voor een webpagina om gegevens in de browser te bewaren, zoals lokale opslag, met andere beveiligingsgrenzen dan het traditionele cookiemechanisme. |
+
+#### Waar het argument op rust
+
+Baloch is sinds ruim tien jaar actief als beveiligingsonderzoeker en richtte
+het bedrijf RedSecLabs op, dat penetratietesten en trainingen aanbiedt. Hij
+vond onder meer CVE-2014-6041, een omzeiling van de same origin policy in de
+Android-browser, en meldde adresbalkvervalsingen in Safari, Edge en
+verschillende mobiele browsers. Voor een gevonden remote code
+execution-kwetsbaarheid in PayPal ontving hij een bug bounty, en hij kreeg
+eerder bounties van Google en Mozilla.
+
+Hij sprak op Black Hat Asia en publiceerde eerder *Ethical Hacking and
+Penetration Testing Guide*. Dat maakt hem een auteur die het onderwerp niet
+alleen doceert maar er zelf actief in publiceert, wat vooral de hoofdstukken
+over WAF-omzeiling en browsergerelateerde kwetsbaarheden onderbouwt, terreinen
+waarop hij eigen bevindingen heeft gepubliceerd.
+
+De CVE-2014-6041-melding illustreert daarbij ook hoe onzeker de erkenning van
+dit soort werk kan zijn: Google wees de melding aanvankelijk af voordat het
+beveiligingsbedrijf Rapid7 de kwetsbaarheid bevestigde en publiceerde, wat
+laat zien dat de status van een gemelde kwetsbaarheid niet vaststaat tot een
+derde partij die onafhankelijk heeft getoetst.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is in 2024 verschenen en behandelt een terrein waarin tools,
+framework-versies en specifieke WAF-implementaties snel veranderen; een
+voorbeeld dat vandaag werkt kan over een paar jaar zijn tegengehouden door een
+update van de betreffende leverancier. Dat is een structureel kenmerk van het
+genre en geen fout van dit boek specifiek, maar het betekent dat de lezer de
+onderliggende principes moet onthouden en niet de exacte payload.
+
+Het boek veronderstelt kennis van HTTP, browserwerking en op zijn minst een
+basisbekendheid met scripting, zonder dat expliciet als vereiste te benoemen.
+Wie nog nooit een proxy tussen browser en server heeft gezet, zal de eerste
+hoofdstukken zwaarder vinden dan de rest van het boek doet vermoeden.
+
+Doordat het boek zo recent is, bestaat er nog nauwelijks onafhankelijke
+kritische bespreking buiten de uitgeverspagina en verkoopplatforms om; het is
+dus lastig te toetsen hoe het zich in de praktijk verhoudt tot gevestigde
+titels over hetzelfde onderwerp.
+
+Zoals bij elk pentestboek geldt het verschil tussen een labomgeving en een
+echte opdracht: een geautoriseerde pentest vereist een schriftelijke
+overeenkomst met scope en toestemming, iets wat het boek behandelt in het
+rapportagehoofdstuk maar dat de lezer zelf strikt moet toepassen voordat een
+van de beschreven technieken op een systeem van een ander wordt losgelaten.
+
+#### Wat er concreet mee te doen is
+
+- Doorloop de kwetsbaarheidsklassen in de volgorde van het boek, niet los van
+elkaar, zodat verkenning en businesslogica net zo vertrouwd worden als de
+bekende injectieklassen.
+- Oefen alleen in een omgeving waarvoor uitdrukkelijk toestemming is gegeven
+of die daarvoor is gebouwd.
+- Gebruik het rapportagehoofdstuk als sjabloon en schrijf elke gevonden
+kwetsbaarheid meteen op alsof die naar een opdrachtgever moet.
+- Zoek bij elk hoofdstuk de actuele documentatie van de genoemde tools op,
+omdat versies en interfaces sneller veranderen dan een boek kan bijhouden.
+
+#### Wat je hierna leest
+
+- 2305. Hacking APIs: Breaking Web Application Programming Interfaces. Hacking
+APIs verdiept het hoofdstuk over webservices en cloud met een boek dat zich
+volledig op API-specifieke aanvalstechnieken richt.
+- 2310. Social Engineering: The Science of Human Hacking. Social Engineering
+behandelt het deel van een pentest dat buiten de applicatie zelf ligt, de
+menselijke kant die dit boek bewust niet behandelt.
+- 2314. Bug Bounty Bootcamp: The Guide to Finding and Reporting Web
+Vulnerabilities. Bug Bounty Bootcamp bouwt op dezelfde kwetsbaarhedenlijst
+voort, maar vanuit het perspectief van individuele hunters in plaats van een
+opdrachtgestuurde pentest.
+- 2308. Metasploit: The Penetration Tester's Guide (Second Edition).
+Metasploit: The Penetration Tester's Guide behandelt het
+exploitatiegereedschap dat na de kwetsbaarheidsvondsten van dit boek kan
+volgen.
+
+## 2313. Black Hat Python: Python Programming for Hackers and Pentesters (2nd Edition)
+
+Justin Seitz en Tim Arnold, 2021. 2e editie, No Starch Press, San Francisco,
+2021, 216 blz., ISBN 9781718501126. De eerste editie uit 2014 gebruikte nog
+Python 2; deze editie is volledig herschreven voor Python 3. Er bestaat geen
+Nederlandse vertaling. Rubriek: digitale beveiliging en hacking.
+Tags: `python`, `netwerkprogrammering`, `scapy`, `burp suite`, `malware`,
+`forensisch onderzoek`, `pentesting`
+
+Justin Seitz en Tim Arnold laten zien hoe Python wordt ingezet om eigen
+aanvalsgereedschap te bouwen in plaats van kant-en-klare tools te gebruiken:
+een netwerksniffer, pakketmanipulatie met Scapy, uitbreidingen voor Burp
+Proxy, een command-and-control-kanaal via GitHub, Windows-trojantechnieken,
+dataexfiltratie, privilege-escalatie op Windows en offensief forensisch
+onderzoek.
+
+Het boek is opgebouwd als een reeks losse projecten die elk een stuk van de
+Python-standaardbibliotheek of een externe module aan een concrete
+beveiligingstaak koppelen. De tweede editie is volledig herschreven voor
+Python 3 en actualiseert daarmee de eerste editie uit 2014, die nog op het
+inmiddels verouderde Python 2 draaide.
+
+Het is geen inleiding tot Python en geen inleiding tot netwerken; het
+veronderstelt beide en richt zich op wie al kan programmeren en wil weten hoe
+die vaardigheid wordt ingezet om zelf gereedschap te bouwen in plaats van
+bestaand gereedschap te bedienen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Seitz en Arnold's stelling is dat een pentester of
+malware-analist die zelf tools kan schrijven, zich niet hoeft te beperken tot
+wat een bestaand programma aanbiedt: een sniffer die precies de velden loglegt
+die nodig zijn, een Burp-uitbreiding die één specifieke aanvraag
+automatiseert, een command-and-control-kanaal dat via een dienst loopt die
+door de meeste organisaties niet wordt geblokkeerd. Het boek verdedigt die
+stelling niet met een theoretisch betoog maar met elf hoofdstukken die elk een
+werkend, zij het beperkt, stuk gereedschap opleveren. Dat maakt het tegelijk
+een boek over Python-netwerkprogrammering en een boek over hoe een aanvaller
+denkt: welke informatie is nodig, hoe wordt die onopvallend verzameld, en hoe
+wordt een taak die met de hand te traag zou gaan geautomatiseerd. De auteurs
+benadrukken in het voorwoord dat dit voor eigen, geautoriseerde omgevingen
+bedoeld is en niet voor systemen waarvoor geen toestemming bestaat.
+
+#### De gang van het boek
+
+**Omgeving en basisnetwerken**
+
+Het boek begint met het opzetten van een Python-omgeving voor beveiligingswerk
+en bouwt daarna eenvoudige netwerktools: TCP- en UDP-clients en -servers, en
+een basis-sniffer die ruwe sockets gebruikt om verkeer af te lezen zonder
+tussenkomst van een besturingssysteemlaag die dat detail zou verbergen.
+
+Deze eerste stap is bewust minimaal gehouden: de sniffer die hier wordt
+gebouwd doet weinig meer dan pakketten opvangen en de basisvelden tonen, maar
+dient als bouwsteen voor de uitgebreidere Scapy-hoofdstukken die erna volgen.
+
+**Scapy en pakketmanipulatie**
+
+Een hoofdstuk is gewijd aan Scapy, een Python-bibliotheek voor het bouwen,
+wijzigen en versturen van netwerkpakketten. De auteurs laten zien hoe Scapy
+wordt gebruikt om ARP-verkeer te bekijken en om aangepaste pakketten te
+sturen, als voorbeeld van hoe laag in de netwerkstack Python kan werken.
+
+Doordat Scapy pakketten op velderniveau blootlegt, kan de lezer met relatief
+weinig code experimenteren met protocolgedrag dat in een kant-en-klaar
+scantool verborgen blijft, wat het hoofdstuk vooral geschikt maakt om te
+begrijpen hoe een protocol daadwerkelijk in elkaar zit.
+
+**Webhackery en Burp-uitbreidingen**
+
+Twee hoofdstukken behandelen het web: eerst algemene technieken om
+webapplicaties te benaderen en te bevragen vanuit Python, daarna specifiek hoe
+de proxy Burp Suite met eigen Python-uitbreidingen wordt aangevuld, zodat een
+herhalende testtaak binnen de proxy zelf geautomatiseerd kan worden.
+
+Het idee achter dit blok is dat een pentester met een eigen uitbreiding taken
+kan automatiseren die de standaardfunctionaliteit van Burp niet aanbiedt,
+zoals het systematisch variëren van een specifiek verzoekveld over een grote
+reeks testwaarden.
+
+**Command-and-control via GitHub**
+
+Een van de kenmerkende hoofdstukken bouwt een command-and-control-mechanisme
+dat de GitHub-API gebruikt als communicatiekanaal, waarmee het boek laat zien
+hoe een alledaagse, vertrouwde dienst wordt ingezet voor doeleinden die
+netwerkbewaking niet direct als verdacht herkent.
+
+Het hoofdstuk illustreert daarmee een bredere gedachte die door het boek
+loopt: een aanvaller hoeft geen eigen infrastructuur op te zetten als een
+bestaande, legitieme dienst hetzelfde doel kan dienen en minder aandacht
+trekt.
+
+**Windows-trojantechnieken en exfiltratie**
+
+Hierna volgen hoofdstukken over veelvoorkomende Windows-trojantaken zoals
+toetsaanslagen en schermafbeeldingen vastleggen en detectie van een
+sandboxomgeving, en een hoofdstuk over manieren om verzamelde data van een
+systeem te laten weglekken.
+
+Deze hoofdstukken leunen zwaarder dan de rest van het boek op
+Windows-specifieke bibliotheken, waardoor de installatie- en
+compatibiliteitsstappen hier meer aandacht vragen dan in de
+platformonafhankelijke netwerkhoofdstukken.
+
+**Privilege-escalatie en forensisch onderzoek**
+
+Het boek sluit af met privilege-escalatietechnieken op Windows en een
+hoofdstuk over offensief forensisch onderzoek, waarin Python wordt gebruikt om
+sporen op een systeem te analyseren vanuit het perspectief van een aanvaller
+in plaats van een verdediger.
+
+Dat laatste hoofdstuk keert de gebruikelijke rol van forensisch onderzoek om:
+in plaats van sporen van een aanvaller te reconstrueren, laat het zien welke
+sporen een aanvaller zelf kan uitlezen om te begrijpen wat een
+gecompromitteerd systeem allemaal prijsgeeft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ruwe socket | Een netwerkverbinding op laag niveau waarmee een programma pakketten kan lezen en samenstellen zonder de gebruikelijke afhandeling door het besturingssysteem, gebruikt om een eigen sniffer te bouwen. |
+| Scapy | Een Python-bibliotheek voor het bouwen, wijzigen, versturen en ontleden van netwerkpakketten, gebruikt in het boek voor onder meer ARP-analyse. |
+| Burp Proxy-uitbreiding | Een stuk Python-code dat de functionaliteit van de proxytool Burp Suite aanvult, waarmee een herhalende testtaak binnen de tool zelf geautomatiseerd wordt. |
+| Command and control (C2) | Het kanaal waarmee een aanvaller op afstand instructies stuurt naar en gegevens ontvangt van gecompromitteerde systemen; het boek bouwt hiervoor een variant via de GitHub-API. |
+| Sandboxdetectie | Een techniek waarmee kwaadaardige code probeert vast te stellen of zij in een geïsoleerde analyseomgeving draait, om zich daar anders te gedragen dan op een echt doelsysteem. |
+| Dataexfiltratie | Het overbrengen van gegevens van een gecompromitteerd systeem naar een plek buiten het bereik van de eigenaar, vaak op een manier die reguliere netwerkbewaking niet opmerkt. |
+| Privilege-escalatie | Het verkrijgen van hogere rechten op een systeem dan waarmee de aanvaller oorspronkelijk toegang kreeg, in dit boek toegespitst op Windows. |
+| Offensief forensisch onderzoek | Het analyseren van sporen op een systeem vanuit het perspectief van een aanvaller die wil weten wat een systeem prijsgeeft, in tegenstelling tot de gebruikelijke verdedigende forensische analyse. |
+| Trojaanse functionaliteit | Onderdelen van kwaadaardige software die zich voordoen als of verstopt zitten in een schijnbaar onschuldig programma, in dit boek uitgewerkt als losse Python-functies voor toetsaanslagregistratie en schermafbeeldingen. |
+
+#### Waar het argument op rust
+
+Justin Seitz werkte in signalenanalyse en malware-analyse voordat hij Dark
+River Systems oprichtte en het OSINT-onderzoeksprogramma Hunchly ontwikkelde.
+Hij schreef eerder *Gray Hat Python*, een van de eerste boeken die Python
+specifiek voor beveiligingswerk behandelde, en is actief als open
+source-onderzoeker bij het onderzoeksplatform Bellingcat en lid van de
+technische adviesraad van het Internationaal Strafhof.
+
+Tim Arnold is al ruim twintig jaar professioneel Python-ontwikkelaar bij
+softwarebedrijf SAS Institute en draagt bij aan open source-projecten. Zijn
+bijdrage aan de tweede editie ligt vooral in het herschrijven naar Python 3 en
+het actualiseren van de netwerkgerichte hoofdstukken, waardoor het boek is
+blijven aansluiten bij hoe Python vandaag wordt geschreven.
+
+Het boek is sinds de eerste editie uit 2014 breed verspreid geraakt binnen
+beveiligingsopleidingen als voorbeeld van hoe Python voor offensief werk wordt
+ingezet, en de tweede editie kende meerdere herdrukken met bijgewerkte errata.
+
+Een onafhankelijke bespreking op i-Programmer prees de breedte van de
+behandelde onderwerpen, zoals Scapy, Burp-uitbreidingen en
+Windows-privilege-escalatie, als stof die in mainstream Python-boeken niet
+voorkomt, en plaatste het boek uitdrukkelijk in het gevorderde segment: niet
+bedoeld voor wie Python nog moet leren.
+
+#### Wat er tegen in te brengen valt
+
+Een terugkerende observatie in besprekingen is dat de voorbeelden in het boek
+eerder bouwstenen dan complete, direct inzetbare aanvallen zijn: een hoofdstuk
+laat zien hoe een techniek in Python wordt opgezet, maar niet altijd hoe die
+tot een afgeronde, werkende aanval op een realistisch doelwit wordt
+uitgebouwd. Dat is een bewuste keuze voor een boek van tweehonderd bladzijden,
+maar het betekent dat de lezer zelf veel moet aanvullen.
+
+Het boek veronderstelt al kennis van netwerken, zoals TCP, UDP en ARP, en van
+tools als Burp Suite, zonder die vooraf uit te leggen. Wie met programmeren
+begint of nog nooit een pakketanalyse heeft gedaan, zal eerst elders die basis
+moeten opbouwen; het boek zegt dat zelf ook, maar niet op elke bladzijde waar
+het relevant is.
+
+Enkele hoofdstukken, met name die over Windows-trojantechnieken, leunen op
+externe bibliotheken waarvan installatie en compatibiliteit met nieuwere
+Windows-versies over tijd kunnen veranderen, wat sneller tot foutmeldingen
+leidt dan bij de meer platformonafhankelijke netwerkhoofdstukken.
+
+Zoals bij ieder boek dat aanvalstechnieken bouwt, is het verschil tussen een
+eigen testlab en een systeem van een ander groot: de code uit dit boek is
+geschreven voor omgevingen waarin de lezer volledige toestemming heeft, en de
+auteurs herhalen dat uitgangspunt, maar de code zelf controleert dat niet.
+
+Het boek behandelt elk onderwerp in een enkel, kort hoofdstuk, wat de breedte
+ten goede komt maar de diepgang per onderwerp beperkt. Wie zich bijvoorbeeld
+volledig op Windows-privilege-escalatie wil toeleggen, vindt hier een
+startpunt van enkele bladzijden en geen uitputtende behandeling, en zal voor
+meer diepgang een gespecialiseerder boek nodig hebben.
+
+#### Wat er concreet mee te doen is
+
+- Bouw elk hoofdstukvoorbeeld eerst letterlijk na in een eigen testomgeving
+voordat er iets aan wordt veranderd.
+- Zoek bij elk gebruikt pakket, zoals Scapy of de Burp-API, de actuele
+documentatie op, omdat versies sinds 2021 zijn doorontwikkeld.
+- Gebruik de netwerkhoofdstukken als basis voor eigen verkenningsscripts, ook
+buiten de specifieke voorbeelden uit het boek.
+- Leg voor elk experiment vooraf vast in welke omgeving en met welke
+toestemming het wordt uitgevoerd.
+
+#### Wat je hierna leest
+
+- 2312. Web Hacking Arsenal: A Practical Guide to Modern Web Pentesting. Web
+Hacking Arsenal geeft het bredere overzicht van webkwetsbaarheden waarvoor dit
+boek in het hoofdstuk over Burp-uitbreidingen alvast eigen gereedschap laat
+bouwen.
+- 2306. Black Hat Bash: Creative Scripting for Hackers and Pentesters. Black
+Hat Bash behandelt dezelfde scriptgerichte aanpak als dit boek, maar dan met
+de shell in plaats van Python als gereedschap.
+- 2316. JavaScript for Hackers: Learn to Think Like a Hacker. JavaScript for
+Hackers vult dit boek aan met de taal die aan de clientzijde van een
+webapplicatie draait, waar Python niet rechtstreeks bij kan.
+
+## 2314. Bug Bounty Bootcamp: The Guide to Finding and Reporting Web Vulnerabilities
+
+Vickie Li, 2021. 1e druk, No Starch Press, San Francisco, 2021, 416 blz., ISBN
+9781718501546. Er bestaat geen Nederlandse vertaling. Rubriek: digitale
+beveiliging en hacking.
+Tags: `bug bounty`, `webkwetsbaarheden`, `xss`, `sql-injectie`,
+`api-beveiliging`, `fuzzing`, `kwetsbaarheidsrapportage`
+
+Vickie Li schrijft voor wie geld wil verdienen met het vinden en melden van
+beveiligingslekken in bug bounty-programma's. Het boek doorloopt eerst hoe de
+industrie werkt en hoe een programma gekozen wordt, legt daarna de technische
+basis van internet en verkenning uit, en behandelt vervolgens twintig
+kwetsbaarheidsklassen stuk voor stuk: cross-site scripting, open redirects,
+clickjacking, CSRF, IDOR, SQL-injectie, race conditions, SSRF, onveilige
+deserialisatie, XXE, template-injectie, businesslogicafwijkingen, remote code
+execution, same origin policy-problemen, SSO-fouten en informatielekken.
+
+De laatste hoofdstukken gaan verder dan de standaardlijst en behandelen
+codereview, het testen van Android-apps, API-hacking en het gebruik van
+fuzzers om kwetsbaarheden automatisch op te sporen. Elk
+kwetsbaarheidshoofdstuk volgt hetzelfde stramien: hoe het werkt, hoe het
+voorkomen wordt, hoe het gezocht wordt, welke omzeilingen bestaan en hoe de
+impact aangetoond wordt.
+
+Het boek is opgezet als naslagwerk en leidraad tegelijk: iemand die net een
+eerste kwetsbaarheid heeft gevonden en niet weet wat er daarna komt, vindt
+hier de stappen van melding tot en met het opbouwen van een
+langetermijnpraktijk in bug bounty-werk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Li's stelling is dat bug bounty-werk een vak is met een
+herhaalbare methode, niet een kwestie van geluk of aangeboren intuïtie: wie de
+kwetsbaarheidsklassen een voor een systematisch doorloopt, weet waar te
+zoeken, hoe een vondst te bevestigen en hoe die te melden op een manier die
+een programma serieus neemt. Het boek presenteert daarom geen losse trucs maar
+een vaste structuur per kwetsbaarheidsklasse, van mechanisme via preventie en
+opsporing tot omzeiling en automatisering, zodat de lezer die structuur op
+nieuwe, nog niet behandelde situaties kan toepassen. Tegelijk erkent het boek
+dat het vinden van een kwetsbaarheid maar het halve werk is: het tweede deel
+van de titel, het rapporteren, krijgt evenveel gewicht, met een eigen
+hoofdstuk over hoe een bug bounty-carrière op langere termijn wordt
+volgehouden in plaats van uitgeput na de eerste paar meldingen.
+
+#### De gang van het boek
+
+**De bug bounty-industrie**
+
+Het boek opent met hoe bug bounty-programma's werken, hoe een programma
+gekozen wordt op basis van scope en beloning, en hoe een hunter een
+langlopende praktijk opbouwt zonder op te branden aan een industrie die veel
+afwijzingen en dubbele meldingen kent.
+
+Li besteedt hier ook aandacht aan de scheve verhouding tussen tijd
+geïnvesteerd en beloning ontvangen: de meeste meldingen leveren niets op, en
+het hoofdstuk behandelt hoe daarmee om te gaan zonder de motivatie te
+verliezen na de eerste reeks afwijzingen.
+
+**Basiskennis van het internet en verkenning**
+
+Voor wie de technische basis nog niet scherp heeft, legt Li uit hoe het
+internet en HTTP werken, hoe verkeer onderschept wordt met een proxy, en hoe
+reconnaissance wordt opgezet om het aanvalsoppervlak van een doelwit in kaart
+te brengen voordat er naar specifieke kwetsbaarheden gezocht wordt.
+
+Het reconnaissance-hoofdstuk bespreekt onder meer hoe subdomeinen en vergeten
+endpoints worden opgespoord met open-source-informatie en eenvoudige
+automatisering, als basis voor waar in een later hoofdstuk specifiek naar
+gezocht wordt.
+
+**Clientzijdige en sessiegerelateerde kwetsbaarheden**
+
+Een reeks hoofdstukken behandelt cross-site scripting, open redirects,
+clickjacking en cross-site request forgery: kwetsbaarheden die draaien om wat
+een browser laat gebeuren zonder dat de gebruiker het doorheeft.
+
+Voor elke klasse volgt Li hetzelfde patroon: eerst het mechanisme in de
+browser dat misbruikt wordt, dan de manier waarop een ontwikkelaar dat normaal
+voorkomt, en pas daarna hoe een hunter systematisch naar afwijkingen van die
+preventie zoekt.
+
+**Serverzijdige en structurele kwetsbaarheden**
+
+Hierna volgen IDOR, SQL-injectie, race conditions, SSRF, onveilige
+deserialisatie, XXE en template-injectie, kwetsbaarheden die zich dieper in de
+serverlogica bevinden en vaak grotere gevolgen hebben dan een clientzijdig
+lek.
+
+Het hoofdstuk over businesslogicafwijkingen en gebroken toegangscontrole sluit
+hier bewust op aan: niet elke kwetsbaarheid past in een technische categorie,
+sommige zijn puur een fout in de aanname van de ontwikkelaar.
+
+**Ernstige en identiteitsgerelateerde kwetsbaarheden**
+
+Remote code execution, same origin policy-problemen, single sign-on-fouten en
+informatielekken vormen het zwaarste blok van het boek, met de nadruk op hoe
+zulke bevindingen aangetoond worden zonder verder te gaan dan nodig is om het
+risico te bewijzen.
+
+Li benadrukt bij dit blok herhaaldelijk het onderscheid tussen het aantonen
+van een risico en het daadwerkelijk uitbuiten ervan: een programma verwacht
+bewijs dat een kwetsbaarheid bestaat, niet dat de hunter zo ver mogelijk
+doordringt in productiesystemen.
+
+**Verdiepende technieken**
+
+Het laatste deel behandelt codereview als methode om kwetsbaarheden op te
+sporen wanneer broncode beschikbaar is, het testen van Android-apps,
+API-specifieke aanvalstechnieken en het gebruik van fuzzers om automatisch
+onverwacht gedrag in een applicatie te vinden.
+
+Deze hoofdstukken vragen meer voorkennis dan de rest van het boek, en Li
+presenteert ze uitdrukkelijk als vervolgstap voor wie de eerdere
+kwetsbaarheidsklassen al beheerst en zoekt naar terrein dat minder hunters
+bestrijken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| IDOR | Insecure direct object reference, een fout waarbij een applicatie toegang geeft tot een object, zoals een bestand of record, enkel op basis van een aanpasbare identificator zonder de rechten van de gebruiker te controleren. |
+| Race condition | Een kwetsbaarheid die ontstaat doordat twee gelijktijdige verzoeken elkaar doorkruisen op een manier die de ontwikkelaar niet voorzag, bijvoorbeeld een actie die twee keer wordt uitgevoerd terwijl dat maar een keer mocht. |
+| Template-injectie | Een aanval waarbij invoer van een gebruiker terechtkomt in een sjabloon-engine en daar als code wordt geïnterpreteerd in plaats van als tekst. |
+| Same origin policy | Het browsermechanisme dat scripts van de ene oorsprong verhindert gegevens van een andere oorsprong te lezen; fouten hierin kunnen leiden tot het lekken van gegevens tussen websites. |
+| Fuzzing | Het automatisch aanbieden van grote hoeveelheden onverwachte of misvormde invoer aan een applicatie om crashes of ander onverwacht gedrag op te sporen dat op een kwetsbaarheid kan wijzen. |
+| Scope | De vooraf vastgelegde grenzen van een bug bounty-programma: welke systemen, domeinen en soorten kwetsbaarheden wel en niet gemeld mogen worden. |
+| Businesslogicafwijking | Een kwetsbaarheid die voortkomt uit een fout in de aanname achter een functie, zoals een stap die overgeslagen kan worden, in plaats van uit een technisch invoerlek. |
+| Codereview voor beveiliging | Het doorlopen van broncode met als doel kwetsbaarheden te vinden, in tegenstelling tot een functionele review die op correctheid van de code zelf let. |
+| Open redirect | Een functie die een gebruiker op basis van een aanpasbare parameter doorstuurt naar een andere pagina, wat misbruikt kan worden om iemand ongemerkt naar een kwaadaardige site te leiden via een vertrouwd domein. |
+
+#### Waar het argument op rust
+
+Vickie Li begon als softwareontwikkelaar en stapte via bug bounty-werk de
+beveiligingswereld in; zij heeft sindsdien gewerkt als pentester, security
+consultant, developer advocate en security engineer, onder meer bij het
+applicatiebeveiligingsbedrijf ShiftLeft. Zij meldde kwetsbaarheden bij onder
+andere Facebook, Yelp en Starbucks, wat het boek een basis van eigen gevonden
+en gemelde bugs geeft in plaats van alleen theorie.
+
+Het boek wordt in de bug bounty-gemeenschap regelmatig genoemd als een van de
+weinige titels die de volle breedte van webkwetsbaarheden combineert met
+concrete meldpraktijk, en Li is daarnaast actief als spreker en schrijver van
+technische blogposts over dezelfde onderwerpen, wat de consistentie van de
+per-kwetsbaarheid-structuur in het boek verklaart.
+
+Een onafhankelijke bespreking op de blog van SAS Workshops prees vooral het
+reconnaissance-hoofdstuk en de vaste opbouw per kwetsbaarheidsklasse als sterk
+punt voor een beginnende hunter, en noemde de latere hoofdstukken over
+codereview, Android-apps, API's en fuzzers als geslaagde uitbreiding op de
+kernstof.
+
+#### Wat er tegen in te brengen valt
+
+Het boek biedt geen eigen labomgeving of interactieve oefeningen; het is een
+uitleg- en naslagwerk, geen platform om de besproken kwetsbaarheden meteen
+zelf uit te proberen. Wie liever al doende leert, moet daarvoor zelf een
+oefenomgeving zoeken, zoals een van de bekende kwetsbare testapplicaties.
+
+Doordat het boek twintig kwetsbaarheidsklassen in een vast stramien behandelt,
+blijft de diepgang per onderwerp beperkt vergeleken met een boek dat zich op
+een enkele kwetsbaarheidsklasse richt; voor gevorderde hunters kan een deel
+van de stof al bekend terrein zijn.
+
+De genoemde tools, bug bounty-platformen en beloningsbedragen dateren uit 2021
+en verschuiven met de markt; wie het boek nu leest, moet de praktische details
+over programma's en beloningen als voorbeeld lezen, niet als actuele stand van
+zaken. Ook de concurrentie binnen programma's is sinds 2021 toegenomen,
+waardoor een kwetsbaarheid die destijds nog relatief snel gevonden werd,
+inmiddels vaker al door een andere hunter is gemeld voordat de melding wordt
+ingediend.
+
+Het verschil tussen een bug bounty-programma en een geautoriseerde pentest is
+groot: een programma stelt zelf de scope vast en betaalt naar bevinding,
+terwijl een pentest een vaste opdracht met vaste vergoeding is. Het boek is
+duidelijk over die scope-regels, maar wie ze niet naleeft overtreedt de
+voorwaarden van het programma, ook al is het doelwit in theorie toegankelijk.
+
+Het boek gaat er verder van uit dat de lezer al kan programmeren en met een
+besturingssysteem naar keuze overweg kan, iets wat pas in de latere, meer
+technische hoofdstukken echt nodig is; wie enkel de eerste
+kwetsbaarheidshoofdstukken doorloopt, komt met minder voorkennis toe, maar dat
+wordt in het boek zelf niet expliciet onderscheiden.
+
+#### Wat er concreet mee te doen is
+
+- Kies eerst een programma met een scope die aansluit bij wat er in het boek
+behandeld wordt, voordat er gezocht wordt.
+- Volg bij elke kwetsbaarheidsklasse het vaste stramien van het boek:
+mechanisme, opsporing, bevestiging, impact, melding.
+- Zoek een eigen oefenomgeving, zoals een bekende kwetsbare testapplicatie, om
+de hoofdstukken naast het lezen ook praktisch te doorlopen.
+- Lees het hoofdstuk over het volhouden van een bug bounty-praktijk voordat de
+eerste teleurstellende afwijzingen ontmoedigen, en plan bewust vaste momenten
+in om terug te lezen wat een eerdere melding wel of niet werd geaccepteerd.
+
+#### Wat je hierna leest
+
+- 2312. Web Hacking Arsenal: A Practical Guide to Modern Web Pentesting. Web
+Hacking Arsenal behandelt dezelfde kwetsbaarhedenlijst vanuit het perspectief
+van een opdrachtgestuurde pentest in plaats van individuele bug
+bounty-meldingen.
+- 2305. Hacking APIs: Breaking Web Application Programming Interfaces. Hacking
+APIs werkt het hoofdstuk over API-hacking uit dit boek verder uit tot een boek
+op zichzelf.
+- 2309. Ethical Hacking: A Hands-on Introduction to Breaking In. Ethical
+Hacking: A Hands-on Introduction to Breaking In geeft de bredere, meer
+labgerichte inleiding waar dit boek de gerichte, meldingsgerichte vervolgstap
+op is.
+
+## 2315. Pentesting Active Directory and Windows-based Infrastructure
+
+Denis Isakov, 2023. Packt Publishing, Birmingham, 2023, 360 blz., ISBN
+9781804611364 (ook als e-book onder ISBN 9781804618271). Eerste druk, geen
+latere editie bekend. Er bestaat geen Nederlandse vertaling. Rubriek: digitale
+beveiliging en hacking.
+Tags: `pentesting`, `Active Directory`, `Windows`, `red teaming`, `Kerberos`,
+`laterale beweging`, `domeincontroller`
+
+Isakov, een pentester met ruim tien jaar ervaring in incident response en
+offensive security, bouwt dit boek op als een doorlopende aanvalsketen tegen
+een Windows-domein. De lezer begint met een eigen labomgeving en een eerste
+opening via een Exchange-server, en werkt van daaruit stap voor stap toe naar
+volledige controle over de domeincontroller.
+
+Onderweg komen verkenning met tools als BloodHound, het buitmaken van
+Kerberos-tickets en NTLM-hashes, laterale beweging tussen machines en
+domeinen, en escalatie naar domeinbeheerder aan bod. De laatste hoofdstukken
+behandelen persistentie op domeinniveau en de overname van beheersoftware
+zoals WSUS en SCCM, waarmee een aanvaller zich toegang tot een hele omgeving
+kan verschaffen.
+
+Het boek is gericht op mensen die al bekend zijn met Windows-beheer en die de
+overstap maken naar offensief testen van Active Directory-omgevingen, niet op
+wie voor het eerst met een terminal werkt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Isakov behandelt Active Directory als het zenuwstelsel van
+een Windows-netwerk: de dienst die vastlegt wie welk systeem mag benaderen en
+wie welke rechten heeft. Zijn stelling is dat wie begrijpt hoe AD vertrouwen,
+authenticatie en beheer regelt, vanaf een enkel gecompromitteerd account in
+stappen een heel bedrijfsnetwerk kan overnemen. Het boek bouwt die aanval op
+als een keten: verkenning, het buitmaken van inloggegevens, laterale beweging
+tussen machines en domeinen, escalatie naar domeinbeheerder en ten slotte
+persistentie op de domeincontroller zelf. Elke schakel in die keten leunt op
+een eigenschap van Kerberos, NTLM of AD-machtigingen die zo is ontworpen dat
+gebruiksgemak zwaarder weegt dan wantrouwen tussen systemen, en het boek laat
+stap voor stap zien wat dat ontwerp een aanvaller oplevert. Isakov benadrukt
+daarbij dat vrijwel geen van de gebruikte functies een fout in de klassieke
+zin is: het gaat telkens om standaardgedrag van Windows dat, opgeteld over een
+heel netwerk, een aaneengesloten route naar de hoogste rechten vormt.
+
+#### De gang van het boek
+
+**Het lab en de eerste opening via Exchange**
+
+Het eerste hoofdstuk richt een eigen testomgeving in met een domeincontroller,
+werkstations en een Exchange-server, en gebruikt die server meteen als
+voorbeeld van een eerste voet aan de grond. Exchange staat in veel
+organisaties met een deel van zijn functionaliteit open naar buiten, wat het
+een realistisch startpunt maakt voor de rest van het boek.
+
+Isakov kiest bewust voor een reproduceerbare labopstelling met vaste
+versienummers, zodat elke oefening in het boek herhaalbaar is. Dat maakt het
+geschikt als naslagwerk waarnaar teruggegrepen kan worden, mits de lezer
+beseft dat een echte omgeving zelden zo schoon is ingericht als het lab.
+
+**Onopgemerkt blijven**
+
+Voordat het boek verder de aanval in gaat, behandelt het hoe detectie door
+antivirus- en EDR-software te omzeilen is, onder meer door signaturen te
+ontwijken en bekende tools aan te passen. Dat hoofdstuk plaatst de latere
+technieken meteen in een context waarin een verdediger meekijkt, in plaats van
+te doen alsof een testomgeving nooit gemonitord wordt.
+
+**Het domein in kaart brengen**
+
+Met tools als BloodHound en PowerView brengt de lezer gebruikers, groepen,
+vertrouwensrelaties en machtigingen in het domein in kaart. Dit hoofdstuk legt
+de basis voor alles wat volgt: zonder zicht op wie waarmee mag praten, is er
+geen route naar de domeincontroller te plannen.
+
+Het boek besteedt bewust tijd aan het interpreteren van de grafieken die
+BloodHound produceert, omdat het herkennen van een kort pad tussen een laag
+geprivilegieerd account en de domeinbeheerdersgroep de rest van de aanval
+bepaalt.
+
+**Inloggegevens buitmaken**
+
+Dit deel behandelt het onderscheppen van hashes, het afdwingen van
+authenticatie via protocollen als MS-RPRN en MS-EFSR, en het roosteren van
+Kerberos-tickets om wachtwoorden offline te kunnen kraken. Isakov legt uit
+welk protocolgedrag elke techniek mogelijk maakt, in plaats van alleen
+commando's op te sommen.
+
+**Zijwaarts door domein en bos**
+
+Met pass-the-hash, pass-the-ticket en misbruik van Kerberos-delegatie beweegt
+de aanvaller zich van het eerste gecompromitteerde systeem naar andere
+machines en zelfs andere domeinen binnen hetzelfde bos. Het hoofdstuk besteedt
+aandacht aan de Bronze Bit-aanval (CVE-2020-17049) als voorbeeld van hoe een
+specifiek gepatcht lek de rest van de keten opende.
+
+Ook trustrelaties tussen domeinen komen aan bod: een aanvaller die het ene
+domein volledig beheerst, kan onder bepaalde voorwaarden ook een vertrouwd
+domein binnendringen zonder daar zelf ooit eerder voet aan de grond te hebben
+gehad.
+
+**Van gebruiker naar domeinbeheerder**
+
+Password spraying, hernieuwd misbruik van kerberoasting, zwakke plekken in
+LAPS en gMSA-beheer en het uitlezen van domeingeheimen via DCSync komen hier
+samen in een route naar volledige domeinrechten. Isakov laat bij elke route
+zien welke standaardconfiguratie ze mogelijk maakt en welke instelling die
+juist zou dichten.
+
+**Blijven zitten: persistentie en aanpalende systemen**
+
+De laatste hoofdstukken behandelen persistentietechnieken zoals vervalste
+tickets, een Golden gMSA en een Skeleton Key op de domeincontroller, en
+breiden de aanval uit naar Microsoft SQL Server en beheersoftware als WSUS en
+SCCM. Wie die laatste twee overneemt, kan in veel omgevingen software naar
+elke machine in het netwerk pushen.
+
+Het boek sluit deze hoofdstukken telkens af met een korte blik op detectie:
+welke logregel of gebeurtenis een verdediger op het spoor van de techniek zou
+kunnen zetten, zodat de lezer niet alleen leert aanvallen maar ook waar te
+kijken valt.
+
+De aandacht voor WSUS en SCCM onderscheidt dit boek van veel andere Active
+Directory-titels, die zich doorgaans beperken tot het domein zelf. Isakov laat
+zien dat beheersoftware die is bedoeld om een netwerk centraal te onderhouden,
+in verkeerde handen dezelfde centrale rol tegen de organisatie kan keren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Kerberoasting | Het opvragen van een Kerberos-serviceticket voor een account met een servicenaam om het bijbehorende wachtwoord vervolgens offline te kraken. |
+| Pass-the-hash | Inloggen met een gestolen wachtwoordhash zonder het bijbehorende wachtwoord ooit in leesbare vorm te kennen. |
+| BloodHound | Een tool die relaties, groepslidmaatschappen en machtigingen in Active Directory in kaart brengt en de kortste aanvalsroute naar domeinbeheerder berekent. |
+| DCSync | Een techniek waarbij een aanvaller zich voordoet als een domeincontroller om wachtwoordgegevens van alle domeinaccounts te repliceren. |
+| Kerberos-delegatie | Een functie waarmee een dienst zich namens een gebruiker bij een andere dienst mag aanmelden; verkeerd geconfigureerd opent dit een route naar hogere rechten. |
+| Golden gMSA | Een persistentietechniek waarbij de sleutel achter groepsbeheerde serviceaccounts wordt buitgemaakt om nieuwe geldige wachtwoorden voor zo'n account te berekenen. |
+| Skeleton Key | Malware die op een domeincontroller een extra, universeel wachtwoord invoegt waarmee elk account benaderbaar wordt zonder het echte wachtwoord. |
+| LAPS | Local Administrator Password Solution, de Microsoft-functie die lokale beheerderswachtwoorden per machine willekeurig maakt en centraal opslaat. |
+| NTLM-relay | Het doorsturen van een onderschepte authenticatiepoging naar een ander systeem, zodat de aanvaller zich daar aanmeldt met de identiteit van het slachtoffer. |
+| Password spraying | Het proberen van een klein aantal veelgebruikte wachtwoorden bij een groot aantal accounts, om detectie op basis van herhaalde pogingen op één account te vermijden. |
+| WSUS en SCCM | Microsoft-systemen voor het centraal uitrollen van updates en software op werkstations en servers, die bij misbruik een aanvaller dezelfde centrale distributie geven. |
+
+#### Waar het argument op rust
+
+De autoriteit van het boek rust op Isakovs eigen loopbaan: ruim tien jaar in
+incident response en penetratietesten, met certificeringen als OSCP en GXPN en
+een focus op Active Directory en offensive security tegen
+Microsoft-omgevingen. De beschreven technieken komen uit opdrachten die hij
+zelf heeft uitgevoerd, niet uit theorie alleen.
+
+Een deel van de beschreven aanvallen is gekoppeld aan gedocumenteerde
+kwetsbaarheden, zoals de Bronze Bit-aanval die als CVE-2020-17049 is
+geregistreerd. Andere technieken, zoals kerberoasting en DCSync, zijn breed
+erkende categorieën binnen het MITRE ATT&CK-raamwerk en komen terug in vrijwel
+elke serieuze Active Directory-pentest.
+
+Het boek verschijnt bij Packt, een uitgever die zich specifiek op technische
+vakliteratuur voor IT-professionals richt, en sluit aan bij een reeks
+vergelijkbare titels over red teaming en Windows-beveiliging van dezelfde
+uitgeverij. De positieve klantbeoordelingen op de uitgeverspagina komen
+overwegend van lezers die het boek in een lopend pentesttraject hebben
+gebruikt, wat past bij het praktische karakter van de tekst.
+
+#### Wat er tegen in te brengen valt
+
+Active Directory-beveiliging verandert voortdurend. Microsoft patcht
+regelmatig het gedrag waarop specifieke technieken leunen, zoals eerder
+gebeurde met de PetitPotam-authenticatiedwang. Een boek dat op een bepaald
+moment een compleet overzicht geeft, veroudert daardoor sneller dan het aantal
+drukken doet vermoeden.
+
+Het boek vermeldt niet expliciet hoeveel voorkennis het vereist, maar leunt
+zwaar op vertrouwdheid met Windows-serverbeheer, PowerShell en
+netwerkprotocollen. Wie dat niet al kent, zal veel commando's kunnen overtypen
+zonder te begrijpen waarom ze werken.
+
+De oefeningen spelen zich af in een eigen, stil lab zonder detectiemechanismen
+die in een echte omgeving meekijken, afgezien van het hoofdstuk over evasion.
+Een geautoriseerde pentest bij een klant vraagt daarnaast om scoping,
+rapportage en overleg met de opdrachtgever, onderdelen van het vak die in dit
+technische boek nauwelijks aan bod komen.
+
+Doordat het boek techniek voor techniek behandelt, blijft het opbouwen van een
+compleet aanvalsverhaal voor een rapportage aan de opdrachtgever grotendeels
+aan de lezer zelf over. Wie na dit boek voor het eerst een rapport moet
+schrijven, vindt daarvoor elders meer houvast.
+
+#### Wat er concreet mee te doen is
+
+- Bouw eerst een eigen labomgeving voordat je een van deze technieken
+uitprobeert.
+- Leer BloodHound gebruiken om aanvalspaden te lezen voordat je losse
+technieken toepast.
+- Vraag altijd expliciete, schriftelijke toestemming voordat je iets uit dit
+boek op het netwerk van een opdrachtgever toepast.
+- Volg de patchstatus van Microsoft, want een deel van deze technieken wordt
+na verloop van tijd gemitigeerd.
+- Noteer bij elke techniek ook het detectiespoor dat het boek noemt, zodat je
+de bevinding aan de opdrachtgever kunt uitleggen.
+
+#### Wat je hierna leest
+
+- 2304. Advanced Penetration Testing: Hacking the World's Most Secure
+Networks. Advanced Penetration Testing plaatst technieken als deze in de
+bredere context van een volledige red-teamoperatie tegen goed verdedigde
+netwerken.
+- 2308. Metasploit: The Penetration Tester's Guide (Second Edition).
+Metasploit behandelt het raamwerk waarmee veel van de exploitatie- en
+post-exploitatiestappen uit dit boek in de praktijk worden uitgevoerd.
+- 2311. Red Team Engineering: The Art of Building Offensive Tools and
+Infrastructure. Red Team Engineering gaat over de infrastructuur die achter
+een operatie als deze moet staan, van command-and-control tot het schuilhouden
+van de aanvaller zelf.
+- 2302. Penetration Testing: A Hands-On Introduction to Hacking. Penetration
+Testing: A Hands-On Introduction to Hacking biedt de bredere, minder
+Windows-specifieke basis waarop dit meer gespecialiseerde boek voortbouwt.
+
+## 2316. JavaScript for Hackers: Learn to Think Like a Hacker
+
+Gareth Heyes, 2022. Zelf uitgegeven door de auteur via Leanpub, december 2022,
+met latere digitale bijwerkingen. De paperback-editie telt volgens de
+verkoopvermelding circa 124 blz. (ISBN 9798371872166); de digitale
+Leanpub-uitgave geeft een ander paginagetal op, wat past bij een zelf
+uitgegeven boek zonder vaste drukoplage. Geen grote uitgeverij zoals No Starch
+Press stond achter deze titel. Er bestaat geen Nederlandse vertaling. Rubriek:
+digitale beveiliging en hacking.
+Tags: `JavaScript`, `XSS`, `DOM`, `prototype pollution`, `browserbeveiliging`,
+`webhacking`, `same-origin policy`
+
+Gareth Heyes is onderzoeker bij PortSwigger, de maker van Burp Suite, en
+bekend van het kraken van de AngularJS-sandbox en van PortSwiggers XSS Cheat
+Sheet. In dit zelf uitgegeven boek behandelt hij JavaScript niet als
+programmeertaal om applicaties mee te bouwen, maar als aanvalsoppervlak in de
+browser.
+
+Het boek werkt van eigenaardigheden in de taal zelf naar het Document Object
+Model, waar het stilstaat bij DOM clobbering: het misbruiken van
+HTML-elementen om JavaScript-variabelen te overschrijven. Daarna volgen
+hoofdstukken over browserbugs die de same-origin policy doorbreken, over
+prototype pollution aan client- en serverzijde, over het schrijven van
+JavaScript zonder letters en cijfers, en over technieken om XSS-filters te
+omzeilen.
+
+Het is een dicht, praktisch boek voor wie al met webapplicatiebeveiliging
+bezig is en dieper in browserinterne mechanismen wil duiken, niet een
+inleiding in JavaScript of in webveiligheid in het algemeen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Heyes' stelling is dat de meeste JavaScript-ontwikkelaars de
+taal kennen als gereedschap om interfaces te bouwen, terwijl een aanvaller
+haar leest als een verzameling impliciete regels: hoe de motor typen omzet,
+hoe het DOM elementen aan variabelen koppelt, hoe browsers onderling van
+elkaars beveiligingsmodel afwijken. Wie die impliciete regels kent, kan
+filters omzeilen die op de expliciete, bedoelde manier van schrijven zijn
+gebouwd. Het boek voert dat uit als een reeks technieken, van het
+overschrijven van variabelen via HTML tot het schrijven van functionerende
+code zonder een enkele letter of cijfer, en laat zien dat elke techniek
+voortkomt uit een specifieke, documenteerbare eigenschap van de taal of de
+browser. Het gaat Heyes daarbij nadrukkelijk om het denkpatroon achter de
+technieken: het boek stelt telkens dezelfde vraag, namelijk wat de motor
+precies doet op momenten die een ontwikkelaar zelden apart overweegt, zoals
+het omzetten van een object naar een tekenreeks of het toekennen van een
+naamloos element aan de globale scope.
+
+#### De gang van het boek
+
+**JavaScript zoals een aanvaller het leest**
+
+De openingshoofdstukken behandelen eigenaardigheden in typeconversie en
+syntaxis die de rest van het boek nodig heeft: hoe JavaScript waarden
+impliciet omzet, en waar die omzetting zich anders gedraagt dan een
+ontwikkelaar zou verwachten.
+
+Heyes gebruikt kleine, op zichzelf staande codevoorbeelden om elke
+eigenaardigheid te demonstreren, zodat de lezer die direct in een
+browserconsole kan uitproberen in plaats van op de uitleg te vertrouwen.
+
+**Het DOM en DOM clobbering**
+
+Hoofdstuk vier behandelt hoe met HTML-elementen, met name id- en
+name-attributen, JavaScript-variabelen en globale objecten overschreven kunnen
+worden zonder dat er ook maar één regel script aan te pas komt. Deze techniek
+werkt precies omdat browsers HTML-elementen automatisch aan de global scope
+koppelen.
+
+**Bugs in de browser zelf**
+
+Hoofdstuk vijf zet een reeks browserspecifieke fouten op een rij waarmee de
+same-origin policy is doorbroken, van een onjuiste afhandeling van
+cross-origin URL's in Firefox tot volledige omzeilingen in Internet Explorer,
+Safari en Opera. Het hoofdstuk maakt duidelijk dat elke browser zijn eigen
+interpretatie van hetzelfde beveiligingsmodel heeft, en dat verschillen
+daartussen aanvalsmogelijkheden opleveren.
+
+Door bugs uit meerdere browsers naast elkaar te zetten, laat Heyes zien dat de
+same-origin policy geen vaste, uniforme regel is maar een specificatie die
+elke browserleverancier apart implementeert, met eigen fouten tot gevolg.
+
+**Prototype pollution**
+
+Hoofdstuk zes behandelt hoe het wijzigen van een gedeeld prototype-object,
+zowel in de browser als op een Node.js-server, het gedrag van
+niet-gerelateerde code kan beïnvloeden. Het hoofdstuk onderscheidt client- en
+server-side varianten en de verschillende impact daarvan.
+
+**JavaScript zonder letters en cijfers**
+
+Hoofdstuk zeven laat zien hoe functionerende JavaScript te schrijven is met
+uitsluitend leestekens, een techniek die relevant wordt zodra een filter alle
+letters en cijfers weert maar leestekens over het hoofd ziet. Het hoofdstuk
+bouwt dat op vanaf de eenvoudigste omzettingen naar volledig werkende, zij het
+nauwelijks leesbare, scripts.
+
+**XSS-technieken en fuzzing**
+
+Het laatste hoofdstuk verzamelt concrete manieren om scripts te sluiten,
+commentaar binnen scripts te misbruiken en HTML-entiteiten binnen SVG te
+gebruiken om filters te omzeilen. Het boek besluit met een korte behandeling
+van het fuzzen van JavaScript-gedrag om zelf nieuwe technieken te vinden in
+plaats van bestaande te herhalen.
+
+Dat slothoofdstuk is bewust het minst receptmatige van het boek: in plaats van
+een lijst omzeilingen te geven, laat het zien hoe Heyes zelf tot nieuwe
+vectoren komt door systematisch invoer te variëren en het resultaat te
+observeren.
+
+Doordat elk hoofdstuk een eigen categorie techniek behandelt, zonder dat de
+latere hoofdstukken op de eerdere voortbouwen, is het boek ook goed bruikbaar
+als naslagwerk waarbij een lezer alleen het hoofdstuk opzoekt dat bij een
+concreet probleem past.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| DOM clobbering | Het overschrijven van JavaScript-variabelen door HTML-elementen met een bepaald id of name te plaatsen, zonder dat daar script voor nodig is. |
+| Prototype pollution | Het manipuleren van een prototype-object dat door meerdere objecten wordt gedeeld, waardoor eigenschappen ontstaan of veranderen op plekken waar de ontwikkelaar dat niet verwacht. |
+| Same-origin policy (SOP) | Het browserbeleid dat scripts van de ene oorsprong (domein, protocol, poort) verhindert gegevens van een andere oorsprong te lezen. |
+| Non-alphanumeric JavaScript | Werkende JavaScript-code geschreven zonder letters of cijfers, uitsluitend met leestekens, gebruikt om filters te omzeilen die op tekens letten. |
+| XSS (cross-site scripting) | Het injecteren van script in een webpagina zodat het in de browser van een ander slachtoffer wordt uitgevoerd. |
+| Typeconversie | Het impliciet omzetten van de ene waardesoort naar de andere door JavaScript, vaak op manieren die van de intuïtieve verwachting afwijken. |
+| Fuzzing | Het automatisch aanbieden van grote hoeveelheden afwijkende invoer aan code om onverwacht gedrag of nieuwe kwetsbaarheden te vinden. |
+| Global scope | De ruimte in een programma waarin een variabele overal toegankelijk is; DOM clobbering maakt hiervan misbruik door er ongevraagd elementen aan te koppelen. |
+| Hackvertor | De Burp Suite-extensie van Heyes waarmee tekst automatisch in en uit allerlei coderingen wordt omgezet, gebruikt om filters te testen en te omzeilen. |
+| Mutatie in de parser | Het verschijnsel dat een browser een stuk HTML anders interpreteert dan letterlijk geschreven staat, waardoor een filter iets anders test dan wat uiteindelijk wordt uitgevoerd. |
+
+#### Waar het argument op rust
+
+Heyes werkt als onderzoeker bij PortSwigger en is auteur van diens XSS Cheat
+Sheet, een naslagwerk dat breed in de webbeveiligingsindustrie wordt gebruikt.
+Hij is bekend geworden door de AngularJS-sandbox te kraken en heeft de
+Burp-extensie Hackvertor gebouwd, waarmee hij zijn eigen technieken in de
+praktijk toepast.
+
+De browserbugs die het boek in hoofdstuk vijf bespreekt, zijn gedocumenteerde,
+ooit werkende omzeilingen van de same-origin policy in specifieke
+browserversies, geen theoretische constructies. Prototype pollution en DOM
+clobbering zijn bovendien categorieën die in bug bounty-programma's en in
+OWASP-materiaal terugkomen als erkende kwetsbaarheidsklassen.
+
+Het boek verscheen niet bij een grote technische uitgeverij maar werd door de
+auteur zelf via Leanpub gepubliceerd, met vertalingen in onder meer het Duits
+en Frans die eveneens zelf zijn uitgegeven. De inhoud sluit inhoudelijk aan
+bij het onderzoekswerk dat Heyes op de researchpagina van PortSwigger
+publiceert, waar dezelfde technieken met casussen worden onderbouwd.
+
+#### Wat er tegen in te brengen valt
+
+Doordat het boek is zelf uitgegeven, heeft het niet het redactionele traject
+doorlopen dat een titel bij een gevestigde technische uitgeverij als No Starch
+Press of Packt gebruikelijk krijgt. Paginacijfers en editiegegevens
+verschillen bovendien per verkooppunt, wat past bij een product zonder vaste
+drukoplage.
+
+Het boek is kort, tussen de tachtig en ruim honderd bladzijden afhankelijk van
+de bron, voor een onderwerp dat op zichzelf al meerdere gespecialiseerde
+vakgebieden raakt. Dat maakt het dicht en snel, maar ook afhankelijk van
+voorkennis die de titel niet expliciet vermeldt: wie de basis van het DOM en
+van HTTP niet al kent, mist context die het boek niet uitlegt.
+
+Browserbugs zoals de same-origin-omzeilingen in hoofdstuk vijf zijn per
+definitie tijdgebonden: leveranciers patchen dit soort fouten doorgaans snel
+zodra ze bekend worden. Een deel van de concrete voorbeelden werkt in de
+nieuwste browserversies niet meer, ook al blijft het onderliggende denkpatroon
+bruikbaar.
+
+Het boek behandelt vrijwel uitsluitend de aanvalskant. Hoe een ontwikkelaar
+zich tegen DOM clobbering of prototype pollution beschermt, komt slechts
+terloops aan bod; wie na het lezen verdedigende maatregelen zoekt, moet
+daarvoor elders te rade gaan.
+
+Doordat elk hoofdstuk een losstaande categorie techniek behandelt, ontbreekt
+een doorlopende casus die van begin tot eind laat zien hoe zulke technieken in
+een echte, gemelde kwetsbaarheid samenkomen. Dat maakt het boek sterk als
+naslagwerk per techniek, maar minder geschikt als verhaal van een complete
+aanval.
+
+#### Wat er concreet mee te doen is
+
+- Ken de basis van JavaScript en het DOM voordat je begint, want het boek legt
+dat niet vanaf nul uit.
+- Test technieken alleen in een eigen labopstelling of binnen een bug
+bounty-scope waarvoor je toestemming hebt.
+- Noteer bij elke beschreven browserbug de versie waarop hij van toepassing
+is, want browserleveranciers patchen dit soort fouten snel.
+- Zoek er apart verdedigend materiaal bij als het doel is een eigen applicatie
+te beveiligen, niet alleen kwetsbaarheden te vinden.
+- Probeer elk voorbeeld eerst zelf te reproduceren in een actuele browser
+voordat je verdergaat, zodat direct duidelijk wordt welke technieken nog
+werken.
+- Leg vondsten uit dit boek naast de XSS Cheat Sheet van PortSwigger om te
+zien of een vector inmiddels als bekende techniek is opgenomen.
+
+#### Wat je hierna leest
+
+- 2312. Web Hacking Arsenal: A Practical Guide to Modern Web Pentesting. Web
+Hacking Arsenal plaatst DOM- en XSS-technieken als deze in de bredere context
+van een volledige webpentest, met aandacht voor de stappen eromheen die dit
+boek overslaat.
+- 2305. Hacking APIs: Breaking Web Application Programming Interfaces. Hacking
+APIs behandelt de serverkant van applicaties die dit boek vanuit de browser
+aanvalt, en vult zo het beeld van client naar server aan.
+- 2313. Black Hat Python: Python Programming for Hackers and Pentesters (2nd
+Edition). Black Hat Python laat zien hoe met een andere taal automatisering
+rond dit soort webaanvallen te bouwen is, waar Heyes vrijwel alles in de
+browserconsole zelf demonstreert.
+- 2314. Bug Bounty Bootcamp: The Guide to Finding and Reporting Web
+Vulnerabilities. Bug Bounty Bootcamp beschrijft hoe technieken als DOM
+clobbering en prototype pollution in een gemelde en beloonde kwetsbaarheid
+uitmonden, inclusief het rapportagewerk dat dit boek overslaat.
+
+## 2317. Hacking: The Art of Exploitation (2nd Edition)
+
+Jon Erickson, 2003; 2e editie 2008. No Starch Press, San Francisco, 2e editie,
+februari 2008, 488 blz., ISBN 978-1593271442, inclusief een live-cd met een
+Linux-omgeving voor de voorbeelden uit het boek. De eerste editie verscheen in
+2003 bij dezelfde uitgeverij. Er bestaat geen Nederlandse vertaling. Rubriek:
+digitale beveiliging en hacking.
+Tags: `exploitatie`, `buffer overflow`, `shellcode`, `C`, `assembly`,
+`netwerken`, `cryptografie`
+
+Erickson, cryptoloog en security-onderzoeker, bouwt dit boek op vanaf de
+programmeertaal C en assembly, niet vanaf kant-en-klare aanvalstools. Het idee
+is dat wie begrijpt hoe een programma geheugen gebruikt, ook begrijpt waarom
+een buffer overflow of een format string-fout tot willekeurige code-uitvoering
+kan leiden.
+
+Na de programmeerbasis behandelt het boek exploitatietechnieken zoals stack-
+en heap-overflows, netwerkaanvallen inclusief sniffen en het kapen van
+verbindingen, het schrijven van eigen shellcode, en tegenmaatregelen zoals een
+niet-uitvoerbare stack. Het sluit af met een hoofdstuk over cryptografie
+waarin onder meer het kraken van WEP-versleuteld wifiverkeer aan bod komt.
+
+De bijgeleverde live-cd met een compleet Linux-systeem en alle voorbeelden was
+in 2008 een van de redenen dat het boek als praktisch instapwerk gold; wie de
+code zelf wilde compileren en uitproberen, hoefde geen eigen omgeving op te
+zetten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ericksons stelling is dat exploitatie een directe
+consequentie is van hoe computers geheugen, processen en netwerken beheren, en
+dat wie dat fundament kent zelf nieuwe kwetsbaarheden kan herkennen in plaats
+van bestaande exploits na te typen. Het boek voert die stelling door door de
+lezer eerst C en assembly te leren lezen zoals een aanvaller dat doet, met
+aandacht voor de stack, registers en geheugenindeling, en pas daarna
+exploitatietechnieken te introduceren als toepassing van die kennis. Die
+opbouw maakt het boek trager om doorheen te komen dan een receptenboek vol
+kant-en-klare exploits. Volgens Erickson is dat precies het punt: een
+aanvaller die alleen recepten kent, loopt vast zodra de omstandigheden net
+iets afwijken van het voorbeeld, terwijl wie het onderliggende geheugenmodel
+begrijpt zelf kan afleiden waarom een aangepaste exploit al dan niet zal
+werken.
+
+#### De gang van het boek
+
+**0x100 Introduction**
+
+Het openingshoofdstuk plaatst hacking als een manier van denken over systemen:
+het opzoeken van onbedoeld gedrag door precies te begrijpen hoe iets bedoeld
+is te werken. Dat kader keert de rest van het boek terug en onderscheidt
+Ericksons aanpak van een reeks losse trucs die toevallig werken. Hij besteedt
+hier ook kort aandacht aan de geschiedenis van de hackercultuur, om het
+onderwerp te ontdoen van het beeld van hacken als louter vandalisme.
+
+**0x200 Programming**
+
+Dit hoofdstuk leert C en x86-assembly vanaf de basis, met nadruk op
+geheugenindeling: hoe variabelen, functieaanroepen en de stack in het geheugen
+van een lopend programma terechtkomen. Zonder dit fundament zijn de
+exploitatietechnieken in de rest van het boek niet te volgen.
+
+Erickson besteedt hier ook aandacht aan hoe een programma vanuit machinecode
+te lezen is met een debugger, een vaardigheid die in latere hoofdstukken
+steeds terugkeert om te controleren of een aanval het geheugen aanpast zoals
+bedoeld. Dat maakt dit hoofdstuk het langste van het boek en tegelijk het
+hoofdstuk waarop alle latere hoofdstukken leunen.
+
+**0x300 Exploitation**
+
+Het kernhoofdstuk behandelt buffer overflows op de stack en op de heap, en
+format string-kwetsbaarheden, met concrete C-programma's die de lezer zelf
+compileert, aanvalt en aanpast. Erickson laat bij elke techniek zien welke
+onvoorzichtige aanname in het geheugenbeheer haar mogelijk maakt.
+
+De voorbeelden bouwen bewust op elkaar voort: een eenvoudige overflow zonder
+enige bescherming eerst, gevolgd door varianten waarin de lezer zelf een
+obstakel als een grenscontrole moet omzeilen.
+
+**0x400 Networking**
+
+Dit deel behandelt het OSI-model, sockets, het afluisteren van netwerkverkeer,
+het kapen van verbindingen en denial of service, en verbindt netwerkkennis met
+de exploitatietechnieken uit het vorige hoofdstuk door te laten zien hoe een
+kwetsbaarheid over een netwerk te bereiken is in plaats van alleen lokaal.
+
+De voorbeelden over pakketsniffen en verbindingskaping laten zien hoe weinig
+een aanvaller op een gedeeld netwerksegment nodig heeft om verkeer van anderen
+te onderscheppen, iets wat het boek expliciet koppelt aan het ontbreken van
+versleuteling in veel destijds gangbare protocollen.
+
+**0x500 Shellcode**
+
+Hier schrijft de lezer eigen shellcode, inclusief port-binding shellcode die
+op een aanvaller wacht en connect-back shellcode die zelf een verbinding naar
+de aanvaller opzet, en leert waarom bepaalde bytes in shellcode vermeden
+moeten worden, bijvoorbeeld omdat een tekenreeks bij een null-byte afbreekt.
+
+**0x600 Countermeasures en 0x700 Cryptology**
+
+Het boek keert de rollen om en behandelt hoe exploitatiepogingen te detecteren
+zijn en hoe een niet-uitvoerbare stack werkt, met aandacht voor manieren
+waarop een aanvaller die maatregel alsnog kan omzeilen. Het sluit af met een
+hoofdstuk over cryptografie waarin het kraken van WEP-versleuteld wifiverkeer
+als praktijkvoorbeeld van een zwak cryptografisch ontwerp dient.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Buffer overflow | Het schrijven van meer gegevens naar een geheugenbuffer dan daarvoor gereserveerd is, waardoor aangrenzend geheugen overschreven kan worden. |
+| Format string-kwetsbaarheid | Een fout waarbij door de gebruiker aangeleverde invoer als opmaakstring aan een functie als printf wordt doorgegeven, waardoor geheugen te lezen of te schrijven is. |
+| Shellcode | Compacte machinecode die een aanvaller in een kwetsbaar programma injecteert om na uitvoering een shell of andere functionaliteit te openen. |
+| Stack en heap | De twee geheugengebieden waarin een programma respectievelijk lokale variabelen en functieaanroepen, en dynamisch gealloceerde gegevens bewaart. |
+| Niet-uitvoerbare stack (NX) | Een tegenmaatregel die voorkomt dat code op de stack wordt uitgevoerd, waarmee een groep klassieke buffer overflow-exploits wordt tegengehouden. |
+| Port-binding en connect-back shellcode | Twee manieren waarop shellcode een verbinding met de aanvaller tot stand brengt, respectievelijk door zelf te luisteren of door zelf naar buiten te verbinden. |
+| WEP | Een verouderd versleutelingsprotocol voor wifinetwerken met zwakheden waarmee de sleutel binnen afzienbare tijd te achterhalen is. |
+| Debugger | Gereedschap waarmee de uitvoering van een programma stap voor stap te volgen is, inclusief de inhoud van registers en geheugen op elk moment. |
+| OSI-model | Het gelaagde model waarmee netwerkcommunicatie wordt beschreven, van de fysieke laag tot de toepassingslaag, dat het boek gebruikt om netwerkaanvallen te plaatsen. |
+| Denial of service | Een aanval die een systeem of dienst onbeschikbaar maakt voor legitieme gebruikers, in het boek behandeld als tegenhanger van de aanvallen die juist toegang verschaffen. |
+
+#### Waar het argument op rust
+
+Erickson werkt als cryptoloog en security-specialist en spreekt regelmatig op
+computerbeveiligingsconferenties; het boek vertaalt die achtergrond naar een
+leerpad dat bij geheugenbeheer begint in plaats van bij kant-en-klare tools.
+
+Het boek geldt sinds de eerste editie uit 2003 als een van de meest
+aangehaalde instapwerken in binaire exploitatie en wordt in cursorische
+literatuur en op universitaire cursussen over software-beveiliging aangehaald;
+op GitHub circuleren meerdere sets aantekeningen en oefencode van lezers die
+het boek als leidraad gebruikten.
+
+De technieken die het behandelt, buffer overflows, format string-fouten en
+shellcode-injectie, zijn de basisbouwstenen waarop veel latere, specifiekere
+exploitatieliteratuur voortbouwt, ook al zijn de concrete voorbeelden intussen
+ouder dan de meeste andere titels in deze reeks.
+
+No Starch Press is een uitgeverij die zich specifiek op technische
+vakliteratuur voor een securitypubliek richt, en de tweede editie voegde ten
+opzichte van de eerste onder meer een uitgebreider hoofdstuk over netwerken en
+de meegeleverde live-cd toe, wat wijst op een lopend redactioneel traject in
+plaats van een eenmalige uitgave.
+
+Het boek wordt vaak genoemd naast andere klassiekers uit de vroege jaren van
+de beveiligingsliteratuur en blijft, ondanks de gedateerde voorbeelden,
+terugkomen in literatuurlijsten voor cursussen binaire exploitatie omdat de
+onderliggende uitleg van geheugenbeheer grotendeels overeind is gebleven.
+
+#### Wat er tegen in te brengen valt
+
+Het boek dateert uit 2008 en de voorbeelden draaien op een 32-bit x86
+Linux-omgeving zonder de mitigaties die op moderne systemen standaard zijn,
+zoals adresruimte-randomisatie. Wie de voorbeelden op een actueel 64-bit
+systeem probeert na te bouwen, stuit al snel op verschillen die het boek niet
+bespreekt.
+
+De meegeleverde live-cd leunt op software uit 2008 en is als geheel niet meer
+bruikbaar op moderne hardware zonder aanpassing; lezers moeten tegenwoordig
+zelf een oudere virtuele machine inrichten om de voorbeelden exact te laten
+werken zoals beschreven.
+
+Het boek vereist stevige voorkennis van C en, in mindere mate, assembly, die
+nergens als harde voorwaarde op de kaft staat. Wie zonder programmeerervaring
+begint, loopt in hoofdstuk twee al vast.
+
+Het hoofdstuk over cryptografie is beperkt tot het kraken van WEP en behandelt
+geen moderne cryptografische aanvallen of protocollen; wie op zoek is naar
+actuele cryptografische kennis, vindt hier vooral een historisch voorbeeld.
+
+Het boek behandelt vrijwel geen webapplicaties, terwijl dat inmiddels een
+groot deel van het aanvalsoppervlak vormt waarmee beveiligingsprofessionals
+dagelijks te maken hebben. Wie alleen dit boek leest, heeft een stevige basis
+in geheugenexploitatie maar geen zicht op web- of
+netwerkdienstenkwetsbaarheden zoals die vandaag het vaakst voorkomen.
+
+#### Wat er concreet mee te doen is
+
+- Zorg voor basiskennis van C en assembly voordat je aan het exploitatiedeel
+begint.
+- Werk in een geïsoleerde, oudere (32-bit) testomgeving om de voorbeelden te
+laten werken zoals beschreven.
+- Vergelijk wat je leert met moderne mitigaties zoals adresruimte-randomisatie
+en stack canaries om te zien wat er sindsdien is veranderd.
+- Gebruik een debugger actief bij elk voorbeeld in plaats van alleen de
+broncode te lezen, want dat is waar het boek zelf op leunt.
+- Lees het cryptografiehoofdstuk als geschiedenis van een gebroken protocol,
+niet als handleiding voor actuele wifibeveiliging.
+- Bekijk na elk hoofdstuk welke moderne tegenmaatregel de beschreven techniek
+inmiddels afremt, zodat je het boek als historisch fundament leest in plaats
+van als actuele handleiding.
+
+#### Wat je hierna leest
+
+- 2307. From Day Zero to Zero Day: A Hands-On Guide to Vulnerability Research.
+From Day Zero to Zero Day bouwt voort op dezelfde geheugenkennis en past die
+toe op het zelf vinden van nieuwe kwetsbaarheden, in plaats van de bekende
+technieken uit dit boek te herhalen.
+- 2313. Black Hat Python: Python Programming for Hackers and Pentesters (2nd
+Edition). Black Hat Python behandelt hoe met een hogere programmeertaal
+exploitatie- en aanvalsgereedschap te automatiseren is, een stap voorbij de
+handmatige C- en assemblytechnieken hier.
+- 2308. Metasploit: The Penetration Tester's Guide (Second Edition).
+Metasploit laat zien hoe exploitatietechnieken als deze in een
+gestandaardiseerd raamwerk zijn ondergebracht, in plaats van zoals hier met de
+hand te worden geschreven en getest.
+- 2302. Penetration Testing: A Hands-On Introduction to Hacking. Penetration
+Testing: A Hands-On Introduction to Hacking plaatst binaire exploitatie in de
+bredere context van een volledige pentest, inclusief verkenning,
+webkwetsbaarheden en rapportage, waar dit boek zich tot geheugen en netwerken
+beperkt.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -319398,14 +323317,15 @@ expressionisme` 1581 · `absurdisme` 173, 1727, 1770 · `academisch` 143 ·
 `acausaliteit` 362 · `acceptance and commitment therapy` 457, 460 ·
 `acceptatie` 1508, 1526, 1527, 1554, 1814, 1842 · `ACE-onderzoek` 1623 ·
 `ACE-studie` 1722 · `achttiende eeuw` 321 · `ACT` 1526, 1842 · `acteren` 385 ·
-`actie` 427 · `actiebereidheid` 1802 · `action board` 1818 · `activisme` 1580
-· `actualiteit` 237 · `actueel` 67 · `acupressuur` 2111 · `ADD` 1521 · `adel`
-235 · `adem` 1698 · `ademfrequentie` 1812 · `ademhaling` 87, 118, 318, 332,
-432, 1528, 1550, 1599, 1683, 1753, 1756, 1800, 1812, 1813, 1816, 1825, 1831,
-1857, 1912, 2027, 2049, 2066, 2067, 2096, 2100 · `ademwerk` 1528, 1599, 1614,
-1696, 1743, 1756, 1816 · `adhd` 1308, 1309 · `ADHD` 1521, 2005 ·
-`adleriaanse-psychologie` 335 · `advaita` 527, 1101, 1502, 1536, 1612, 1652 ·
-`advaita vedanta` 520, 1102 · `Advaita Vedanta` 1508 · `adventisme` 1138 ·
+`actie` 427 · `actiebereidheid` 1802 · `action board` 1818 · `Active
+Directory` 2315 · `activisme` 1580 · `actualiteit` 237 · `actueel` 67 ·
+`acupressuur` 2111 · `ADD` 1521 · `adel` 235 · `adem` 1698 · `ademfrequentie`
+1812 · `ademhaling` 87, 118, 318, 332, 432, 1528, 1550, 1599, 1683, 1753,
+1756, 1800, 1812, 1813, 1816, 1825, 1831, 1857, 1912, 2027, 2049, 2066, 2067,
+2096, 2100 · `ademwerk` 1528, 1599, 1614, 1696, 1743, 1756, 1816 · `adhd`
+1308, 1309 · `ADHD` 1521, 2005 · `adleriaanse-psychologie` 335 · `advaita`
+527, 1101, 1502, 1536, 1612, 1652 · `advaita vedanta` 520, 1102 · `Advaita
+Vedanta` 1508 · `advanced persistent threat` 2304 · `adventisme` 1138 ·
 `adverteren` 308 · `advies` 473, 1210 · `adviescolumn` 1583 · `adviespraktijk`
 151 · `adviseren` 511 · `affirmaties` 117, 184, 188, 190, 380, 403, 439, 560,
 1586, 1896 · `afhankelijkheid` 167, 1862 · `afkicken` 2003 · `afleiding` 290,
@@ -319439,34 +323359,35 @@ nemen` 285 · `afschrikking` 217 · `afstamming` 1676 · `afvallen` 557, 1807,
 `antisemitisme` 1532 · `antropologie` 223, 410, 602, 716, 717, 718, 719, 722,
 723, 758, 764, 1115, 1169, 1214, 1227, 1233, 1245, 1289, 1290, 1293, 1298,
 1305, 1329, 1608, 1676, 1715, 1854, 1901 · `antwerpen` 113 · `apartheid` 26,
-523 · `Appalachen` 1827 · `Apple` 46, 231, 1331 · `apps` 294 · `arbeid` 6,
-173, 297, 390, 905, 1264, 1301 · `arbeidsethos` 266, 1901 · `archeologie` 600,
-762, 1117, 1139, 1149, 1155, 1219, 1225, 1240, 1611, 1823 · `archetype` 360,
-1845 · `archetypen` 357, 404, 407, 409, 410, 1123, 1614, 2074 · `architectuur`
-1772 · `Argentinië` 521, 1209 · `argumentatie` 421, 437, 511, 2120 ·
-`argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 · `Arjuna` 1551 ·
-`armoede` 26, 234, 254, 1557, 1694, 1765, 2048 · `Art of Living` 1552, 2100 ·
-`Arthashastra` 370 · `assertiviteit` 162, 1670 · `astrologie` 632, 836, 1118,
-1119, 1123, 1229, 1242, 1243, 1250, 1251, 1252, 1690 · `asymmetrie` 282 ·
-`atheïsme` 1678 · `Athene` 1725 · `Atlantis` 1821, 1856 · `atletiek` 31 ·
-`atomisme` 281 · `attitudinal healing` 1515 · `aura` 1660 · `Auschwitz` 48,
-1539, 2091 · `Australië` 447 · `authenticiteit` 1730 · `authenticiteitsdebat`
-1608 · `autisme` 1302, 1303, 1304, 1305, 1306, 1307, 1312 ·
-`auto-immuunziekte` 1722 · `autobiografie` 358, 440, 1108, 1303, 1570, 1908,
-2017, 2058 · `autobiografisch` 1746 · `autobiografische roman` 1856 ·
-`automatisering` 297, 539, 1264 · `automatismen` 1803 · `autonomie` 6, 50 ·
-`autoritarisme` 1900 · `autoriteit` 215 · `autotelie` 200 · `avontuur` 1625,
-1686, 2041 · `ayahuasca` 759 · `Ayla` 1823 · `ayurveda` 1605 · `Ayurveda` 2103
-· `Azië` 2089 · `backtesten` 482, 502 · `bagno` 1850 · `balansrecessie` 2124 ·
-`Bali` 1534, 1767 · `ballingschap` 1522 · `bandha` 1698 · `banken en
-verzekeraars` 497 · `bankwezen` 1332 · `bardo` 1754, 1847 · `barok` 216 ·
+523 · `api-beveiliging` 2305, 2314 · `Appalachen` 1827 · `Apple` 46, 231, 1331
+· `apps` 294 · `arbeid` 6, 173, 297, 390, 905, 1264, 1301 · `arbeidsethos`
+266, 1901 · `archeologie` 600, 762, 1117, 1139, 1149, 1155, 1219, 1225, 1240,
+1611, 1823 · `archetype` 360, 1845 · `archetypen` 357, 404, 407, 409, 410,
+1123, 1614, 2074 · `architectuur` 1772 · `Argentinië` 521, 1209 ·
+`argumentatie` 421, 437, 511, 2120 · `argumenten` 63 · `argumenteren` 438 ·
+`Aristoteles` 438 · `Arjuna` 1551 · `armoede` 26, 234, 254, 1557, 1694, 1765,
+2048 · `Art of Living` 1552, 2100 · `Arthashastra` 370 · `assembly` 2317 ·
+`assertiviteit` 162, 1670 · `astrologie` 632, 836, 1118, 1119, 1123, 1229,
+1242, 1243, 1250, 1251, 1252, 1690 · `asymmetrie` 282 · `atheïsme` 1678 ·
+`Athene` 1725 · `Atlantis` 1821, 1856 · `atletiek` 31 · `atomisme` 281 ·
+`attitudinal healing` 1515 · `aura` 1660 · `Auschwitz` 48, 1539, 2091 ·
+`Australië` 447 · `authenticiteit` 1730 · `authenticiteitsdebat` 1608 ·
+`autisme` 1302, 1303, 1304, 1305, 1306, 1307, 1312 · `auto-immuunziekte` 1722
+· `autobiografie` 358, 440, 1108, 1303, 1570, 1908, 2017, 2058 ·
+`autobiografisch` 1746 · `autobiografische roman` 1856 · `automatisering` 297,
+539, 1264 · `automatismen` 1803 · `autonomie` 6, 50 · `autoritarisme` 1900 ·
+`autoriteit` 215 · `autotelie` 200 · `avontuur` 1625, 1686, 2041 · `ayahuasca`
+759 · `Ayla` 1823 · `ayurveda` 1605 · `Ayurveda` 2103 · `Azië` 2089 ·
+`backtesten` 482, 502 · `bagno` 1850 · `balansrecessie` 2124 · `Bali` 1534,
+1767 · `ballingschap` 1522 · `bandha` 1698 · `banken en verzekeraars` 497 ·
+`bankwezen` 1332 · `bardo` 1754, 1847 · `barok` 216 · `bash` 2306 ·
 `basisbehoeften` 107 · `basisinkomen` 1901 · `bbc` 82 · `bedrijfsbestuur` 567
 · `bedrijfscultuur` 170, 257, 270, 1610 · `bedrijfsfilosofie` 1744 ·
 `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293, 903 · `bedrijfsmodel` 2112 ·
 `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `bedrijfsvoering` 1877,
 2072 · `beeldcultuur` 563, 828 · `beeldend boek` 2078 · `beeldroman` 1725 ·
 `beeldverhaal` 561 · `begeleiding` 2044 · `beginners` 112 · `behoeften` 35 ·
-`behoeftigheid` 1602 · `beinvloeding` 123, 126 · `beïnvloeding` 399 ·
+`behoeftigheid` 1602 · `beinvloeding` 123, 126 · `beïnvloeding` 399, 2310 ·
 `bekentenis` 60 · `bekering` 1664 · `bekkenbodem` 1831 ·
 `belangenverstrengeling` 138, 752 · `belasting` 1855 · `beleggen` 21, 64, 144,
 233, 277, 351, 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486,
@@ -319496,69 +323417,73 @@ Hellinger` 1510, 2043, 2044 · `beschadigd-bestand` 115, 130 · `beschaving` 57,
 `Bhagavad Gita` 1508, 1551 · `bias` 209 · `bibliotheek` 2001 · `bijbel` 1568,
 1811 · `bijbeluitleg` 1703 · `bijeenkomsten` 304 · `bijgeloof` 63 ·
 `bijna-dood ervaring` 1524 · `bijna-doodervaring` 585, 1174, 1506, 1596, 1601,
-1667, 1847, 2021 · `bijnieren` 1864 · `Bildungsroman` 1571 · `bindingsangst`
-1517, 1549, 1737 · `bindingspatronen` 1541 · `bioenergetica` 2049 ·
-`biofotonen` 1531, 1815 · `biofysica` 2050 · `biografie` 31, 46, 189, 231,
-240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514, 537, 558, 649,
-658, 659, 689, 821, 905, 1124, 1153, 1220, 1229, 1252, 1265, 1315, 1331, 1581,
-1749, 2046 · `biohacking` 316, 2117 · `biologie` 66, 88, 89, 90, 91, 322, 663,
-818, 823, 941, 949, 950, 1120, 1259, 1262, 1273, 1275, 1344, 1675, 1677 ·
-`biologie van gedrag` 273 · `biologische klok` 326, 329, 552 · `biomechanica`
-1855 · `biotechnologie` 236, 413 · `bipedie` 1708 · `bipolaire stoornis` 1315
-· `blackjack` 505 · `blessures` 1858 · `bloedlijnen` 1532 · `bloedvaten` 86 ·
-`bloedwaarden` 313 · `bloemlezing` 758, 1640, 1643 · `blokkade` 14 · `bodem`
-1592 · `bodhichitta` 1662 · `Boeddha` 2046 · `boeddhisme` 111, 287, 333, 341,
-401, 528, 755, 1106, 1109, 1110, 1124, 1125, 1168, 1556, 1558, 1559, 1560,
-1561, 1606, 1645, 1664, 1665, 1685, 1713, 1717, 1734, 1735, 1754, 1775, 1800,
-1829, 1847, 1878, 2046 · `boek der veranderingen` 2039 · `bogomilen` 1702 ·
-`boksen` 1835 · `Bombay` 1401, 1502, 1837 · `bomen` 2077 · `bonobo` 1675 ·
-`boosheid` 1584 · `bootstrapping` 369 · `bos` 1597, 2077 · `bosbeheer` 2077 ·
-`botanie` 1578 · `Boulder` 1559 · `boulimie` 1620 · `brainstormen` 33 ·
-`branding` 443 · `brein` 414, 1564, 1627, 1907, 2005, 2109 · `Bretagne` 1886 ·
-`Bridgeman Ademmethode` 1756 · `brieven` 292, 517, 1210 · `brievenroman` 1518
-· `Britse zelfhulp` 1870 · `broederliefde` 2071 · `broer en zus` 1618 ·
-`broers` 10 · `bronnenkritiek` 691, 1143, 1146, 1701 · `bronnenuitgave` 641,
-1223 · `Bruce Greyson` 1506 · `budgetteren` 159, 233, 464, 1752 · `buitenaards
-leven` 1856 · `buitenlandse hulp` 221 · `buitenstaander` 1823 · `bureaucratie`
-1339, 1901 · `burgerlijk verzet` 617 · `burgerlijke ongehoorzaamheid` 2033 ·
-`burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552, 1503, 1594, 1669,
-1683, 1800, 1816, 1833, 1866, 1895, 2047, 2079, 2094 · `Burning Man` 1610 ·
-`bushido` 535 · `business model canvas` 2112 · `cabaret` 1765 · `cadeauboek`
-1672 · `cafébrand` 1512 · `cafeïne` 52 · `Californië` 10 · `Camus` 1727 ·
-`canon` 1568 · `Caputo` 1579 · `cardiologie` 1524 · `cariës` 1854 · `carl
-jung` 258 · `Carnegie Mellon` 1691 · `carrière` 146, 158, 388, 1278 · `cases`
-40 · `cashflow` 37 · `casuïstiek` 1674 · `CE Delft` 1651 · `celbiologie` 419,
-1273, 1588 · `Celestijnse belofte` 1827 · `celgeheugen` 2008, 2009 · `censuur`
-685, 1522 · `ceremonie` 1753 · `chakra's` 432, 1520, 1605, 1660, 2007 ·
-`challenger` 62 · `Chanakya` 370 · `channeling` 549, 670, 677, 678, 679, 768,
-1122, 1221, 1222, 1535, 1537, 1585, 1629, 1661, 1819, 1890, 1891, 1898, 1910,
-2020, 2021 · `chaos` 74, 347 · `chapbook` 100 · `charismatisch christendom`
-559 · `chicago school` 2022 · `chili` 2022 · `chimpansee` 1675 · `China` 348,
-1522 · `chinese filosofie` 2039 · `Chinese filosofie` 389, 394, 1104, 1105 ·
-`Chinese geschiedenis` 219 · `chiropractie` 432 · `christelijke traditie`
-1566, 2078 · `christendom` 162, 201, 391, 603, 606, 612, 754, 1207, 1237,
-1268, 1300, 1568, 1829 · `chronische pijn` 1668, 1732 · `chronische ziekte`
-1731 · `chronobiologie` 326, 329 · `cia` 693, 750 · `cijfers` 39, 65 ·
-`citaten` 1572 · `civilisatiekritiek` 298 · `classificatie` 719 · `clitoris`
-1548 · `coachbloem` 1530 · `coaching` 161, 291, 441, 1297, 1510, 1528, 1530,
-1630, 1631, 1751, 1778, 1804, 1817, 1834, 1843, 2019, 2026, 2034, 2059, 2070,
-2106 · `cognitie` 656 · `cognitieve gedragstherapie` 147, 153, 373, 1803 ·
-`cognitieve herformulering` 2131 · `cognitieve herstructurering` 177 ·
-`cognitieve neurowetenschap` 763 · `cognitieve psychologie` 759 · `cognitieve
-therapie` 1873 · `cognitieve vertekening` 234 · `cognitieve wetenschap` 467 ·
-`cognitieve-bias` 59 · `cognitiewetenschap` 755, 767, 1172 · `collectief
-bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 · `Colombia` 1402 ·
-`columns` 89, 90 · `coma` 763 · `comfortzone` 187 · `commando` 97 ·
-`commentaar` 1806 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183,
-186, 193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555, 1272, 1277,
-1294, 1304, 1306, 1530, 1589, 1590, 1670, 1738, 1843, 2056, 2077 ·
-`communisme` 625 · `compassie` 1525, 1527, 1556, 1814 · `complexiteit` 170,
-268, 300, 347, 423, 1258, 1274, 1279, 1861, 2121 · `complimenten geven` 356 ·
-`complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915, 916, 917,
-920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146, 1147, 1150, 1152, 1908,
-2023 · `complottheorie` 680, 1532 · `componisten` 1749 · `concentratie` 70,
-441, 802, 1879, 2005, 2030 · `concurrentie` 293, 902 · `conditionering` 61,
-519, 1569, 1638, 1640 · `conflict` 35, 42, 43, 212, 305, 1641, 1642, 1843 ·
+1667, 1847, 2021 · `bijnieren` 1864 · `Bildungsroman` 1571 · `binary analysis`
+2307 · `bindingsangst` 1517, 1549, 1737 · `bindingspatronen` 1541 ·
+`bioenergetica` 2049 · `biofotonen` 1531, 1815 · `biofysica` 2050 ·
+`biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328,
+402, 454, 514, 537, 558, 649, 658, 659, 689, 821, 905, 1124, 1153, 1220, 1229,
+1252, 1265, 1315, 1331, 1581, 1749, 2046 · `biohacking` 316, 2117 · `biologie`
+66, 88, 89, 90, 91, 322, 663, 818, 823, 941, 949, 950, 1120, 1259, 1262, 1273,
+1275, 1344, 1675, 1677 · `biologie van gedrag` 273 · `biologische klok` 326,
+329, 552 · `biomechanica` 1855 · `biotechnologie` 236, 413 · `bipedie` 1708 ·
+`bipolaire stoornis` 1315 · `blackjack` 505 · `blessures` 1858 · `bloedlijnen`
+1532 · `bloedvaten` 86 · `bloedwaarden` 313 · `bloemlezing` 758, 1640, 1643 ·
+`blokkade` 14 · `bodem` 1592 · `bodhichitta` 1662 · `Boeddha` 2046 ·
+`boeddhisme` 111, 287, 333, 341, 401, 528, 755, 1106, 1109, 1110, 1124, 1125,
+1168, 1556, 1558, 1559, 1560, 1561, 1606, 1645, 1664, 1665, 1685, 1713, 1717,
+1734, 1735, 1754, 1775, 1800, 1829, 1847, 1878, 2046 · `boek der
+veranderingen` 2039 · `bogomilen` 1702 · `boksen` 1835 · `Bombay` 1401, 1502,
+1837 · `bomen` 2077 · `bonobo` 1675 · `boosheid` 1584 · `bootstrapping` 369 ·
+`bos` 1597, 2077 · `bosbeheer` 2077 · `botanie` 1578 · `Boulder` 1559 ·
+`boulimie` 1620 · `brainstormen` 33 · `branding` 443 · `brein` 414, 1564,
+1627, 1907, 2005, 2109 · `Bretagne` 1886 · `Bridgeman Ademmethode` 1756 ·
+`brieven` 292, 517, 1210 · `brievenroman` 1518 · `Britse zelfhulp` 1870 ·
+`broederliefde` 2071 · `broer en zus` 1618 · `broers` 10 · `bronnenkritiek`
+691, 1143, 1146, 1701 · `bronnenuitgave` 641, 1223 · `browserbeveiliging` 2316
+· `Bruce Greyson` 1506 · `budgetteren` 159, 233, 464, 1752 · `buffer overflow`
+2302, 2317 · `bug bounty` 2305, 2307, 2314 · `buitenaards leven` 1856 ·
+`buitenlandse hulp` 221 · `buitenstaander` 1823 · `bureaucratie` 1339, 1901 ·
+`burgerlijk verzet` 617 · `burgerlijke ongehoorzaamheid` 2033 · `burgerschap`
+243 · `burn-out` 135, 207, 400, 551, 552, 1503, 1594, 1669, 1683, 1800, 1816,
+1833, 1866, 1895, 2047, 2079, 2094 · `Burning Man` 1610 · `burp suite` 2305,
+2313 · `bushido` 535 · `business logic` 2312 · `business model canvas` 2112 ·
+`C` 2317 · `cabaret` 1765 · `cadeauboek` 1672 · `cafébrand` 1512 · `cafeïne`
+52 · `Californië` 10 · `Camus` 1727 · `canon` 1568 · `Caputo` 1579 ·
+`cardiologie` 1524 · `cariës` 1854 · `carl jung` 258 · `Carnegie Mellon` 1691
+· `carrière` 146, 158, 388, 1278 · `cases` 40 · `cashflow` 37 · `casuïstiek`
+1674 · `casussen` 2304 · `CE Delft` 1651 · `celbiologie` 419, 1273, 1588 ·
+`Celestijnse belofte` 1827 · `celgeheugen` 2008, 2009 · `censuur` 685, 1522 ·
+`ceremonie` 1753 · `chakra's` 432, 1520, 1605, 1660, 2007 · `challenger` 62 ·
+`Chanakya` 370 · `channeling` 549, 670, 677, 678, 679, 768, 1122, 1221, 1222,
+1535, 1537, 1585, 1629, 1661, 1819, 1890, 1891, 1898, 1910, 2020, 2021 ·
+`chaos` 74, 347 · `chapbook` 100 · `charismatisch christendom` 559 · `chicago
+school` 2022 · `chili` 2022 · `chimpansee` 1675 · `China` 348, 1522 · `chinese
+filosofie` 2039 · `Chinese filosofie` 389, 394, 1104, 1105 · `Chinese
+geschiedenis` 219 · `chiropractie` 432 · `christelijke traditie` 1566, 2078 ·
+`christendom` 162, 201, 391, 603, 606, 612, 754, 1207, 1237, 1268, 1300, 1568,
+1829 · `chronische pijn` 1668, 1732 · `chronische ziekte` 1731 ·
+`chronobiologie` 326, 329 · `cia` 693, 750 · `cijfers` 39, 65 · `citaten` 1572
+· `civilisatiekritiek` 298 · `classificatie` 719 · `clitoris` 1548 · `cloud`
+2308 · `cloud security` 2301 · `coachbloem` 1530 · `coaching` 161, 291, 441,
+1297, 1510, 1528, 1530, 1630, 1631, 1751, 1778, 1804, 1817, 1834, 1843, 2019,
+2026, 2034, 2059, 2070, 2106 · `cognitie` 656 · `cognitieve gedragstherapie`
+147, 153, 373, 1803 · `cognitieve herformulering` 2131 · `cognitieve
+herstructurering` 177 · `cognitieve neurowetenschap` 763 · `cognitieve
+psychologie` 759 · `cognitieve therapie` 1873 · `cognitieve vertekening` 234 ·
+`cognitieve wetenschap` 467 · `cognitieve-bias` 59 · `cognitiewetenschap` 755,
+767, 1172 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362
+· `Colombia` 1402 · `columns` 89, 90 · `coma` 763 · `comfortzone` 187 ·
+`command and control` 2304, 2311 · `commando` 97 · `commentaar` 1806 ·
+`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305,
+338, 356, 398, 399, 444, 466, 475, 539, 555, 1272, 1277, 1294, 1304, 1306,
+1530, 1589, 1590, 1670, 1738, 1843, 2056, 2077 · `communisme` 625 ·
+`compassie` 1525, 1527, 1556, 1814 · `complexiteit` 170, 268, 300, 347, 423,
+1258, 1274, 1279, 1861, 2121 · `complimenten geven` 356 · `complotdenken` 667,
+668, 672, 676, 683, 684, 688, 690, 914, 915, 916, 917, 920, 921, 923, 925,
+926, 931, 1142, 1143, 1145, 1146, 1147, 1150, 1152, 1908, 2023 ·
+`complottheorie` 680, 1532 · `componisten` 1749 · `concentratie` 70, 441, 802,
+1879, 2005, 2030 · `concurrentie` 293, 902 · `conditionering` 61, 519, 1569,
+1638, 1640 · `conflict` 35, 42, 43, 212, 305, 1641, 1642, 1843 ·
 `conflictbemiddeling` 304 · `conflicthantering` 271, 1590 · `conformisme` 211,
 1295, 1900 · `conjunctuurcyclus` 2125 · `consistentie` 553 · `consument` 703,
 704 · `consumptie` 463, 1651, 1709 · `consumptiekeuzes` 299 ·
@@ -319570,11 +323495,12 @@ bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 · `Colombia` 1402 ·
 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349, 418, 445, 471, 472, 475, 550,
 702, 803, 952, 1203, 1299, 1310, 1315, 1321, 1322, 1323, 1330, 1501, 1563,
 1679, 1749, 2090 · `cricket` 174 · `crisis` 47, 807, 2022 · `CRISPR` 413 ·
-`Culturele Revolutie` 1522 · `cultuur` 68, 274, 764, 825, 1267, 1902 ·
-`cultuurfilosofie` 580, 826, 1116, 1170, 1296, 1298 · `cultuurgeschiedenis`
-822, 1298 · `cultuurkritiek` 54, 405, 592, 672, 722, 824, 1163, 1206, 1264 ·
-`cultuurpsychologie` 1553 · `Curacao` 1765 · `cursus` 108, 130, 201 ·
-`cursus-in-wonderen` 102, 131, 548 · `cybernetica` 411, 539, 540, 541, 1277 ·
+`cryptografie` 2309, 2317 · `Culturele Revolutie` 1522 · `cultuur` 68, 274,
+764, 825, 1267, 1902 · `cultuurfilosofie` 580, 826, 1116, 1170, 1296, 1298 ·
+`cultuurgeschiedenis` 822, 1298 · `cultuurkritiek` 54, 405, 592, 672, 722,
+824, 1163, 1206, 1264 · `cultuurpsychologie` 1553 · `Curacao` 1765 · `cursus`
+108, 130, 201 · `cursus-in-wonderen` 102, 131, 548 · `cve` 2307 ·
+`cybernetica` 411, 539, 540, 541, 1277 · `cybersecurity` 2300, 2301 ·
 `cynisme` 250, 319, 1580, 1725 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224,
 286, 579, 1200, 1204, 1569, 1673, 2083, 2098 · `dagboekaantekeningen` 226 ·
 `dagboekmethode` 78 · `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 ·
@@ -319609,18 +323535,19 @@ controle` 194 · `dichtwerk` 524 · `dictatuur` 221 · `dieet` 1807, 1865, 2108 
 `Divine Revelation` 1896 · `DNA` 419, 1904, 2051 · `docenten` 116 ·
 `doe-het-zelf` 1801 · `doeboek` 1872 · `doelen` 58, 136, 158, 542 · `doelen
 stellen` 367, 427, 448, 1501, 1543, 2073 · `doelgericht oefenen` 2128 ·
-`doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 · `dogma`
-1729 · `dominantie` 2057 · `donkere-triade` 124 · `dood` 98, 169, 292, 535,
-822, 1562, 1634, 1728, 1742, 1754, 1911, 2025, 2071 · `doodsangst` 405, 2118 ·
-`doorzetten` 20, 1766 · `doorzettingsvermogen` 185, 249, 289, 324, 2040 ·
-`dopamine` 314, 418, 2093 · `dorp` 1851 · `dosha's` 1605 · `dramaturgie` 1201
-· `drankindustrie` 1906 · `Dresden` 1771 · `drie-eenheid` 1836 · `drogredenen`
-421, 1918, 2120 · `dromen` 52, 357, 358, 359, 360, 646, 1121, 1324, 1325,
-1326, 1327, 1328, 1329, 1624, 1684, 1917, 2115 · `droom` 1626 · `droomduiding`
-1624 · `drugs` 568 · `drugsbeleid` 1714, 1719 · `duitse literatuur` 1202 ·
-`duitsland` 2077 · `Duitsland` 1632, 1884 · `Duivelseiland` 1850 · `dummies`
-112 · `durfkapitaal` 47 · `duurzaamheid` 92, 1257, 1276, 1651 ·
-`dwangmatigheid` 1733 · `dyslexie` 1310 · `dystopie` 61, 618, 1757 ·
+`doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
+`doelwitgerichte aanvallen` 2304 · `dogma` 1729 · `DOM` 2316 ·
+`domeincontroller` 2315 · `dominantie` 2057 · `donkere-triade` 124 · `dood`
+98, 169, 292, 535, 822, 1562, 1634, 1728, 1742, 1754, 1911, 2025, 2071 ·
+`doodsangst` 405, 2118 · `doorzetten` 20, 1766 · `doorzettingsvermogen` 185,
+249, 289, 324, 2040 · `dopamine` 314, 418, 2093 · `dorp` 1851 · `dosha's` 1605
+· `dramaturgie` 1201 · `drankindustrie` 1906 · `Dresden` 1771 · `drie-eenheid`
+1836 · `drogredenen` 421, 1918, 2120 · `dromen` 52, 357, 358, 359, 360, 646,
+1121, 1324, 1325, 1326, 1327, 1328, 1329, 1624, 1684, 1917, 2115 · `droom`
+1626 · `droomduiding` 1624 · `drugs` 568 · `drugsbeleid` 1714, 1719 · `duitse
+literatuur` 1202 · `duitsland` 2077 · `Duitsland` 1632, 1884 · `Duivelseiland`
+1850 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92, 1257, 1276, 1651
+· `dwangmatigheid` 1733 · `dyslexie` 1310 · `dystopie` 61, 618, 1757 ·
 `dzogchen` 1734, 1735, 1754 · `e-commerce` 257 · `e-mail` 70, 512 ·
 `e-mailmarketing` 309 · `ecologie` 298, 1257, 1276, 1578, 1592, 2077 ·
 `ecologische crisis` 1575 · `ecomeditatie` 2109 · `economie` 65, 98, 217, 251,
@@ -319668,18 +323595,19 @@ christendom` 2025 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232, 952,
 1312 · `essays` 523, 656, 830, 1208, 1578, 1583, 1657, 1718, 1724, 1849 ·
 `essentie` 1636 · `esthetica` 756, 1576 · `esthetiek` 824, 828, 832, 1296,
 1299 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612, 665, 819, 1269, 2035,
-2122 · `etnobotanie` 765, 1841 · `etnografie` 764, 1245 · `eurazië` 694 ·
-`eurocrisis` 2124 · `europa` 751 · `euthanasie` 2021 · `evangelicalisme` 1715
-· `evangelisatie` 201 · `evangelisch` 1836 · `evolutie` 56, 66, 89, 90, 91,
-239, 318, 322, 323, 332, 339, 347, 383, 518, 609, 760, 762, 767, 820, 823,
-829, 950, 1259, 1262, 1267, 1273, 1275, 1288, 1308, 1344, 1659, 1676, 1677,
-1678, 1708, 1858, 1904, 2066, 2101 · `evolutiebiologie` 452, 453 ·
-`evolutionaire gezondheid` 1565 · `evolutionaire psychologie` 1627 ·
-`evolutionaire-psychologie` 67 · `excellentie` 553 · `exclusion zone` 2050 ·
-`excuses` 1738 · `executives` 344 · `existentialisme` 405, 940, 1727 ·
-`existentiefilosofie` 757 · `existentiële psychotherapie` 2118 · `expeditie`
-36 · `experiment` 79, 215 · `experimenten` 280, 424 · `experimenteren` 265 ·
-`expertise` 283, 320, 376 · `expressie` 1699 · `extra dimensies` 648 ·
+2122 · `ethisch hacken` 2303, 2309 · `etnobotanie` 765, 1841 · `etnografie`
+764, 1245 · `eurazië` 694 · `eurocrisis` 2124 · `europa` 751 · `euthanasie`
+2021 · `evangelicalisme` 1715 · `evangelisatie` 201 · `evangelisch` 1836 ·
+`evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518,
+609, 760, 762, 767, 820, 823, 829, 950, 1259, 1262, 1267, 1273, 1275, 1288,
+1308, 1344, 1659, 1676, 1677, 1678, 1708, 1858, 1904, 2066, 2101 ·
+`evolutiebiologie` 452, 453 · `evolutionaire gezondheid` 1565 · `evolutionaire
+psychologie` 1627 · `evolutionaire-psychologie` 67 · `excellentie` 553 ·
+`exclusion zone` 2050 · `excuses` 1738 · `executives` 344 · `existentialisme`
+405, 940, 1727 · `existentiefilosofie` 757 · `existentiële psychotherapie`
+2118 · `expeditie` 36 · `experiment` 79, 215 · `experimenten` 280, 424 ·
+`experimenteren` 265 · `expertise` 283, 320, 376 · `exploitatie` 2308, 2309,
+2317 · `exploitontwikkeling` 2302 · `expressie` 1699 · `extra dimensies` 648 ·
 `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen`
 23, 72, 75, 312, 422 · `familie` 45, 325, 466, 1400, 1402, 1617, 1870, 2043,
 2086 · `familieconflict` 178 · `familiegeschiedenis` 114, 235 ·
@@ -319702,20 +323630,21 @@ industrie` 752 · `farmacologie` 1714 · `fascisme` 753 · `fawnen` 1617 · `FBI
 499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903, 1279, 1281, 1283, 1288
 · `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
 wiskunde` 497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395,
-425 · `financiering` 172 · `fitgirls` 1807 · `fitness` 2068 · `fitnessbranche`
-307, 544 · `flitshandel` 499 · `Florence` 2114 · `flow` 78, 187, 200, 1563,
-1610, 1723, 2109 · `fobie` 1533 · `focus` 175, 197, 448, 513, 1857 ·
-`folklore` 615, 669, 1216, 1245 · `fondsbeheer` 2123, 2126 · `fotoboek` 189 ·
+425 · `financiering` 172 · `firewall-evasion` 2300 · `fitgirls` 1807 ·
+`fitness` 2068 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `Florence`
+2114 · `flow` 78, 187, 200, 1563, 1610, 1723, 2109 · `fobie` 1533 · `focus`
+175, 197, 448, 513, 1857 · `folklore` 615, 669, 1216, 1245 · `fondsbeheer`
+2123, 2126 · `forensisch onderzoek` 2301, 2303, 2313 · `fotoboek` 189 ·
 `fotografie` 1313 · `fotosynthese` 2051 · `Foucault` 1774 · `foutcultuur` 422
 · `fouten maken` 509 · `fractals` 811 · `fragmenten` 1200 · `franchise` 544,
 1877 · `frankrijk` 115 · `Frankrijk` 1672, 1727, 1770 · `Frans de Waal` 1675 ·
 `Frans-Guyana` 1850 · `Franse-Weerstand` 390 · `freelance` 515 · `Frijda` 1802
-· `Fromm` 1726 · `Fulani` 522 · `functionele training` 2052 · `fysieke
-uitdaging` 323 · `fysiologie` 318, 412, 458, 1128, 1130, 2066 ·
-`fysiotherapie` 1683 · `fytochemicalien` 1604 · `Gaia` 1575 · `Galenus` 328 ·
-`gamma-golven` 2109 · `gandhi` 2033 · `gaslighting` 123 · `gastheerschap` 304
-· `gastvrijheid` 531 · `gebed` 83, 259, 573, 1207, 1704, 1715, 1849, 1896 ·
-`gebedsonderzoek` 1531 · `geboorte` 1750 · `gebruikersgedrag` 294 ·
+· `Fromm` 1726 · `Fulani` 522 · `functionele training` 2052 · `fuzzing` 2307,
+2314 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458, 1128, 1130, 2066
+· `fysiotherapie` 1683 · `fytochemicalien` 1604 · `Gaia` 1575 · `Galenus` 328
+· `gamma-golven` 2109 · `gandhi` 2033 · `gaslighting` 123 · `gastheerschap`
+304 · `gastvrijheid` 531 · `gebed` 83, 259, 573, 1207, 1704, 1715, 1849, 1896
+· `gebedsonderzoek` 1531 · `geboorte` 1750 · `gebruikersgedrag` 294 ·
 `gedachten` 148, 177, 1761, 2018 · `gedachtenjournal` 176 · `gedrag` 21, 22,
 89, 90, 138, 154, 280, 330, 383, 425, 802, 1843 · `gedragsbiologie` 322, 339 ·
 `gedragscode` 2095 · `gedragseconomie` 424, 426, 514, 1288 ·
@@ -319782,74 +323711,75 @@ communicatie` 1641, 1642 · `geweten` 1637 · `gewicht` 138 · `gewichtsverlies`
 940, 1125, 1151, 1223, 1254, 1290 · `goed en kwaad` 1621 · `goedkeuring` 1584
 · `goeroe` 242, 1552, 2058 · `gokkasten` 1709 · `Golden Dawn` 1220 · `Google`
 512 · `google x` 2035 · `Google X` 1893 · `Graallegende` 408 · `grandiositeit`
-404 · `graphic novel` 1725 · `gratie` 374 · `grenswetenschap` 615, 1149, 1156
-· `grenzen` 72, 105, 109, 120, 122, 187, 466, 1617, 1667, 1670, 1817 ·
-`grenzen stellen` 151, 204, 406, 429, 1852 · `Griekenland` 537 · `Griekse
-literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531, 1238
-· `griep` 1604 · `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 ·
-`groeistrategie` 2072 · `groepsdenken` 339, 1295 · `groepsgedrag` 303, 1295,
-1296 · `groepswerk` 1699 · `grondstoffen` 92 · `grondwet` 616, 619 ·
-`groot-verhaal` 56 · `grootouders` 91 · `grootvader` 1851 · `guru` 1763 ·
-`Haarlem` 1834 · `habitus` 723 · `hallucinaties` 1674 · `hallucinogenen` 1841
-· `handboek` 493, 495, 1243, 1844, 1869 · `handel` 80, 251, 1269, 1282 ·
-`handelen` 30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489, 1284,
-1285 · `handelssysteem` 489, 491 · `handelssystemen` 484, 486, 500, 502 ·
-`handleiding` 112, 699 · `Hannah Cuppen` 1736 · `Happinez` 1582 ·
-`hardloopschoenen` 1858 · `hardlopen` 1514, 1858, 2040 · `hart` 86, 128, 1723,
-1736 · `hartcoherentie` 1545, 1904, 1909, 2088 · `hartstilstand` 1524 ·
-`Harvard` 457 · `hatha yoga` 1698 · `Hawaii` 1505, 1820 · `Hay House` 380,
-1513 · `hechting` 145, 152, 317, 386, 1517, 1521, 1549, 1623, 1719, 1731,
-1737, 1745, 1750, 1862, 2093 · `hedendaags India` 202 · `hedgefondsen` 505,
-810 · `hedonische asymmetrie` 1802 · `heelal` 99, 262 · `hefboompunten` 2121 ·
-`heilige geometrie` 1821 · `heksenproces` 1888 · `heksenvervolging` 1233 ·
-`hekserij` 1224, 1227, 1228, 1231, 1233, 1244, 1245 · `hel` 2092 · `heldendom`
-532, 1851 · `heldenreis` 410, 1805 · `helderheid` 82, 436 · `heling` 1819 ·
-`Hellinger` 1914 · `helpen` 1914 · `herhaling` 125, 134 · `herinnering` 1622,
-1887 · `herkaderen` 1546, 1616 · `herkomst` 127 · `hermetische filosofie` 378,
-1246 · `hermetisme` 613, 631, 632, 633, 638, 639, 642, 647, 766, 1218, 1232,
-1249, 1250, 1253, 1254 · `heroïne` 1837 · `heroverwegen` 28 · `hersenbank`
-1680 · `hersenen` 51, 84, 85, 86, 327, 801, 829, 1160, 1307, 1506, 1679, 1680,
-1719, 1742, 1848, 1895, 2088 · `hersenonderzoek` 330, 333, 763 ·
-`hersenspoeling` 384, 668 · `herstel` 87, 552, 583, 1722, 1833, 1913, 1915 ·
-`herstelbeweging` 1613 · `herstelrecht` 1641 · `Herziene Statenvertaling` 1811
-· `het gesprek` 416 · `het nu` 2015 · `hexagrammen` 2039 · `hiernamaals` 1867,
-1911 · `Himalaya` 191, 1800 · `hindoeisme` 1508 · `hindoeïsme` 169, 199, 527,
-569, 1102, 1551, 2060 · `Hindoeïstische mythologie` 192, 202 ·
-`hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `Hipparchia` 1725 ·
-`hippietrail` 2089 · `historische portretten` 248 · `historische roman` 529,
-922, 923, 924, 1542, 1649, 1886, 1888 · `ho'oponopono` 1505 · `hofcultuur` 216
-· `holistisch` 1751 · `holistische geneeskunde` 1750 · `hollywood` 555 ·
-`Hollywood` 178, 1585 · `Holocaust` 48, 1213, 1539, 2091 · `holografie` 340 ·
-`homoseksualiteit` 325, 1730 · `Honderd Bunder Bos` 1666 · `Hongkong` 1596 ·
-`hoogbegaafdheid` 1314 · `hooggevoeligheid` 1660 · `hoogsensitiviteit` 1523,
-1667 · `hoop` 255, 319 · `hormonen` 80, 339, 1864, 1881, 1899, 2069, 2107 ·
-`hospice` 416, 1601 · `houding` 117, 1630, 1631, 1855, 2027 · `huisarts` 1828,
-2099 · `huisvesting` 65 · `hulp` 1633 · `hulpverlening` 1720, 1914, 2106 ·
-`humanisme` 236, 643 · `humanistische psychologie` 1726 · `humor` 16, 19, 26,
-105, 227, 561, 1296, 1322, 2097, 2106 · `Huna` 1820 · `husserl` 577 ·
-`huwelijk` 9, 34, 165, 1589, 1590, 1620 · `Huxley` 54 · `hybride werken` 512 ·
-`hypermoderne school` 831 · `hyperrealiteit` 565 · `hyperventilatie` 1696,
-1812 · `hypnose` 123, 124, 125, 668, 1144, 1159, 1616, 1868, 1869, 1917 ·
-`hypnotherapie` 1546, 1739, 1868, 1869 · `hypocrisie` 1627 · `i ching` 2032 ·
-`I Ching` 2080 · `i tjing` 2039 · `Ibiza` 1534 · `Idaho` 45 · `idealisme` 1742
-· `ideeen` 702 · `ideeën` 206 · `ideeëngeschiedenis` 269, 751, 766, 932, 1246,
-1247, 1248, 1249, 1250, 1251, 1252, 1253, 1255, 1875 · `ideeenroman` 1772 ·
-`identiteit` 22, 115, 192, 261, 374, 375, 467, 559, 1116, 1201, 1206, 1302,
-1303, 1319, 1504, 1618, 1639, 1730, 1774 · `identiteitskapitaal` 51 ·
-`ideologie` 628 · `ideologiekritiek` 1341 · `ierland` 110 · `ifs` 2036 ·
-`IJsland` 185, 533, 2116 · `ijstijd` 1823 · `ik-vorm` 113 · `ikigai` 1882 ·
-`Illuminati` 1532 · `illustratie` 1681, 2002 · `illustraties` 109, 327 · `Ilon
-Wikland` 1597 · `imitatie` 11 · `immuunsysteem` 1604, 1722, 1813, 1863 ·
-`imperfectionisme` 442 · `import` 20 · `india` 649, 2033 · `India` 163, 171,
-172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527, 1101,
-1304, 1400, 1401, 1502, 1552, 1652, 1763, 1767, 1806, 1826, 1837, 1847, 2046 ·
-`indianen` 2024 · `indianenspiritualiteit` 2115 · `indirecte suggestie` 1546 ·
-`individualisme` 9, 96, 624, 1206, 1772 · `individualiteit` 263 ·
-`individuatie` 359, 360, 408, 409, 646 · `individuele-verantwoordelijkheid`
-299 · `indonesië` 692 · `inductie` 1869 · `industrie` 348, 905 · `inflatie`
-1332 · `informatietheorie` 1272, 1277, 1278, 1316 · `inheems denken` 521 ·
-`inheemse kennis` 1578 · `inheemse volken` 1593 · `initiatie` 407, 408, 522,
-921, 922, 1114, 1235, 2074 · `inleiding` 452, 456 · `inlichtingendiensten`
+404 · `graphic novel` 1725 · `graphql` 2305 · `gratie` 374 · `grenswetenschap`
+615, 1149, 1156 · `grenzen` 72, 105, 109, 120, 122, 187, 466, 1617, 1667,
+1670, 1817 · `grenzen stellen` 151, 204, 406, 429, 1852 · `Griekenland` 537 ·
+`Griekse literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530,
+531, 1238 · `griep` 1604 · `groei` 222 · `groeiaandelen` 474 ·
+`groeimentaliteit` 116 · `groeistrategie` 2072 · `groepsdenken` 339, 1295 ·
+`groepsgedrag` 303, 1295, 1296 · `groepswerk` 1699 · `grondstoffen` 92 ·
+`grondwet` 616, 619 · `groot-verhaal` 56 · `grootouders` 91 · `grootvader`
+1851 · `guru` 1763 · `Haarlem` 1834 · `habitus` 723 · `hallucinaties` 1674 ·
+`hallucinogenen` 1841 · `handboek` 493, 495, 1243, 1844, 1869 · `handel` 80,
+251, 1269, 1282 · `handelen` 30, 476, 477, 478, 479, 501 ·
+`handelspsychologie` 488, 489, 1284, 1285 · `handelssysteem` 489, 491 ·
+`handelssystemen` 484, 486, 500, 502 · `handleiding` 112, 699 · `Hannah
+Cuppen` 1736 · `Happinez` 1582 · `hardloopschoenen` 1858 · `hardlopen` 1514,
+1858, 2040 · `hart` 86, 128, 1723, 1736 · `hartcoherentie` 1545, 1904, 1909,
+2088 · `hartstilstand` 1524 · `Harvard` 457 · `hatha yoga` 1698 · `Hawaii`
+1505, 1820 · `Hay House` 380, 1513 · `hechting` 145, 152, 317, 386, 1517,
+1521, 1549, 1623, 1719, 1731, 1737, 1745, 1750, 1862, 2093 · `hedendaags
+India` 202 · `hedgefondsen` 505, 810 · `hedonische asymmetrie` 1802 · `heelal`
+99, 262 · `hefboompunten` 2121 · `heilige geometrie` 1821 · `heksenproces`
+1888 · `heksenvervolging` 1233 · `hekserij` 1224, 1227, 1228, 1231, 1233,
+1244, 1245 · `hel` 2092 · `heldendom` 532, 1851 · `heldenreis` 410, 1805 ·
+`helderheid` 82, 436 · `heling` 1819 · `Hellinger` 1914 · `helpen` 1914 ·
+`herhaling` 125, 134 · `herinnering` 1622, 1887 · `herkaderen` 1546, 1616 ·
+`herkomst` 127 · `hermetische filosofie` 378, 1246 · `hermetisme` 613, 631,
+632, 633, 638, 639, 642, 647, 766, 1218, 1232, 1249, 1250, 1253, 1254 ·
+`heroïne` 1837 · `heroverwegen` 28 · `hersenbank` 1680 · `hersenen` 51, 84,
+85, 86, 327, 801, 829, 1160, 1307, 1506, 1679, 1680, 1719, 1742, 1848, 1895,
+2088 · `hersenonderzoek` 330, 333, 763 · `hersenspoeling` 384, 668 · `herstel`
+87, 552, 583, 1722, 1833, 1913, 1915 · `herstelbeweging` 1613 · `herstelrecht`
+1641 · `Herziene Statenvertaling` 1811 · `het gesprek` 416 · `het nu` 2015 ·
+`hexagrammen` 2039 · `hiernamaals` 1867, 1911 · `Himalaya` 191, 1800 ·
+`hindoeisme` 1508 · `hindoeïsme` 169, 199, 527, 569, 1102, 1551, 2060 ·
+`Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 ·
+`hiphop` 440 · `Hipparchia` 1725 · `hippietrail` 2089 · `historische
+portretten` 248 · `historische roman` 529, 922, 923, 924, 1542, 1649, 1886,
+1888 · `ho'oponopono` 1505 · `hofcultuur` 216 · `holistisch` 1751 ·
+`holistische geneeskunde` 1750 · `hollywood` 555 · `Hollywood` 178, 1585 ·
+`Holocaust` 48, 1213, 1539, 2091 · `holografie` 340 · `homoseksualiteit` 325,
+1730 · `Honderd Bunder Bos` 1666 · `Hongkong` 1596 · `hoogbegaafdheid` 1314 ·
+`hooggevoeligheid` 1660 · `hoogsensitiviteit` 1523, 1667 · `hoop` 255, 319 ·
+`hormonen` 80, 339, 1864, 1881, 1899, 2069, 2107 · `hospice` 416, 1601 ·
+`houding` 117, 1630, 1631, 1855, 2027 · `huisarts` 1828, 2099 · `huisvesting`
+65 · `hulp` 1633 · `hulpverlening` 1720, 1914, 2106 · `humanisme` 236, 643 ·
+`humanistische psychologie` 1726 · `humor` 16, 19, 26, 105, 227, 561, 1296,
+1322, 2097, 2106 · `Huna` 1820 · `husserl` 577 · `huwelijk` 9, 34, 165, 1589,
+1590, 1620 · `Huxley` 54 · `hybride werken` 512 · `hypermoderne school` 831 ·
+`hyperrealiteit` 565 · `hyperventilatie` 1696, 1812 · `hypnose` 123, 124, 125,
+668, 1144, 1159, 1616, 1868, 1869, 1917 · `hypnotherapie` 1546, 1739, 1868,
+1869 · `hypocrisie` 1627 · `i ching` 2032 · `I Ching` 2080 · `i tjing` 2039 ·
+`Ibiza` 1534 · `Idaho` 45 · `idealisme` 1742 · `ideeen` 702 · `ideeën` 206 ·
+`ideeëngeschiedenis` 269, 751, 766, 932, 1246, 1247, 1248, 1249, 1250, 1251,
+1252, 1253, 1255, 1875 · `ideeenroman` 1772 · `identiteit` 22, 115, 192, 261,
+374, 375, 467, 559, 1116, 1201, 1206, 1302, 1303, 1319, 1504, 1618, 1639,
+1730, 1774 · `identiteitskapitaal` 51 · `ideologie` 628 · `ideologiekritiek`
+1341 · `ierland` 110 · `ifs` 2036 · `IJsland` 185, 533, 2116 · `ijstijd` 1823
+· `ik-vorm` 113 · `ikigai` 1882 · `Illuminati` 1532 · `illustratie` 1681, 2002
+· `illustraties` 109, 327 · `Ilon Wikland` 1597 · `imitatie` 11 ·
+`immuunsysteem` 1604, 1722, 1813, 1863 · `imperfectionisme` 442 · `import` 20
+· `india` 649, 2033 · `India` 163, 171, 172, 180, 189, 191, 196, 199, 203,
+226, 242, 365, 370, 518, 520, 527, 1101, 1304, 1400, 1401, 1502, 1552, 1652,
+1763, 1767, 1806, 1826, 1837, 1847, 2046 · `indianen` 2024 ·
+`indianenspiritualiteit` 2115 · `indirecte suggestie` 1546 · `individualisme`
+9, 96, 624, 1206, 1772 · `individualiteit` 263 · `individuatie` 359, 360, 408,
+409, 646 · `individuele-verantwoordelijkheid` 299 · `indonesië` 692 ·
+`inductie` 1869 · `industrie` 348, 905 · `inflatie` 1332 · `informatietheorie`
+1272, 1277, 1278, 1316 · `inheems denken` 521 · `inheemse kennis` 1578 ·
+`inheemse volken` 1593 · `initiatie` 407, 408, 522, 921, 922, 1114, 1235, 2074
+· `injectie-aanvallen` 2312 · `inleiding` 452, 456 · `inlichtingendiensten`
 687, 688, 689, 1345 · `innerlijk kind` 1595, 1613, 1616, 1751 ·
 `innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke criticus` 1541,
 1594, 1693, 1778, 1817 · `innerlijke familie` 2036 · `innerlijke houding` 2044
@@ -319874,55 +323804,55 @@ filosofie` 525, 1107 · `Israël` 514 · `Isvara` 1508 · `Italiaanse non-fictie
 1306, 1554 · `japanse filosofie` 576, 1106 · `jaren dertig` 1657, 1854 ·
 `jaren negentig` 348 · `jaren tachtig` 1585 · `jaren zestig` 750, 1148 ·
 `jaren zeventig` 1511, 1584, 2086, 2089 · `jaren-tachtig` 139 ·
-`jaren-twintig` 94 · `jaren-vijftig` 704 · `jazztijdperk` 284 · `je schept je
-eigen werkelijkheid` 1661 · `jeff bezos` 257 · `jeugd` 53, 104, 115, 834,
-1515, 1519, 1557, 1723, 1873, 2004, 2048 · `jeugdboek` 1625, 1634, 1695 ·
-`jeugdliteratuur` 1562, 1885 · `jeugdtrauma` 1722 · `jezuïet` 2065 ·
-`jodendom` 630, 640, 942, 1216, 1568, 1657 · `jodenvervolging` 2091 · `Joe
-Vitale` 1505 · `Johannes` 1537 · `John Harrison` 321 · `joint ventures` 348 ·
-`jojo-effect` 2108 · `jonge liefde` 180 · `jongeren` 25, 1747, 1892, 2083 ·
-`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
-574 · `Jordaan` 2048 · `Joseph Campbell` 1805 · `journaling` 147, 1739 ·
+`jaren-twintig` 94 · `jaren-vijftig` 704 · `JavaScript` 2316 · `jazztijdperk`
+284 · `je schept je eigen werkelijkheid` 1661 · `jeff bezos` 257 · `jeugd` 53,
+104, 115, 834, 1515, 1519, 1557, 1723, 1873, 2004, 2048 · `jeugdboek` 1625,
+1634, 1695 · `jeugdliteratuur` 1562, 1885 · `jeugdtrauma` 1722 · `jezuïet`
+2065 · `jodendom` 630, 640, 942, 1216, 1568, 1657 · `jodenvervolging` 2091 ·
+`Joe Vitale` 1505 · `Johannes` 1537 · `John Harrison` 321 · `joint ventures`
+348 · `jojo-effect` 2108 · `jonge liefde` 180 · `jongeren` 25, 1747, 1892,
+2083 · `jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie`
+572, 574 · `Jordaan` 2048 · `Joseph Campbell` 1805 · `journaling` 147, 1739 ·
 `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566, 669, 690, 816,
 903, 950, 1313, 2066 · `judo` 1834 · `jung` 646, 937, 1118, 1123, 1153, 1154 ·
 `Jung` 143, 358, 359, 1292, 1598 · `jungiaans` 1520 · `jungiaanse psychologie`
 1845 · `Jungiaanse psychologie` 404, 407, 408, 409, 410, 1121, 1230, 1234,
 1235, 1236 · `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644, 1217,
-1253 · `Kabul` 184 · `Kagyu` 1662 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 ·
-`kameraadschap` 529 · `kanalisatie` 1856 · `kanker` 419, 1596, 1604, 1691,
-2008 · `kans` 64, 805 · `kansdenken` 487 · `kansen` 137 · `kansenongelijkheid`
-1694 · `kansrekening` 282, 456, 484, 490, 496, 504, 505, 812, 946, 1280, 1287
-· `kantoorwerk` 1879 · `kapitalisme` 298, 682, 821, 910, 933, 1341, 2022 ·
-`kapitalismekritiek` 1726 · `karakter` 97, 537, 1776, 1916, 2049 · `Karel de
-Grote` 534 · `karezza` 2093 · `karma` 184, 1826, 2017, 2101, 2103 · `karmel`
-573 · `kashmir-shaivisme` 1100, 1103 · `Kasjmir` 180, 1876 · `kaste` 1400 ·
-`katharen` 1649, 1700, 1701, 1702 · `katholicisme` 672 · `katten` 1672 ·
-`keegan` 110 · `Kelly-criterium` 504, 812 · `keltische traditie` 611 ·
-`Kenamju` 1834 · `Kendi` 1875 · `kennedy` 690 · `kennedy-moord` 691 · `kennis`
-81, 508 · `kennis en macht` 720 · `kennisleer` 525, 587, 929, 1107, 1111,
-1112, 1260, 1266, 1267 · `kennissociologie` 721 · `kennistheorie` 654, 820 ·
-`kenniswerk` 6, 50, 400, 472 · `Kerala` 1400 · `kerk` 1579, 1580 ·
-`kerkgeschiedenis` 1702 · `kernoorlog` 1695 · `kernovertuiging` 1515 ·
-`kernwaarden` 245, 1721 · `kernwapens` 454, 944 · `ketterij` 1649, 1701 ·
-`keuzes` 51, 71, 72, 510, 1583, 1637, 1882 · `KGB` 1345 · `ki` 1800 ·
-`Kierkegaard` 405 · `kijken` 1839 · `kind` 2041 · `kinderboek` 167, 1597,
-1626, 1632, 1633, 1666, 1686, 1687, 1884, 2002, 2071 · `kinderen` 1523, 1621,
-1639, 1872, 2025 · `kindergedichten` 1681 · `kinderjaren` 152 · `Kinderjury`
-1686 · `kinderkanker` 1514 · `kindertijd` 1646 · `kinderwens` 1600 ·
-`kinesiologie` 449 · `Kinshasa` 1835 · `klantcontact` 182, 186 ·
-`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
-`klantwaarde` 309 · `klasse` 1694 · `klassenverschil` 284 · `klassieke
-bronnen` 286, 1105 · `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48,
-61, 83, 127, 135, 144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619,
-620, 626, 695, 696, 701, 702, 715, 716, 717, 718, 719, 754, 757, 910, 936,
-938, 948, 1208, 1211, 1212, 1213, 1256, 1257, 1258, 1259, 1262, 1271, 1275,
-1280, 1282, 1284, 1289, 1290, 1321, 1540, 1626, 1666, 1706, 2014, 2041 ·
-`kleding` 833 · `klein-beginnen` 40 · `kleinbedrijf` 1877 · `kleine-bedrijven`
-172 · `kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaat` 1603 ·
-`klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
-`klokkenluider` 752 · `klokkenmakerij` 321 · `koan` 1555 · `koans` 2027 ·
-`koffie` 2117 · `kolonialisme` 298, 592, 1111, 1112, 1113, 1116 ·
-`kolonisatie` 1695, 2024 · `komedie` 1706 · `Konya` 1538 · `kookboek` 1137,
+1253 · `Kabul` 184 · `Kagyu` 1662 · `Kaïn-en-Abel` 10 · `Kali Linux` 2302,
+2309 · `kalmte` 248, 389 · `kameraadschap` 529 · `kanalisatie` 1856 · `kanker`
+419, 1596, 1604, 1691, 2008 · `kans` 64, 805 · `kansdenken` 487 · `kansen` 137
+· `kansenongelijkheid` 1694 · `kansrekening` 282, 456, 484, 490, 496, 504,
+505, 812, 946, 1280, 1287 · `kantoorwerk` 1879 · `kapitalisme` 298, 682, 821,
+910, 933, 1341, 2022 · `kapitalismekritiek` 1726 · `karakter` 97, 537, 1776,
+1916, 2049 · `Karel de Grote` 534 · `karezza` 2093 · `karma` 184, 1826, 2017,
+2101, 2103 · `karmel` 573 · `kashmir-shaivisme` 1100, 1103 · `Kasjmir` 180,
+1876 · `kaste` 1400 · `katharen` 1649, 1700, 1701, 1702 · `katholicisme` 672 ·
+`katten` 1672 · `keegan` 110 · `Kelly-criterium` 504, 812 · `keltische
+traditie` 611 · `Kenamju` 1834 · `Kendi` 1875 · `kennedy` 690 ·
+`kennedy-moord` 691 · `kennis` 81, 508 · `kennis en macht` 720 · `kennisleer`
+525, 587, 929, 1107, 1111, 1112, 1260, 1266, 1267 · `kennissociologie` 721 ·
+`kennistheorie` 654, 820 · `kenniswerk` 6, 50, 400, 472 · `Kerala` 1400 ·
+`Kerberos` 2315 · `kerk` 1579, 1580 · `kerkgeschiedenis` 1702 · `kernoorlog`
+1695 · `kernovertuiging` 1515 · `kernwaarden` 245, 1721 · `kernwapens` 454,
+944 · `ketterij` 1649, 1701 · `keuzes` 51, 71, 72, 510, 1583, 1637, 1882 ·
+`KGB` 1345 · `ki` 1800 · `Kierkegaard` 405 · `kijken` 1839 · `kind` 2041 ·
+`kinderboek` 167, 1597, 1626, 1632, 1633, 1666, 1686, 1687, 1884, 2002, 2071 ·
+`kinderen` 1523, 1621, 1639, 1872, 2025 · `kindergedichten` 1681 ·
+`kinderjaren` 152 · `Kinderjury` 1686 · `kinderkanker` 1514 · `kindertijd`
+1646 · `kinderwens` 1600 · `kinesiologie` 449 · `Kinshasa` 1835 ·
+`klantcontact` 182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 ·
+`klantvalidatie` 265 · `klantwaarde` 309 · `klasse` 1694 · `klassenverschil`
+284 · `klassieke bronnen` 286, 1105 · `klassieke tekst` 219, 394 ·
+`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420,
+520, 537, 616, 617, 618, 619, 620, 626, 695, 696, 701, 702, 715, 716, 717,
+718, 719, 754, 757, 910, 936, 938, 948, 1208, 1211, 1212, 1213, 1256, 1257,
+1258, 1259, 1262, 1271, 1275, 1280, 1282, 1284, 1289, 1290, 1321, 1540, 1626,
+1666, 1706, 2014, 2041 · `kleding` 833 · `klein-beginnen` 40 · `kleinbedrijf`
+1877 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
+`klimaat` 1603 · `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische
+psychologie` 460 · `klokkenluider` 752 · `klokkenmakerij` 321 · `koan` 1555 ·
+`koans` 2027 · `koffie` 2117 · `kolonialisme` 298, 592, 1111, 1112, 1113, 1116
+· `kolonisatie` 1695, 2024 · `komedie` 1706 · `Konya` 1538 · `kookboek` 1137,
 2068 · `koolstofverwijdering` 1603 · `koopgedrag` 705 · `koppen` 697, 699 ·
 `korea` 111 · `Korea` 1713 · `korps mariniers` 2063 · `kort` 59, 99, 100, 101,
 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445, 832, 1271, 1314 ·
@@ -319947,20 +323877,21 @@ en Arjuna` 2060 · `Krishnamurti` 1569, 1640, 2045 · `kritiek` 24, 41, 50,
 920, 930, 1164, 1165, 1166, 1261, 1513, 1524, 1531, 1815, 2001, 2009, 2013 ·
 `kwantummechanica` 362, 655, 761, 818, 1318, 1658 · `kwantumtaal` 1507, 1545 ·
 `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470, 1541, 2037 ·
+`kwetsbaarheidsonderzoek` 2300 · `kwetsbaarheidsrapportage` 2314 ·
 `kyotoschool` 576 · `lachen` 1552 · `lafheid` 1851 · `Lama Yeshe` 1775 ·
 `landbouw` 56, 98, 1592, 1708 · `landmark forum` 344 · `landschap` 825, 1202 ·
-`Languedoc` 1700, 1701, 1702 · `Lanzarote` 1685 · `Laozi` 1671 ·
-`Latijns-Amerika` 1402 · `law of attraction` 1898 · `leadgeneratie` 308 ·
-`lean manufacturing` 265, 912 · `leefstijl` 86, 103, 138, 171, 1565, 1647,
-1669, 1683, 1759, 1848, 1853, 1881, 1883, 1899, 1915, 2016, 2052, 2069, 2104,
-2105 · `leefstijlcoaching` 2104, 2105 · `leerling en meester` 1608 ·
-`leertijd` 320 · `leerverhalen` 1546 · `leger` 106, 180, 222 · `leiderschap`
-36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273, 344, 353,
-364, 370, 389, 434, 465, 468, 475, 536, 544, 551, 900, 907, 911, 1297, 1331,
-1776, 1811, 1861, 1907, 2061, 2063, 2070 · `leidinggeven` 156, 1740 · `leraar`
-1559 · `leren` 175, 296, 349, 397, 422, 441, 509, 538, 801, 803, 1278 ·
-`lesgeven` 2084 · `lesmateriaal` 116 · `leugendetectie` 154, 338 · `Leuven`
-1553 · `leven na de dood` 1535 · `levensbeschouwing` 1577 ·
+`Languedoc` 1700, 1701, 1702 · `Lanzarote` 1685 · `Laozi` 1671 · `laterale
+beweging` 2315 · `Latijns-Amerika` 1402 · `law of attraction` 1898 ·
+`leadgeneratie` 308 · `lean manufacturing` 265, 912 · `leefstijl` 86, 103,
+138, 171, 1565, 1647, 1669, 1683, 1759, 1848, 1853, 1881, 1883, 1899, 1915,
+2016, 2052, 2069, 2104, 2105 · `leefstijlcoaching` 2104, 2105 · `leerling en
+meester` 1608 · `leertijd` 320 · `leerverhalen` 1546 · `leger` 106, 180, 222 ·
+`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
+344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551, 900, 907, 911,
+1297, 1331, 1776, 1811, 1861, 1907, 2061, 2063, 2070 · `leidinggeven` 156,
+1740 · `leraar` 1559 · `leren` 175, 296, 349, 397, 422, 441, 509, 538, 801,
+803, 1278 · `lesgeven` 2084 · `lesmateriaal` 116 · `leugendetectie` 154, 338 ·
+`Leuven` 1553 · `leven na de dood` 1535 · `levensbeschouwing` 1577 ·
 `levenscyclusanalyse` 1651 · `levensenergie` 1800 · `levensfilosofie` 1710 ·
 `levenshouding` 1552 · `levensinrichting` 334 · `levenskeuzen` 1736 ·
 `levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227, 586, 1572, 1636,
@@ -319978,12 +323909,12 @@ en Arjuna` 2060 · `Krishnamurti` 1569, 1640, 2045 · `kritiek` 24, 41, 50,
 `licht` 525, 1607 · `liefde` 3, 131, 160, 295, 1509, 1517, 1600, 1663, 1681,
 1726, 1734, 1849, 1870, 2065 · `liefdesroman` 180 · `liefdestaal` 2056 ·
 `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390, 1300, 1836 · `Lima` 1570 ·
-`Limburg` 1888 · `Lipton` 1659 · `list` 531 · `literair` 110 · `literatuur`
-49, 934, 1113, 1299, 1330 · `logica` 421, 437, 1256, 1266, 1271, 2120 ·
-`logische niveaus` 1543 · `logotherapie` 48 · `lojong` 1556, 1560, 1662 ·
-`Londen` 1557, 2089, 2119 · `Long Beach` 2083 · `Long-Island` 4 · `longevity`
-415 · `loopbaan` 50, 51, 150, 349, 515, 547, 803, 1501, 1740, 1766 · `lopen`
-1855 · `loslaten` 377, 449, 1507, 1637, 1671, 1840 · `losmaken` 45 ·
+`Limburg` 1888 · `linux` 2306 · `Lipton` 1659 · `list` 531 · `literair` 110 ·
+`literatuur` 49, 934, 1113, 1299, 1330 · `logica` 421, 437, 1256, 1266, 1271,
+2120 · `logische niveaus` 1543 · `logotherapie` 48 · `lojong` 1556, 1560, 1662
+· `Londen` 1557, 2089, 2119 · `Long Beach` 2083 · `Long-Island` 4 ·
+`longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547, 803, 1501, 1740, 1766
+· `lopen` 1855 · `loslaten` 377, 449, 1507, 1637, 1671, 1840 · `losmaken` 45 ·
 `lotsbestemming` 261 · `louteringsberg` 2092 · `lsd` 750 · `LSD` 1841 ·
 `luchtoorlog` 2122 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444, 1642,
 1919 · `Luke Howard` 1839 · `lymfeklierkanker` 1596 · `maakbaarheid` 1769 ·
@@ -319994,13 +323925,14 @@ en Arjuna` 2060 · `Krishnamurti` 1569, 1640, 2045 · `kritiek` 24, 41, 50,
 `machtsverhoudingen` 155 · `macro-economie` 2124 · `magie` 613, 632, 634, 637,
 638, 639, 641, 1126, 1216, 1218, 1220, 1232, 1242, 1244, 1246, 1247, 1248,
 1249, 1253, 1255 · `magisch realisme` 261, 1401, 1402 · `magnetoreceptie` 2051
-· `mahamudra` 1717 · `management` 42, 47, 170, 183, 256, 350, 353, 364, 472,
-900, 901, 902, 904, 907, 908, 909, 912, 1901, 2072 · `managementklassieker`
-1776 · `managementtheorie` 547 · `manifest` 629 · `manifesteren` 128, 129,
-130, 131, 132, 190, 196, 433, 543, 560, 768, 1505, 1507, 1703, 1704, 1748,
-1760, 1779, 1818, 1820, 1889, 1890, 1898, 1909, 1910, 2013, 2018, 2103 ·
-`manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429, 672, 673, 675, 686,
-704, 1255 · `mannelijk en vrouwelijk` 1741 · `mannelijke energie` 1819 ·
+· `mahamudra` 1717 · `malware` 2311, 2313 · `malware op maat` 2304 ·
+`management` 42, 47, 170, 183, 256, 350, 353, 364, 472, 900, 901, 902, 904,
+907, 908, 909, 912, 1901, 2072 · `managementklassieker` 1776 ·
+`managementtheorie` 547 · `manifest` 629 · `manifesteren` 128, 129, 130, 131,
+132, 190, 196, 433, 543, 560, 768, 1505, 1507, 1703, 1704, 1748, 1760, 1779,
+1818, 1820, 1889, 1890, 1898, 1909, 1910, 2013, 2018, 2103 · `manipulatie`
+123, 124, 125, 126, 212, 213, 381, 384, 429, 672, 673, 675, 686, 704, 1255,
+2310 · `mannelijk en vrouwelijk` 1741 · `mannelijke energie` 1819 ·
 `mannelijkheid` 3, 406, 407, 408, 1500, 1874, 2074 · `mannen` 7, 1598, 1730,
 1811, 1831, 1874, 2006 · `mannenbeweging` 407 · `mannenwerk` 2074 ·
 `mantelzorg` 225 · `mantra` 403 · `manuscript` 359 · `Mao` 1522 · `maria
@@ -320033,9 +323965,10 @@ gedrag` 155 · `menselijke natuur` 1859 · `menselijke oorsprong` 1904 ·
 285, 289, 320, 402 · `Mer-Ka-Ba` 1821 · `Merel Teunis` 1739 · `meridianen`
 2007 · `merken` 279, 700, 701, 705 · `metabolic typing` 2052 · `metabolisme`
 313 · `metacognitie` 2130 · `metafictie` 1771 · `metafoor` 1630 · `metafysica`
-102, 518, 584, 587, 1742 · `meten` 69, 133, 695, 697 · `meteorologie` 1839 ·
-`methaan` 1603 · `methode` 81, 764, 2009 · `methodologie` 1337, 1340, 1342,
-1343 · `methylering` 1894 · `Mexico` 1841, 1858 · `microbedrijf` 40, 172 ·
+102, 518, 584, 587, 1742 · `metasploit` 2308 · `Metasploit` 2302 · `meten` 69,
+133, 695, 697 · `meteorologie` 1839 · `meterpreter` 2308 · `methaan` 1603 ·
+`methode` 81, 764, 2009 · `methodologie` 1337, 1340, 1342, 1343 ·
+`methylering` 1894 · `Mexico` 1841, 1858 · `microbedrijf` 40, 172 ·
 `microbioom` 417 · `middelbare-leeftijd` 7 · `middeleeuwen` 534, 632, 822,
 947, 1107, 1216, 1263, 1282, 1649, 1701 · `Midden-aarde` 1567 ·
 `midden-oosten` 720 · `middenrif` 1756 · `midlife` 324 · `midrasj` 1542 ·
@@ -320048,50 +323981,52 @@ gedrag` 155 · `menselijke natuur` 1859 · `menselijke oorsprong` 1904 ·
 1669, 1752, 2018, 2019, 2028, 2064, 2069 · `Mindvalley` 1760 · `minimalisme`
 181 · `misdaad` 254, 1148, 1707 · `misleiding` 219, 272, 677 · `mislukking`
 516, 1331 · `mismatchziekten` 1708 · `missie` 567 · `mitochondriën` 313 ·
-`mode` 833 · `modellen` 300 · `modelleren` 139 · `modellering` 455 ·
-`modelvorming` 2121 · `modulariteit` 1627 · `moed` 44, 529, 1519, 2071 ·
-`moeder en dochter` 1522, 1600, 1650, 1887 · `moeder-en-zoon` 26 ·
-`moeder-kindrelatie` 1862 · `moederkoren` 765, 1611 · `moederschap` 1758 ·
-`momentum` 481 · `monetair beleid` 2124 · `monnik` 1664 · `monniksleven` 230,
-1207 · `monomythe` 410 · `monopolie` 306 · `monsters` 532 · `Montségur` 1700 ·
-`Monty-Python` 16 · `moraal` 9, 57, 67, 263, 1627, 1676, 1678, 2086 ·
-`moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `moritatherapie`
-1554 · `mormonisme` 560, 1707 · `motivatie` 117, 139, 146, 183, 200, 207, 315,
-427, 468, 469, 472, 1822, 2028, 2073 · `motivatieonderzoek` 703, 704 · `Motley
-Fool` 474 · `motor` 2047 · `motoren` 6 · `motorfietsen` 325 · `MTHFR` 1894 ·
-`Muhammad Ali` 1835 · `multitasken` 1879 · `muziek` 17, 85, 762, 824, 952,
-1246, 1256, 1291, 1297, 1512, 1564, 1674, 1679 · `muziekfilosofie` 756 ·
-`mycotoxines` 2117 · `mysteriecultus` 765 · `mystiek` 340, 390, 524, 525, 573,
-578, 603, 604, 606, 610, 630, 636, 640, 666, 754, 835, 936, 1100, 1103, 1109,
-1110, 1124, 1158, 1207, 1222, 1237, 1263, 1300, 1540, 1607, 1717, 1774, 2058,
-2065 · `mythe` 608 · `mythe en ritueel` 756 · `mythen` 1845 · `mythevorming`
-615, 1140, 1151, 1238, 1240 · `mythologie` 73, 143, 357, 360, 407, 408, 409,
-599, 611, 1117, 1119, 1157, 1225, 1226, 1235, 1237, 1238, 1805, 2074, 2119 ·
-`mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
-`nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
-`narratieve non-fictie` 2122 · `naslag` 99, 112 · `naslagwerk` 59, 225, 426,
-477, 478, 486, 491, 500, 504, 640, 661, 662, 806, 813, 815, 817, 835, 931,
-1127, 1129, 1133, 1243, 1263, 1689, 1690, 2007, 2039, 2059, 2084 ·
-`nationalisme` 237, 1333 · `natuur` 191, 323, 609, 830, 1259, 1262, 1575,
-1593, 1695, 2032 · `natuurbeschrijving` 1569 · `natuurgeneeskunde` 1647 ·
-`natuurgeschiedenis` 1839 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326,
-648, 650, 651, 653, 655, 657, 818, 819, 944, 945, 947, 1261, 1265, 1276, 1279,
-1318 · `natuurlijke horsemanship` 2057 · `natuurlijke selectie` 1677 ·
-`natuurlijke-selectie` 1344 · `navigatie` 321 · `navy seals` 229, 364 ·
-`nazisme` 223, 1338, 1900 · `neanderthaler` 762 · `neanderthalers` 1823 ·
-`necrofilie` 223 · `nederland` 96 · `Nederland` 1528, 1530, 1619, 1633, 1673,
-1724, 1746, 1747, 1753, 1764, 1773, 1807, 1816, 1817, 1825, 1853, 1874, 2004,
-2005, 2030 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108,
-128, 130, 131, 141, 1327, 2064 · `Nederlands` 1501, 1527, 1616, 1768, 1769,
-2013, 2042 · `nederlands-auteur` 140 · `Nederlandse literatuur` 1600 ·
-`nederlandstalig` 113 · `nederzetting` 2021 · `nee zeggen` 1670 · `negatieve
-emoties` 176 · `negatieve visualisatie` 1710 · `negentiende eeuw` 751, 1127,
-1128, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1325, 1676, 1677, 2024 ·
-`negentig dagen` 188 · `neoliberalisme` 2022 · `neolithicum` 1886 ·
-`neopaganisme` 611, 637, 1126, 1224, 1227, 1228, 1230, 1231, 1233, 1244, 1245
-· `neotantra` 1773 · `nepnieuws` 237 · `netwerken` 24, 246, 300, 388, 508,
-1766 · `neurobiologie` 119, 1680 · `neurochirurgie` 49, 414 ·
-`neurodiversiteit` 1306, 1308, 1309, 1310, 1313, 2005 · `neurolinguïstisch
+`mobiele beveiliging` 2302 · `mode` 833 · `modellen` 300 · `modelleren` 139 ·
+`modellering` 455 · `modelvorming` 2121 · `modulariteit` 1627 · `moed` 44,
+529, 1519, 2071 · `moeder en dochter` 1522, 1600, 1650, 1887 ·
+`moeder-en-zoon` 26 · `moeder-kindrelatie` 1862 · `moederkoren` 765, 1611 ·
+`moederschap` 1758 · `momentum` 481 · `monetair beleid` 2124 · `monnik` 1664 ·
+`monniksleven` 230, 1207 · `monomythe` 410 · `monopolie` 306 · `monsters` 532
+· `Montségur` 1700 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263, 1627, 1676,
+1678, 2086 · `moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 ·
+`moritatherapie` 1554 · `mormonisme` 560, 1707 · `motivatie` 117, 139, 146,
+183, 200, 207, 315, 427, 468, 469, 472, 1822, 2028, 2073 ·
+`motivatieonderzoek` 703, 704 · `Motley Fool` 474 · `motor` 2047 · `motoren` 6
+· `motorfietsen` 325 · `MTHFR` 1894 · `Muhammad Ali` 1835 · `multitasken` 1879
+· `muziek` 17, 85, 762, 824, 952, 1246, 1256, 1291, 1297, 1512, 1564, 1674,
+1679 · `muziekfilosofie` 756 · `mycotoxines` 2117 · `mysteriecultus` 765 ·
+`mystiek` 340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630, 636, 640,
+666, 754, 835, 936, 1100, 1103, 1109, 1110, 1124, 1158, 1207, 1222, 1237,
+1263, 1300, 1540, 1607, 1717, 1774, 2058, 2065 · `mythe` 608 · `mythe en
+ritueel` 756 · `mythen` 1845 · `mythevorming` 615, 1140, 1151, 1238, 1240 ·
+`mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611, 1117, 1119, 1157,
+1225, 1226, 1235, 1237, 1238, 1805, 2074, 2119 · `mythologische fantasy` 202 ·
+`mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 · `napoleontische
+oorlogen` 235 · `narcisme` 258, 404 · `narratieve non-fictie` 2122 · `naslag`
+99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504, 640, 661,
+662, 806, 813, 815, 817, 835, 931, 1127, 1129, 1133, 1243, 1263, 1689, 1690,
+2007, 2039, 2059, 2084 · `nationalisme` 237, 1333 · `natuur` 191, 323, 609,
+830, 1259, 1262, 1575, 1593, 1695, 2032 · `natuurbeschrijving` 1569 ·
+`natuurgeneeskunde` 1647 · `natuurgeschiedenis` 1839 · `natuurkunde` 62, 94,
+240, 262, 281, 300, 326, 648, 650, 651, 653, 655, 657, 818, 819, 944, 945,
+947, 1261, 1265, 1276, 1279, 1318 · `natuurlijke horsemanship` 2057 ·
+`natuurlijke selectie` 1677 · `natuurlijke-selectie` 1344 · `navigatie` 321 ·
+`navy seals` 229, 364 · `nazisme` 223, 1338, 1900 · `neanderthaler` 762 ·
+`neanderthalers` 1823 · `necrofilie` 223 · `nederland` 96 · `Nederland` 1528,
+1530, 1619, 1633, 1673, 1724, 1746, 1747, 1753, 1764, 1773, 1807, 1816, 1817,
+1825, 1853, 1874, 2004, 2005, 2030 · `nederlands` 93, 97, 100, 101, 102, 103,
+104, 105, 106, 107, 108, 128, 130, 131, 141, 1327, 2064 · `Nederlands` 1501,
+1527, 1616, 1768, 1769, 2013, 2042 · `nederlands-auteur` 140 · `Nederlandse
+literatuur` 1600 · `nederlandstalig` 113 · `nederzetting` 2021 · `nee zeggen`
+1670 · `negatieve emoties` 176 · `negatieve visualisatie` 1710 · `negentiende
+eeuw` 751, 1127, 1128, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1325,
+1676, 1677, 2024 · `negentig dagen` 188 · `neoliberalisme` 2022 ·
+`neolithicum` 1886 · `neopaganisme` 611, 637, 1126, 1224, 1227, 1228, 1230,
+1231, 1233, 1244, 1245 · `neotantra` 1773 · `nepnieuws` 237 · `netwerkanalyse`
+2303 · `netwerkbeveiliging` 2309 · `netwerken` 24, 246, 300, 388, 508, 1766,
+2317 · `netwerkinfrastructuur` 2311 · `netwerkprogrammering` 2313 ·
+`netwerkscanning` 2300 · `neurobiologie` 119, 1680 · `neurochirurgie` 49, 414
+· `neurodiversiteit` 1306, 1308, 1309, 1310, 1313, 2005 · `neurolinguïstisch
 programmeren` 1533 · `neurologie` 325, 1307, 1319, 1674 · `neuroplasticiteit`
 175, 208, 414, 1818 · `neuropsychologie` 1879 · `neurose` 575 ·
 `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
@@ -320107,48 +324042,49 @@ Orleans` 1706 · `new thought` 259, 380, 555, 1704 · `New Thought` 1607, 1629,
 spiritualiteit` 1621 · `nieuwe tijd` 1697 · `nieuwetijdskind` 1650 · `nieuws`
 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nieuwspraak` 1757 ·
 `nihilisme` 1770 · `Nike` 20 · `nlp` 123, 125, 139 · `NLP` 1530, 1533, 1543,
-1630, 1631, 1804, 1809, 1868 · `Nobelprijs` 55, 2000 · `non-coöperatie` 2033 ·
-`non-dualiteit` 520, 1100, 1102, 1502, 1504, 1536, 1555, 1612, 1639, 1652,
-1697, 1734, 1735, 1876, 1878, 2031 · `non-fictie` 420 · `non-lokaliteit` 1524
-· `non-verbaal` 399 · `non-verbale communicatie` 154 · `nonsens` 1626 ·
-`noodlot` 533, 1600 · `Noord-Europa` 1625 · `Noordse mythologie` 533 ·
-`notitieboeken` 241 · `novelle` 173 · `nuchterheid` 1906, 2098 · `nulpuntveld`
-1815 · `numerologie` 1690 · `numineus` 578 · `obesitas` 417, 1708 ·
-`objectivisme` 1772 · `observatie` 2129, 2130 · `observeren` 15 · `obsessieve
-liefde` 284 · `Occitanië` 1649 · `occultisme` 378, 613, 634, 637, 638, 644,
-676, 914, 915, 921, 924, 925, 1140, 1147, 1214, 1216, 1217, 1220, 1221, 1222,
-1228, 1229, 1232, 1239, 1242, 1243, 1244, 1248, 1250, 1690 · `oceaanbemesting`
-1603 · `ochtendroutine` 14, 134, 244, 1822, 1825 · `octopus` 760 · `Odin` 2080
-· `oefenen` 29, 397, 800 · `oefening` 141, 296, 1710, 1814 · `oefeningen` 15,
-35, 87, 103, 109, 118, 120, 122, 130, 549, 1527, 1543, 1556, 1595, 1729, 1737,
-1773, 1816, 1871, 1916 · `oerdieet` 1899 · `okinawa` 77 · `okr` 256 ·
-`oligarchie` 618 · `omdenken` 2094 · `omgangsvormen` 24, 398, 939 · `omkering`
-105 · `omstreden` 37, 73, 76, 83, 1329 · `onafhankelijkheid` 1401, 1672 ·
-`onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
-`onbetrouwbare verteller` 284, 1401 · `onbewezen` 127, 128, 129, 130, 131,
-132, 139, 1239 · `onbewuste` 16, 283, 358, 359, 1316, 2090 · `onbewuste
-overtuigingen` 2013 · `onderbewuste` 124, 1545, 1588, 1704 · `onderbewustzijn`
-259 · `onderbouwing` 87, 108, 117, 134, 135, 136 · `onderdrukte emoties` 1668
-· `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450, 455, 1721 ·
-`ondernemen` 20, 39, 40, 47, 172, 446, 476, 2112 · `ondernemers` 174, 1669 ·
-`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
-278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
-465, 544, 567, 570, 901, 905, 906, 908, 911, 913, 1279, 1280, 1664, 1744,
-1877, 2072 · `onderstroom` 2034 · `onderwereld` 1837 · `onderwijs` 6, 23, 33,
-45, 63, 65, 68, 116, 237, 349, 509, 598, 667, 803, 943, 1130, 1310, 1321,
-1691, 1694, 1697, 2083, 2084 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29,
-32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305, 691, 705, 906,
-909, 946, 949, 950, 951, 1278, 1315, 1328, 1548, 1810 · `onderzoeksdebat` 53 ·
-`onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665, 687, 688, 692, 1148 ·
-`onderzoekskritiek` 52, 415, 1292 · `onderzoeksmethode` 1506 · `ongeluk` 1664
-· `ongemak` 323 · `ongemakkelijke gesprekken` 1670 · `ongeneeslijke ziekte`
-285 · `online ondernemen` 309 · `onrecht` 1580 · `onrust` 1653, 1838 ·
-`onsterfelijkheid` 236, 405, 1209 · `ontgifting` 1848 · `onthaasten` 2042 ·
-`onthechting` 462 · `ontlading` 1696 · `ontmoeten` 304 · `ontmoeting` 572,
-1294 · `ontologie` 344 · `ontrouw` 1509 · `ontslagen` 47 · `ontsnapping` 1850
-· `ontspanning` 1732, 1756, 1759, 1812, 1816, 1883 · `ontwaken` 1536 ·
-`ontwerp` 550 · `ontwikkeling` 46, 85, 1521, 1679, 1680 · `ontwikkelingsfasen`
-1613 · `ontwikkelingslanden` 234 · `ontwikkelingspsychologie` 1520 ·
+1630, 1631, 1804, 1809, 1868 · `nmap` 2300 · `Nobelprijs` 55, 2000 ·
+`non-coöperatie` 2033 · `non-dualiteit` 520, 1100, 1102, 1502, 1504, 1536,
+1555, 1612, 1639, 1652, 1697, 1734, 1735, 1876, 1878, 2031 · `non-fictie` 420
+· `non-lokaliteit` 1524 · `non-verbaal` 399 · `non-verbale communicatie` 154 ·
+`nonsens` 1626 · `noodlot` 533, 1600 · `Noord-Europa` 1625 · `Noordse
+mythologie` 533 · `notitieboeken` 241 · `novelle` 173 · `nuchterheid` 1906,
+2098 · `nulpuntveld` 1815 · `numerologie` 1690 · `numineus` 578 · `obesitas`
+417, 1708 · `objectivisme` 1772 · `observatie` 2129, 2130 · `observeren` 15 ·
+`obsessieve liefde` 284 · `Occitanië` 1649 · `occultisme` 378, 613, 634, 637,
+638, 644, 676, 914, 915, 921, 924, 925, 1140, 1147, 1214, 1216, 1217, 1220,
+1221, 1222, 1228, 1229, 1232, 1239, 1242, 1243, 1244, 1248, 1250, 1690 ·
+`oceaanbemesting` 1603 · `ochtendroutine` 14, 134, 244, 1822, 1825 · `octopus`
+760 · `Odin` 2080 · `oefenen` 29, 397, 800 · `oefening` 141, 296, 1710, 1814 ·
+`oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130, 549, 1527, 1543, 1556,
+1595, 1729, 1737, 1773, 1816, 1871, 1916 · `oerdieet` 1899 · `offensive
+security` 2311 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 · `omdenken` 2094
+· `omgangsvormen` 24, 398, 939 · `omkering` 105 · `omstreden` 37, 73, 76, 83,
+1329 · `onafhankelijkheid` 1401, 1672 · `onbegrepen-klachten` 104 ·
+`onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284, 1401 ·
+`onbewezen` 127, 128, 129, 130, 131, 132, 139, 1239 · `onbewuste` 16, 283,
+358, 359, 1316, 2090 · `onbewuste overtuigingen` 2013 · `onderbewuste` 124,
+1545, 1588, 1704 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134,
+135, 136 · `onderdrukte emoties` 1668 · `onderhandelen` 159, 186, 217, 260,
+271, 272, 305, 444, 450, 455, 1721 · `ondernemen` 20, 39, 40, 47, 172, 446,
+476, 2112 · `ondernemers` 174, 1669 · `ondernemerschap` 157, 163, 185, 197,
+198, 210, 222, 228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312, 350,
+365, 369, 370, 395, 403, 427, 431, 434, 465, 544, 567, 570, 901, 905, 906,
+908, 911, 913, 1279, 1280, 1664, 1744, 1877, 2072 · `onderstroom` 2034 ·
+`onderwereld` 1837 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237, 349,
+509, 598, 667, 803, 943, 1130, 1310, 1321, 1691, 1694, 1697, 2083, 2084 ·
+`onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78,
+79, 80, 84, 85, 86, 88, 152, 305, 691, 705, 906, 909, 946, 949, 950, 951,
+1278, 1315, 1328, 1548, 1810 · `onderzoeksdebat` 53 · `onderzoeksethiek` 215 ·
+`onderzoeksjournalistiek` 665, 687, 688, 692, 1148 · `onderzoekskritiek` 52,
+415, 1292 · `onderzoeksmethode` 1506 · `ongeluk` 1664 · `ongemak` 323 ·
+`ongemakkelijke gesprekken` 1670 · `ongeneeslijke ziekte` 285 · `online
+ondernemen` 309 · `onrecht` 1580 · `onrust` 1653, 1838 · `onsterfelijkheid`
+236, 405, 1209 · `ontgifting` 1848 · `onthaasten` 2042 · `onthechting` 462 ·
+`ontlading` 1696 · `ontmoeten` 304 · `ontmoeting` 572, 1294 · `ontologie` 344
+· `ontrouw` 1509 · `ontslagen` 47 · `ontsnapping` 1850 · `ontspanning` 1732,
+1756, 1759, 1812, 1816, 1883 · `ontwaken` 1536 · `ontwerp` 550 ·
+`ontwikkeling` 46, 85, 1521, 1679, 1680 · `ontwikkelingsfasen` 1613 ·
+`ontwikkelingslanden` 234 · `ontwikkelingspsychologie` 1520 ·
 `ontwikkelingstrauma` 1623 · `onvolmaaktheid` 379 · `onzekerheid` 268, 341,
 375, 423, 515, 516, 1280, 1281, 1579 · `oordeel` 59, 69, 1919 · `oordelen`
 1642 · `oorlog` 31, 57, 66, 364, 568, 1293, 1644, 1771, 2000, 2024 ·
@@ -320166,31 +324102,34 @@ Winfrey` 1748, 2003 · `Oprah's Book Club` 1620 · `opstand` 1770 ·
 `organisatiecultuur` 183, 273, 353 · `organisatieontwikkeling` 2070 ·
 `organisaties` 1637 · `organisatieverandering` 1861 · `orgasmekloof` 1548 ·
 `oriëntalisme` 720 · `Orpheus` 1600 · `orthodontie` 332 · `orthomoleculair`
-1759, 1864, 1881, 1895 · `Orwell` 54 · `Osho` 1717 · `otium` 1838 · `Otto
-Rank` 405 · `oud china` 272 · `oud zeer` 1720 · `Oud-Europa` 1886 · `Oude
-Rome` 328 · `Oudengels` 532 · `ouder worden` 1566, 1758, 1915 · `ouder-worden`
-5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416, 1887 · `ouders` 1510, 1602 ·
-`ouderschap` 1639 · `oudheid` 2, 247, 292, 536, 537, 588, 589, 641, 765, 940,
-947, 1725 · `Oulipo` 1212, 1213 · `outsourcen` 278 · `overdenken` 148 ·
-`overfitting` 484, 485, 502, 503 · `overgave` 431, 2031 · `overgewicht` 2107 ·
-`overheid` 1339 · `overleven` 31, 36 · `overlevingsvertekening` 64 ·
-`overlijden` 2021 · `overtuigen` 24, 182, 253, 356, 367, 438, 1682 ·
-`overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469, 487, 768, 1588,
-1616, 1631, 1659, 1705, 1716, 1739, 1760, 1832, 1909, 2026 · `overvloed` 17,
-2018 · `oxytocine` 458 · `paarden` 2057 · `Pacific` 31 · `pacifisme` 240, 612,
-1657 · `Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `pamflet`
-1769 · `para` 81 · `parabel` 38, 244, 246, 1621, 1800 · `paradigma` 543 ·
-`paradijs` 2092 · `paradox` 1801 · `parallelle levens` 2001 · `parallelle
-werelden` 1885 · `parallelle werkelijkheden` 1705 · `paranormaal` 340, 362,
-669, 677, 929, 1144 · `parapsychologie` 637, 1161, 1324, 1328, 1531, 1815,
-1867 · `parawetenschap` 663 · `Pareto` 1762 · `Parijs` 1212 · `particuliere
-belegger` 2123 · `passie` 50, 198 · `pastel` 2092 · `pastoraat` 34 ·
-`Patagonia` 1744 · `Patanjali` 1806 · `patiëntenverhalen` 331 ·
-`patiëntverhalen` 414 · `patriarchaat` 3, 1155 · `patronen` 1510, 1543, 1550,
-1665, 1801, 1873, 2034, 2043 · `Paul Gilbert` 1525 · `pauzes` 1879, 1913 ·
-`PCOS` 1881 · `pedagogiek` 1639, 2084 · `pelgrimage` 8, 1577 · `pensioen` 277,
-1882 · `perceptie` 30 · `perfectionisme` 19, 32, 44, 575, 1503, 1594, 1693,
-1713, 1769, 1828 · `personeelsbeleid` 1744 · `persoonlijk merk` 198, 365 ·
+1759, 1864, 1881, 1895 · `Orwell` 54 · `Osho` 1717 · `OSINT` 2310 · `otium`
+1838 · `Otto Rank` 405 · `oud china` 272 · `oud zeer` 1720 · `Oud-Europa` 1886
+· `Oude Rome` 328 · `Oudengels` 532 · `ouder worden` 1566, 1758, 1915 ·
+`ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416, 1887 · `ouders`
+1510, 1602 · `ouderschap` 1639 · `oudheid` 2, 247, 292, 536, 537, 588, 589,
+641, 765, 940, 947, 1725 · `Oulipo` 1212, 1213 · `outsourcen` 278 ·
+`overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431, 2031 ·
+`overgewicht` 2107 · `overheid` 1339 · `overleven` 31, 36 ·
+`overlevingsvertekening` 64 · `overlijden` 2021 · `overtuigen` 24, 182, 253,
+356, 367, 438, 1682 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143,
+469, 487, 768, 1588, 1616, 1631, 1659, 1705, 1716, 1739, 1760, 1832, 1909,
+2026 · `overvloed` 17, 2018 · `owasp api top 10` 2305 · `oxytocine` 458 ·
+`paarden` 2057 · `Pacific` 31 · `pacifisme` 240, 612, 1657 ·
+`Padma-onderscheiding` 189 · `pakketanalyse` 2303 · `palliatieve zorg` 416,
+447 · `pamflet` 1769 · `para` 81 · `parabel` 38, 244, 246, 1621, 1800 ·
+`paradigma` 543 · `paradijs` 2092 · `paradox` 1801 · `parallelle levens` 2001
+· `parallelle werelden` 1885 · `parallelle werkelijkheden` 1705 ·
+`paranormaal` 340, 362, 669, 677, 929, 1144 · `parapsychologie` 637, 1161,
+1324, 1328, 1531, 1815, 1867 · `parawetenschap` 663 · `Pareto` 1762 · `Parijs`
+1212 · `particuliere belegger` 2123 · `passie` 50, 198 · `pastel` 2092 ·
+`pastoraat` 34 · `Patagonia` 1744 · `Patanjali` 1806 · `patiëntenverhalen` 331
+· `patiëntverhalen` 414 · `patriarchaat` 3, 1155 · `patronen` 1510, 1543,
+1550, 1665, 1801, 1873, 2034, 2043 · `Paul Gilbert` 1525 · `pauzes` 1879, 1913
+· `PCOS` 1881 · `pedagogiek` 1639, 2084 · `pelgrimage` 8, 1577 ·
+`penetratietesten` 2309, 2311 · `penetration testing` 2302 · `pensioen` 277,
+1882 · `pentesten` 2300, 2306, 2308 · `pentesting` 2312, 2313, 2315 ·
+`perceptie` 30 · `perfectionisme` 19, 32, 44, 575, 1503, 1594, 1693, 1713,
+1769, 1828 · `personeelsbeleid` 1744 · `persoonlijk merk` 198, 365 ·
 `persoonlijke financiën` 163, 233, 395 · `persoonlijke groei` 1753, 1760 ·
 `persoonlijke ontwikkeling` 161, 465, 467, 1314, 1543, 2019, 2059, 2073, 2129
 · `persoonlijke verantwoordelijkheid` 2028 · `persoonlijkheid` 33, 338, 538,
@@ -320222,28 +324161,30 @@ psychologie` 156, 429, 1511, 1533, 1589, 1743, 1832 · `populaire wetenschap`
 `positieve psychologie` 1653, 1764, 1768, 1810, 1871, 1882 ·
 `positieve-psychologie` 207 · `positionering` 443, 696, 913 · `positiviteit`
 1643 · `positiviteitsratio` 1810 · `post-apartheid` 2087 · `postkoloniale
-studies` 720 · `postmarxisme` 628 · `postmodernisme` 565, 1170 ·
-`posttraumatische stress` 2062, 2076 · `postuum` 49, 1706 · `Potawatomi` 1578
-· `potentie` 2006 · `potentieel` 1614, 2070 · `pr` 686 · `Praag` 173 ·
-`pragmatisme` 1266, 1576 · `praktijk` 459 · `praktijkboek` 1533 · `praktisch`
-118, 121, 140, 159, 172 · `praktische filosofie` 1919 · `prana` 1605, 1698 ·
-`pranayama` 1698 · `praxeologie` 1337, 1340, 1343 · `prehistorie` 1225, 1823 ·
-`prentenboek` 167, 1621, 1681, 2002, 2041 · `presenteren` 82, 253, 1682 ·
-`prestatie` 168, 291, 372, 397, 488, 545, 1610, 2061 · `prestatiebeoordeling`
-256 · `prestatiecultuur` 461 · `prestatieonderzoek` 376 · `prestaties` 1883 ·
-`prestige` 515 · `preventie` 86, 313, 1759, 2104, 2105 · `prijscontrole` 1336
-· `prijsstelling` 307 · `prijsvorming` 1334 · `prijzen` 23, 424 · `prikkels`
-60, 65 · `prikkelverwerking` 1523 · `primal therapy` 1646 · `primaten` 1675,
-1678 · `Prinses Máxima Centrum` 1514 · `prioriteiten` 25, 196, 1762, 1776 ·
+studies` 720 · `postman` 2305 · `postmarxisme` 628 · `postmodernisme` 565,
+1170 · `posttraumatische stress` 2062, 2076 · `postuum` 49, 1706 ·
+`Potawatomi` 1578 · `potentie` 2006 · `potentieel` 1614, 2070 · `pr` 686 ·
+`Praag` 173 · `pragmatisme` 1266, 1576 · `praktijk` 459 · `praktijkboek` 1533
+· `praktisch` 118, 121, 140, 159, 172 · `praktische filosofie` 1919 · `prana`
+1605, 1698 · `pranayama` 1698 · `praxeologie` 1337, 1340, 1343 · `prehistorie`
+1225, 1823 · `prentenboek` 167, 1621, 1681, 2002, 2041 · `presenteren` 82,
+253, 1682 · `prestatie` 168, 291, 372, 397, 488, 545, 1610, 2061 ·
+`prestatiebeoordeling` 256 · `prestatiecultuur` 461 · `prestatieonderzoek` 376
+· `prestaties` 1883 · `prestige` 515 · `pretexting` 2310 · `preventie` 86,
+313, 1759, 2104, 2105 · `prijscontrole` 1336 · `prijsstelling` 307 ·
+`prijsvorming` 1334 · `prijzen` 23, 424 · `prikkels` 60, 65 ·
+`prikkelverwerking` 1523 · `primal therapy` 1646 · `primaten` 1675, 1678 ·
+`Prinses Máxima Centrum` 1514 · `prioriteiten` 25, 196, 1762, 1776 ·
 `prioriteren` 151, 311, 448 · `privacy` 393, 687, 2023 · `privatisering` 2022
-· `proactief` 25 · `probleemdenken` 2094 · `procestrauma` 1751 · `producer` 17
-· `product` 446 · `productie` 912 · `productiviteit` 151, 175, 197, 207, 244,
-276, 278, 290, 311, 400, 434, 442, 448, 512, 552, 802, 904, 1879, 1913, 2029,
-2030, 2053, 2128 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471
-· `proeven` 112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108
-· `propaganda` 60, 384, 562, 566, 686, 1757 · `propositielogica` 437, 2120 ·
-`protestantisme` 1577 · `protocol` 69 · `provocatieve therapie` 2106 ·
-`prozagedicht` 1540 · `pseudokennis` 126 · `pseudoniem` 378 ·
+· `privilege escalation` 2306 · `proactief` 25 · `probleemdenken` 2094 ·
+`procestrauma` 1751 · `producer` 17 · `product` 446 · `productie` 912 ·
+`productiviteit` 151, 175, 197, 207, 244, 276, 278, 290, 311, 400, 434, 442,
+448, 512, 552, 802, 904, 1879, 1913, 2029, 2030, 2053, 2128 · `productontwerp`
+231, 294 · `productontwikkeling` 265, 471 · `proeven` 112 · `programmering`
+439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384, 562, 566,
+686, 1757 · `propositielogica` 437, 2120 · `protestantisme` 1577 · `protocol`
+69 · `protocollen` 2303 · `prototype pollution` 2316 · `provocatieve therapie`
+2106 · `prozagedicht` 1540 · `pseudokennis` 126 · `pseudoniem` 378 ·
 `pseudowetenschap` 673, 1120, 1139, 1152, 1156, 1219, 1240, 1243, 1531, 1607,
 1748, 1809, 1904, 1909, 2050 · `psychedelica` 275, 765, 925, 1159, 1162, 1608,
 1610, 1611, 1714, 1742, 1763 · `psychiatrie` 1, 48, 95, 96, 104, 213, 314,
@@ -320255,27 +324196,28 @@ studies` 720 · `postmarxisme` 628 · `postmodernisme` 565, 1170 ·
 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457, 463, 467, 468, 469,
 487, 501, 514, 538, 541, 542, 582, 665, 801, 802, 828, 928, 936, 943, 951,
 1161, 1166, 1255, 1258, 1292, 1321, 1322, 1326, 1523, 1594, 1595, 1606, 1645,
-1715, 1730, 1778, 1802, 1833, 1843, 1902, 2090, 2106, 2108 · `psychologische
-experimenten` 1859 · `psychologische flexibiliteit` 460 · `psychologische
-functies` 361 · `psychopathie` 429 · `psychose` 671 · `psychosomatiek` 1586,
-1668, 1689, 1812, 1828 · `psychotherapie` 164, 227, 386, 406, 769, 1158, 1309,
-1539, 1541, 1546, 1745, 1804, 1862, 1873, 2036, 2043, 2049 · `PTSS` 386, 1656
-· `puberteit` 2004 · `publiceren` 13 · `publiek opbouwen` 369 ·
-`publieksfilosofie` 269 · `Pulitzer` 5 · `Pulitzerprijs` 1706 · `punk` 834 ·
-`puzzels` 451, 1212 · `pythagoras` 1690 · `Python` 486 · `qi` 1831 · `quantum`
-94, 650, 653 · `quarks` 1658 · `queeste` 522, 1567 · `Querido` 1681 ·
-`quilten` 114 · `quotes` 179 · `ra` 2020 · `raamvertelling` 1538, 1851 ·
-`racisme` 601, 602, 1518, 1519, 1619, 1875 · `Radboudumc` 1813 · `radicale
-theologie` 1579 · `radicale transparantie` 270 · `radio` 1503, 1570 · `Ramana
-Maharshi` 2031 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
-`rationeel-emotieve therapie` 1584 · `rationele keuze` 455 ·
-`realiteitscreatie` 1705 · `rebalancing` 1615 · `rebirthing` 1696 · `recepten`
-1864, 1881, 1895 · `recht` 393, 827 · `rechtsfilosofie` 827 ·
-`rechtsgeschiedenis` 827 · `rechtspraak` 69, 1519, 1888 · `rechtvaardigheid`
-623, 1678 · `reclame` 206, 279, 443, 446, 563, 673, 695, 696, 697, 698, 699,
-700, 701, 702, 705, 1906 · `reclamebureau` 701 · `reclamegeschiedenis` 700,
-703 · `reclamekritiek` 704 · `reclameonderzoek` 696 · `reclametheorie` 700 ·
-`reconsolidatie` 1868 · `reeks` 114, 192 · `reflectie` 1572, 1673 ·
+1715, 1730, 1778, 1802, 1833, 1843, 1902, 2090, 2106, 2108, 2310 ·
+`psychologische experimenten` 1859 · `psychologische flexibiliteit` 460 ·
+`psychologische functies` 361 · `psychopathie` 429 · `psychose` 671 ·
+`psychosomatiek` 1586, 1668, 1689, 1812, 1828 · `psychotherapie` 164, 227,
+386, 406, 769, 1158, 1309, 1539, 1541, 1546, 1745, 1804, 1862, 1873, 2036,
+2043, 2049 · `PTSS` 386, 1656 · `puberteit` 2004 · `publiceren` 13 · `publiek
+opbouwen` 369 · `publieksfilosofie` 269 · `Pulitzer` 5 · `Pulitzerprijs` 1706
+· `punk` 834 · `puzzels` 451, 1212 · `pythagoras` 1690 · `python` 2313 ·
+`Python` 486 · `qi` 1831 · `quantum` 94, 650, 653 · `quarks` 1658 · `queeste`
+522, 1567 · `Querido` 1681 · `quilten` 114 · `quotes` 179 · `ra` 2020 ·
+`raamvertelling` 1538, 1851 · `racisme` 601, 602, 1518, 1519, 1619, 1875 ·
+`Radboudumc` 1813 · `radicale theologie` 1579 · `radicale transparantie` 270 ·
+`radio` 1503, 1570 · `Ramana Maharshi` 2031 · `RAND` 454, 456 · `rapportage`
+2312 · `Rat-Pack` 178 · `rationaliteit` 454 · `rationeel-emotieve therapie`
+1584 · `rationele keuze` 455 · `realiteitscreatie` 1705 · `rebalancing` 1615 ·
+`rebirthing` 1696 · `recepten` 1864, 1881, 1895 · `recht` 393, 827 ·
+`rechtsfilosofie` 827 · `rechtsgeschiedenis` 827 · `rechtspraak` 69, 1519,
+1888 · `rechtvaardigheid` 623, 1678 · `reclame` 206, 279, 443, 446, 563, 673,
+695, 696, 697, 698, 699, 700, 701, 702, 705, 1906 · `reclamebureau` 701 ·
+`reclamegeschiedenis` 700, 703 · `reclamekritiek` 704 · `reclameonderzoek` 696
+· `reclametheorie` 700 · `reconnaissance` 2300, 2306 · `reconsolidatie` 1868 ·
+`red teaming` 2304, 2311, 2315 · `reeks` 114, 192 · `reflectie` 1572, 1673 ·
 `reflectiemethode` 1624 · `reflectievragen` 1602 · `Reformatie` 1900 ·
 `regels` 2095 · `regimeverandering` 220 · `regressietherapie` 1646, 2075 ·
 `regulering` 1336 · `reincarnatie` 1827, 1911 · `reïncarnatie` 202, 645, 1585,
@@ -320292,16 +324234,17 @@ ervaring` 1715 · `religieuze symboliek` 409 · `religiewetenschap` 758 · `REM`
 52 · `remarkable` 446 · `renaissance` 639, 643, 766, 1208, 1246, 1247, 1248,
 1249, 1250, 1251, 1252, 1253, 1255, 2114 · `Renaissance` 15, 241 · `rente` 38,
 806 · `replicatie` 79, 1810 · `reportage` 1835 · `reptielen` 1532 ·
-`reputatie` 388 · `resonantie` 1909 · `retorica` 253, 438, 766 · `retraite`
-1512 · `revisie` 18 · `revolutie` 625, 1770 · `ridder` 1687 · `ridderepos` 534
-· `ridderideaal` 822 · `rijkdom` 57, 228, 2014 · `rippling` 2118 · `risico`
-64, 80, 144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501, 804,
-811, 815, 816, 1280, 1283, 1287 · `risicobeheer` 479, 489, 490, 491, 492, 493,
-494, 497, 498, 504, 506, 810, 1285, 1288, 2126 · `risicohouding` 2125 ·
-`ritme` 1564, 2032 · `ritueel` 404, 590, 608, 719, 1103, 1114, 1126, 1169,
-1224, 1231, 1239, 1241, 1244, 1290, 1291, 1298, 1566, 1579 · `rituelen` 304 ·
-`rivier als symbool` 287 · `rockefeller habits` 2072 · `roem-en-eenzaamheid`
-178 · `roeping` 8, 9, 12, 160, 1736 · `roken` 1638 · `rolgedrag` 1201 ·
+`reputatie` 388 · `resonantie` 1909 · `rest` 2305 · `retorica` 253, 438, 766 ·
+`retraite` 1512 · `reverse engineering` 2307 · `reverse shell` 2306 ·
+`revisie` 18 · `revolutie` 625, 1770 · `ridder` 1687 · `ridderepos` 534 ·
+`ridderideaal` 822 · `rijkdom` 57, 228, 2014 · `rippling` 2118 · `risico` 64,
+80, 144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501, 804, 811,
+815, 816, 1280, 1283, 1287 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494,
+497, 498, 504, 506, 810, 1285, 1288, 2126 · `risicohouding` 2125 · `ritme`
+1564, 2032 · `ritueel` 404, 590, 608, 719, 1103, 1114, 1126, 1169, 1224, 1231,
+1239, 1241, 1244, 1290, 1291, 1298, 1566, 1579 · `rituelen` 304 · `rivier als
+symbool` 287 · `rockefeller habits` 2072 · `roem-en-eenzaamheid` 178 ·
+`roeping` 8, 9, 12, 160, 1736 · `roken` 1638 · `rolgedrag` 1201 ·
 `rolpatronen` 1687 · `roman` 61, 113, 114, 115, 254, 554, 904, 915, 916, 917,
 918, 919, 920, 921, 1209, 1212, 1213, 1327, 1400, 1401, 1402, 1518, 1519,
 1538, 1557, 1570, 1571, 1591, 1600, 1618, 1700, 1771, 1772, 1779, 1823, 1827,
@@ -320315,125 +324258,130 @@ ervaring` 1715 · `religieuze symboliek` 409 · `religiewetenschap` 758 · `REM`
 `Rumi` 1538 · `runen` 1217, 2080 · `Rusland` 1507 · `russische literatuur` 235
 · `rust` 32, 1761, 1768, 2078, 2079, 2130 · `ruzie` 1738 · `Rwanda` 1618 ·
 `SaaS` 434 · `Sadhguru` 1826 · `sadisme` 223 · `saga` 533 · `salaris` 1721 ·
-`Salinas` 10 · `Samarkand` 1684 · `samengesteld gezin` 1758 · `samenleving`
-90, 98, 319 · `samenwerken` 25 · `samenwerking` 453, 1297, 1659, 1776, 1859 ·
-`samoerai` 346, 462, 517, 535 · `San Diego` 1558 · `sanatorium` 1571 ·
-`sanskriet` 1876 · `Sanskriet` 520, 1100, 1102, 1551, 1806 · `Santa Fe
-Institute` 347, 1279 · `Santiago` 1577 · `satire` 155, 914, 915, 916, 918,
-919, 920, 923, 1706 · `satori` 528, 769 · `satsang` 1652 · `satyagraha` 2033 ·
-`scaling up` 2072 · `scepsis` 63, 585, 675, 927, 929, 1108, 1208, 1716 ·
-`scepticisme` 1724 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte`
-32, 44, 317, 470, 1309, 1613, 1615, 1645, 1693, 1694, 1699, 1712, 1730, 1830,
-2004 · `schaarste` 92, 249, 1709 · `schaatsen` 1916 · `schaduw` 404 ·
-`schaduwwerk` 1566, 1598, 1741, 1917 · `schaken` 831 · `scheiding` 556, 1767 ·
-`scheikunde` 92, 942, 1714 · `schematherapie` 1873 · `schijf van vijf` 2105 ·
-`schilderkunst` 1581 · `schildklier` 1864 · `schizofrenie` 671 · `schoenen`
-1855 · `school` 53, 84, 1523, 1632 · `schoolleven` 2048 · `schrijfoefeningen`
-1846 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511, 1583, 1801 · `schrijvers`
-1749 · `schrijverschap` 191, 325, 934, 1204, 1210, 1557, 1570 · `schuilnaam`
-1612 · `schuld` 254, 2087 · `schulden` 20, 38, 121, 159, 464 · `schuldgevoel`
-1584, 1615 · `sciencefiction` 1771 · `secularisatie` 1577 · `seculier
-boeddhisme` 1846 · `seizoenen` 2032 · `sekse` 1675 · `sekseverschillen` 1589 ·
-`seksualiteit` 100, 145, 164, 165, 316, 672, 1125, 1134, 1500, 1509, 1548,
-1590, 1712, 1741, 1773, 1774, 1819, 1830, 1831, 1874, 2006, 2087, 2093 ·
-`seksueel misbruik` 1622 · `seksuele selectie` 1676 · `seksuologie` 1548 ·
-`sekte` 1617 · `sekten` 675, 1148, 1707 · `selectoraattheorie` 221 ·
-`semantiek` 664, 930 · `seminar` 139, 543 · `seminars` 1752 · `semiotiek` 834,
-1266, 1299 · `Seneca` 1710, 1728 · `sensatie` 1656 · `Serenus` 1838 · `serie`
-1632, 1633, 1634 · `Seth` 1661 · `sexting` 2004 · `shaivisme` 1876 · `Shams
-van Tabriz` 1538 · `Shaolin` 389 · `Silicon Valley` 306, 1740 · `simulatie`
-565 · `sirtuïnen` 415 · `situationisme` 564 · `sjamanisme` 758, 1166, 1169,
-1241, 1608, 1625, 1684, 1820, 1841, 1848 · `slaap` 52, 87, 88, 171, 181, 316,
-329, 414, 1174, 1325, 1326, 1328, 1329, 1565, 1683, 1688, 1704, 1822, 1853,
-1860, 1883, 2076, 2096 · `slaapapneu` 332 · `slaapcoaching` 2076 · `slavernij`
-68, 1875 · `smartphone` 53, 288, 1833 · `soChicken` 1653, 1654, 1761 ·
-`sociaal panorama` 1804 · `sociale angst` 2131 · `sociale besmetting` 303 ·
-`sociale klasse` 2119 · `sociale media` 53, 70, 194, 198, 204, 288, 365, 1718,
-1747, 1807, 1852, 2004 · `sociale psychologie` 215, 280, 302, 319, 1289, 1295,
-1804, 1900 · `sociale-vaardigheden` 398 · `socialisme` 618, 1334 ·
-`sociobiologie` 722, 1267 · `sociologie` 300, 622, 715, 721, 723, 805, 826,
-834, 939, 1201, 1290, 1301, 1302 · `socratisch gesprek` 1918, 1919 · `soedan`
-716 · `soefisme` 524, 526, 1108, 1538 · `software` 276, 484 · `somatic
-experiencing` 1656 · `Somatic Experiencing` 1622 · `somatologie` 1809 ·
-`somberheid` 119 · `soorten` 1677 · `spanning` 101 · `sparen` 21, 38, 159,
-233, 464 · `Sparta` 529, 1514 · `special forces` 2063, 2064 · `specialisatie`
-349, 803 · `speculatie` 808, 809, 1281, 1283, 1284, 1285 · `speedreading` 175
-· `spel` 550, 1298 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221,
-450, 451, 452, 453, 454, 455, 456, 656 · `spiegelneuronen` 303 ·
-`spiegeloefening` 380 · `spiegelogie` 108 · `spiegelwerk` 1586 · `spieropbouw`
-316 · `spijt` 447, 2001 · `spionage` 1345 · `spiritisme` 677, 1161, 1535, 1867
-· `spiritualisme` 1537 · `spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160,
-169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435, 449, 519, 526,
-556, 583, 590, 596, 603, 604, 614, 679, 754, 1101, 1205, 1224, 1231, 1236,
-1241, 1327, 1500, 1528, 1534, 1540, 1552, 1575, 1591, 1624, 1629, 1644, 1649,
-1650, 1671, 1716, 1736, 1753, 1763, 1767, 1779, 1814, 1827, 1889, 1891, 1892,
-1908, 1917, 2015, 2025, 2031, 2042, 2058, 2065, 2100, 2101, 2103, 2115, 2116 ·
-`spiritualiteitskritiek` 1612 · `spiritueel genezen` 1896 · `spirituele fabel`
-2047 · `spirituele zoektocht` 287, 524 · `sport` 20, 349, 1812, 2068 ·
-`sportbiografie` 1834 · `sportpsychologie` 372, 374, 441 · `sportwetenschap`
-461 · `spreekangst` 253 · `spreken in het openbaar` 1682 · `spreker` 117, 134
-· `spreuken` 1643 · `sprookje` 1687, 1911 · `sprookjes` 1660, 1845 ·
-`staartrisico` 494, 496, 811 · `staat` 612 · `staatsgezag` 616 · `staatsgreep`
-220 · `staatskritiek` 621, 622, 623 · `staatskunst` 2114 · `staatsmacht` 1335,
-1338 · `staatsvorming` 622 · `stalking` 214 · `standaarden` 396 · `Stanford`
-150, 388, 458 · `start-ups` 306 · `startups` 265 · `statistiek` 55, 65, 69,
-234, 268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507, 715,
-804, 805, 811, 909, 946, 951, 1283, 1287 · `statistiek van uitzonderingen` 274
-· `status` 39, 66, 463 · `steentijd` 1625 · `stem` 1699 · `stembevrijding`
-1699 · `steppe` 1886 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295,
-416, 516, 2000, 2118 · `sterrenkunde` 99, 1139 · `sterven` 49, 95, 275, 447,
-1506, 1524, 1601, 1691 · `stervensbegeleiding` 1754, 1911 · `stijl` 18, 436 ·
-`stilte` 1205, 1207, 2015, 2078 · `Stoa` 1728 · `stoicijns` 75, 140, 142 ·
-`stoïcijnse filosofie` 153, 228, 232, 286, 423, 459 · `stoïcijnse
-levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247,
-248, 292, 516, 586, 1710, 1838, 1916 · `stommiteit` 155 · `stoplichtmodel`
-1803 · `stoppen met roken` 1638, 1733 · `storytelling` 253, 279, 1682 ·
-`strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
-426, 440, 443, 450, 451, 456, 694, 831, 901, 902, 907, 908, 2112 · `streken`
-112 · `stress` 80, 87, 106, 118, 187, 387, 458, 1503, 1599, 1628, 1647, 1672,
-1683, 1696, 1722, 1731, 1732, 1768, 1803, 1816, 1833, 1863, 1866, 1913, 2042,
-2088, 2094, 2109, 2111 · `stressfysiologie` 2062 · `stressmanagement` 153,
-2063 · `stressregulatie` 372 · `stressvermindering` 2053 · `strip` 452 ·
-`structuur` 82, 511 · `studiebijbel` 1811 · `studieboek` 421, 437, 497, 498,
-507, 831, 2120, 2132, 2133, 2134 · `studietechniek` 420 · `subcultuur` 834 ·
-`subpersoonlijkheden` 1693 · `succes` 75, 76, 274, 1766, 2103 · `suggestie`
-1513 · `superkrachten` 203 · `supplementen` 171, 316, 1865, 1866, 1894, 1895 ·
-`Suriname` 1509 · `surveillance` 393, 1757, 2023 · `syllogismen` 437 ·
-`symbiose` 1862 · `symboliek` 357, 360, 522, 605, 608, 610, 633, 635, 636,
-829, 835, 1118, 1219, 1225, 1234, 1624, 1689 · `symbolische macht` 723 ·
-`symbooltheorie` 756 · `symmetrie` 659 · `synchroniciteit` 362, 1591, 1779 ·
-`synchronisatie` 303 · `synesthesie` 1311 · `systeem` 22, 142 ·
-`systeemdenken` 1861, 2121 · `systeemtheorie` 165 · `systematisch handelen`
-482, 502 · `systemen` 1877 · `systemisch werk` 1510, 1602, 1636, 1637, 1844,
-1914, 2034, 2044 · `systemische therapie` 2043 · `taal` 26, 27, 436, 594, 664,
-824, 829, 930, 1113, 1213, 1265, 1277, 1312, 1553, 1593, 1716, 1757, 1887 ·
-`taal en macht` 344 · `taalfilosofie` 756 · `taalmodellen` 2132, 2133, 2134 ·
-`taaloorsprong` 762 · `taalspel` 1626 · `taboe` 719 · `tactische empathie` 271
-· `takenlijsten` 2029 · `talent` 23, 29, 274 · `tandheelkunde` 1854, 1869 ·
+`Salinas` 10 · `Samarkand` 1684 · `same-origin policy` 2316 · `samengesteld
+gezin` 1758 · `samenleving` 90, 98, 319 · `samenwerken` 25 · `samenwerking`
+453, 1297, 1659, 1776, 1859 · `samoerai` 346, 462, 517, 535 · `San Diego` 1558
+· `sanatorium` 1571 · `sanskriet` 1876 · `Sanskriet` 520, 1100, 1102, 1551,
+1806 · `Santa Fe Institute` 347, 1279 · `Santiago` 1577 · `satire` 155, 914,
+915, 916, 918, 919, 920, 923, 1706 · `satori` 528, 769 · `satsang` 1652 ·
+`satyagraha` 2033 · `scaling up` 2072 · `scapy` 2313 · `scepsis` 63, 585, 675,
+927, 929, 1108, 1208, 1716 · `scepticisme` 1724 · `schaalgroei` 434 ·
+`schaalvergroting` 350 · `schaamte` 32, 44, 317, 470, 1309, 1613, 1615, 1645,
+1693, 1694, 1699, 1712, 1730, 1830, 2004 · `schaarste` 92, 249, 1709 ·
+`schaatsen` 1916 · `schaduw` 404 · `schaduwwerk` 1566, 1598, 1741, 1917 ·
+`schaken` 831 · `scheiding` 556, 1767 · `scheikunde` 92, 942, 1714 ·
+`schematherapie` 1873 · `schijf van vijf` 2105 · `schilderkunst` 1581 ·
+`schildklier` 1864 · `schizofrenie` 671 · `schoenen` 1855 · `school` 53, 84,
+1523, 1632 · `schoolleven` 2048 · `schrijfoefeningen` 1846 · `schrijven` 11,
+12, 14, 18, 19, 81, 436, 511, 1583, 1801 · `schrijvers` 1749 ·
+`schrijverschap` 191, 325, 934, 1204, 1210, 1557, 1570 · `schuilnaam` 1612 ·
+`schuld` 254, 2087 · `schulden` 20, 38, 121, 159, 464 · `schuldgevoel` 1584,
+1615 · `sciencefiction` 1771 · `scripting` 2306 · `secularisatie` 1577 ·
+`seculier boeddhisme` 1846 · `seizoenen` 2032 · `sekse` 1675 ·
+`sekseverschillen` 1589 · `seksualiteit` 100, 145, 164, 165, 316, 672, 1125,
+1134, 1500, 1509, 1548, 1590, 1712, 1741, 1773, 1774, 1819, 1830, 1831, 1874,
+2006, 2087, 2093 · `seksueel misbruik` 1622 · `seksuele selectie` 1676 ·
+`seksuologie` 1548 · `sekte` 1617 · `sekten` 675, 1148, 1707 ·
+`selectoraattheorie` 221 · `semantiek` 664, 930 · `seminar` 139, 543 ·
+`seminars` 1752 · `semiotiek` 834, 1266, 1299 · `Seneca` 1710, 1728 ·
+`sensatie` 1656 · `Serenus` 1838 · `serie` 1632, 1633, 1634 · `Seth` 1661 ·
+`sexting` 2004 · `shaivisme` 1876 · `Shams van Tabriz` 1538 · `Shaolin` 389 ·
+`shellcode` 2317 · `siem` 2301 · `Silicon Valley` 306, 1740 · `simulatie` 565
+· `sirtuïnen` 415 · `situationisme` 564 · `sjamanisme` 758, 1166, 1169, 1241,
+1608, 1625, 1684, 1820, 1841, 1848 · `slaap` 52, 87, 88, 171, 181, 316, 329,
+414, 1174, 1325, 1326, 1328, 1329, 1565, 1683, 1688, 1704, 1822, 1853, 1860,
+1883, 2076, 2096 · `slaapapneu` 332 · `slaapcoaching` 2076 · `slavernij` 68,
+1875 · `smartphone` 53, 288, 1833 · `soar` 2301 · `soChicken` 1653, 1654, 1761
+· `sociaal panorama` 1804 · `social engineering` 2302, 2304, 2308, 2309, 2310
+· `sociale angst` 2131 · `sociale besmetting` 303 · `sociale klasse` 2119 ·
+`sociale media` 53, 70, 194, 198, 204, 288, 365, 1718, 1747, 1807, 1852, 2004
+· `sociale psychologie` 215, 280, 302, 319, 1289, 1295, 1804, 1900 ·
+`sociale-vaardigheden` 398 · `socialisme` 618, 1334 · `sociobiologie` 722,
+1267 · `sociologie` 300, 622, 715, 721, 723, 805, 826, 834, 939, 1201, 1290,
+1301, 1302 · `socratisch gesprek` 1918, 1919 · `soedan` 716 · `soefisme` 524,
+526, 1108, 1538 · `software` 276, 484 · `somatic experiencing` 1656 · `Somatic
+Experiencing` 1622 · `somatologie` 1809 · `somberheid` 119 · `soorten` 1677 ·
+`spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529, 1514 ·
+`special forces` 2063, 2064 · `specialisatie` 349, 803 · `speculatie` 808,
+809, 1281, 1283, 1284, 1285 · `speedreading` 175 · `spel` 550, 1298 · `spelen`
+32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451, 452, 453, 454, 455,
+456, 656 · `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
+`spiegelwerk` 1586 · `spieropbouw` 316 · `spijt` 447, 2001 · `spionage` 1345 ·
+`spiritisme` 677, 1161, 1535, 1867 · `spiritualisme` 1537 · `spiritualiteit`
+8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310,
+358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614, 679,
+754, 1101, 1205, 1224, 1231, 1236, 1241, 1327, 1500, 1528, 1534, 1540, 1552,
+1575, 1591, 1624, 1629, 1644, 1649, 1650, 1671, 1716, 1736, 1753, 1763, 1767,
+1779, 1814, 1827, 1889, 1891, 1892, 1908, 1917, 2015, 2025, 2031, 2042, 2058,
+2065, 2100, 2101, 2103, 2115, 2116 · `spiritualiteitskritiek` 1612 ·
+`spiritueel genezen` 1896 · `spirituele fabel` 2047 · `spirituele zoektocht`
+287, 524 · `splunk` 2301 · `sport` 20, 349, 1812, 2068 · `sportbiografie` 1834
+· `sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253
+· `spreken in het openbaar` 1682 · `spreker` 117, 134 · `spreuken` 1643 ·
+`sprookje` 1687, 1911 · `sprookjes` 1660, 1845 · `sql-injectie` 2314 · `ssrf`
+2312 · `staartrisico` 494, 496, 811 · `staat` 612 · `staatsgezag` 616 ·
+`staatsgreep` 220 · `staatskritiek` 621, 622, 623 · `staatskunst` 2114 ·
+`staatsmacht` 1335, 1338 · `staatsvorming` 622 · `stalking` 214 ·
+`standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups` 306 · `startups`
+265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479, 483, 484, 485,
+497, 500, 502, 503, 507, 715, 804, 805, 811, 909, 946, 951, 1283, 1287 ·
+`statistiek van uitzonderingen` 274 · `status` 39, 66, 463 · `steentijd` 1625
+· `stem` 1699 · `stembevrijding` 1699 · `steppe` 1886 · `stereotypen` 562 ·
+`sterfelijkheid` 2, 71, 232, 295, 416, 516, 2000, 2118 · `sterrenkunde` 99,
+1139 · `sterven` 49, 95, 275, 447, 1506, 1524, 1601, 1691 ·
+`stervensbegeleiding` 1754, 1911 · `stijl` 18, 436 · `stilte` 1205, 1207,
+2015, 2078 · `Stoa` 1728 · `stoicijns` 75, 140, 142 · `stoïcijnse filosofie`
+153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
+`stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247, 248, 292, 516, 586,
+1710, 1838, 1916 · `stommiteit` 155 · `stoplichtmodel` 1803 · `stoppen met
+roken` 1638, 1733 · `storytelling` 253, 279, 1682 · `strategie` 212, 217, 218,
+219, 249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443, 450, 451,
+456, 694, 831, 901, 902, 907, 908, 2112 · `streken` 112 · `stress` 80, 87,
+106, 118, 187, 387, 458, 1503, 1599, 1628, 1647, 1672, 1683, 1696, 1722, 1731,
+1732, 1768, 1803, 1816, 1833, 1863, 1866, 1913, 2042, 2088, 2094, 2109, 2111 ·
+`stressfysiologie` 2062 · `stressmanagement` 153, 2063 · `stressregulatie` 372
+· `stressvermindering` 2053 · `strip` 452 · `structuur` 82, 511 ·
+`studiebijbel` 1811 · `studieboek` 421, 437, 497, 498, 507, 831, 2120, 2132,
+2133, 2134 · `studietechniek` 420 · `subcultuur` 834 · `subpersoonlijkheden`
+1693 · `succes` 75, 76, 274, 1766, 2103 · `suggestie` 1513 · `superkrachten`
+203 · `supplementen` 171, 316, 1865, 1866, 1894, 1895 · `Suriname` 1509 ·
+`surveillance` 393, 1757, 2023 · `syllogismen` 437 · `symbiose` 1862 ·
+`symboliek` 357, 360, 522, 605, 608, 610, 633, 635, 636, 829, 835, 1118, 1219,
+1225, 1234, 1624, 1689 · `symbolische macht` 723 · `symbooltheorie` 756 ·
+`symmetrie` 659 · `synchroniciteit` 362, 1591, 1779 · `synchronisatie` 303 ·
+`synesthesie` 1311 · `systeem` 22, 142 · `systeemdenken` 1861, 2121 ·
+`systeemtheorie` 165 · `systematisch handelen` 482, 502 · `systemen` 1877 ·
+`systemisch werk` 1510, 1602, 1636, 1637, 1844, 1914, 2034, 2044 ·
+`systemische therapie` 2043 · `taal` 26, 27, 436, 594, 664, 824, 829, 930,
+1113, 1213, 1265, 1277, 1312, 1553, 1593, 1716, 1757, 1887 · `taal en macht`
+344 · `taalfilosofie` 756 · `taalmodellen` 2132, 2133, 2134 · `taaloorsprong`
+762 · `taalspel` 1626 · `taboe` 719 · `tactische empathie` 271 ·
+`takenlijsten` 2029 · `talent` 23, 29, 274 · `tandheelkunde` 1854, 1869 ·
 `tantra` 1103, 1717, 1741, 1773, 1775, 1876 · `Tao` 1840 · `Tao Te Ching`
 1671, 2084 · `taoisme` 2084 · `taoïsme` 341, 394, 1104, 1105, 1671, 1831,
 1840, 2006, 2032, 2044, 2093 · `tapping` 2111 · `Tarahumara` 1858 · `tarieven`
-121 · `tarot` 644, 1234, 1690 · `teamcultuur` 2061 · `teams` 42, 273, 364,
-468, 1740 · `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61,
-92, 1247, 1270, 1278, 1301, 1603 · `techniekgeschiedenis` 666, 820, 1152 ·
-`technische analyse` 483, 500, 1284, 1285 · `technologie` 160, 288, 294, 306,
-393, 499, 907, 1257, 1264, 1270, 1718, 2035, 2122 · `technologiebedrijven` 293
-· `technologiegeschiedenis` 231, 267, 1142 · `technologiekritiek` 297, 539,
-674, 826, 1264 · `tegen-productiviteit` 71 · `tegencultuur` 750, 1162, 1214,
-1504, 1763 · `tegenslag` 30, 111, 174, 570, 1168, 1582 · `tekenen` 15, 2041 ·
-`tekstkritiek` 1568 · `tekstkwaliteit` 124 · `televisie` 54, 674, 820 ·
-`temperament` 33, 1523 · `tempo` 552 · `termijnmarkten` 480, 482 · `testament`
-462 · `tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie`
-379 · `thelema` 644, 1239 · `theologie` 578, 587, 830, 1236, 1577, 1580 ·
-`theosofie` 605, 606, 645, 836, 1221, 1806 · `therapeuten` 1623 · `therapie`
-51, 107, 118, 119, 120, 121, 122, 145, 466, 1606, 1655, 1844, 1914 ·
-`thermodynamica` 1274 · `Thermopylae` 529 · `Thoth` 1821 · `thriller` 101, 202
-· `thuiskomst` 531 · `thuiswerken` 1913 · `thuiszorg` 225 · `thule` 1695 ·
-`Tibet` 1556, 1559, 1685, 1754, 1775, 1847 · `Tibetaans boeddhisme` 1662 ·
-`tien weken` 1912 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655,
-1261, 1274, 1324, 1571, 1728, 1762, 1771, 1825, 2042, 2045 · `tijdmanagement`
-434 · `tijdsbeleving` 326 · `Tilopa` 1717 · `timemanagement` 311, 448, 2029,
-2030, 2053 · `tips` 1648 · `tirannie` 617 · `Tiresias` 2119 · `TMS` 1668 ·
+121 · `tarot` 644, 1234, 1690 · `tcp/ip` 2303 · `teamcultuur` 2061 · `teams`
+42, 273, 364, 468, 1740 · `teamvorming` 260 · `teamwork` 156, 256 · `techniek`
+1, 6, 43, 61, 92, 1247, 1270, 1278, 1301, 1603 · `techniekgeschiedenis` 666,
+820, 1152 · `technische analyse` 483, 500, 1284, 1285 · `technologie` 160,
+288, 294, 306, 393, 499, 907, 1257, 1264, 1270, 1718, 2035, 2122 ·
+`technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267, 1142 ·
+`technologiekritiek` 297, 539, 674, 826, 1264 · `tegen-productiviteit` 71 ·
+`tegencultuur` 750, 1162, 1214, 1504, 1763 · `tegenslag` 30, 111, 174, 570,
+1168, 1582 · `tekenen` 15, 2041 · `tekstkritiek` 1568 · `tekstkwaliteit` 124 ·
+`televisie` 54, 674, 820 · `temperament` 33, 1523 · `tempo` 552 ·
+`termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5,
+385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644, 1239 ·
+`theologie` 578, 587, 830, 1236, 1577, 1580 · `theosofie` 605, 606, 645, 836,
+1221, 1806 · `therapeuten` 1623 · `therapie` 51, 107, 118, 119, 120, 121, 122,
+145, 466, 1606, 1655, 1844, 1914 · `thermodynamica` 1274 · `Thermopylae` 529 ·
+`Thoth` 1821 · `threat detection` 2301 · `thriller` 101, 202 · `thuiskomst`
+531 · `thuiswerken` 1913 · `thuiszorg` 225 · `thule` 1695 · `Tibet` 1556,
+1559, 1685, 1754, 1775, 1847 · `Tibetaans boeddhisme` 1662 · `tien weken` 1912
+· `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655, 1261, 1274, 1324,
+1571, 1728, 1762, 1771, 1825, 2042, 2045 · `tijdmanagement` 434 ·
+`tijdsbeleving` 326 · `Tilopa` 1717 · `timemanagement` 311, 448, 2029, 2030,
+2053 · `tips` 1648 · `tirannie` 617 · `Tiresias` 2119 · `TMS` 1668 ·
 `toekomst` 236, 2035 · `toekomstroman` 1695 · `toeval` 21, 64, 93, 137, 274,
 362, 483, 1779 · `tolerantie` 2083 · `Tolkien` 1567 · `Tolteeks` 27 ·
 `tolteken` 1716 · `tonaliteit` 824 · `tonglen` 1560, 1662 · `toon` 72, 118,
@@ -320536,13 +324484,14 @@ antwoord` 1840 · `vragen` 1673 · `vragen stellen` 509, 1918, 1919, 2034 ·
 1542 · `vroeg christendom` 614, 1151, 1223 · `vroeg pensioen` 264 · `vroege
 kerk` 1611 · `vrouwelijke energie` 1819 · `vrouwelijkheid` 1908 · `vrouwen`
 1542, 1712, 1845, 1888, 1906 · `vrouwengezondheid` 1881 · `vrouwenhaat` 110,
-1226 · `vuistregels` 1870 · `waardebeleggen` 144, 351, 817 · `waardecreatie`
-246, 508 · `waarden` 72, 142, 392, 457, 461, 553, 1526, 1527, 1842 ·
-`waardering` 24, 34, 814, 815, 1802 · `waardigheid` 2079 · `waarheid` 263,
-2003 · `waarneming` 154, 283, 322, 541, 582, 757, 767, 825, 828, 830, 930,
-1171, 1268, 1303, 1307, 1311, 1317, 1320, 1569, 1576 · `wabi-sabi` 379 ·
-`wales` 558 · `Wall Street` 144, 351, 499, 1286 · `Walter Russell` 1607 ·
-`wanderers` 2020 · `water` 2050 · `Watermantijdperk` 1537 · `wederkerigheid`
+1226 · `vuistregels` 1870 · `vulnerability research` 2307 · `waardebeleggen`
+144, 351, 817 · `waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461,
+553, 1526, 1527, 1842 · `waardering` 24, 34, 814, 815, 1802 · `waardigheid`
+2079 · `waarheid` 263, 2003 · `waarneming` 154, 283, 322, 541, 582, 757, 767,
+825, 828, 830, 930, 1171, 1268, 1303, 1307, 1311, 1317, 1320, 1569, 1576 ·
+`wabi-sabi` 379 · `waf` 2312 · `wales` 558 · `Wall Street` 144, 351, 499, 1286
+· `Walter Russell` 1607 · `wanderers` 2020 · `water` 2050 · `Watermantijdperk`
+1537 · `webhacking` 2312, 2316 · `webkwetsbaarheden` 2314 · `wederkerigheid`
 718, 1578 · `weer` 1839 · `weerbaarheid` 194, 2064 · `weerstand` 12, 538 ·
 `weesmeisje` 1686 · `WEIRD` 1553 · `welbevinden` 1743 · `welvaart` 251, 334 ·
 `welvaartsbewustzijn` 433 · `wensen` 1501, 1884 · `wereldbeeld` 234, 932 ·
@@ -320567,44 +324516,45 @@ en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653,
 `wetenschapskritiek` 2050 · `White Eagle Lodge` 1537 · `wicca` 1228, 1230,
 1244 · `wijn` 112 · `wijsheid` 596, 1566 · `wildernis` 1593 · `Wilhelm Reich`
 2049 · `Willem de Kooning` 1581 · `wilskracht` 238, 1733 · `Wim Hof` 1813 ·
-`wim hof methode` 2066 · `Windbridge` 1867 · `Wired` 473 · `wiskunde` 116,
-454, 456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661, 662, 812, 1256,
-1271, 1272, 1278, 1282, 1312, 1318, 2132, 2133, 2134 · `wisselstroom` 267 ·
-`wit privilege` 1619 · `woede` 119, 120, 1204, 1580, 1598 · `woestijn` 8, 1205
-· `Wolfgang Pauli` 362 · `wolken` 1839 · `wolven` 1625 · `woordenschat` 2002 ·
-`workflow` 2030 · `wortels` 1636 · `Wounded Knee` 2024 · `Wouter de Jong` 1872
-· `wraak` 101, 533, 1802 · `WRAP` 510 · `wrok` 530 · `wu wei` 394, 1105, 1671,
-1840, 2044, 2084 · `Yale` 215 · `Yaqui` 1608 · `yin-yang` 394 · `yoga` 195,
-242, 518, 1520, 1551, 1599, 1605, 1698, 1763, 1806, 1826, 2017, 2060, 2067 ·
-`yoga nidra` 1732 · `young adult` 192 · `youtube` 245 · `Zaire` 1835 ·
-`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
-· `zeepbellen` 808 · `zeereis` 36 · `zeevaart` 321 · `zeilen` 2097 ·
-`zeldzaam` 144 · `zelfaanvaarding` 1596 · `zelfacceptatie` 176, 335, 561,
-1595, 1878 · `zelfbedrog` 66, 1559, 1627 · `zelfbeeld` 25, 27, 105, 107, 108,
-129, 138, 197, 367, 372, 411, 439, 538, 540, 559, 575, 1308, 1309, 1543, 1639,
-1716, 1733, 1735, 1804, 1809, 2098 · `zelfbeheersing` 75, 148, 212, 248, 286,
-314, 382, 389, 396, 1627, 1916 · `zelfbescherming` 214 · `zelfbeschikking`
-1333 · `zelfcompassie` 32, 551, 1525, 1582, 1594, 1615, 1645, 1713, 1739,
-1766, 1817, 1871, 2036 · `zelfdiscipline` 2, 158, 229, 244, 311, 544, 2095 ·
-`zelfdoding` 715 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417, 1324,
-1325, 1326, 1714 · `zelfhaat` 575 · `zelfheling` 2009, 2026 · `zelfhulp` 15,
-22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150,
-151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179,
-181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210,
-211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380, 389,
-395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465, 513,
-540, 543, 546, 548, 556, 557, 561, 569, 570, 768, 800, 802, 1242, 1297, 1329,
-1500, 1501, 1503, 1505, 1507, 1509, 1513, 1515, 1527, 1545, 1549, 1550, 1565,
-1582, 1584, 1586, 1589, 1604, 1613, 1616, 1638, 1646, 1648, 1653, 1654, 1663,
-1671, 1672, 1685, 1688, 1689, 1704, 1705, 1712, 1716, 1721, 1723, 1733, 1736,
-1737, 1739, 1743, 1745, 1748, 1751, 1752, 1753, 1756, 1759, 1760, 1761, 1762,
-1764, 1768, 1801, 1803, 1818, 1820, 1822, 1825, 1826, 1828, 1831, 1832, 1842,
-1843, 1852, 1860, 1866, 1868, 1870, 1873, 1882, 1889, 1893, 1896, 1909, 1910,
-1912, 2005, 2006, 2007, 2008, 2009, 2013, 2018, 2028, 2036, 2037, 2042, 2052,
-2056, 2059, 2064, 2073, 2076, 2079, 2080, 2088, 2095, 2099, 2100, 2103, 2108,
-2111, 2128, 2129, 2130, 2131 · `zelfhulpkritiek` 1769 · `zelfkennis` 258, 260,
-361, 519, 526, 1640, 1778 · `zelfkritiek` 1645, 1693 · `zelfleiderschap` 1598,
-1669 · `zelfliefde` 190, 195, 204, 380, 403, 549, 1517, 1549, 1739, 1817 ·
+`wim hof methode` 2066 · `Windbridge` 1867 · `Windows` 2315 · `Wired` 473 ·
+`wireshark` 2303 · `wiskunde` 116, 454, 456, 490, 505, 509, 649, 656, 657,
+658, 659, 660, 661, 662, 812, 1256, 1271, 1272, 1278, 1282, 1312, 1318, 2132,
+2133, 2134 · `wisselstroom` 267 · `wit privilege` 1619 · `woede` 119, 120,
+1204, 1580, 1598 · `woestijn` 8, 1205 · `Wolfgang Pauli` 362 · `wolken` 1839 ·
+`wolven` 1625 · `woordenschat` 2002 · `workflow` 2030 · `wortels` 1636 ·
+`Wounded Knee` 2024 · `Wouter de Jong` 1872 · `wraak` 101, 533, 1802 · `WRAP`
+510 · `wrok` 530 · `wu wei` 394, 1105, 1671, 1840, 2044, 2084 · `xss` 2314 ·
+`XSS` 2316 · `Yale` 215 · `Yaqui` 1608 · `yin-yang` 394 · `yoga` 195, 242,
+518, 1520, 1551, 1599, 1605, 1698, 1763, 1806, 1826, 2017, 2060, 2067 · `yoga
+nidra` 1732 · `young adult` 192 · `youtube` 245 · `Zaire` 1835 · `zakelijk`
+307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508 ·
+`zeepbellen` 808 · `zeereis` 36 · `zeevaart` 321 · `zeilen` 2097 · `zeldzaam`
+144 · `zelfaanvaarding` 1596 · `zelfacceptatie` 176, 335, 561, 1595, 1878 ·
+`zelfbedrog` 66, 1559, 1627 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138,
+197, 367, 372, 411, 439, 538, 540, 559, 575, 1308, 1309, 1543, 1639, 1716,
+1733, 1735, 1804, 1809, 2098 · `zelfbeheersing` 75, 148, 212, 248, 286, 314,
+382, 389, 396, 1627, 1916 · `zelfbescherming` 214 · `zelfbeschikking` 1333 ·
+`zelfcompassie` 32, 551, 1525, 1582, 1594, 1615, 1645, 1713, 1739, 1766, 1817,
+1871, 2036 · `zelfdiscipline` 2, 158, 229, 244, 311, 544, 2095 · `zelfdoding`
+715 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417, 1324, 1325, 1326,
+1714 · `zelfhaat` 575 · `zelfheling` 2009, 2026 · `zelfhulp` 15, 22, 25, 34,
+58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152,
+153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179, 181, 184,
+187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210, 211, 213,
+222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380, 389, 395, 398,
+401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465, 513, 540, 543,
+546, 548, 556, 557, 561, 569, 570, 768, 800, 802, 1242, 1297, 1329, 1500,
+1501, 1503, 1505, 1507, 1509, 1513, 1515, 1527, 1545, 1549, 1550, 1565, 1582,
+1584, 1586, 1589, 1604, 1613, 1616, 1638, 1646, 1648, 1653, 1654, 1663, 1671,
+1672, 1685, 1688, 1689, 1704, 1705, 1712, 1716, 1721, 1723, 1733, 1736, 1737,
+1739, 1743, 1745, 1748, 1751, 1752, 1753, 1756, 1759, 1760, 1761, 1762, 1764,
+1768, 1801, 1803, 1818, 1820, 1822, 1825, 1826, 1828, 1831, 1832, 1842, 1843,
+1852, 1860, 1866, 1868, 1870, 1873, 1882, 1889, 1893, 1896, 1909, 1910, 1912,
+2005, 2006, 2007, 2008, 2009, 2013, 2018, 2028, 2036, 2037, 2042, 2052, 2056,
+2059, 2064, 2073, 2076, 2079, 2080, 2088, 2095, 2099, 2100, 2103, 2108, 2111,
+2128, 2129, 2130, 2131 · `zelfhulpkritiek` 1769 · `zelfkennis` 258, 260, 361,
+519, 526, 1640, 1778 · `zelfkritiek` 1645, 1693 · `zelfleiderschap` 1598, 1669
+· `zelfliefde` 190, 195, 204, 380, 403, 549, 1517, 1549, 1739, 1817 ·
 `zelfmoord` 1727 · `zelfmoordpoging` 2001 · `zelfonderzoek` 315, 470, 520,
 527, 579, 1101, 1203, 1208, 1502, 1534, 1572, 1612, 1624, 1652, 1665, 1673,
 1838, 1878, 1917, 2031 · `zelfontdekking` 2047 · `zelfontplooiing` 393, 1234,

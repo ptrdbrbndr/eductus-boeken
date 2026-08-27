@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red Team Engineering: The Art of Building Offensive Tools and Infrastructure &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Erdmanns stelling is dat het verschil tussen een penetratietester en een red-teamoperator niet in de aanvalstechnieken zit, maar in de engineering…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2311">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2311 &middot; Digitale beveiliging en hacking</p>
+    <h1>Red Team Engineering: The Art of Building Offensive Tools and Infrastructure</h1>
+    <p class="lede">Casey Erdmann, 2026</p>
+    <p class="stats">
+      <span><b>1427</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2311"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Erdmanns stelling is dat het verschil tussen een penetratietester en een red-teamoperator niet in de aanvalstechnieken zit, maar in de engineering eromheen: infrastructuur die geautomatiseerd wordt opgezet, weken meegaat, meerdere operators tegelijk bedient en niet bij de eerste blokkade instort. Het boek behandelt aanvalstechnieken zoals webexploits en maatwerk-malware kort en functioneel, en besteedt de meeste ruimte aan het bouwen, automatiseren en beheren van command-and-control-infrastructuur, VPN-tunnels en redirectors. Daarmee positioneert het boek zich uitdrukkelijk als vervolgstap op penetratietesten, niet als introductie erop. Een penetratietest levert volgens die redenering vooral een lijst kwetsbaarheden op, terwijl een red-teamoperatie test of een organisatie een langdurige, volgehouden aanval ook daadwerkelijk opmerkt en erop reageert; die verschuiving in doel verklaart waarom het boek zoveel aandacht besteedt aan infrastructuur die stand houdt en niet meteen opvalt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Offensieve ontwikkeling</h3>
+      <p>Het eerste deel behandelt webapplicatie-exploits, aanvallen op authenticatiesystemen en het ontwikkelen en verspreiden van maatwerk-malware, als de technische basisvaardigheden waarop de rest van het boek voortbouwt.</p>
+      <p>Erdmann behandelt deze technieken bewust kort: het boek gaat ervan uit dat de lezer webexploitatie en basale malware-ontwikkeling al kent uit eerder werk of ervaring, en gebruikt dit deel vooral om een gedeeld vertrekpunt vast te leggen voor de infrastructuurhoofdstukken die volgen.</p>
+      <p>Bij de malware-ontwikkeling ligt de nadruk op het ontwijken van detectie door bestaande beveiligingsproducten, niet op het uitvinden van nieuwe kwetsbaarheden; het hoofdstuk behandelt technieken om code te verhullen en gedrag te spreiden zodat het minder opvalt in logbestanden.</p>
+      <h3>Infrastructuurautomatisering</h3>
+      <p>Het tweede deel begint met het geautomatiseerd uitrollen van offensieve infrastructuur. Erdmann werkt met scripts die servers, domeinen en configuratie in een keer opzetten en weer afbreken, zodat een operatie niet afhankelijk is van handmatig herhaalbaar werk en zodat sporen na afloop makkelijker op te ruimen zijn.</p>
+      <p>Hij bespreekt daarbij ook het gebruik van wegwerpdomeinen en het periodiek verhuizen van infrastructuur, zodat een eenmaal herkend patroon niet meteen de hele operatie blootlegt. Die automatisering is volgens het boek ook nodig om een operatie na ontdekking van een deel van de infrastructuur snel te kunnen verplaatsen.</p>
+      <h3>C2 en tunneling</h3>
+      <p>Vervolgens past het boek algemene netwerkgrondslagen toe op de inrichting van command-and-control-verbindingen: welke poorten, protocollen en timinginstellingen een C2-kanaal minder laten opvallen tussen normaal netwerkverkeer.</p>
+      <p>Het hoofdstuk over reverse VPN-tunneling laat zien hoe een aanvaller, eenmaal binnen een netwerksegment, dat segment via een tunnel toegankelijk maakt voor verdere tools, zonder dat daarvoor telkens nieuwe toegang tot het doelsysteem nodig is.</p>
+      <h3>Offensieve security in de praktijk</h3>
+      <p>Het derde deel brengt de eerdere delen samen in praktijkscenario's: exploitatie met Metasploit, het opzetten van een dropbox als tussenstation in het netwerk, een phishingaanval met redirectors voor de command-and-control-verbinding, en het inrichten van infrastructuur waarop meerdere operators tegelijk kunnen werken.</p>
+      <p>Het hoofdstuk over meerdere operators behandelt hoe een team dezelfde C2-infrastructuur deelt zonder elkaars sessies te verstoren, met afspraken over wie welk segment van het doelnetwerk voor zijn rekening neemt.</p>
+      <p>Het phishinghoofdstuk in dit deel bouwt voort op het eerdere hoofdstuk over authenticatie-aanvallen: de phishingpagina wordt gebruikt om inloggegevens te onderscheppen, waarna de redirectors ervoor zorgen dat het vervolgverkeer niet rechtstreeks naar de eigenlijke C2-server leidt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Command and control (C2)</td><td>De infrastructuur waarmee een aanvaller op afstand met overgenomen systemen communiceert en ze aanstuurt.</td></tr>
+          <tr><td class="term">Redirector</td><td>Een tussenliggende server die verkeer doorstuurt naar de eigenlijke C2-server, zodat die laatste niet direct zichtbaar is voor het doelwit.</td></tr>
+          <tr><td class="term">Reverse VPN-tunnel</td><td>Een VPN-verbinding die vanuit het overgenomen netwerk naar de aanvaller wordt opgezet, waardoor die als deel van dat netwerk kan opereren.</td></tr>
+          <tr><td class="term">Dropbox</td><td>Een tussenstation binnen een netwerk waar gegevens of instructies tijdelijk worden neergezet zodat aanvaller en geïnfecteerd systeem niet rechtstreeks hoeven te communiceren.</td></tr>
+          <tr><td class="term">Maatwerk-malware</td><td>Zelf ontwikkelde kwaadaardige software, gebouwd om detectie door bestaande beveiligingsproducten te vermijden.</td></tr>
+          <tr><td class="term">Infrastructuurautomatisering</td><td>Het met scripts en configuratiebestanden geautomatiseerd opzetten en afbreken van servers en netwerkcomponenten voor een operatie.</td></tr>
+          <tr><td class="term">Red team versus penetratietest</td><td>Het onderscheid tussen een kortlopende, technisch gerichte test en een langer lopende operatie die ook detectie en respons van een organisatie test.</td></tr>
+          <tr><td class="term">Authenticatie-aanval</td><td>Een aanval gericht op het inlogmechanisme zelf, zoals het raden, hergebruiken of onderscheppen van inloggegevens, in plaats van op een fout in de applicatielogica.</td></tr>
+          <tr><td class="term">Blue team</td><td>Het verdedigende team binnen een organisatie dat aanvallen probeert te detecteren en erop te reageren, de tegenpartij van het red team.</td></tr>
+          <tr><td class="term">Wegwerpdomein</td><td>Een domeinnaam die kortstondig voor een deel van een operatie wordt gebruikt en daarna wordt afgestoten, om herkenning en blokkade te bemoeilijken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Erdmann bouwde volgens eigen opgave meer dan tien jaar ervaring op in IT, van softwareontwikkeling en incidentonderzoek tot offensieve security engineering, en specialiseert zich sindsdien in maatwerktools en de fase na de eerste toegang tot een systeem.</p>
+      <p>Hij sprak op het eerste Red Team Village van DEF CON 27 over geautomatiseerde offensieve infrastructuur en heeft meerdere kwetsbaarheden gepubliceerd die als CVE zijn geregistreerd, wat aangeeft dat zijn technische claims extern zijn getoetst.</p>
+      <p>Het boek verscheen bij No Starch Press, dezelfde uitgever als een reeks andere gevestigde titels over penetratietesten in dit vakgebied, waaronder Metasploit en Black Hat Python.</p>
+      <p>Erdmann is daarnaast oprichter van Injection Software and Security LLC en maker van meerdere online cursussen over offensieve tooling, wat aangeeft dat het lesgeven over dit onderwerp al langer een deel van zijn werk is en niet pas bij dit boek begon.</p>
+      <p>Het boek noemt expliciet dat de beschreven werkwijzen zijn opgebouwd uit ervaring met meerdere red-teamoperaties, waarbij dezelfde infrastructuurpatronen telkens terugkwamen. Die herhaling binnen zijn eigen praktijk is de belangrijkste onderbouwing die het boek zelf aandraagt, naast de verwijzingen naar bestaande, breed gebruikte tools zoals Metasploit.</p>
+      <p>Dat het boek voortbouwt op Metasploit, een raamwerk met een lange staat van dienst en een grote gebruikersgroep, in plaats van uitsluitend op eigen, ongeteste tooling, maakt de praktijkhoofdstukken makkelijker te volgen voor wie dat raamwerk al kent.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek verscheen in 2026 en heeft daardoor nog geen langere reviewgeschiedenis opgebouwd; het is bovendien Erdmanns eerste boek, zonder eerdere titels waaraan de kwaliteit van zijn uitleg af te meten valt. Bij een boek dat zich uitdrukkelijk als vervolgstap positioneert, is dat gebrek aan een langere staat van dienst een groter punt van zorg dan bij een inleidend werk waarvan de basisstof al breed getoetst is.</p>
+      <p>C2-frameworks, VPN-tooling en detectiemechanismen veranderen snel; instructies voor het opzetten van specifieke infrastructuur verouderen sneller dan de onderliggende principes van engineering en automatisering die het boek ook behandelt.</p>
+      <p>Het boek is uitdrukkelijk geen inleiding. Wie de basis van webexploits, authenticatie-aanvallen en Metasploit niet al beheerst, mist het fundament waarop de infrastructuurhoofdstukken voortbouwen, ook al noemt het boek die voorkennis niet steeds met zoveel woorden.</p>
+      <p>Het onderwerp, infrastructuur die niet direct naar de aanvaller herleidbaar is, ligt dicht tegen technieken die ook buiten geautoriseerde opdrachten bruikbaar zijn. Het boek benadrukt autorisatie en scope, maar de afstand tussen een eigen testlab en een echte, geautoriseerde red-teamoperatie bij een opdrachtgever is groter dan de hoofdstukken suggereren.</p>
+      <p>Het boek besteedt relatief weinig ruimte aan de kant van de verdediger: hoe een blue team de beschreven infrastructuur zou kunnen herkennen of tegenhouden. Voor een boek dat expliciet gaat over volgehouden, moeilijk te detecteren operaties is dat een opvallende leemte, ook al ligt de nadruk bewust op de aanvallende kant.</p>
+      <p>De titel spreekt over kunst, maar het boek zelf is vooral ingenieurswerk: scripts, configuratie en herhaalbare processen. Wie op zoek is naar een verhalende inkijk in red-teamoperaties krijgt eerder een reeks technische recepten dan een verslag van hoe zulke operaties in de praktijk verlopen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Doorloop eerst de basistechnieken uit deel een voordat de infrastructuurhoofdstukken worden opgepakt.</li>
+        <li>Automatiseer het opzetten en afbreken van testinfrastructuur vanaf het begin, in plaats van dat later handmatig te doen.</li>
+        <li>Leg vooraf vast binnen welke scope en met welke toestemming een oefening met C2-infrastructuur plaatsvindt.</li>
+        <li>Vergelijk elke C2- of redirector-configuratie met de actuele documentatie van de gebruikte tools, omdat versies snel wijzigen.</li>
+        <li>Bouw na afloop van een oefening een vast opruimscript, zodat testinfrastructuur niet onbedoeld blijft draaien.</li>
+        <li>Documenteer bij een operatie met meerdere operators vooraf wie welk deel van de infrastructuur beheert, om te voorkomen dat twee operators onbedoeld dezelfde sessie verstoren.</li>
+        <li>Test elk onderdeel van de infrastructuur eerst in een eigen, geïsoleerde omgeving voordat het tegen een doelnetwerk wordt ingezet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Eerste editie, No Starch Press, San Francisco, 2026, 352 blz., ISBN 9781718504264. Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Casey Erdmann richt dit boek niet op de eerste stap in een pentest, maar op wat een gewone penetratietest overstijgt: het bouwen en beheren van de eigen infrastructuur van een red team. Het boek behandelt webapplicatie-exploits, aanvallen op authenticatie en het maken van maatwerk-malware als bouwstenen, en werkt daarna toe naar het geautomatiseerd opzetten van command-and-control-servers, VPN-tunnels en redirectors.</p><p>Waar veel inleidende boeken stoppen bij het overnemen van een enkel systeem, behandelt Erdmann wat daarna komt: hoe een operatie meerdere weken volhoudt, hoe meerdere operators tegelijk met dezelfde infrastructuur werken en hoe die infrastructuur zo wordt ingericht dat zij niet meteen naar de aanvaller herleidbaar is.</p><p>Erdmann is oprichter van Injection Software and Security LLC, sprak op het eerste Red Team Village van DEF CON 27 en heeft meerdere kwetsbaarheden als CVE gepubliceerd. Dit is zijn eerste boek; het bouwt uitdrukkelijk voort op kennis die de lezer als penetratietester al geacht wordt te hebben.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>red teaming</li><li>offensive security</li><li>command and control</li><li>malware</li><li>netwerkinfrastructuur</li><li>penetratietesten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2308"><a href="2308.html">Metasploit: The Penetration Tester's Guide (Second Edition)</a>. Erdmann gebruikt Metasploit als exploitatiemiddel in zijn praktijkhoofdstukken; dit boek behandelt dat raamwerk in de volle breedte.</li>
+          <li value="2304"><a href="2304.html">Advanced Penetration Testing: Hacking the World's Most Secure Networks</a>. Beide boeken richten zich op de gevorderde fase van een aanval; dit boek legt meer nadruk op het netwerk zelf overnemen dan op de infrastructuur eromheen.</li>
+          <li value="2306"><a href="2306.html">Black Hat Bash: Creative Scripting for Hackers and Pentesters</a>. De scripting- en automatiseringsvaardigheden die dit boek bepleit voor het opzetten van infrastructuur, worden hier specifiek voor Bash uitgewerkt.</li>
+          <li value="2315"><a href="2315.html">Pentesting Active Directory and Windows-based Infrastructure</a>. Wie na dit boek een doelnetwerk met Active Directory wil binnendringen in plaats van de infrastructuur errond op te zetten, vindt hier de uitwerking daarvan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
