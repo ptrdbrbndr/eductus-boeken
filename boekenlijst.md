@@ -1,8 +1,8 @@
 # Boekenlijst
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
-met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 27
-augustus 2026: 1553 titels in 22 rubrieken.
+met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 10
+september 2026: 1554 titels in 22 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -24,7 +24,7 @@ bij de volgende build verloren.
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931, 1532, 1729, 1747 |
 | Reclame en overtuiging | hoe reclame verkoopt en wat het vak over zijn eigen werking beweert | 443, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913, 1279, 1280, 1281, 1283, 1284, 1285, 1286, 1287, 1288, 1331, 1744, 1752, 1877, 2072, 2112, 2123, 2124, 2125, 2126 |
-| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551, 1294, 1297, 1541, 1589, 1590, 1641, 1642, 1682, 1738, 1740, 1745, 1843, 1861, 1918, 1919, 2034, 2037, 2056, 2061 |
+| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551, 1294, 1297, 1541, 1589, 1590, 1641, 1642, 1682, 1738, 1740, 1745, 1843, 1861, 1918, 1919, 2034, 2037, 2056, 2061, 2318 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545, 1916, 2062 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447, 1303, 1304, 1305, 1306, 1313, 1522, 1539, 1596, 1850, 2083, 2091, 2098 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116, 1145, 1146, 1148, 1155, 1201, 1225, 1226, 1233, 1240, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254, 1255, 1264, 1269, 1289, 1290, 1291, 1293, 1298, 1345, 1611, 1619, 1659, 1701, 1702, 1707, 1715, 1859, 1875, 2022, 2024, 2035, 2122 |
@@ -323298,6 +323298,237 @@ bredere context van een volledige pentest, inclusief verkenning,
 webkwetsbaarheden en rapportage, waar dit boek zich tot geheugen en netwerken
 beperkt.
 
+## 2318. Working with the Enemy
+
+Mike Leibling, 2009. Ondertitel *How to Survive and Thrive with Really
+Difficult People*, Kogan Page, Londen, 29 september 2009, 192 bladzijden, ISBN
+9780749454678. Er verscheen ook een editie bij Kogan Page India (ISBN
+9788175545144). Een Nederlandse vertaling is niet gevonden. Rubriek:
+samenwerken en gesprek.
+Tags: `moeilijke-mensen`, `conflict`, `werkvloer`, `communicatie`, `coaching`,
+`zelfhulp`, `gedragstypen`
+
+Mike Leibling werkte bijna twintig jaar bij reclamebureau Saatchi & Saatchi,
+laatstelijk als International Strategic Planning Director, en begon in 1995
+het trainings- en coachingsbureau Strategy Strategy. In dit boek behandelt hij
+de omgang met mensen die het werk moeilijk maken. Het woord vijand staat er
+steeds tussen aanhalingstekens: die aanduiding zegt volgens Leibling ook iets
+over degene die haar gebruikt. Het eerste deel geeft tien
+overlevingsstrategieën voor het moment zelf, van kalm en duidelijk blijven
+communiceren tot het beoordelen van gedrag in plaats van de persoon. Het
+tweede deel loopt vijftien soorten lastige mensen langs, onder wie pesters,
+bemoeials en mensen die werk doen dat hun boven het hoofd groeit.
+
+Vanaf het tiende type keert de blik om. 'Me Myself' en 'Everybody Else' staan
+als aparte hoofdstukken tussen de andere, en de laatste vier typen gaan over
+de wisselwerking met de lezer zelf: wie hem als type behandelt in plaats van
+als persoon, wie hem verandert, wie de redder in hem wakker maakt en wie het
+dwarse in hem wakker maakt. De laatste twee delen bestaan uit een vragenlijst
+om de situatie feitelijk in kaart te brengen en een plan om er iets aan te
+veranderen. Het boek steunt op Leiblings praktijk als coach; onderzoek naar
+het gedrag dat het beschrijft, of naar de werking van de aangeraden
+strategieën, staat er niet in. Eerder schreef hij *How People Tick*, een
+naslagwerk over meer dan vijftig soorten lastig gedrag.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Leibling stelt dat wie een collega als vijand ervaart, aan
+dat oordeel zelf heeft meegewerkt, en dat de verhouding pas verandert wanneer
+de aandacht verschuift van het karakter van de ander naar concreet gedrag, de
+situatie eromheen en het eigen aandeel daarin. Wie kalm blijft, eerst
+informatie verzamelt en daarna een doel formuleert, houdt volgens hem in bijna
+elke lastige verhouding meer keuze over dan hij op dat moment ziet. Het boek
+biedt daarvoor tien strategieën en vijftien beschrijvingen, alle ontleend aan
+Leiblings praktijk als coach en niet aan onderzoek.
+
+#### De gang van het boek
+
+**Het woord vijand tussen aanhalingstekens**
+
+Leibling zet in alle hoofdstuktitels aanhalingstekens om het woord *enemy*.
+Dat is de kern van zijn uitgangspunt: de aanduiding is een oordeel dat op een
+bepaald moment is ontstaan en dat daarna het beeld van de ander vasthoudt. De
+inleiding vraagt daarom niet alleen wat de ander doet, maar ook hoe de lezer
+ertoe is gekomen dat gedrag als werkelijk moeilijk te gaan zien.
+
+Het boek is geschreven voor de werkvloer en gaat uit van een verhouding waar
+de lezer niet zomaar uit weg kan lopen. Leibling belooft geen verzoening en
+geen verandering van de ander. Wat hij aanbiedt is een manier om de eigen
+positie in de situatie terug te krijgen, in de volgorde die de vier delen van
+het boek aanhouden: eerst kalmeren, dan herkennen, dan uitzoeken, dan plannen.
+
+**Tien strategieën voor het moment zelf**
+
+Het eerste deel heet in vertaling: eerst dit, de tien overlevingsstrategieën
+om koel te blijven in het heetst van de strijd. De eerste vier gaan over
+houding en tempo. Communiceer extra kalm en duidelijk. Houd de zaak echt en op
+ware grootte. Laat je niet opjagen om te snel te handelen. Stop met het gevoel
+dat er geen keuze is.
+
+De volgende zes verplaatsen het werk naar binnen. Laat de ander niet in je
+hoofd blijven rondlopen. Laat de ander niet aan je touwtjes trekken. Geloof
+andere mensen niet automatisch. Laat het verleden je toekomst niet blokkeren.
+Vat het niet persoonlijk op maar gedragsmatig. En als tiende: zorg voor
+jezelf. In die laatste vijf zit het patroon dat het hele boek draagt, namelijk
+dat de meeste bewegingsruimte zit in wat de lezer met het gedrag van de ander
+doet, niet in dat gedrag zelf.
+
+**Negen soorten lastig gedrag bij de ander**
+
+Het tweede deel behandelt vijftien typen, elk met eigen strategieën om te
+overleven en vooruit te komen. De eerste negen wijzen naar buiten. Mensen die
+pesten. Mensen die hun eigen behoeften vooropstellen. Mensen met wie moeilijk
+contact te krijgen is. Mensen wier werk hun boven het hoofd groeit. Mensen die
+zich ermee bemoeien. Mensen die wispelturig zijn. Mensen die anders zijn dan
+ik. Mensen die zijn zoals ik. Mensen die dicht bij me staan.
+
+De ordening laat zien wat Leibling met een type bedoelt. Het is geen
+persoonlijkheidssoort maar een terugkerende situatie tussen twee mensen. Dat
+wordt zichtbaar in het zevende en achtste type, die tegenover elkaar staan:
+gelijkenis levert net zo goed wrijving op als verschil, en in beide gevallen
+is de verklaring niet het karakter van de ander maar de verhouding waarin de
+twee terecht zijn gekomen.
+
+**De lezer als tiende en elfde type**
+
+Het tiende type is 'Me Myself', de lezer zelf. Het elfde is 'Everybody Else',
+iedereen samen. Door die twee gewoon tussen de andere dertien te zetten,
+zonder ze apart te behandelen of te verontschuldigen, maakt Leibling zijn
+stelling operationeel: dezelfde vragen die op een pestende collega worden
+losgelaten, gelden ook voor het eigen gedrag en voor de omgeving die het
+gedrag in stand houdt.
+
+Dat is de scherpste ingreep in het boek. Wie de vijftien hoofdstukken op
+volgorde leest, komt op ongeveer tweederde van het boek zichzelf tegen in
+dezelfde vorm waarin hij tot dan toe anderen heeft bekeken.
+
+**Wat de ander wakker maakt**
+
+De laatste vier typen gaan over de wisselwerking. Mensen die mij als type zien
+in plaats van als persoon. Mensen die mij veranderen. Mensen die de redder in
+mij wakker maken. Mensen die de dwarsligger in mij wakker maken, het slechtste
+in mij.
+
+Het twaalfde type keert het instrument tegen het boek zelf. Wie ingedeeld
+wordt, wordt daarmee ook onzichtbaar gemaakt, en dat geldt ook voor de
+indeling die de lezer op dat moment aan het gebruiken is. De laatste twee
+typen beschrijven verhoudingen waarin de lezer een rol krijgt toebedeeld, van
+redder of van dwarsligger, en waarin het gedrag van de ander en de eigen
+reactie elkaar in stand houden.
+
+**Eerst informatie, dan een plan**
+
+Het derde deel gaat over nieuwe informatie ophalen om verder te kunnen. Het
+bestaat uit twee korte hoofdstukken: tips voor het verzamelen van informatie
+en een vragenlijst waarmee de lezer zijn eigen situatie uitschrijft. De
+volgorde is bedoeld als rem op het oordeel dat er al ligt, want de vragenlijst
+dwingt tot feiten over wat er precies gebeurde, wanneer, en wat daar wel en
+niet uit volgt.
+
+Het vierde deel bestaat uit drie hoofdstukken over het maken van een doelplan,
+het uitvoeren daarvan, en tot slot een hoofdstuk dat het onbespreekbare
+bespreekbaar maakt. Daaronder valt de mogelijkheid dat de situatie niet te
+verbeteren is en dat vertrekken de verstandigste zet is. Het boek eindigt dus
+niet met de belofte dat elke lastige verhouding te redden valt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| 'Enemy' | Het woord dat Leibling consequent tussen aanhalingstekens zet, omdat het een oordeel is dat is ontstaan en niet een eigenschap van de ander. |
+| Survive and thrive strategy | De aanwijzing die per type wordt gegeven, met twee doelen: de situatie doorstaan en er daarna beter uit komen. |
+| Gedragsmatig in plaats van persoonlijk | De negende strategie, die vraagt om te beschrijven wat iemand deed in plaats van wat iemand is. |
+| Aan je touwtjes trekken | De zesde strategie, over de voorspelbare reactie die een ander bij de lezer kan oproepen en die daarmee stuurbaar wordt voor die ander. |
+| Me Myself | Het tiende van de vijftien typen, waarin de lezer zelf als lastig gedrag wordt behandeld. |
+| Everybody Else | Het elfde type, de omgeving die een lastige verhouding mogelijk maakt of in stand houdt. |
+| Information questionnaire | De vragenlijst in het derde deel waarmee de lezer zijn situatie in feiten uitschrijft voordat hij iets onderneemt. |
+| Goal plan | Het plan uit het vierde deel, waarin een gewenste uitkomst wordt vastgelegd met de stappen ernaartoe. |
+| Thinking the unthinkable | Het slothoofdstuk, dat de uitkomsten bespreekt die de lezer tot dan toe buiten beschouwing liet, waaronder vertrekken. |
+
+#### Waar het argument op rust
+
+Het boek rust op Leiblings eigen werk. Hij was bijna twintig jaar strateeg bij
+Saatchi & Saatchi, laatstelijk als International Strategic Planning Director,
+en begon in 1995 Strategy Strategy, waarmee hij werkte voor onder meer Heinz,
+DHL, L'Oreal en PricewaterhouseCoopers. De typen en de strategieën komen uit
+dat trainings- en coachingswerk.
+
+Onderzoek staat er niet in. Er is geen literatuurlijst met studies, geen
+verwijzing naar gepubliceerd werk over pesten of conflict op de werkvloer, en
+geen meting van wat er gebeurt bij lezers die de strategieën toepassen. De
+indeling in vijftien typen is niet getoetst en niet als meetinstrument
+bedoeld: de lezer plaatst zijn eigen situatie op grond van herkenning in de
+beschrijving.
+
+De ontvangst kwam uit de vakpers en niet uit de wetenschap. Het blad
+Professional Manager noemde het boek in maart 2010 een degelijke,
+toegankelijke gids voor communicatie- en taaltechnieken. Dat oordeel gaat over
+de bruikbaarheid van de aanwijzingen, niet over de vraag of de beschreven
+verbanden kloppen.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft het eerste type. Bij werkelijk pestgedrag op het
+werk verschuift een boek dat de lezer vraagt kalm te blijven, het niet
+persoonlijk op te vatten en voor zichzelf te zorgen, het werk naar degene die
+het al zwaar heeft. De verplichting van de werkgever, de rol van een
+vertrouwenspersoon, de ondernemingsraad en de formele klachtprocedure komen in
+deze opzet niet aan bod. Voor irritatie tussen gelijken is die keuze
+verdedigbaar, voor intimidatie door een leidinggevende is zij dat minder.
+
+De vijftien typen zijn geen sluitende indeling. Type zeven, mensen die anders
+zijn dan ik, en type acht, mensen die zijn zoals ik, dekken samen iedereen, en
+type tien en elf dekken de lezer en de rest. Dat maakt de reeks bruikbaar als
+lijst met invalshoeken, maar het maakt haar ongeschikt als classificatie,
+omdat elke situatie in meerdere vakjes tegelijk past. Het boek gaat op dat
+punt zelf niet in, terwijl type twaalf precies het bezwaar tegen indelen
+benoemt.
+
+Er staat nergens hoe vaak de aanpak werkt of wanneer hij faalt. Een lezer die
+de vragenlijst invult en het plan uitvoert, heeft geen maatstaf om te bepalen
+of het resultaat aan het plan lag of aan iets anders. Dat is bij dit genre
+gebruikelijk, maar het betekent wel dat de aanwijzingen op het gezag van de
+coach berusten en niet op meer dan dat.
+
+Verschil in macht en in afhankelijkheid blijft grotendeels buiten beeld. De
+lezer die het boek veronderstelt heeft bewegingsruimte: hij kan wachten,
+informatie verzamelen, een gesprek uitstellen en desnoods vertrekken. Voor
+iemand met een tijdelijk contract, een uitzendpositie of een
+verblijfsvergunning die aan de baan hangt, is een deel van de aangeraden
+strategieën niet beschikbaar.
+
+De overlap met Leiblings eerdere *How People Tick* is groot. Dat boek
+behandelt meer dan vijftig soorten lastig gedrag volgens hetzelfde stramien
+van beschrijving en aanwijzing. Wie dat al kent, houdt hier vooral de tien
+strategieën en de vragenlijst over als nieuw materiaal.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf eerst op wat er feitelijk gebeurde, met datum en woorden, voordat je
+vaststelt wat voor iemand de ander is.
+- Beschrijf het bezwaar in termen van gedrag, zodat er iets aan te veranderen
+valt.
+- Stel bij een lastig bericht een reactie uit tot de volgende dag en kijk of
+het oordeel dan nog hetzelfde is.
+- Ga na wat de ander bij jou oproept en of dat een vaste reactie is die hij
+kan voorspellen.
+- Zoek bij aanhoudend pestgedrag de formele weg op, via leidinggevende,
+vertrouwenspersoon of ondernemingsraad, en beschouw dit boek daar als
+aanvulling.
+- Leg voor de situatie een doel vast met een termijn erbij, en noteer ook
+welke uitkomst je tot nu toe niet hebt willen overwegen.
+
+#### Wat je hierna leest
+
+- 156. Surrounded by Idiots. Deelt de aanpak van indelen in typen, en laat
+zien waar zo'n indeling op stukloopt zodra zij als vaststaand systeem wordt
+gepresenteerd.
+- 43. Crucial Conversations. Behandelt hetzelfde moment, het gesprek dat onder
+druk komt te staan, met een uitgewerkte methode voor het gesprek zelf.
+- 466. Set Boundaries, Find Peace. Werkt uit wat Leibling in zijn tiende
+strategie aanstipt en verder laat liggen: hoe iemand een grens stelt en
+bewaakt.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -323466,28 +323697,28 @@ geschiedenis` 219 · `chiropractie` 432 · `christelijke traditie` 1566, 2078 ·
 · `civilisatiekritiek` 298 · `classificatie` 719 · `clitoris` 1548 · `cloud`
 2308 · `cloud security` 2301 · `coachbloem` 1530 · `coaching` 161, 291, 441,
 1297, 1510, 1528, 1530, 1630, 1631, 1751, 1778, 1804, 1817, 1834, 1843, 2019,
-2026, 2034, 2059, 2070, 2106 · `cognitie` 656 · `cognitieve gedragstherapie`
-147, 153, 373, 1803 · `cognitieve herformulering` 2131 · `cognitieve
-herstructurering` 177 · `cognitieve neurowetenschap` 763 · `cognitieve
-psychologie` 759 · `cognitieve therapie` 1873 · `cognitieve vertekening` 234 ·
-`cognitieve wetenschap` 467 · `cognitieve-bias` 59 · `cognitiewetenschap` 755,
-767, 1172 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362
-· `Colombia` 1402 · `columns` 89, 90 · `coma` 763 · `comfortzone` 187 ·
-`command and control` 2304, 2311 · `commando` 97 · `commentaar` 1806 ·
-`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305,
-338, 356, 398, 399, 444, 466, 475, 539, 555, 1272, 1277, 1294, 1304, 1306,
-1530, 1589, 1590, 1670, 1738, 1843, 2056, 2077 · `communisme` 625 ·
-`compassie` 1525, 1527, 1556, 1814 · `complexiteit` 170, 268, 300, 347, 423,
-1258, 1274, 1279, 1861, 2121 · `complimenten geven` 356 · `complotdenken` 667,
-668, 672, 676, 683, 684, 688, 690, 914, 915, 916, 917, 920, 921, 923, 925,
-926, 931, 1142, 1143, 1145, 1146, 1147, 1150, 1152, 1908, 2023 ·
-`complottheorie` 680, 1532 · `componisten` 1749 · `concentratie` 70, 441, 802,
-1879, 2005, 2030 · `concurrentie` 293, 902 · `conditionering` 61, 519, 1569,
-1638, 1640 · `conflict` 35, 42, 43, 212, 305, 1641, 1642, 1843 ·
-`conflictbemiddeling` 304 · `conflicthantering` 271, 1590 · `conformisme` 211,
-1295, 1900 · `conjunctuurcyclus` 2125 · `consistentie` 553 · `consument` 703,
-704 · `consumptie` 463, 1651, 1709 · `consumptiekeuzes` 299 ·
-`consumptiemaatschappij` 564 · `contemplatie` 1734, 2078 · `content` 308 ·
+2026, 2034, 2059, 2070, 2106, 2318 · `cognitie` 656 · `cognitieve
+gedragstherapie` 147, 153, 373, 1803 · `cognitieve herformulering` 2131 ·
+`cognitieve herstructurering` 177 · `cognitieve neurowetenschap` 763 ·
+`cognitieve psychologie` 759 · `cognitieve therapie` 1873 · `cognitieve
+vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias` 59 ·
+`cognitiewetenschap` 755, 767, 1172 · `collectief bewustzijn` 435 ·
+`collectief onbewuste` 357, 360, 362 · `Colombia` 1402 · `columns` 89, 90 ·
+`coma` 763 · `comfortzone` 187 · `command and control` 2304, 2311 · `commando`
+97 · `commentaar` 1806 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164,
+183, 186, 193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555, 1272,
+1277, 1294, 1304, 1306, 1530, 1589, 1590, 1670, 1738, 1843, 2056, 2077, 2318 ·
+`communisme` 625 · `compassie` 1525, 1527, 1556, 1814 · `complexiteit` 170,
+268, 300, 347, 423, 1258, 1274, 1279, 1861, 2121 · `complimenten geven` 356 ·
+`complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915, 916, 917,
+920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146, 1147, 1150, 1152, 1908,
+2023 · `complottheorie` 680, 1532 · `componisten` 1749 · `concentratie` 70,
+441, 802, 1879, 2005, 2030 · `concurrentie` 293, 902 · `conditionering` 61,
+519, 1569, 1638, 1640 · `conflict` 35, 42, 43, 212, 305, 1641, 1642, 1843,
+2318 · `conflictbemiddeling` 304 · `conflicthantering` 271, 1590 ·
+`conformisme` 211, 1295, 1900 · `conjunctuurcyclus` 2125 · `consistentie` 553
+· `consument` 703, 704 · `consumptie` 463, 1651, 1709 · `consumptiekeuzes` 299
+· `consumptiemaatschappij` 564 · `contemplatie` 1734, 2078 · `content` 308 ·
 `content creatie` 365 · `content marketing` 369 · `controlemaatschappij` 2023
 · `controverse` 2003 · `Conversations with God` 1621 · `copywriting` 695, 697,
 698, 699, 701 · `Cor van der Geest` 1834 · `core gifts` 2037 · `corruptie`
@@ -323649,7 +323880,7 @@ wiskunde` 497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395
 89, 90, 138, 154, 280, 330, 383, 425, 802, 1843 · `gedragsbiologie` 322, 339 ·
 `gedragscode` 2095 · `gedragseconomie` 424, 426, 514, 1288 ·
 `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie`
-294, 817, 2126 · `gedragstherapie` 1526, 1842 · `gedragstypen` 156 ·
+294, 817, 2126 · `gedragstherapie` 1526, 1842 · `gedragstypen` 156, 2318 ·
 `gedragsverandering` 238, 290, 457, 469, 1565, 1907, 2108 ·
 `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800 ·
 `geest` 584, 652, 1167 · `geestelijke gezondheid` 193 · `geestelijke
@@ -323985,31 +324216,31 @@ gedrag` 155 · `menselijke natuur` 1859 · `menselijke oorsprong` 1904 ·
 `modellering` 455 · `modelvorming` 2121 · `modulariteit` 1627 · `moed` 44,
 529, 1519, 2071 · `moeder en dochter` 1522, 1600, 1650, 1887 ·
 `moeder-en-zoon` 26 · `moeder-kindrelatie` 1862 · `moederkoren` 765, 1611 ·
-`moederschap` 1758 · `momentum` 481 · `monetair beleid` 2124 · `monnik` 1664 ·
-`monniksleven` 230, 1207 · `monomythe` 410 · `monopolie` 306 · `monsters` 532
-· `Montségur` 1700 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263, 1627, 1676,
-1678, 2086 · `moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 ·
-`moritatherapie` 1554 · `mormonisme` 560, 1707 · `motivatie` 117, 139, 146,
-183, 200, 207, 315, 427, 468, 469, 472, 1822, 2028, 2073 ·
-`motivatieonderzoek` 703, 704 · `Motley Fool` 474 · `motor` 2047 · `motoren` 6
-· `motorfietsen` 325 · `MTHFR` 1894 · `Muhammad Ali` 1835 · `multitasken` 1879
-· `muziek` 17, 85, 762, 824, 952, 1246, 1256, 1291, 1297, 1512, 1564, 1674,
-1679 · `muziekfilosofie` 756 · `mycotoxines` 2117 · `mysteriecultus` 765 ·
-`mystiek` 340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630, 636, 640,
-666, 754, 835, 936, 1100, 1103, 1109, 1110, 1124, 1158, 1207, 1222, 1237,
-1263, 1300, 1540, 1607, 1717, 1774, 2058, 2065 · `mythe` 608 · `mythe en
-ritueel` 756 · `mythen` 1845 · `mythevorming` 615, 1140, 1151, 1238, 1240 ·
-`mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611, 1117, 1119, 1157,
-1225, 1226, 1235, 1237, 1238, 1805, 2074, 2119 · `mythologische fantasy` 202 ·
-`mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 · `napoleontische
-oorlogen` 235 · `narcisme` 258, 404 · `narratieve non-fictie` 2122 · `naslag`
-99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504, 640, 661,
-662, 806, 813, 815, 817, 835, 931, 1127, 1129, 1133, 1243, 1263, 1689, 1690,
-2007, 2039, 2059, 2084 · `nationalisme` 237, 1333 · `natuur` 191, 323, 609,
-830, 1259, 1262, 1575, 1593, 1695, 2032 · `natuurbeschrijving` 1569 ·
-`natuurgeneeskunde` 1647 · `natuurgeschiedenis` 1839 · `natuurkunde` 62, 94,
-240, 262, 281, 300, 326, 648, 650, 651, 653, 655, 657, 818, 819, 944, 945,
-947, 1261, 1265, 1276, 1279, 1318 · `natuurlijke horsemanship` 2057 ·
+`moederschap` 1758 · `moeilijke-mensen` 2318 · `momentum` 481 · `monetair
+beleid` 2124 · `monnik` 1664 · `monniksleven` 230, 1207 · `monomythe` 410 ·
+`monopolie` 306 · `monsters` 532 · `Montségur` 1700 · `Monty-Python` 16 ·
+`moraal` 9, 57, 67, 263, 1627, 1676, 1678, 2086 · `moraalfilosofie` 581 ·
+`moraalkritiek` 391 · `moreel` 36 · `moritatherapie` 1554 · `mormonisme` 560,
+1707 · `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472,
+1822, 2028, 2073 · `motivatieonderzoek` 703, 704 · `Motley Fool` 474 · `motor`
+2047 · `motoren` 6 · `motorfietsen` 325 · `MTHFR` 1894 · `Muhammad Ali` 1835 ·
+`multitasken` 1879 · `muziek` 17, 85, 762, 824, 952, 1246, 1256, 1291, 1297,
+1512, 1564, 1674, 1679 · `muziekfilosofie` 756 · `mycotoxines` 2117 ·
+`mysteriecultus` 765 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604, 606,
+610, 630, 636, 640, 666, 754, 835, 936, 1100, 1103, 1109, 1110, 1124, 1158,
+1207, 1222, 1237, 1263, 1300, 1540, 1607, 1717, 1774, 2058, 2065 · `mythe` 608
+· `mythe en ritueel` 756 · `mythen` 1845 · `mythevorming` 615, 1140, 1151,
+1238, 1240 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611, 1117,
+1119, 1157, 1225, 1226, 1235, 1237, 1238, 1805, 2074, 2119 · `mythologische
+fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 ·
+`napoleontische oorlogen` 235 · `narcisme` 258, 404 · `narratieve non-fictie`
+2122 · `naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500,
+504, 640, 661, 662, 806, 813, 815, 817, 835, 931, 1127, 1129, 1133, 1243,
+1263, 1689, 1690, 2007, 2039, 2059, 2084 · `nationalisme` 237, 1333 · `natuur`
+191, 323, 609, 830, 1259, 1262, 1575, 1593, 1695, 2032 · `natuurbeschrijving`
+1569 · `natuurgeneeskunde` 1647 · `natuurgeschiedenis` 1839 · `natuurkunde`
+62, 94, 240, 262, 281, 300, 326, 648, 650, 651, 653, 655, 657, 818, 819, 944,
+945, 947, 1261, 1265, 1276, 1279, 1318 · `natuurlijke horsemanship` 2057 ·
 `natuurlijke selectie` 1677 · `natuurlijke-selectie` 1344 · `navigatie` 321 ·
 `navy seals` 229, 364 · `nazisme` 223, 1338, 1900 · `neanderthaler` 762 ·
 `neanderthalers` 1823 · `necrofilie` 223 · `nederland` 96 · `Nederland` 1528,
@@ -324499,21 +324730,21 @@ kerk` 1611 · `vrouwelijke energie` 1819 · `vrouwelijkheid` 1908 · `vrouwen`
 1874, 1882, 1890, 1901, 2029, 2032, 2053, 2079, 2094 · `werk en privé` 1766 ·
 `werk en rust` 512 · `werkbladen` 1655 · `werkboek` 14, 122, 150, 1526, 1665,
 1737, 1912, 2073, 2099 · `werkcultuur` 551 · `werkdruk` 400, 1833, 2094 ·
-`werkgewoonten` 1749 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16,
-702 · `West-Afrika` 522, 1114 · `West-Papoea` 1593 · `West-Point` 29 ·
-`westen` 67 · `Westerbork` 2091 · `western` 5 · `Western States` 2040 ·
-`westerse filosofie` 269, 341 · `westerse psychologie` 769 · `wet van aanname`
-1703 · `wet van aantrekking` 127, 190, 433, 543, 1748, 1818, 1890, 1909, 1910
-· `wetenschap` 63, 66, 93, 94, 328, 485, 1286, 1657, 2016, 2067 · `wetenschap
-en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653,
-654, 664, 761, 767, 805, 929, 938, 1165, 1167, 1173, 1247, 1260, 1261, 1266,
-1267, 1271, 1274, 1275, 1281, 1318, 1320, 1337, 1343 ·
-`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642, 647, 649,
-651, 654, 657, 658, 659, 660, 661, 662, 663, 805, 818, 819, 820, 823, 932,
-937, 938, 941, 944, 945, 946, 947, 948, 949, 951, 1149, 1153, 1163, 1164,
-1246, 1247, 1248, 1249, 1251, 1252, 1254, 1260, 1263, 1265, 1268, 1270, 1272,
-1277, 1282, 1310, 1322, 1658, 1677 · `wetenschapsjournalistiek` 387, 412 ·
-`wetenschapskritiek` 2050 · `White Eagle Lodge` 1537 · `wicca` 1228, 1230,
+`werkgewoonten` 1749 · `werkplek` 33, 43 · `werktempo` 400 · `werkvloer` 2318
+· `werkwijze` 16, 702 · `West-Afrika` 522, 1114 · `West-Papoea` 1593 ·
+`West-Point` 29 · `westen` 67 · `Westerbork` 2091 · `western` 5 · `Western
+States` 2040 · `westerse filosofie` 269, 341 · `westerse psychologie` 769 ·
+`wet van aanname` 1703 · `wet van aantrekking` 127, 190, 433, 543, 1748, 1818,
+1890, 1909, 1910 · `wetenschap` 63, 66, 93, 94, 328, 485, 1286, 1657, 2016,
+2067 · `wetenschap en religie` 609 · `wetenschappers` 239 ·
+`wetenschapsfilosofie` 483, 650, 653, 654, 664, 761, 767, 805, 929, 938, 1165,
+1167, 1173, 1247, 1260, 1261, 1266, 1267, 1271, 1274, 1275, 1281, 1318, 1320,
+1337, 1343 · `wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642,
+647, 649, 651, 654, 657, 658, 659, 660, 661, 662, 663, 805, 818, 819, 820,
+823, 932, 937, 938, 941, 944, 945, 946, 947, 948, 949, 951, 1149, 1153, 1163,
+1164, 1246, 1247, 1248, 1249, 1251, 1252, 1254, 1260, 1263, 1265, 1268, 1270,
+1272, 1277, 1282, 1310, 1322, 1658, 1677 · `wetenschapsjournalistiek` 387, 412
+· `wetenschapskritiek` 2050 · `White Eagle Lodge` 1537 · `wicca` 1228, 1230,
 1244 · `wijn` 112 · `wijsheid` 596, 1566 · `wildernis` 1593 · `Wilhelm Reich`
 2049 · `Willem de Kooning` 1581 · `wilskracht` 238, 1733 · `Wim Hof` 1813 ·
 `wim hof methode` 2066 · `Windbridge` 1867 · `Windows` 2315 · `Wired` 473 ·
@@ -324552,9 +324783,9 @@ nidra` 1732 · `young adult` 192 · `youtube` 245 · `Zaire` 1835 · `zakelijk`
 1852, 1860, 1866, 1868, 1870, 1873, 1882, 1889, 1893, 1896, 1909, 1910, 1912,
 2005, 2006, 2007, 2008, 2009, 2013, 2018, 2028, 2036, 2037, 2042, 2052, 2056,
 2059, 2064, 2073, 2076, 2079, 2080, 2088, 2095, 2099, 2100, 2103, 2108, 2111,
-2128, 2129, 2130, 2131 · `zelfhulpkritiek` 1769 · `zelfkennis` 258, 260, 361,
-519, 526, 1640, 1778 · `zelfkritiek` 1645, 1693 · `zelfleiderschap` 1598, 1669
-· `zelfliefde` 190, 195, 204, 380, 403, 549, 1517, 1549, 1739, 1817 ·
+2128, 2129, 2130, 2131, 2318 · `zelfhulpkritiek` 1769 · `zelfkennis` 258, 260,
+361, 519, 526, 1640, 1778 · `zelfkritiek` 1645, 1693 · `zelfleiderschap` 1598,
+1669 · `zelfliefde` 190, 195, 204, 380, 403, 549, 1517, 1549, 1739, 1817 ·
 `zelfmoord` 1727 · `zelfmoordpoging` 2001 · `zelfonderzoek` 315, 470, 520,
 527, 579, 1101, 1203, 1208, 1502, 1534, 1572, 1612, 1624, 1652, 1665, 1673,
 1838, 1878, 1917, 2031 · `zelfontdekking` 2047 · `zelfontplooiing` 393, 1234,

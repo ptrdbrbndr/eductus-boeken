@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Working with the Enemy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Leibling stelt dat wie een collega als vijand ervaart, aan dat oordeel zelf heeft meegewerkt, en dat de verhouding pas verandert wanneer de aandacht…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2318">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2318 &middot; Samenwerken en gesprek</p>
+    <h1>Working with the Enemy</h1>
+    <p class="lede">Mike Leibling, 2009</p>
+    <p class="stats">
+      <span><b>1726</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>10 september 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2318"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Leibling stelt dat wie een collega als vijand ervaart, aan dat oordeel zelf heeft meegewerkt, en dat de verhouding pas verandert wanneer de aandacht verschuift van het karakter van de ander naar concreet gedrag, de situatie eromheen en het eigen aandeel daarin. Wie kalm blijft, eerst informatie verzamelt en daarna een doel formuleert, houdt volgens hem in bijna elke lastige verhouding meer keuze over dan hij op dat moment ziet. Het boek biedt daarvoor tien strategieën en vijftien beschrijvingen, alle ontleend aan Leiblings praktijk als coach en niet aan onderzoek.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het woord vijand tussen aanhalingstekens</h3>
+      <p>Leibling zet in alle hoofdstuktitels aanhalingstekens om het woord <i>enemy</i>. Dat is de kern van zijn uitgangspunt: de aanduiding is een oordeel dat op een bepaald moment is ontstaan en dat daarna het beeld van de ander vasthoudt. De inleiding vraagt daarom niet alleen wat de ander doet, maar ook hoe de lezer ertoe is gekomen dat gedrag als werkelijk moeilijk te gaan zien.</p>
+      <p>Het boek is geschreven voor de werkvloer en gaat uit van een verhouding waar de lezer niet zomaar uit weg kan lopen. Leibling belooft geen verzoening en geen verandering van de ander. Wat hij aanbiedt is een manier om de eigen positie in de situatie terug te krijgen, in de volgorde die de vier delen van het boek aanhouden: eerst kalmeren, dan herkennen, dan uitzoeken, dan plannen.</p>
+      <h3>Tien strategieën voor het moment zelf</h3>
+      <p>Het eerste deel heet in vertaling: eerst dit, de tien overlevingsstrategieën om koel te blijven in het heetst van de strijd. De eerste vier gaan over houding en tempo. Communiceer extra kalm en duidelijk. Houd de zaak echt en op ware grootte. Laat je niet opjagen om te snel te handelen. Stop met het gevoel dat er geen keuze is.</p>
+      <p>De volgende zes verplaatsen het werk naar binnen. Laat de ander niet in je hoofd blijven rondlopen. Laat de ander niet aan je touwtjes trekken. Geloof andere mensen niet automatisch. Laat het verleden je toekomst niet blokkeren. Vat het niet persoonlijk op maar gedragsmatig. En als tiende: zorg voor jezelf. In die laatste vijf zit het patroon dat het hele boek draagt, namelijk dat de meeste bewegingsruimte zit in wat de lezer met het gedrag van de ander doet, niet in dat gedrag zelf.</p>
+      <h3>Negen soorten lastig gedrag bij de ander</h3>
+      <p>Het tweede deel behandelt vijftien typen, elk met eigen strategieën om te overleven en vooruit te komen. De eerste negen wijzen naar buiten. Mensen die pesten. Mensen die hun eigen behoeften vooropstellen. Mensen met wie moeilijk contact te krijgen is. Mensen wier werk hun boven het hoofd groeit. Mensen die zich ermee bemoeien. Mensen die wispelturig zijn. Mensen die anders zijn dan ik. Mensen die zijn zoals ik. Mensen die dicht bij me staan.</p>
+      <p>De ordening laat zien wat Leibling met een type bedoelt. Het is geen persoonlijkheidssoort maar een terugkerende situatie tussen twee mensen. Dat wordt zichtbaar in het zevende en achtste type, die tegenover elkaar staan: gelijkenis levert net zo goed wrijving op als verschil, en in beide gevallen is de verklaring niet het karakter van de ander maar de verhouding waarin de twee terecht zijn gekomen.</p>
+      <h3>De lezer als tiende en elfde type</h3>
+      <p>Het tiende type is 'Me Myself', de lezer zelf. Het elfde is 'Everybody Else', iedereen samen. Door die twee gewoon tussen de andere dertien te zetten, zonder ze apart te behandelen of te verontschuldigen, maakt Leibling zijn stelling operationeel: dezelfde vragen die op een pestende collega worden losgelaten, gelden ook voor het eigen gedrag en voor de omgeving die het gedrag in stand houdt.</p>
+      <p>Dat is de scherpste ingreep in het boek. Wie de vijftien hoofdstukken op volgorde leest, komt op ongeveer tweederde van het boek zichzelf tegen in dezelfde vorm waarin hij tot dan toe anderen heeft bekeken.</p>
+      <h3>Wat de ander wakker maakt</h3>
+      <p>De laatste vier typen gaan over de wisselwerking. Mensen die mij als type zien in plaats van als persoon. Mensen die mij veranderen. Mensen die de redder in mij wakker maken. Mensen die de dwarsligger in mij wakker maken, het slechtste in mij.</p>
+      <p>Het twaalfde type keert het instrument tegen het boek zelf. Wie ingedeeld wordt, wordt daarmee ook onzichtbaar gemaakt, en dat geldt ook voor de indeling die de lezer op dat moment aan het gebruiken is. De laatste twee typen beschrijven verhoudingen waarin de lezer een rol krijgt toebedeeld, van redder of van dwarsligger, en waarin het gedrag van de ander en de eigen reactie elkaar in stand houden.</p>
+      <h3>Eerst informatie, dan een plan</h3>
+      <p>Het derde deel gaat over nieuwe informatie ophalen om verder te kunnen. Het bestaat uit twee korte hoofdstukken: tips voor het verzamelen van informatie en een vragenlijst waarmee de lezer zijn eigen situatie uitschrijft. De volgorde is bedoeld als rem op het oordeel dat er al ligt, want de vragenlijst dwingt tot feiten over wat er precies gebeurde, wanneer, en wat daar wel en niet uit volgt.</p>
+      <p>Het vierde deel bestaat uit drie hoofdstukken over het maken van een doelplan, het uitvoeren daarvan, en tot slot een hoofdstuk dat het onbespreekbare bespreekbaar maakt. Daaronder valt de mogelijkheid dat de situatie niet te verbeteren is en dat vertrekken de verstandigste zet is. Het boek eindigt dus niet met de belofte dat elke lastige verhouding te redden valt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">'Enemy'</td><td>Het woord dat Leibling consequent tussen aanhalingstekens zet, omdat het een oordeel is dat is ontstaan en niet een eigenschap van de ander.</td></tr>
+          <tr><td class="term">Survive and thrive strategy</td><td>De aanwijzing die per type wordt gegeven, met twee doelen: de situatie doorstaan en er daarna beter uit komen.</td></tr>
+          <tr><td class="term">Gedragsmatig in plaats van persoonlijk</td><td>De negende strategie, die vraagt om te beschrijven wat iemand deed in plaats van wat iemand is.</td></tr>
+          <tr><td class="term">Aan je touwtjes trekken</td><td>De zesde strategie, over de voorspelbare reactie die een ander bij de lezer kan oproepen en die daarmee stuurbaar wordt voor die ander.</td></tr>
+          <tr><td class="term">Me Myself</td><td>Het tiende van de vijftien typen, waarin de lezer zelf als lastig gedrag wordt behandeld.</td></tr>
+          <tr><td class="term">Everybody Else</td><td>Het elfde type, de omgeving die een lastige verhouding mogelijk maakt of in stand houdt.</td></tr>
+          <tr><td class="term">Information questionnaire</td><td>De vragenlijst in het derde deel waarmee de lezer zijn situatie in feiten uitschrijft voordat hij iets onderneemt.</td></tr>
+          <tr><td class="term">Goal plan</td><td>Het plan uit het vierde deel, waarin een gewenste uitkomst wordt vastgelegd met de stappen ernaartoe.</td></tr>
+          <tr><td class="term">Thinking the unthinkable</td><td>Het slothoofdstuk, dat de uitkomsten bespreekt die de lezer tot dan toe buiten beschouwing liet, waaronder vertrekken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op Leiblings eigen werk. Hij was bijna twintig jaar strateeg bij Saatchi &amp; Saatchi, laatstelijk als International Strategic Planning Director, en begon in 1995 Strategy Strategy, waarmee hij werkte voor onder meer Heinz, DHL, L'Oreal en PricewaterhouseCoopers. De typen en de strategieën komen uit dat trainings- en coachingswerk.</p>
+      <p>Onderzoek staat er niet in. Er is geen literatuurlijst met studies, geen verwijzing naar gepubliceerd werk over pesten of conflict op de werkvloer, en geen meting van wat er gebeurt bij lezers die de strategieën toepassen. De indeling in vijftien typen is niet getoetst en niet als meetinstrument bedoeld: de lezer plaatst zijn eigen situatie op grond van herkenning in de beschrijving.</p>
+      <p>De ontvangst kwam uit de vakpers en niet uit de wetenschap. Het blad Professional Manager noemde het boek in maart 2010 een degelijke, toegankelijke gids voor communicatie- en taaltechnieken. Dat oordeel gaat over de bruikbaarheid van de aanwijzingen, niet over de vraag of de beschreven verbanden kloppen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft het eerste type. Bij werkelijk pestgedrag op het werk verschuift een boek dat de lezer vraagt kalm te blijven, het niet persoonlijk op te vatten en voor zichzelf te zorgen, het werk naar degene die het al zwaar heeft. De verplichting van de werkgever, de rol van een vertrouwenspersoon, de ondernemingsraad en de formele klachtprocedure komen in deze opzet niet aan bod. Voor irritatie tussen gelijken is die keuze verdedigbaar, voor intimidatie door een leidinggevende is zij dat minder.</p>
+      <p>De vijftien typen zijn geen sluitende indeling. Type zeven, mensen die anders zijn dan ik, en type acht, mensen die zijn zoals ik, dekken samen iedereen, en type tien en elf dekken de lezer en de rest. Dat maakt de reeks bruikbaar als lijst met invalshoeken, maar het maakt haar ongeschikt als classificatie, omdat elke situatie in meerdere vakjes tegelijk past. Het boek gaat op dat punt zelf niet in, terwijl type twaalf precies het bezwaar tegen indelen benoemt.</p>
+      <p>Er staat nergens hoe vaak de aanpak werkt of wanneer hij faalt. Een lezer die de vragenlijst invult en het plan uitvoert, heeft geen maatstaf om te bepalen of het resultaat aan het plan lag of aan iets anders. Dat is bij dit genre gebruikelijk, maar het betekent wel dat de aanwijzingen op het gezag van de coach berusten en niet op meer dan dat.</p>
+      <p>Verschil in macht en in afhankelijkheid blijft grotendeels buiten beeld. De lezer die het boek veronderstelt heeft bewegingsruimte: hij kan wachten, informatie verzamelen, een gesprek uitstellen en desnoods vertrekken. Voor iemand met een tijdelijk contract, een uitzendpositie of een verblijfsvergunning die aan de baan hangt, is een deel van de aangeraden strategieën niet beschikbaar.</p>
+      <p>De overlap met Leiblings eerdere <i>How People Tick</i> is groot. Dat boek behandelt meer dan vijftig soorten lastig gedrag volgens hetzelfde stramien van beschrijving en aanwijzing. Wie dat al kent, houdt hier vooral de tien strategieën en de vragenlijst over als nieuw materiaal.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf eerst op wat er feitelijk gebeurde, met datum en woorden, voordat je vaststelt wat voor iemand de ander is.</li>
+        <li>Beschrijf het bezwaar in termen van gedrag, zodat er iets aan te veranderen valt.</li>
+        <li>Stel bij een lastig bericht een reactie uit tot de volgende dag en kijk of het oordeel dan nog hetzelfde is.</li>
+        <li>Ga na wat de ander bij jou oproept en of dat een vaste reactie is die hij kan voorspellen.</li>
+        <li>Zoek bij aanhoudend pestgedrag de formele weg op, via leidinggevende, vertrouwenspersoon of ondernemingsraad, en beschouw dit boek daar als aanvulling.</li>
+        <li>Leg voor de situatie een doel vast met een termijn erbij, en noteer ook welke uitkomst je tot nu toe niet hebt willen overwegen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>How to Survive and Thrive with Really Difficult People</i>, Kogan Page, Londen, 29 september 2009, 192 bladzijden, ISBN 9780749454678. Er verscheen ook een editie bij Kogan Page India (ISBN 9788175545144). Een Nederlandse vertaling is niet gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mike Leibling werkte bijna twintig jaar bij reclamebureau Saatchi &amp; Saatchi, laatstelijk als International Strategic Planning Director, en begon in 1995 het trainings- en coachingsbureau Strategy Strategy. In dit boek behandelt hij de omgang met mensen die het werk moeilijk maken. Het woord vijand staat er steeds tussen aanhalingstekens: die aanduiding zegt volgens Leibling ook iets over degene die haar gebruikt. Het eerste deel geeft tien overlevingsstrategieën voor het moment zelf, van kalm en duidelijk blijven communiceren tot het beoordelen van gedrag in plaats van de persoon. Het tweede deel loopt vijftien soorten lastige mensen langs, onder wie pesters, bemoeials en mensen die werk doen dat hun boven het hoofd groeit.</p><p>Vanaf het tiende type keert de blik om. 'Me Myself' en 'Everybody Else' staan als aparte hoofdstukken tussen de andere, en de laatste vier typen gaan over de wisselwerking met de lezer zelf: wie hem als type behandelt in plaats van als persoon, wie hem verandert, wie de redder in hem wakker maakt en wie het dwarse in hem wakker maakt. De laatste twee delen bestaan uit een vragenlijst om de situatie feitelijk in kaart te brengen en een plan om er iets aan te veranderen. Het boek steunt op Leiblings praktijk als coach; onderzoek naar het gedrag dat het beschrijft, of naar de werking van de aangeraden strategieën, staat er niet in. Eerder schreef hij <i>How People Tick</i>, een naslagwerk over meer dan vijftig soorten lastig gedrag.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>moeilijke-mensen</li><li>conflict</li><li>werkvloer</li><li>communicatie</li><li>coaching</li><li>zelfhulp</li><li>gedragstypen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="156"><a href="156.html">Surrounded by Idiots</a>. Deelt de aanpak van indelen in typen, en laat zien waar zo'n indeling op stukloopt zodra zij als vaststaand systeem wordt gepresenteerd.</li>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Behandelt hetzelfde moment, het gesprek dat onder druk komt te staan, met een uitgewerkte methode voor het gesprek zelf.</li>
+          <li value="466"><a href="466.html">Set Boundaries, Find Peace</a>. Werkt uit wat Leibling in zijn tiende strategie aanstipt en verder laat liggen: hoe iemand een grens stelt en bewaakt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
