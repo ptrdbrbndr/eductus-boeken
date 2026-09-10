@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 10
-september 2026: 1554 titels in 22 rubrieken.
+september 2026: 1555 titels in 22 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -24,7 +24,7 @@ bij de volgende build verloren.
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931, 1532, 1729, 1747 |
 | Reclame en overtuiging | hoe reclame verkoopt en wat het vak over zijn eigen werking beweert | 443, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913, 1279, 1280, 1281, 1283, 1284, 1285, 1286, 1287, 1288, 1331, 1744, 1752, 1877, 2072, 2112, 2123, 2124, 2125, 2126 |
-| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551, 1294, 1297, 1541, 1589, 1590, 1641, 1642, 1682, 1738, 1740, 1745, 1843, 1861, 1918, 1919, 2034, 2037, 2056, 2061, 2318 |
+| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551, 1294, 1297, 1541, 1589, 1590, 1641, 1642, 1682, 1738, 1740, 1745, 1843, 1861, 1918, 1919, 2034, 2037, 2056, 2061, 2318, 2319 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545, 1916, 2062 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447, 1303, 1304, 1305, 1306, 1313, 1522, 1539, 1596, 1850, 2083, 2091, 2098 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116, 1145, 1146, 1148, 1155, 1201, 1225, 1226, 1233, 1240, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254, 1255, 1264, 1269, 1289, 1290, 1291, 1293, 1298, 1345, 1611, 1619, 1659, 1701, 1702, 1707, 1715, 1859, 1875, 2022, 2024, 2035, 2122 |
@@ -323529,6 +323529,251 @@ druk komt te staan, met een uitgewerkte methode voor het gesprek zelf.
 strategie aanstipt en verder laat liggen: hoe iemand een grens stelt en
 bewaakt.
 
+## 2319. Collaborating with the Enemy
+
+Adam Kahane, 2017. Ondertitel *How to Work with People You Don't Agree with or
+Like or Trust*, Berrett-Koehler, Oakland, juni 2017, 160 bladzijden, ISBN
+9781626568228, met een voorwoord van Peter Block. Op 25 november 2025
+verscheen een tweede editie van 224 bladzijden (ISBN 9798890571175), volgens
+de uitgever voor de helft uit nieuw materiaal over polarisatie, met een
+voorwoord van Juan Manuel Santos. Een Nederlandse vertaling is niet gevonden;
+van Kahanes eerdere *Power and Love* verscheen in 2010 wel een Nederlandse
+uitgave. Rubriek: samenwerken en gesprek.
+Tags: `samenwerken`, `conflict`, `polarisatie`, `dialoog`, `facilitering`,
+`verandering`, `scenariodenken`
+
+Adam Kahane leidde bij Royal Dutch Shell de afdeling die maatschappelijke en
+politieke scenario's maakte, en begeleidde daarna als partner bij Reos
+Partners gesprekken tussen partijen die elkaar naar het leven stonden, onder
+meer in Zuid-Afrika, Colombia, Guatemala, Soedan, Zimbabwe, Thailand en
+Mexico. In dit boek beschrijft hij wat er volgens hem overblijft wanneer
+samenwerken nodig is met mensen die je niet vertrouwt en niet mag. Zijn woord
+voor het gedrag dat dat blokkeert is *enemyfying*: denken en doen alsof de
+mensen tegenover je de oorzaak van je problemen zijn.
+
+Kahane onderscheidt vier manieren om met een lastige situatie om te gaan,
+namelijk samenwerken, forceren, je aanpassen en vertrekken, en behandelt
+samenwerken als een keuze die pas overblijft wanneer de andere drie afvallen.
+De gewone vorm van samenwerken loopt volgens hem vast omdat die uitgaat van
+overeenstemming over het probleem, de oplossing en het plan. In plaats daarvan
+stelt hij *stretch collaboration* voor, met drie bewegingen: conflict en
+verbinding allebei toelaten, al doende een weg zoeken, en zelf het speelveld
+op stappen in plaats van vanaf de zijlijn zeggen wat de ander moet veranderen.
+Het boek telt 160 bladzijden en steunt op Kahanes eigen begeleidingswerk;
+onafhankelijke evaluatie van die trajecten staat er niet in.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Kahane stelt dat samenwerken met tegenstanders niet begint
+bij overeenstemming en evenmin bij vertrouwen, maar bij het opgeven van de
+aanname dat de uitkomst te beheersen valt. Wie het probleem, de oplossing en
+het plan vooraf wil vastleggen, sluit daarmee juist de partijen buiten die hij
+nodig heeft. Wat volgens hem wel werkt is een vorm van samenwerken waarin
+conflict en verbinding naast elkaar bestaan, waarin gehandeld wordt zonder dat
+de weg vaststaat, en waarin de deelnemer zichzelf tot de partijen rekent die
+moeten veranderen.
+
+#### De gang van het boek
+
+**Nodiger en moeilijker tegelijk**
+
+Het eerste hoofdstuk stelt vast dat samenwerken vaker nodig is dan vroeger,
+omdat weinig partijen nog alleen kunnen afdwingen wat zij willen, en tegelijk
+moeilijker, omdat de verschillen tussen die partijen groter en zichtbaarder
+zijn geworden. Hoe zwaarder het onderwerp weegt en hoe verder de opvattingen
+uiteenlopen, hoe sterker beide bewegingen worden.
+
+Voor het gedrag dat daar tegenin werkt gebruikt Kahane het woord *enemyfying*,
+in het Nederlands ongeveer tot vijand verklaren: denken en doen alsof de
+mensen tegenover je de oorzaak van je problemen zijn en je schade toebrengen.
+Hij noemt het een syndroom, omdat het zichzelf voedt. Wie de ander tot vijand
+verklaart, krijgt gedrag terug dat die verklaring bevestigt, en het
+aantrekkelijke eraan is dat het de eigen positie eenvoudig en zuiver houdt.
+
+**Vier manieren om met een situatie om te gaan**
+
+Het tweede hoofdstuk zet samenwerken naast drie andere mogelijkheden. Forceren
+betekent je wil opleggen aan de ander. Je aanpassen betekent de situatie
+accepteren en er het beste van maken. Vertrekken betekent de situatie
+verlaten. Samenwerken betekent iets tot stand brengen met partijen die je niet
+in de hand hebt.
+
+Kahane behandelt die vier als gelijkwaardige opties waaruit bewust gekozen
+moet worden, en niet als een ladder waarop samenwerken bovenaan staat.
+Samenwerken is volgens hem de aangewezen weg wanneer aanpassen en vertrekken
+onaanvaardbaar zijn en forceren niet lukt omdat de tegenpartij te sterk is.
+Wie samenwerkt terwijl forceren mogelijk en gerechtvaardigd was, doet zichzelf
+tekort; dat maakt het tweede hoofdstuk tot de belangrijkste rem in het boek.
+
+**Waarom de gewone vorm vastloopt**
+
+Wat Kahane conventionele of ingesnoerde samenwerking noemt, gaat uit van drie
+aannames: dat de betrokkenen het eens kunnen worden over wat het probleem is,
+over wat de oplossing is, en over wie wat gaat doen. Die aannames werken
+zolang de deelnemers deel uitmaken van één geheel met één gezag erboven, zoals
+binnen een organisatie.
+
+Zodra de partijen tot verschillende gehelen behoren en niemand het laatste
+woord heeft, breekt de opzet. De poging tot overeenstemming loopt dan uit op
+een tekst waar niemand zich aan gebonden voelt, of op uitsluiting van de
+partij die dwarsligt, waarmee precies de partij verdwijnt zonder wie er niets
+verandert.
+
+**Rekken in plaats van beheersen**
+
+Daartegenover stelt Kahane *stretch collaboration*, samenwerking die zich
+uitrekt buiten wat comfortabel is. De naam slaat op de ongemakkelijke houding
+die het vraagt: doorgaan zonder overeenstemming, zonder sympathie en zonder
+vertrouwen.
+
+Het voorbeeld waarmee hij dat toelicht komt uit Destino Colombia, het
+scenariotraject dat hij in 1996 in Colombia begeleidde met deelnemers uit alle
+kampen van het conflict. Een gemeenteraadslid van de communistische partij
+stemde ermee in aan tafel te gaan met een paramilitaire commandant die vijf
+keer had geprobeerd hem te laten vermoorden, en gaf als reden dat hij een
+zesde keer wilde voorkomen. Dat is de maat van samenwerking die Kahane
+bedoelt: geen verzoening en geen vergeving, maar een berekening dat praten
+meer oplevert dan het alternatief.
+
+**Eerste rek: conflict en verbinding allebei**
+
+De eerste beweging vraagt om beide krachten toe te laten die in een groep
+werkzaam zijn. Kahane leent daarvoor de begrippen van de theoloog Paul
+Tillich: macht als de drang van al wat leeft om zichzelf te verwerkelijken,
+liefde als de drang naar eenheid van wat gescheiden is. Elke deelnemer wil
+zijn eigen zaak doorzetten en tegelijk deel uitmaken van het geheel.
+
+Een groep die alleen op harmonie stuurt, verliest de scherpte waar het werk
+van moet komen; een groep die alleen strijdt, valt uiteen. Kahane vraagt
+daarom niet om conflicten weg te nemen, maar om ze te laten staan naast de
+verbinding die er ook is. In de praktijk betekent dat dat deelnemers hun
+oordeel over elkaar mogen houden zolang zij aan tafel blijven zitten.
+
+**Tweede rek: al doende een weg zoeken**
+
+De tweede beweging vervangt het plan door het experiment. Omdat niemand
+overziet wat werkt, komt de weg vooruit volgens Kahane tot stand door stappen
+te zetten, te kijken wat er gebeurt en op grond daarvan de volgende stap te
+bepalen. Wie wacht tot er overeenstemming is over de route, wacht in dit soort
+situaties oneindig lang.
+
+Hier komt Kahanes achtergrond in scenariowerk naar voren. Bij Mont Fleur, het
+traject dat hij in 1991 en 1992 in Zuid-Afrika begeleidde, schreef een
+gezelschap van politici, activisten, academici en zakenlieden uit alle
+richtingen samen vier verhalen over wat er in het land tussen 1992 en 2002 kon
+gebeuren. Het doel was niet vast te stellen wie gelijk had, maar het gesprek
+over de mogelijke uitkomsten te openen.
+
+**Derde rek: zelf het speelveld op**
+
+De derde beweging is de scherpste. Zolang iemand de situatie beschrijft als
+iets wat anderen moeten oplossen, staat hij ernaast en verandert er niets. Wie
+partij is in een conflict, is volgens Kahane ook deel van het probleem, en die
+vaststelling geldt ook voor de begeleider en de welwillende buitenstaander.
+
+Kahane werkt dat uit aan zijn eigen rol. Hij beschrijft hoe hij lang meende
+boven de partijen te staan en van daaruit te kunnen helpen, en hoe die houding
+zelf een vorm van afzijdigheid bleek. Het boek eindigt daarmee niet bij een
+techniek voor de omgang met anderen, maar bij de vraag wat de lezer bereid is
+aan zijn eigen positie te veranderen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Enemyfying | Denken en handelen alsof de mensen tegenover je de oorzaak van je problemen zijn en je schade toebrengen. |
+| Stretch collaboration | Samenwerken zonder de zaak in de hand te hebben, zonder overeenstemming vooraf en zonder vertrouwen in de andere partijen. |
+| Conventionele samenwerking | De vorm die uitgaat van overeenstemming over probleem, oplossing en plan, en die volgens Kahane alleen werkt binnen één geheel met gezag erboven. |
+| De vier opties | Samenwerken, forceren, je aanpassen en vertrekken, waaruit volgens Kahane bewust gekozen hoort te worden. |
+| Macht | In Tillichs omschrijving die Kahane overneemt: de drang van al wat leeft om zichzelf te verwerkelijken. |
+| Liefde | In dezelfde omschrijving: de drang naar eenheid van wat gescheiden is, de tegenhanger die macht bruikbaar houdt. |
+| Experimenteren | Stappen zetten en de uitkomst gebruiken om de volgende stap te bepalen, omdat de route niet vooraf vaststaat. |
+| In het spel stappen | Jezelf meerekenen tot de partijen die moeten veranderen, in plaats van vanaf de zijlijn aanwijzingen geven. |
+| Scenariotraject | De werkvorm waarin partijen samen verhalen schrijven over wat er kan gebeuren, zonder het eens te hoeven worden over wat er moet gebeuren. |
+
+#### Waar het argument op rust
+
+Het boek rust op Kahanes eigen begeleidingswerk van ruim vijfentwintig jaar.
+Hij leidde bij Royal Dutch Shell de afdeling voor maatschappelijke, politieke
+en economische scenario's en werd daarna partner bij Reos Partners. De
+trajecten waar hij naar verwijst zijn onder meer Mont Fleur in Zuid-Afrika in
+1991 en 1992 en Destino Colombia in 1996, met daarnaast werk in Guatemala,
+Soedan, Zimbabwe, Thailand en Mexico.
+
+De begrippen zijn deels geleend. Macht en liefde komen van de theoloog Paul
+Tillich, die ze in 1954 uitwerkte in *Love, Power and Justice*; Kahane
+behandelde dat paar eerder in *Power and Love* uit 2010. Het onderscheid
+tussen de vier manieren van omgaan met een situatie presenteert hij als
+ordening, zonder er onderzoek onder te leggen.
+
+Wat er niet in staat is onafhankelijke toetsing. De trajecten worden
+beschreven door de begeleider die ze leidde, zonder evaluatie door derden,
+zonder vergelijking met vergelijkbare situaties waarin niet zo werd gewerkt,
+en zonder cijfers over uitkomsten. Kahane presenteert zijn cases dan ook als
+ervaring en niet als bewijs, en dat onderscheid houdt hij in de tekst zelf
+vol.
+
+#### Wat er tegen in te brengen valt
+
+De zwaarste vraag betreft het verband tussen traject en uitkomst. Mont Fleur
+viel samen met onderhandelingen die door tientallen andere krachten werden
+gedreven, en er is geen manier om vast te stellen wat de bijeenkomsten daaraan
+hebben bijgedragen. Kahane claimt dat verband niet hard, maar de opbouw van
+het boek laat de lezer het wel maken: het traject wordt beschreven, daarna
+volgt de geschiedenis, en het tussenliggende stuk blijft leeg.
+
+De schaal van de voorbeelden past slecht bij de meeste lezers. De cases gaan
+over burgeroorlog, apartheid en nationale scenariotrajecten met deelnemers die
+door hun achterban zijn afgevaardigd. Wie een vastgelopen samenwerking heeft
+tussen twee afdelingen, moet de vertaalslag zelf maken, en het boek helpt daar
+weinig bij.
+
+De drie bewegingen zijn houdingen en geen werkwijze. Er staat niet in hoe een
+bijeenkomst wordt ingericht, wat een begeleider zegt wanneer het gesprek
+ontspoort, of hoe een groep wordt samengesteld. Dat handwerk beschreef Kahane
+pas in *Facilitating Breakthrough* uit 2021, waardoor dit boek voor de
+uitvoering onaf blijft.
+
+De aanpak veronderstelt een machtsevenwicht dat er vaak niet is. Stretch
+collaboration is bedoeld voor situaties waarin geen partij de andere kan
+overrulen. Waar dat evenwicht ontbreekt, en dat is op de werkvloer eerder
+regel dan uitzondering, verandert de uitnodiging om conflict en verbinding
+allebei toe te laten in een verzoek aan de zwakste partij om te blijven
+zitten. Kahane erkent die grens in zijn tweede hoofdstuk, maar werkt haar niet
+uit.
+
+Recensenten wijzen daarnaast op de rol van de auteur in zijn eigen boek. De
+voorbeelden komen vrijwel alle uit trajecten die hij zelf leidde, en de
+reflectie op zijn eigen positie in het slothoofdstuk neemt dat bezwaar maar
+ten dele weg.
+
+#### Wat er concreet mee te doen is
+
+- Bepaal eerst welke van de vier opties aan de orde is, en kies samenwerken
+alleen wanneer aanpassen, vertrekken en forceren afvallen.
+- Ga na in welke bewoordingen je over de tegenpartij spreekt, en of daarin de
+aanname zit dat zij de oorzaak van het probleem is.
+- Laat de eis van overeenstemming over de probleemomschrijving los als die het
+gesprek blokkeert, en begin bij een stap die beide kanten willen zetten.
+- Zet een eerste stap klein genoeg om ervan te kunnen leren en om hem te
+kunnen terugdraaien.
+- Nodig ook de partij uit die het lastigst is, want zonder haar verandert er
+aan de situatie niets.
+- Schrijf op wat jij zelf in de situatie in stand houdt voordat je opschrijft
+wat de ander moet veranderen.
+
+#### Wat je hierna leest
+
+- 2318. Working with the Enemy. Behandelt hetzelfde woord op de schaal van één
+werkrelatie, met dezelfde omkering naar het eigen aandeel maar zonder de
+politieke voorbeelden.
+- 35. Nonviolent Communication. Werkt op het niveau van de zin en het gesprek
+uit wat Kahane als houding beschrijft, namelijk conflict benoemen zonder de
+verbinding te verbreken.
+- 271. Never Split the Difference. Beschrijft de tegenovergestelde
+uitgangspositie: de tafel waar één kant wel degelijk stuurt en de uitkomst
+naar zich toe werkt.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -323715,7 +323960,7 @@ vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias` 59 ·
 2023 · `complottheorie` 680, 1532 · `componisten` 1749 · `concentratie` 70,
 441, 802, 1879, 2005, 2030 · `concurrentie` 293, 902 · `conditionering` 61,
 519, 1569, 1638, 1640 · `conflict` 35, 42, 43, 212, 305, 1641, 1642, 1843,
-2318 · `conflictbemiddeling` 304 · `conflicthantering` 271, 1590 ·
+2318, 2319 · `conflictbemiddeling` 304 · `conflicthantering` 271, 1590 ·
 `conformisme` 211, 1295, 1900 · `conjunctuurcyclus` 2125 · `consistentie` 553
 · `consument` 703, 704 · `consumptie` 463, 1651, 1709 · `consumptiekeuzes` 299
 · `consumptiemaatschappij` 564 · `contemplatie` 1734, 2078 · `content` 308 ·
@@ -323753,7 +323998,7 @@ vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias` 59 ·
 grootmoeders` 1908 · `dertiende eeuw` 1700 · `design thinking` 150 ·
 `destructiviteit` 223 · `determinisme` 1342 · `deugd` 247, 459, 581 ·
 `Dharamsala` 1829 · `dharma` 2060, 2103 · `dharmatoespraken` 1558 · `diagnose`
-104 · `dialoog` 335, 572, 1269, 1555, 1629, 1861, 2045 · `dichotomie van
+104 · `dialoog` 335, 572, 1269, 1555, 1629, 1861, 2045, 2319 · `dichotomie van
 controle` 194 · `dichtwerk` 524 · `dictatuur` 221 · `dieet` 1807, 1865, 2108 ·
 `dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieptepsychologie` 646,
 1118, 1154, 1235 · `dieren` 555, 1305, 1656 · `dierenverhalen` 1666 ·
@@ -323839,97 +324084,97 @@ psychologie` 1627 · `evolutionaire-psychologie` 67 · `excellentie` 553 ·
 2118 · `expeditie` 36 · `experiment` 79, 215 · `experimenten` 280, 424 ·
 `experimenteren` 265 · `expertise` 283, 320, 376 · `exploitatie` 2308, 2309,
 2317 · `exploitontwikkeling` 2302 · `expressie` 1699 · `extra dimensies` 648 ·
-`extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen`
-23, 72, 75, 312, 422 · `familie` 45, 325, 466, 1400, 1402, 1617, 1870, 2043,
-2086 · `familieconflict` 178 · `familiegeschiedenis` 114, 235 ·
-`familieopstellingen` 1510, 1602, 1636, 1637, 1844, 1914, 2043, 2044 ·
-`familieroman` 10 · `familiesysteem` 1510, 1602 · `fantasie` 1884, 1885, 2048
-· `fantasy` 192, 203, 1562, 1567, 1632, 1634, 2071 · `farmaceutische
-industrie` 752 · `farmacologie` 1714 · `fascisme` 753 · `fawnen` 1617 · `FBI`
-154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541,
-542, 1670, 1740 · `feedbackloops` 2121 · `feiten` 43 · `feminien leiderschap`
-1624 · `feminisme` 3, 620, 624, 1117, 1121, 1124, 1125, 1155, 1169, 1170,
-1224, 1225, 1226, 1229, 1231, 1235, 1236, 1238, 1240, 1241 · `fenomenologie`
-574, 577, 582, 721, 755, 757, 759 · `feuilleton` 1570 · `fictie` 100, 115 ·
-`film` 41, 832 · `filologie` 641 · `filosoferen` 1918 · `filosofie` 1, 6, 71,
-93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
-436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654, 932, 948, 1109, 1111,
-1112, 1115, 1163, 1167, 1260, 1266, 1268, 1296, 1300, 1317, 1555, 1724, 1725,
-1729, 1770, 1774, 2067 · `filosofie van de biologie` 760 ·
-`filosofiegeschiedenis` 269, 639, 1251 · `filosofische antropologie` 584 ·
-`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
-499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903, 1279, 1281, 1283, 1288
-· `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
-wiskunde` 497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395,
-425 · `financiering` 172 · `firewall-evasion` 2300 · `fitgirls` 1807 ·
-`fitness` 2068 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `Florence`
-2114 · `flow` 78, 187, 200, 1563, 1610, 1723, 2109 · `fobie` 1533 · `focus`
-175, 197, 448, 513, 1857 · `folklore` 615, 669, 1216, 1245 · `fondsbeheer`
-2123, 2126 · `forensisch onderzoek` 2301, 2303, 2313 · `fotoboek` 189 ·
-`fotografie` 1313 · `fotosynthese` 2051 · `Foucault` 1774 · `foutcultuur` 422
-· `fouten maken` 509 · `fractals` 811 · `fragmenten` 1200 · `franchise` 544,
-1877 · `frankrijk` 115 · `Frankrijk` 1672, 1727, 1770 · `Frans de Waal` 1675 ·
-`Frans-Guyana` 1850 · `Franse-Weerstand` 390 · `freelance` 515 · `Frijda` 1802
-· `Fromm` 1726 · `Fulani` 522 · `functionele training` 2052 · `fuzzing` 2307,
-2314 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458, 1128, 1130, 2066
-· `fysiotherapie` 1683 · `fytochemicalien` 1604 · `Gaia` 1575 · `Galenus` 328
-· `gamma-golven` 2109 · `gandhi` 2033 · `gaslighting` 123 · `gastheerschap`
-304 · `gastvrijheid` 531 · `gebed` 83, 259, 573, 1207, 1704, 1715, 1849, 1896
-· `gebedsonderzoek` 1531 · `geboorte` 1750 · `gebruikersgedrag` 294 ·
-`gedachten` 148, 177, 1761, 2018 · `gedachtenjournal` 176 · `gedrag` 21, 22,
-89, 90, 138, 154, 280, 330, 383, 425, 802, 1843 · `gedragsbiologie` 322, 339 ·
-`gedragscode` 2095 · `gedragseconomie` 424, 426, 514, 1288 ·
-`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie`
-294, 817, 2126 · `gedragstherapie` 1526, 1842 · `gedragstypen` 156, 2318 ·
-`gedragsverandering` 238, 290, 457, 469, 1565, 1907, 2108 ·
-`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800 ·
-`geest` 584, 652, 1167 · `geestelijke gezondheid` 193 · `geestelijke
-gezondheidszorg` 1525 · `geestelijke oefeningen` 586 · `geestelijke
-verzorging` 1575 · `geestestraining` 1556, 1662 · `gegevensanalyse` 486 ·
-`gehechtheid` 166, 2037, 2056 · `geheim genootschap` 202 · `geheime diensten`
-665, 668, 684, 685, 750, 1141, 1147 · `geheime genootschappen` 751 ·
-`geheugen` 66, 85, 175, 414, 766, 801, 1143, 1144, 1171, 1202, 1402, 1674 ·
-`gehoorzaamheid` 215, 617, 1295 · `geïllustreerd boek` 176 · `geïllustreerde
-klassieker` 2092 · `gelaatkunde` 1809 · `geld` 21, 37, 38, 56, 76, 121, 132,
-133, 158, 159, 433, 463, 464, 1654, 1762, 1832, 1890, 2028 · `geldmanagement`
-492, 493 · `geldmindset` 395 · `geldovertuigingen` 1752 · `geldpsychologie`
-233, 264 · `geldstelsel` 680 · `geldtheorie` 1332 · `geloof` 45, 83, 201, 554,
-1620, 1811, 1836, 2086 · `geloofsgeweld` 1707 · `geloofskritiek` 1579 ·
-`geloofsvervolging` 1700 · `geloofsvrijheid` 1702 · `geluk` 79, 93, 160, 228,
-335, 516, 526, 579, 1503, 1561, 1648, 1654, 1665, 1685, 1764, 1825, 1842,
-1852, 1882, 1893 · `gemeenschap` 9, 96, 304, 461, 1291, 1293, 1861 ·
-`gemoedsrust` 1710, 1728, 1838 · `gender` 1675 · `gendergelijkheid` 1548 ·
-`genderrollen` 1500 · `genderverandering` 2119 · `genealogie` 601 ·
-`geneeskunde` 49, 328, 823, 1127, 1129, 1135, 1136, 1259, 1263, 1307, 1668,
-1731, 1869 · `geneesmiddelen` 752, 1133 · `genen` 1894 · `generatieconflict`
-2086 · `generaties` 114 · `generatieve drift` 315 · `Genesis` 1542 ·
-`genetica` 413, 419, 818, 941, 1157, 1275, 1344 · `genezing` 340 · `genot en
-pijn` 314 · `Gent` 1618 · `gentechnologie` 413 · `geo-engineering` 1603 ·
-`geografie` 825 · `geologie` 239 · `geopolitiek` 220, 692, 694 · `George
-Foreman` 1835 · `Georgia` 1518 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94,
-212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597,
-598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687, 689, 690, 693,
-806, 807, 821, 833, 931, 935, 939, 944, 1141, 1145, 1150, 1226, 1229, 1270,
-1291, 1294, 1338, 1345, 1401, 1859, 2024, 2046 · `geschiedenis van de
-geneeskunde` 412, 1132 · `geschiedfilosofie` 235, 1342 · `geschiedschrijving`
-601, 602, 1155, 1233, 1254 · `gesprek` 43, 95, 302, 444, 1294, 1829 ·
-`gesprekken` 1502 · `gespreksleiding` 1918 · `gesprekstechniek` 182, 186, 438,
-1740, 1745, 2034 · `gespreksvoering` 1530, 1919 · `gestalttherapie` 1550, 1801
-· `getallen` 657, 835, 1282, 1312 · `getuigenis` 2083, 2091 · `getuigenissen`
-1685 · `geuren` 1632 · `gevangenendilemma` 453 · `gevangenis` 1837, 1850 ·
-`gevangeniswezen` 1859 · `gevoelens` 2059 · `gevolgen` 67 · `gewaarzijn` 519,
-1735 · `geweld` 45, 90, 214, 1289, 1518, 1746, 1770, 2045, 2062, 2087 ·
-`geweldloos verzet` 2033 · `geweldloosheid` 612, 1644 · `geweldloze
-communicatie` 1641, 1642 · `geweten` 1637 · `gewicht` 138 · `gewichtsverlies`
-2069 · `gewoontelus` 238 · `gewoonten` 187, 373, 1776 · `gewoontes` 7, 11, 13,
-22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158,
-181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557, 1561, 1563,
-1582, 1638, 1648, 1653, 1654, 1688, 1709, 1760, 1761, 1822, 1825, 1853, 1857,
-1860, 1868, 1883, 1907, 2019, 2029, 2073, 2076 · `gewoontevorming` 146, 161,
-168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 ·
-`gezichtsuitdrukking` 1902 · `gezin` 547, 1613, 2056 · `gezinnen` 327 ·
-`gezinsdynamiek` 1595 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332,
-412, 414, 415, 823, 1128, 1129, 1131, 1133, 1134, 1138, 1564, 1647, 1688,
+`extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 ·
+`facilitering` 2319 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466,
+1400, 1402, 1617, 1870, 2043, 2086 · `familieconflict` 178 ·
+`familiegeschiedenis` 114, 235 · `familieopstellingen` 1510, 1602, 1636, 1637,
+1844, 1914, 2043, 2044 · `familieroman` 10 · `familiesysteem` 1510, 1602 ·
+`fantasie` 1884, 1885, 2048 · `fantasy` 192, 203, 1562, 1567, 1632, 1634, 2071
+· `farmaceutische industrie` 752 · `farmacologie` 1714 · `fascisme` 753 ·
+`fawnen` 1617 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 ·
+`feedback` 41, 296, 541, 542, 1670, 1740 · `feedbackloops` 2121 · `feiten` 43
+· `feminien leiderschap` 1624 · `feminisme` 3, 620, 624, 1117, 1121, 1124,
+1125, 1155, 1169, 1170, 1224, 1225, 1226, 1229, 1231, 1235, 1236, 1238, 1240,
+1241 · `fenomenologie` 574, 577, 582, 721, 755, 757, 759 · `feuilleton` 1570 ·
+`fictie` 100, 115 · `film` 41, 832 · `filologie` 641 · `filosoferen` 1918 ·
+`filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383,
+390, 391, 392, 393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610, 652,
+654, 932, 948, 1109, 1111, 1112, 1115, 1163, 1167, 1260, 1266, 1268, 1296,
+1300, 1317, 1555, 1724, 1725, 1729, 1770, 1774, 2067 · `filosofie van de
+biologie` 760 · `filosofiegeschiedenis` 269, 639, 1251 · `filosofische
+antropologie` 584 · `financiële geletterdheid` 163 · `financiële markten` 268,
+351, 480, 481, 483, 499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903,
+1279, 1281, 1283, 1288 · `financiële onafhankelijkheid` 264 · `financiele
+vrijheid` 277 · `financiële wiskunde` 497, 507, 810 · `financiële-discipline`
+464 · `financiën` 334, 395, 425 · `financiering` 172 · `firewall-evasion` 2300
+· `fitgirls` 1807 · `fitness` 2068 · `fitnessbranche` 307, 544 · `flitshandel`
+499 · `Florence` 2114 · `flow` 78, 187, 200, 1563, 1610, 1723, 2109 · `fobie`
+1533 · `focus` 175, 197, 448, 513, 1857 · `folklore` 615, 669, 1216, 1245 ·
+`fondsbeheer` 2123, 2126 · `forensisch onderzoek` 2301, 2303, 2313 ·
+`fotoboek` 189 · `fotografie` 1313 · `fotosynthese` 2051 · `Foucault` 1774 ·
+`foutcultuur` 422 · `fouten maken` 509 · `fractals` 811 · `fragmenten` 1200 ·
+`franchise` 544, 1877 · `frankrijk` 115 · `Frankrijk` 1672, 1727, 1770 ·
+`Frans de Waal` 1675 · `Frans-Guyana` 1850 · `Franse-Weerstand` 390 ·
+`freelance` 515 · `Frijda` 1802 · `Fromm` 1726 · `Fulani` 522 · `functionele
+training` 2052 · `fuzzing` 2307, 2314 · `fysieke uitdaging` 323 · `fysiologie`
+318, 412, 458, 1128, 1130, 2066 · `fysiotherapie` 1683 · `fytochemicalien`
+1604 · `Gaia` 1575 · `Galenus` 328 · `gamma-golven` 2109 · `gandhi` 2033 ·
+`gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83,
+259, 573, 1207, 1704, 1715, 1849, 1896 · `gebedsonderzoek` 1531 · `geboorte`
+1750 · `gebruikersgedrag` 294 · `gedachten` 148, 177, 1761, 2018 ·
+`gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383,
+425, 802, 1843 · `gedragsbiologie` 322, 339 · `gedragscode` 2095 ·
+`gedragseconomie` 424, 426, 514, 1288 · `gedragsonderzoek` 302, 382 ·
+`gedragspatronen` 161 · `gedragspsychologie` 294, 817, 2126 ·
+`gedragstherapie` 1526, 1842 · `gedragstypen` 156, 2318 · `gedragsverandering`
+238, 290, 457, 469, 1565, 1907, 2108 · `gedragswetenschap` 166, 209, 305, 468,
+469, 510 · `geduld` 21, 351, 800 · `geest` 584, 652, 1167 · `geestelijke
+gezondheid` 193 · `geestelijke gezondheidszorg` 1525 · `geestelijke
+oefeningen` 586 · `geestelijke verzorging` 1575 · `geestestraining` 1556, 1662
+· `gegevensanalyse` 486 · `gehechtheid` 166, 2037, 2056 · `geheim genootschap`
+202 · `geheime diensten` 665, 668, 684, 685, 750, 1141, 1147 · `geheime
+genootschappen` 751 · `geheugen` 66, 85, 175, 414, 766, 801, 1143, 1144, 1171,
+1202, 1402, 1674 · `gehoorzaamheid` 215, 617, 1295 · `geïllustreerd boek` 176
+· `geïllustreerde klassieker` 2092 · `gelaatkunde` 1809 · `geld` 21, 37, 38,
+56, 76, 121, 132, 133, 158, 159, 433, 463, 464, 1654, 1762, 1832, 1890, 2028 ·
+`geldmanagement` 492, 493 · `geldmindset` 395 · `geldovertuigingen` 1752 ·
+`geldpsychologie` 233, 264 · `geldstelsel` 680 · `geldtheorie` 1332 · `geloof`
+45, 83, 201, 554, 1620, 1811, 1836, 2086 · `geloofsgeweld` 1707 ·
+`geloofskritiek` 1579 · `geloofsvervolging` 1700 · `geloofsvrijheid` 1702 ·
+`geluk` 79, 93, 160, 228, 335, 516, 526, 579, 1503, 1561, 1648, 1654, 1665,
+1685, 1764, 1825, 1842, 1852, 1882, 1893 · `gemeenschap` 9, 96, 304, 461,
+1291, 1293, 1861 · `gemoedsrust` 1710, 1728, 1838 · `gender` 1675 ·
+`gendergelijkheid` 1548 · `genderrollen` 1500 · `genderverandering` 2119 ·
+`genealogie` 601 · `geneeskunde` 49, 328, 823, 1127, 1129, 1135, 1136, 1259,
+1263, 1307, 1668, 1731, 1869 · `geneesmiddelen` 752, 1133 · `genen` 1894 ·
+`generatieconflict` 2086 · `generaties` 114 · `generatieve drift` 315 ·
+`Genesis` 1542 · `genetica` 413, 419, 818, 941, 1157, 1275, 1344 · `genezing`
+340 · `genot en pijn` 314 · `Gent` 1618 · `gentechnologie` 413 ·
+`geo-engineering` 1603 · `geografie` 825 · `geologie` 239 · `geopolitiek` 220,
+692, 694 · `George Foreman` 1835 · `Georgia` 1518 · `geschiedenis` 30, 36, 56,
+57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591,
+593, 595, 597, 598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687,
+689, 690, 693, 806, 807, 821, 833, 931, 935, 939, 944, 1141, 1145, 1150, 1226,
+1229, 1270, 1291, 1294, 1338, 1345, 1401, 1859, 2024, 2046 · `geschiedenis van
+de geneeskunde` 412, 1132 · `geschiedfilosofie` 235, 1342 ·
+`geschiedschrijving` 601, 602, 1155, 1233, 1254 · `gesprek` 43, 95, 302, 444,
+1294, 1829 · `gesprekken` 1502 · `gespreksleiding` 1918 · `gesprekstechniek`
+182, 186, 438, 1740, 1745, 2034 · `gespreksvoering` 1530, 1919 ·
+`gestalttherapie` 1550, 1801 · `getallen` 657, 835, 1282, 1312 · `getuigenis`
+2083, 2091 · `getuigenissen` 1685 · `geuren` 1632 · `gevangenendilemma` 453 ·
+`gevangenis` 1837, 1850 · `gevangeniswezen` 1859 · `gevoelens` 2059 ·
+`gevolgen` 67 · `gewaarzijn` 519, 1735 · `geweld` 45, 90, 214, 1289, 1518,
+1746, 1770, 2045, 2062, 2087 · `geweldloos verzet` 2033 · `geweldloosheid`
+612, 1644 · `geweldloze communicatie` 1641, 1642 · `geweten` 1637 · `gewicht`
+138 · `gewichtsverlies` 2069 · `gewoontelus` 238 · `gewoonten` 187, 373, 1776
+· `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134,
+135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442,
+445, 513, 557, 1561, 1563, 1582, 1638, 1648, 1653, 1654, 1688, 1709, 1760,
+1761, 1822, 1825, 1853, 1857, 1860, 1868, 1883, 1907, 2019, 2029, 2073, 2076 ·
+`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
+`gezag` 62 · `gezichtsuitdrukking` 1902 · `gezin` 547, 1613, 2056 · `gezinnen`
+327 · `gezinsdynamiek` 1595 · `gezondheid` 52, 88, 171, 181, 318, 323, 329,
+332, 412, 414, 415, 823, 1128, 1129, 1131, 1133, 1134, 1138, 1564, 1647, 1688,
 1828, 1860, 1890, 2007, 2016, 2028, 2104, 2105 · `gezondheidspsychologie` 458
 · `gezondheidszorg` 313, 317, 422, 1132 · `ggz` 104 · `gifstoffen` 1853 ·
 `gift` 1578 · `giftige relaties` 429 · `gijzelingsonderhandelaar` 271 ·
@@ -324375,12 +324620,12 @@ Winfrey` 1748, 2003 · `Oprah's Book Club` 1620 · `opstand` 1770 ·
 1604 · `plantaardig-dieet` 324 · `planten` 1841 · `plastische chirurgie` 411 ·
 `plato` 581 · `pleasen` 1617 · `Pleiaden` 1856 · `plicht` 2 · `podcast` 136,
 465, 513, 1503, 1764, 2096 · `poëzie` 204, 611, 1110, 1115, 1210, 1211, 1304,
-1330, 1681, 1746, 2000, 2119 · `poker` 137 · `polarisatie` 305, 1729, 1747 ·
-`polariteit` 1500, 1741 · `polemiek` 67, 1592 · `Polen` 2000 · `politicologie`
-220, 221, 453, 455 · `politiek` 54, 219, 438, 629, 680, 681, 688, 1269 ·
-`politiek geloof` 751 · `politieke analyse` 753 · `politieke economie` 566,
-933 · `politieke filosofie` 394, 623, 624, 626, 627, 628, 935, 2033, 2114 ·
-`politieke orde` 716 · `politiewerk` 2062 · `polygamie` 1707 ·
+1330, 1681, 1746, 2000, 2119 · `poker` 137 · `polarisatie` 305, 1729, 1747,
+2319 · `polariteit` 1500, 1741 · `polemiek` 67, 1592 · `Polen` 2000 ·
+`politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438, 629, 680, 681,
+688, 1269 · `politiek geloof` 751 · `politieke analyse` 753 · `politieke
+economie` 566, 933 · `politieke filosofie` 394, 623, 624, 626, 627, 628, 935,
+2033, 2114 · `politieke orde` 716 · `politiewerk` 2062 · `polygamie` 1707 ·
 `polyvagaaltheorie` 1623, 1628, 1655 · `populair` 77, 129, 133 ·
 `populair-wetenschappelijk` 88, 239, 326, 418, 451, 1262, 1680 · `populaire
 filosofie` 194, 1724 · `populaire neurowetenschap` 1907 · `populaire
@@ -324490,24 +324735,24 @@ symbool` 287 · `rockefeller habits` 2072 · `roem-en-eenzaamheid` 178 ·
 · `rust` 32, 1761, 1768, 2078, 2079, 2130 · `ruzie` 1738 · `Rwanda` 1618 ·
 `SaaS` 434 · `Sadhguru` 1826 · `sadisme` 223 · `saga` 533 · `salaris` 1721 ·
 `Salinas` 10 · `Samarkand` 1684 · `same-origin policy` 2316 · `samengesteld
-gezin` 1758 · `samenleving` 90, 98, 319 · `samenwerken` 25 · `samenwerking`
-453, 1297, 1659, 1776, 1859 · `samoerai` 346, 462, 517, 535 · `San Diego` 1558
-· `sanatorium` 1571 · `sanskriet` 1876 · `Sanskriet` 520, 1100, 1102, 1551,
-1806 · `Santa Fe Institute` 347, 1279 · `Santiago` 1577 · `satire` 155, 914,
-915, 916, 918, 919, 920, 923, 1706 · `satori` 528, 769 · `satsang` 1652 ·
-`satyagraha` 2033 · `scaling up` 2072 · `scapy` 2313 · `scepsis` 63, 585, 675,
-927, 929, 1108, 1208, 1716 · `scepticisme` 1724 · `schaalgroei` 434 ·
-`schaalvergroting` 350 · `schaamte` 32, 44, 317, 470, 1309, 1613, 1615, 1645,
-1693, 1694, 1699, 1712, 1730, 1830, 2004 · `schaarste` 92, 249, 1709 ·
-`schaatsen` 1916 · `schaduw` 404 · `schaduwwerk` 1566, 1598, 1741, 1917 ·
-`schaken` 831 · `scheiding` 556, 1767 · `scheikunde` 92, 942, 1714 ·
-`schematherapie` 1873 · `schijf van vijf` 2105 · `schilderkunst` 1581 ·
-`schildklier` 1864 · `schizofrenie` 671 · `schoenen` 1855 · `school` 53, 84,
-1523, 1632 · `schoolleven` 2048 · `schrijfoefeningen` 1846 · `schrijven` 11,
-12, 14, 18, 19, 81, 436, 511, 1583, 1801 · `schrijvers` 1749 ·
-`schrijverschap` 191, 325, 934, 1204, 1210, 1557, 1570 · `schuilnaam` 1612 ·
-`schuld` 254, 2087 · `schulden` 20, 38, 121, 159, 464 · `schuldgevoel` 1584,
-1615 · `sciencefiction` 1771 · `scripting` 2306 · `secularisatie` 1577 ·
+gezin` 1758 · `samenleving` 90, 98, 319 · `samenwerken` 25, 2319 ·
+`samenwerking` 453, 1297, 1659, 1776, 1859 · `samoerai` 346, 462, 517, 535 ·
+`San Diego` 1558 · `sanatorium` 1571 · `sanskriet` 1876 · `Sanskriet` 520,
+1100, 1102, 1551, 1806 · `Santa Fe Institute` 347, 1279 · `Santiago` 1577 ·
+`satire` 155, 914, 915, 916, 918, 919, 920, 923, 1706 · `satori` 528, 769 ·
+`satsang` 1652 · `satyagraha` 2033 · `scaling up` 2072 · `scapy` 2313 ·
+`scenariodenken` 2319 · `scepsis` 63, 585, 675, 927, 929, 1108, 1208, 1716 ·
+`scepticisme` 1724 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte`
+32, 44, 317, 470, 1309, 1613, 1615, 1645, 1693, 1694, 1699, 1712, 1730, 1830,
+2004 · `schaarste` 92, 249, 1709 · `schaatsen` 1916 · `schaduw` 404 ·
+`schaduwwerk` 1566, 1598, 1741, 1917 · `schaken` 831 · `scheiding` 556, 1767 ·
+`scheikunde` 92, 942, 1714 · `schematherapie` 1873 · `schijf van vijf` 2105 ·
+`schilderkunst` 1581 · `schildklier` 1864 · `schizofrenie` 671 · `schoenen`
+1855 · `school` 53, 84, 1523, 1632 · `schoolleven` 2048 · `schrijfoefeningen`
+1846 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511, 1583, 1801 · `schrijvers`
+1749 · `schrijverschap` 191, 325, 934, 1204, 1210, 1557, 1570 · `schuilnaam`
+1612 · `schuld` 254, 2087 · `schulden` 20, 38, 121, 159, 464 · `schuldgevoel`
+1584, 1615 · `sciencefiction` 1771 · `scripting` 2306 · `secularisatie` 1577 ·
 `seculier boeddhisme` 1846 · `seizoenen` 2032 · `sekse` 1675 ·
 `sekseverschillen` 1589 · `seksualiteit` 100, 145, 164, 165, 316, 672, 1125,
 1134, 1500, 1509, 1548, 1590, 1712, 1741, 1773, 1774, 1819, 1830, 1831, 1874,
@@ -324652,7 +324897,7 @@ wereldoorlog` 2075, 2122 · `tweede-wereldoorlog` 115, 819, 1140 · `tweelingen`
 `veertigplus` 2069 · `vegan` 2016 · `veganisme` 1592, 2068 · `vegetarisme`
 1135, 1137 · `veiligheid` 43, 214 · `veiligheidsmarge` 144 · `veldonderzoek`
 759, 1854 · `veldwerk` 521, 716, 717, 1709, 1715 · `Venezuela` 1850 ·
-`verandering` 170, 252, 375, 467, 1533 · `verandermanagement` 1907 ·
+`verandering` 170, 252, 375, 467, 1533, 2319 · `verandermanagement` 1907 ·
 `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364, 1505, 2035,
 2061 · `verbeelding` 1666, 1703, 1704, 1705, 1774, 1804, 1805, 1884, 2041 ·
 `verbindende communicatie` 1642 · `verbinding` 302, 550, 1673, 1743 ·

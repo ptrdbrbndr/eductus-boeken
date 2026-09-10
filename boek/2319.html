@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Collaborating with the Enemy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kahane stelt dat samenwerken met tegenstanders niet begint bij overeenstemming en evenmin bij vertrouwen, maar bij het opgeven van de aanname dat de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2319">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2319 &middot; Samenwerken en gesprek</p>
+    <h1>Collaborating with the Enemy</h1>
+    <p class="lede">Adam Kahane, 2017</p>
+    <p class="stats">
+      <span><b>1780</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>10 september 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2319"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kahane stelt dat samenwerken met tegenstanders niet begint bij overeenstemming en evenmin bij vertrouwen, maar bij het opgeven van de aanname dat de uitkomst te beheersen valt. Wie het probleem, de oplossing en het plan vooraf wil vastleggen, sluit daarmee juist de partijen buiten die hij nodig heeft. Wat volgens hem wel werkt is een vorm van samenwerken waarin conflict en verbinding naast elkaar bestaan, waarin gehandeld wordt zonder dat de weg vaststaat, en waarin de deelnemer zichzelf tot de partijen rekent die moeten veranderen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Nodiger en moeilijker tegelijk</h3>
+      <p>Het eerste hoofdstuk stelt vast dat samenwerken vaker nodig is dan vroeger, omdat weinig partijen nog alleen kunnen afdwingen wat zij willen, en tegelijk moeilijker, omdat de verschillen tussen die partijen groter en zichtbaarder zijn geworden. Hoe zwaarder het onderwerp weegt en hoe verder de opvattingen uiteenlopen, hoe sterker beide bewegingen worden.</p>
+      <p>Voor het gedrag dat daar tegenin werkt gebruikt Kahane het woord <i>enemyfying</i>, in het Nederlands ongeveer tot vijand verklaren: denken en doen alsof de mensen tegenover je de oorzaak van je problemen zijn en je schade toebrengen. Hij noemt het een syndroom, omdat het zichzelf voedt. Wie de ander tot vijand verklaart, krijgt gedrag terug dat die verklaring bevestigt, en het aantrekkelijke eraan is dat het de eigen positie eenvoudig en zuiver houdt.</p>
+      <h3>Vier manieren om met een situatie om te gaan</h3>
+      <p>Het tweede hoofdstuk zet samenwerken naast drie andere mogelijkheden. Forceren betekent je wil opleggen aan de ander. Je aanpassen betekent de situatie accepteren en er het beste van maken. Vertrekken betekent de situatie verlaten. Samenwerken betekent iets tot stand brengen met partijen die je niet in de hand hebt.</p>
+      <p>Kahane behandelt die vier als gelijkwaardige opties waaruit bewust gekozen moet worden, en niet als een ladder waarop samenwerken bovenaan staat. Samenwerken is volgens hem de aangewezen weg wanneer aanpassen en vertrekken onaanvaardbaar zijn en forceren niet lukt omdat de tegenpartij te sterk is. Wie samenwerkt terwijl forceren mogelijk en gerechtvaardigd was, doet zichzelf tekort; dat maakt het tweede hoofdstuk tot de belangrijkste rem in het boek.</p>
+      <h3>Waarom de gewone vorm vastloopt</h3>
+      <p>Wat Kahane conventionele of ingesnoerde samenwerking noemt, gaat uit van drie aannames: dat de betrokkenen het eens kunnen worden over wat het probleem is, over wat de oplossing is, en over wie wat gaat doen. Die aannames werken zolang de deelnemers deel uitmaken van één geheel met één gezag erboven, zoals binnen een organisatie.</p>
+      <p>Zodra de partijen tot verschillende gehelen behoren en niemand het laatste woord heeft, breekt de opzet. De poging tot overeenstemming loopt dan uit op een tekst waar niemand zich aan gebonden voelt, of op uitsluiting van de partij die dwarsligt, waarmee precies de partij verdwijnt zonder wie er niets verandert.</p>
+      <h3>Rekken in plaats van beheersen</h3>
+      <p>Daartegenover stelt Kahane <i>stretch collaboration</i>, samenwerking die zich uitrekt buiten wat comfortabel is. De naam slaat op de ongemakkelijke houding die het vraagt: doorgaan zonder overeenstemming, zonder sympathie en zonder vertrouwen.</p>
+      <p>Het voorbeeld waarmee hij dat toelicht komt uit Destino Colombia, het scenariotraject dat hij in 1996 in Colombia begeleidde met deelnemers uit alle kampen van het conflict. Een gemeenteraadslid van de communistische partij stemde ermee in aan tafel te gaan met een paramilitaire commandant die vijf keer had geprobeerd hem te laten vermoorden, en gaf als reden dat hij een zesde keer wilde voorkomen. Dat is de maat van samenwerking die Kahane bedoelt: geen verzoening en geen vergeving, maar een berekening dat praten meer oplevert dan het alternatief.</p>
+      <h3>Eerste rek: conflict en verbinding allebei</h3>
+      <p>De eerste beweging vraagt om beide krachten toe te laten die in een groep werkzaam zijn. Kahane leent daarvoor de begrippen van de theoloog Paul Tillich: macht als de drang van al wat leeft om zichzelf te verwerkelijken, liefde als de drang naar eenheid van wat gescheiden is. Elke deelnemer wil zijn eigen zaak doorzetten en tegelijk deel uitmaken van het geheel.</p>
+      <p>Een groep die alleen op harmonie stuurt, verliest de scherpte waar het werk van moet komen; een groep die alleen strijdt, valt uiteen. Kahane vraagt daarom niet om conflicten weg te nemen, maar om ze te laten staan naast de verbinding die er ook is. In de praktijk betekent dat dat deelnemers hun oordeel over elkaar mogen houden zolang zij aan tafel blijven zitten.</p>
+      <h3>Tweede rek: al doende een weg zoeken</h3>
+      <p>De tweede beweging vervangt het plan door het experiment. Omdat niemand overziet wat werkt, komt de weg vooruit volgens Kahane tot stand door stappen te zetten, te kijken wat er gebeurt en op grond daarvan de volgende stap te bepalen. Wie wacht tot er overeenstemming is over de route, wacht in dit soort situaties oneindig lang.</p>
+      <p>Hier komt Kahanes achtergrond in scenariowerk naar voren. Bij Mont Fleur, het traject dat hij in 1991 en 1992 in Zuid-Afrika begeleidde, schreef een gezelschap van politici, activisten, academici en zakenlieden uit alle richtingen samen vier verhalen over wat er in het land tussen 1992 en 2002 kon gebeuren. Het doel was niet vast te stellen wie gelijk had, maar het gesprek over de mogelijke uitkomsten te openen.</p>
+      <h3>Derde rek: zelf het speelveld op</h3>
+      <p>De derde beweging is de scherpste. Zolang iemand de situatie beschrijft als iets wat anderen moeten oplossen, staat hij ernaast en verandert er niets. Wie partij is in een conflict, is volgens Kahane ook deel van het probleem, en die vaststelling geldt ook voor de begeleider en de welwillende buitenstaander.</p>
+      <p>Kahane werkt dat uit aan zijn eigen rol. Hij beschrijft hoe hij lang meende boven de partijen te staan en van daaruit te kunnen helpen, en hoe die houding zelf een vorm van afzijdigheid bleek. Het boek eindigt daarmee niet bij een techniek voor de omgang met anderen, maar bij de vraag wat de lezer bereid is aan zijn eigen positie te veranderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Enemyfying</td><td>Denken en handelen alsof de mensen tegenover je de oorzaak van je problemen zijn en je schade toebrengen.</td></tr>
+          <tr><td class="term">Stretch collaboration</td><td>Samenwerken zonder de zaak in de hand te hebben, zonder overeenstemming vooraf en zonder vertrouwen in de andere partijen.</td></tr>
+          <tr><td class="term">Conventionele samenwerking</td><td>De vorm die uitgaat van overeenstemming over probleem, oplossing en plan, en die volgens Kahane alleen werkt binnen één geheel met gezag erboven.</td></tr>
+          <tr><td class="term">De vier opties</td><td>Samenwerken, forceren, je aanpassen en vertrekken, waaruit volgens Kahane bewust gekozen hoort te worden.</td></tr>
+          <tr><td class="term">Macht</td><td>In Tillichs omschrijving die Kahane overneemt: de drang van al wat leeft om zichzelf te verwerkelijken.</td></tr>
+          <tr><td class="term">Liefde</td><td>In dezelfde omschrijving: de drang naar eenheid van wat gescheiden is, de tegenhanger die macht bruikbaar houdt.</td></tr>
+          <tr><td class="term">Experimenteren</td><td>Stappen zetten en de uitkomst gebruiken om de volgende stap te bepalen, omdat de route niet vooraf vaststaat.</td></tr>
+          <tr><td class="term">In het spel stappen</td><td>Jezelf meerekenen tot de partijen die moeten veranderen, in plaats van vanaf de zijlijn aanwijzingen geven.</td></tr>
+          <tr><td class="term">Scenariotraject</td><td>De werkvorm waarin partijen samen verhalen schrijven over wat er kan gebeuren, zonder het eens te hoeven worden over wat er moet gebeuren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op Kahanes eigen begeleidingswerk van ruim vijfentwintig jaar. Hij leidde bij Royal Dutch Shell de afdeling voor maatschappelijke, politieke en economische scenario's en werd daarna partner bij Reos Partners. De trajecten waar hij naar verwijst zijn onder meer Mont Fleur in Zuid-Afrika in 1991 en 1992 en Destino Colombia in 1996, met daarnaast werk in Guatemala, Soedan, Zimbabwe, Thailand en Mexico.</p>
+      <p>De begrippen zijn deels geleend. Macht en liefde komen van de theoloog Paul Tillich, die ze in 1954 uitwerkte in <i>Love, Power and Justice</i>; Kahane behandelde dat paar eerder in <i>Power and Love</i> uit 2010. Het onderscheid tussen de vier manieren van omgaan met een situatie presenteert hij als ordening, zonder er onderzoek onder te leggen.</p>
+      <p>Wat er niet in staat is onafhankelijke toetsing. De trajecten worden beschreven door de begeleider die ze leidde, zonder evaluatie door derden, zonder vergelijking met vergelijkbare situaties waarin niet zo werd gewerkt, en zonder cijfers over uitkomsten. Kahane presenteert zijn cases dan ook als ervaring en niet als bewijs, en dat onderscheid houdt hij in de tekst zelf vol.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste vraag betreft het verband tussen traject en uitkomst. Mont Fleur viel samen met onderhandelingen die door tientallen andere krachten werden gedreven, en er is geen manier om vast te stellen wat de bijeenkomsten daaraan hebben bijgedragen. Kahane claimt dat verband niet hard, maar de opbouw van het boek laat de lezer het wel maken: het traject wordt beschreven, daarna volgt de geschiedenis, en het tussenliggende stuk blijft leeg.</p>
+      <p>De schaal van de voorbeelden past slecht bij de meeste lezers. De cases gaan over burgeroorlog, apartheid en nationale scenariotrajecten met deelnemers die door hun achterban zijn afgevaardigd. Wie een vastgelopen samenwerking heeft tussen twee afdelingen, moet de vertaalslag zelf maken, en het boek helpt daar weinig bij.</p>
+      <p>De drie bewegingen zijn houdingen en geen werkwijze. Er staat niet in hoe een bijeenkomst wordt ingericht, wat een begeleider zegt wanneer het gesprek ontspoort, of hoe een groep wordt samengesteld. Dat handwerk beschreef Kahane pas in <i>Facilitating Breakthrough</i> uit 2021, waardoor dit boek voor de uitvoering onaf blijft.</p>
+      <p>De aanpak veronderstelt een machtsevenwicht dat er vaak niet is. Stretch collaboration is bedoeld voor situaties waarin geen partij de andere kan overrulen. Waar dat evenwicht ontbreekt, en dat is op de werkvloer eerder regel dan uitzondering, verandert de uitnodiging om conflict en verbinding allebei toe te laten in een verzoek aan de zwakste partij om te blijven zitten. Kahane erkent die grens in zijn tweede hoofdstuk, maar werkt haar niet uit.</p>
+      <p>Recensenten wijzen daarnaast op de rol van de auteur in zijn eigen boek. De voorbeelden komen vrijwel alle uit trajecten die hij zelf leidde, en de reflectie op zijn eigen positie in het slothoofdstuk neemt dat bezwaar maar ten dele weg.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal eerst welke van de vier opties aan de orde is, en kies samenwerken alleen wanneer aanpassen, vertrekken en forceren afvallen.</li>
+        <li>Ga na in welke bewoordingen je over de tegenpartij spreekt, en of daarin de aanname zit dat zij de oorzaak van het probleem is.</li>
+        <li>Laat de eis van overeenstemming over de probleemomschrijving los als die het gesprek blokkeert, en begin bij een stap die beide kanten willen zetten.</li>
+        <li>Zet een eerste stap klein genoeg om ervan te kunnen leren en om hem te kunnen terugdraaien.</li>
+        <li>Nodig ook de partij uit die het lastigst is, want zonder haar verandert er aan de situatie niets.</li>
+        <li>Schrijf op wat jij zelf in de situatie in stand houdt voordat je opschrijft wat de ander moet veranderen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>How to Work with People You Don't Agree with or Like or Trust</i>, Berrett-Koehler, Oakland, juni 2017, 160 bladzijden, ISBN 9781626568228, met een voorwoord van Peter Block. Op 25 november 2025 verscheen een tweede editie van 224 bladzijden (ISBN 9798890571175), volgens de uitgever voor de helft uit nieuw materiaal over polarisatie, met een voorwoord van Juan Manuel Santos. Een Nederlandse vertaling is niet gevonden; van Kahanes eerdere <i>Power and Love</i> verscheen in 2010 wel een Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Adam Kahane leidde bij Royal Dutch Shell de afdeling die maatschappelijke en politieke scenario's maakte, en begeleidde daarna als partner bij Reos Partners gesprekken tussen partijen die elkaar naar het leven stonden, onder meer in Zuid-Afrika, Colombia, Guatemala, Soedan, Zimbabwe, Thailand en Mexico. In dit boek beschrijft hij wat er volgens hem overblijft wanneer samenwerken nodig is met mensen die je niet vertrouwt en niet mag. Zijn woord voor het gedrag dat dat blokkeert is <i>enemyfying</i>: denken en doen alsof de mensen tegenover je de oorzaak van je problemen zijn.</p><p>Kahane onderscheidt vier manieren om met een lastige situatie om te gaan, namelijk samenwerken, forceren, je aanpassen en vertrekken, en behandelt samenwerken als een keuze die pas overblijft wanneer de andere drie afvallen. De gewone vorm van samenwerken loopt volgens hem vast omdat die uitgaat van overeenstemming over het probleem, de oplossing en het plan. In plaats daarvan stelt hij <i>stretch collaboration</i> voor, met drie bewegingen: conflict en verbinding allebei toelaten, al doende een weg zoeken, en zelf het speelveld op stappen in plaats van vanaf de zijlijn zeggen wat de ander moet veranderen. Het boek telt 160 bladzijden en steunt op Kahanes eigen begeleidingswerk; onafhankelijke evaluatie van die trajecten staat er niet in.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>samenwerken</li><li>conflict</li><li>polarisatie</li><li>dialoog</li><li>facilitering</li><li>verandering</li><li>scenariodenken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2318"><a href="2318.html">Working with the Enemy</a>. Behandelt hetzelfde woord op de schaal van één werkrelatie, met dezelfde omkering naar het eigen aandeel maar zonder de politieke voorbeelden.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Werkt op het niveau van de zin en het gesprek uit wat Kahane als houding beschrijft, namelijk conflict benoemen zonder de verbinding te verbreken.</li>
+          <li value="271"><a href="271.html">Never Split the Difference</a>. Beschrijft de tegenovergestelde uitgangspositie: de tafel waar één kant wel degelijk stuurt en de uitkomst naar zich toe werkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
