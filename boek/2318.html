@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buddha's Brain &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hanson en Mendius stellen dat de mentale toestanden die het boeddhisme nastreeft, tevredenheid, vriendelijkheid en inzicht, een lichamelijke basis in de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2318">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2318 &middot; Brein en lichaam</p>
+    <h1>Buddha's Brain</h1>
+    <p class="lede">Rick Hanson met Richard Mendius, 2009</p>
+    <p class="stats">
+      <span><b>1772</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 september 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2318"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hanson en Mendius stellen dat de mentale toestanden die het boeddhisme nastreeft, tevredenheid, vriendelijkheid en inzicht, een lichamelijke basis in de hersenen hebben, en dat die basis met gerichte mentale oefening te versterken is omdat wat door de geest stroomt de hersenen vormt. Het lijden zelf verklaren zij uit de evolutie: drie overlevingsstrategieën, afscheiding, stabiliteit en het najagen van kansen en ontwijken van dreiging, zijn nuttig voor voortplanting en veroorzaken tegelijk onrust, omdat de wereld verbonden en veranderlijk is. Daartegenover zetten zij een praktijk van kleine, dagelijks herhaalde oefeningen die volgens hen door stapeling nieuwe neurale structuren opbouwen. De stelling is aanvechtbaar op het punt waar zij het meest op leunt: de sprong van algemene kennis over hersenplasticiteit naar de bewering dat een specifieke oefening van een halve minuut het brein blijvend in een gewenste richting verschuift.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Inleiding en het zichzelf veranderende brein</h3>
+      <p>Hanson schrijft dat hij het meeste van de tekst voor zijn rekening nam en dat Mendius dertig jaar ervaring als arts inbracht. Hij noemt beoefenaars van contemplatieve tradities de olympische atleten van de geest, van wie te leren valt hoe aandacht en gevoel te trainen zijn. In de gebruiksaanwijzing zeggen de auteurs dat zij de beschrijving van hersenprocessen hebben vereenvoudigd en zich opportunistisch hebben beperkt tot methoden met een aannemelijke wetenschappelijke verklaring. Ook waarschuwen zij dat het boek geen behandeling is en dat oefeningen bij mensen met trauma oude pijn kunnen oproepen.</p>
+      <p>Het eerste hoofdstuk legt de basis: de regel van Hebb, het onderzoek van Maguire en collega's uit 2000 naar Londense taxichauffeurs met een grotere hippocampus, en het werk van Richard Davidson naar activiteit in de linker frontale hersenschors bij positieve stemming. Hanson onderscheidt drie basisfuncties van het brein, regulatie, leren en selectie, en koppelt die aan de drie pijlers deugd, mindfulness en wijsheid.</p>
+      <h3>Deel een: de oorzaken van lijden</h3>
+      <p>Hoofdstuk 2 beschrijft de drie overlevingsstrategieën en het mechanisme van de gevoelstoon: elke ervaring krijgt een kleuring van aangenaam, onaangenaam of neutraal, zodat een dier op de wortel afgaat en de stok ontwijkt. Hanson noemt zes manieren waarop het brein meer gewicht aan de stok geeft, waaronder de snelle herkenning van angstige gezichten via de amygdala, de voorrang die de hippocampus aan negatieve herinneringen geeft, en het werk van Baumeister over het grotere gewicht van slechte ervaringen. Het brein simuleert daarnaast voortdurend toekomst en verleden, wat de aandacht uit het moment trekt.</p>
+      <p>Hoofdstuk 3 werkt de boeddhistische gelijkenis van de twee pijlen uit. De eerste pijl is onvermijdelijke pijn; de tweede is de eigen reactie daarop, gevoed door de drie gifstoffen hebzucht, haat en verblinding. Hanson verbindt die reacties met het sympathische zenuwstelsel en de hypothalamus-hypofyse-bijnieras. Chronische activering maakt de amygdala gevoeliger en tast de hippocampus aan, wat hij in verband brengt met angst en neerslachtigheid. Als tegenwicht noemt hij het parasympathische zenuwstelsel, en als gunstige grondtoon een lichaam dat meestal in rust is met af en toe een piek van activering.</p>
+      <h3>Deel twee: geluk</h3>
+      <p>Het bekendste hoofdstuk, over het opnemen van het goede, maakt onderscheid tussen expliciete herinneringen en impliciete sporen die de grondstemming bepalen. Omdat het brein negatieve ervaringen beter vastlegt, stelt Hanson drie stappen voor: een positief feit omzetten in een ervaring, die ervaring vijf tot twintig seconden vasthouden, en voelen dat ze naar binnen zakt. Een tweede methode houdt een positieve ervaring op de voorgrond terwijl een pijnlijke herinnering zwak op de achtergrond aanwezig is, zodat bij het opnieuw opslaan iets van het positieve meegaat.</p>
+      <p>Hoofdstuk 5 geeft manieren om het parasympathische zenuwstelsel aan te spreken, zoals lang uitademen, de lippen aanraken, beeldspraak, een regelmatig hartritme en meditatie, met een lijst studies over meditatie en grijze stof. Hoofdstuk 6 beschrijft motivatie langs een neuro-as van hersenstam tot hersenschors, met de anterieure cingulaire cortex en de amygdala als twee knooppunten, beeldend hoofd en hart genoemd. Hoofdstuk 7 behandelt gelijkmoedigheid als niet reageren op de eigen reacties, een stroomonderbreker tussen gevoelstoon en hunkering.</p>
+      <h3>Deel drie: liefde</h3>
+      <p>De titel van hoofdstuk 8 komt uit het verhaal van twee wolven in het hart, een van liefde en een van haat. Hanson betoogt dat de wolf van liefde de grootste rol speelde in de groei van het menselijk brein, dat in drie miljoen jaar in omvang verdrievoudigde, maar dat geweld tussen groepen jagers-verzamelaars de wolf van haat even goed heeft gevormd. Hoofdstuk 9 verbindt mededogen met assertiviteit en beschrijft empathie als het nabootsen van handelingen, gevoelens en gedachten van een ander. Hoofdstuk 10 gaat over liefdevolle vriendelijkheid, over het verminderen van kwade wil en over het vergroten van de kring van wie als 'wij' geldt.</p>
+      <h3>Deel vier: wijsheid</h3>
+      <p>Hoofdstuk 11 noemt aandacht het middel waarmee de geest het brein het meest vormt en onderscheidt drie aspecten: informatie vasthouden, bijwerken en de juiste hoeveelheid prikkels zoeken, met een door dopamine geregelde poort naar het werkgeheugen. Hoofdstuk 12 bespreekt de vijf traditionele factoren van concentratie en koppelt eenpuntigheid van geest aan synchrone gammagolven. Hoofdstuk 13 beschrijft het zelf als een verzameling veranderlijke patronen in verschillende netwerken, zonder neurologisch bijzondere status, en besluit dat het ontspannen van dat zelf rust geeft.</p>
+      <p>Een bijlage van Jan Hanson, acupuncturist, geeft voedings- en supplementadvies, met doseringen voor onder meer omega-3-vetzuren, 5-HTP, tryptofaan en tyrosine.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zelfgerichte neuroplasticiteit</td><td>Het idee dat mentale activiteit, omdat neuronen die samen vuren samen verbinden, bewust te gebruiken is om de hersenen te veranderen.</td></tr>
+          <tr><td class="term">Negativiteitsbias</td><td>De neiging van het brein om onaangename informatie sneller op te merken, zorgvuldiger op te slaan en zwaarder te laten wegen dan aangename.</td></tr>
+          <tr><td class="term">Klittenband en teflon</td><td>Hansons beeld voor een brein waaraan negatieve ervaringen blijven kleven terwijl positieve eraf glijden.</td></tr>
+          <tr><td class="term">Eerste en tweede pijl</td><td>Het onderscheid tussen onvermijdelijke pijn en het lijden dat de eigen reactie daaraan toevoegt.</td></tr>
+          <tr><td class="term">Drie gifstoffen</td><td>Hebzucht, haat en verblinding, in het boek breed opgevat als reacties met hunkering als kern.</td></tr>
+          <tr><td class="term">Het goede opnemen</td><td>Positieve ervaringen opzoeken, enkele seconden vasthouden en voelen dat ze inwerken, zodat ze in het impliciete geheugen belanden.</td></tr>
+          <tr><td class="term">Gevoelstoon</td><td>De kleuring van elke ervaring als aangenaam, onaangenaam of neutraal, die bepaalt of iemand toenadert, vermijdt of doorgaat.</td></tr>
+          <tr><td class="term">Neuro-as</td><td>De vier niveaus van hersenstam tot hersenschors, waarlangs reacties sneller en automatischer worden naarmate ze lager liggen.</td></tr>
+          <tr><td class="term">Gelijkmoedigheid</td><td>Niet reageren op de eigen reacties, waardoor gevoelstoon niet vanzelf overgaat in hunkering.</td></tr>
+          <tr><td class="term">Twee wolven</td><td>De neiging tot liefde en de neiging tot haat, waarbij het ertoe doet welke van de twee dagelijks gevoed wordt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek heeft een uitgebreide literatuurlijst en geeft bij de meeste neurologische beweringen een bron. Een deel daarvan staat stevig: het onderzoek naar Londense taxichauffeurs, de effecten van langdurige stress op de hippocampus uit dieronderzoek, en het overzicht van Baumeister en collega's uit 2001 dat slechte ervaringen in veel opzichten zwaarder wegen dan goede. De algemene gedachte dat herhaalde ervaring de verbindingen in het brein verandert, is binnen de neurowetenschap onomstreden.</p>
+      <p>Zwakker staat de stap van die algemene kennis naar de concrete oefeningen. Dat het vasthouden van een positieve ervaring gedurende tien tot twintig seconden telkens een beetje neurale structuur bouwt, is een extrapolatie en geen meting. De neurale beschrijving van gelijkmoedigheid als samenspel van cingulaire activiteit, gammagolven en parasympathische demping presenteren de auteurs zelf met het woord 'waarschijnlijk'. Voor de methode van het opnemen van het goede verscheen pas in 2023 een studie, met Hanson als eerste auteur, in <i>The Journal of Positive Psychology</i>: een voor-en-nameting met meerdere groepen waarin deelnemers aan zijn cursus op zelfrapportage meer positieve en minder negatieve emoties meldden, ook twee maanden na afloop.</p>
+      <p>De lijst met meditatie-effecten in hoofdstuk 5 steunt op studies uit 2003 tot 2009, waaronder het werk van Lazar en Hölzel naar grijze stof en van Lutz naar gammagolven bij ervaren Tibetaanse beoefenaars. Dat waren kleine onderzoeken, vaak zonder loting, die beoefenaars met niet-beoefenaars vergeleken. Een grotere gerandomiseerde proef van Kral en collega's, gepubliceerd in 2022, vond na een training in mindfulness-gebaseerde stressreductie geen meetbare veranderingen in hersenstructuur. Ook enkele basisgetallen zijn verouderd: het boek noemt 100 miljard neuronen, terwijl een telling van Azevedo en collega's uit 2009 op ongeveer 86 miljard uitkwam.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de neurowetenschap in dit boek vaker dient als vertaling van boeddhistische leerstof dan als toets ervan. Begrippen als de twee pijlen, de drie gifstoffen en gelijkmoedigheid krijgen een hersengebied of neurotransmitter toegewezen, maar nergens blijkt dat die toewijzing iets voorspelt wat de oefening zonder hersenverhaal niet ook al beweerde. De auteurs geven toe dat zij vereenvoudigen en selectief kiezen. Een lezer die het hersenjargon als bewijs leest, krijgt toch een steviger indruk dan het onderzoek draagt.</p>
+      <p>De meditatiestudies die het boek aanhaalt, zijn deels ingehaald. Dat meditatie grijze stof doet toenemen, is na grotere gerandomiseerde proeven geen vaststaand gegeven meer, en het verband tussen linker frontale activiteit en geluk heeft in later onderzoek wisselende uitkomsten opgeleverd. <i>Altered Traits</i> van Goleman en Davidson uit 2017 geeft een kritischer overzicht, geschreven door onderzoekers die een deel van dat vroege werk zelf deden.</p>
+      <p>De bijlage over voeding past slecht bij de rest. Zij adviseert multivitaminen met tien tot vijfentwintig keer de dagelijkse hoeveelheid B-vitaminen en geeft doseringen voor 5-HTP, tryptofaan en tyrosine om neurotransmitters te beïnvloeden, op een onderbouwing die niet het niveau van de hoofdtekst haalt. Het boeddhisme in het boek is bovendien een westerse lezing, vooral gericht op inzichtmeditatie uit de kring van Spirit Rock; wie een andere traditie volgt, herkent de begrippen wel maar niet altijd de keuze ervan.</p>
+      <p>Wat overeind blijft, is de praktische kern: aandacht voor de negativiteitsbias, bewust stilstaan bij goede ervaringen, en ademhalingsoefeningen die het lichaam tot rust brengen. Die oefeningen zijn onschuldig en goed uitvoerbaar. Hun waarde hangt minder af van de hersenkaarten eromheen dan het boek doet vermoeden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd bij een kleine positieve gebeurtenis de ervaring tien tot twintig seconden vast, met aandacht voor het lichaamsgevoel, en ga na enkele weken na of de grondstemming anders aanvoelt.</li>
+        <li>Onderscheid bij ergernis de eerste pijl van de tweede: welke pijn onvermijdelijk was en welke reactie er zelf aan is toegevoegd.</li>
+        <li>Gebruik een lange uitademing of een korte aandachtsronde door het lichaam om bij spanning het parasympathische zenuwstelsel aan te spreken.</li>
+        <li>Lees de hersenverklaringen als werkhypothese en de oefeningen als het eigenlijke gereedschap.</li>
+        <li>Overleg met een arts voordat supplementen uit de bijlage in hoge doses worden gebruikt, zeker naast medicatie tegen depressie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijke uitgave: <i>Buddha's Brain: The Practical Neuroscience of Happiness, Love, and Wisdom</i>, New Harbinger Publications, Oakland, 2009, ISBN 978-1-57224-695-9, met een voorwoord van Daniel J. Siegel, een woord vooraf van Jack Kornfield en een bijlage over voeding en hersenchemie van Jan Hanson. Nederlandse vertaling: <i>Boeddha's brein: hoe mindfulness je hersens en je leven kan veranderen</i>, vertaald door Marjolijn Stoltenkamp, Ten Have, 2012, ISBN 978-90-259-6174-9 (e-boek ISBN 978-90-259-7178-6). De Nederlandse catalogi noemen alleen Hanson als auteur.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rick Hanson, neuropsycholoog en meditatieleraar, schreef dit boek samen met de neuroloog Richard Mendius, met wie hij het Wellspring Institute for Neuroscience and Contemplative Wisdom oprichtte. Het vertrekpunt is de regel van Donald Hebb dat neuronen die samen vuren ook samen verbinden: wat herhaaldelijk door de geest gaat, laat sporen na in de hersenen, en dat mechanisme is ook bewust te gebruiken. Hanson legt daar boeddhistische oefenstof naast, geordend langs drie pijlers die hij deugd, mindfulness en wijsheid noemt.</p><p>Het eerste deel verklaart lijden uit de evolutie: een brein dat gebouwd is om te overleven, reageert sterker op gevaar dan op goed nieuws, en is volgens de bekende formule als klittenband voor negatieve ervaringen en als teflon voor positieve. De delen over geluk, liefde en wijsheid geven daarna oefeningen: positieve ervaringen bewust laten inwerken, het parasympathische zenuwstelsel activeren, gelijkmoedigheid, mededogen, liefdevolle vriendelijkheid, aandachtstraining en het ontspannen van het gevoel een zelf te zijn.</p><p>Het boek verscheen in 2009, vóór de golf van herhalingsonderzoek in de psychologie. De neurologische uitleg is vaak eerder aannemelijk dan aangetoond, wat de auteurs zelf ook zeggen, en de claims over meditatie en hersenstructuur steunen op kleine vroege studies die grotere proeven later maar gedeeltelijk bevestigden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>neurowetenschap</li><li>boeddhisme</li><li>meditatie</li><li>neuroplasticiteit</li><li>negativiteitsbias</li><li>mindfulness</li><li>geluk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="333"><a href="333.html">Altered Traits</a>. <i>Altered Traits</i> van Goleman en Davidson toetst met meer afstand welke meditatie-effecten het onderzoek werkelijk overeind houdt, en bespreekt dezelfde vroege studies waar dit boek op steunt.</li>
+          <li value="1606"><a href="1606.html">The Wise Heart</a>. <i>The Wise Heart</i> van Jack Kornfield, die het woord vooraf schreef, geeft de boeddhistische psychologie achter dit boek zonder de neurologische vertaling.</li>
+          <li value="1810"><a href="1810.html">Positivity</a>. <i>Positivity</i> van Barbara Fredrickson onderbouwt het nut van positieve emoties vanuit de psychologie, en laat met de omstreden positiviteitsratio zien hoe populaire wetenschap over geluk kan ontsporen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

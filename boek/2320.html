@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Master Your Dopamine &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Trenton stelt dat het moderne leven met sociale media, videogames en andere snelle beloningen het beloningssysteem zo vaak en zo sterk prikkelt dat de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2320">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2320 &middot; Gewoontes en denken</p>
+    <h1>Master Your Dopamine</h1>
+    <p class="lede">Nick Trenton, 2023</p>
+    <p class="stats">
+      <span><b>1263</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>17 september 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2320"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Trenton stelt dat het moderne leven met sociale media, videogames en andere snelle beloningen het beloningssysteem zo vaak en zo sterk prikkelt dat de hersenen minder gevoelig worden en steeds meer stimulans vragen, waardoor gewone bezigheden saai aanvoelen, aandacht versnippert en uitstel de norm wordt. Volgens hem is dat omkeerbaar met eenvoudige, dagelijkse maatregelen: tijdelijk afzien van sterke prikkels, de omgeving zo inrichten dat verleidingen buiten bereik liggen, en gedrag verbinden aan eigen waarden in plaats van aan de eerstvolgende beloning. Daar valt tegenover te zetten dat het idee van een dopaminespiegel die in een paar dagen te resetten is, geen steun vindt in onderzoek, en dat de bruikbare kern van het boek bestaat uit gedragstechnieken die ook zonder dopamineverhaal werken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat dopamine is</h3>
+      <p>Het eerste hoofdstuk, het enige dat via een inkijkfragment te lezen viel, begint met Jolie, die een zonsondergang niet meer mooi vindt. Trenton gebruikt haar als voorbeeld van een ontregeld beloningssysteem. Hij omschrijft dopamine als een neurotransmitter die emotie en motivatie regelt en daarnaast betrokken is bij beloningsgestuurd gedrag, werkgeheugen en uitvoerende functies. Een laag niveau gaat volgens hem samen met lusteloosheid en minder plezier in wat eerder aantrok.</p>
+      <p>Hij koppelt dopamine aan beloning: bij iets aangenaams komt het vrij, en dat maakt herhaling waarschijnlijker. Ook de vecht-of-vluchtreactie komt kort ter sprake.</p>
+      <h3>De dopaminelus en tolerantie</h3>
+      <p>Een sectie over de dopaminelus en -cyclus beschrijft hoe een prikkel van buiten een signaal in de hersenen opwekt, dopamine vrijmaakt en zo de neiging versterkt om hetzelfde gedrag te herhalen. De hersenen onthouden de beloning en proberen die opnieuw op te roepen.</p>
+      <p>Bij herhaalde pieken daalt de gevoeligheid, zodat meer nodig is voor hetzelfde effect. Trenton trekt die lijn door van middelenverslaving naar gedragsverslaving; in de termenlijst van het boek staan sociale media en videogames. Die parallel draagt de rest van het boek.</p>
+      <h3>Detox, vasten en prikkelbeheersing</h3>
+      <p>Het praktische zwaartepunt ligt bij wat Trenton dopaminedetox en dopaminevasten noemt: perioden van één, drie of zeven dagen waarin sterke prikkels worden gemeden. Een sectie over prikkelbeheersing gaat over de omgeving: verleidingen wegzetten of moeilijker bereikbaar maken, zodat wilskracht minder hoeft te doen.</p>
+      <p>Een sectie met de titel <i>The Feasting Schedule</i> zet daar kennelijk een tegenhanger naast, een schema voor momenten van toegeven. Hoe Trenton dat precies uitwerkt, was uit de beschikbare bronnen niet op te maken.</p>
+      <h3>Waarden, doorzetten en vrijwillig ongemak</h3>
+      <p>Twee secties verbinden het onderwerp met motivatie op langere termijn: alles afstemmen op kernwaarden, en volharden. In de lijst met veelgebruikte termen staat ook vrijwillig ongemak, het bewust opzoeken van inspanning of ongerief. Hoe Trenton dat onderbouwt, blijkt niet uit de bronnen; de plaats in het boek wijst erop dat het de afhankelijkheid van directe beloning moet verkleinen.</p>
+      <h3>Uitstelgedrag en pieken</h3>
+      <p>Een sectie over dopamine en uitstelgedrag behandelt uitstel in samenhang met de trek naar snelle beloning. In de termenlijst staan daarbij het limbisch systeem en de prefrontale schors, zodat aannemelijk is dat Trenton uitstel beschrijft als strijd tussen impuls en planning. Een laatste sectie gaat over het beheersen van dopaminepieken.</p>
+      <p>De flaptekst noemt verder voeding, darmgezondheid, slaap en aandachtsoefeningen van ongeveer tien minuten per dag. Die thema's vormden een groot deel van <i>Dopamine Detox</i> uit 2021. Of ze hier veel ruimte krijgen, blijkt niet uit de sectiekoppen, die vrijwel alleen over prikkels en gedrag gaan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dopamine</td><td>Neurotransmitter die volgens Trenton emotie, motivatie, beloningsgestuurd gedrag, werkgeheugen en uitvoerende functies regelt.</td></tr>
+          <tr><td class="term">Dopaminelus</td><td>Het patroon waarin een prikkel dopamine vrijmaakt en daardoor het gedrag versterkt dat de prikkel opleverde.</td></tr>
+          <tr><td class="term">Dopaminedetox</td><td>Een periode van één, drie of zeven dagen waarin sterke prikkels worden gemeden om de gevoeligheid voor gewone beloningen te herstellen.</td></tr>
+          <tr><td class="term">Dopaminevasten</td><td>Trentons tweede term voor het tijdelijk afzien van sterk belonende activiteiten.</td></tr>
+          <tr><td class="term">Prikkelbeheersing (stimulus control)</td><td>De omgeving zo inrichten dat verleidingen uit zicht of lastig bereikbaar zijn.</td></tr>
+          <tr><td class="term">Feasting schedule</td><td>Sectietitel die als tegenhanger van het vasten een schema voor toegeven lijkt aan te duiden; de uitwerking viel niet na te gaan.</td></tr>
+          <tr><td class="term">Vrijwillig ongemak</td><td>Bewust gekozen inspanning of ongerief, in het boek geplaatst bij het verminderen van de afhankelijkheid van directe beloning.</td></tr>
+          <tr><td class="term">Dopaminepieken</td><td>Sterke, snelle uitschieters in beloning, die het boek als oorzaak van afnemende gevoeligheid behandelt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Wat over de inhoud vaststaat, komt uit vier bronnen: de flaptekst, een inkijkfragment van het eerste hoofdstuk via Everand, een lijst sectiekoppen en veelgebruikte termen bij Google Books, en vijf lezersrecensies op Goodreads bij ongeveer veertig beoordelingen, gemiddeld 3,6. Een onafhankelijke bespreking in pers of vakblad is niet gevonden. De gang van het boek hierboven is een reconstructie uit die sectiekoppen, geen volledige inhoudsopgave, en de volgorde kan afwijken.</p>
+      <p>De lezers verschillen van oordeel. Positieve recensies noemen de taal toegankelijk en de aanwijzingen bruikbaar, één spreekt van een ruime bronkeuze. Een kritische recensie noemt het boek een verzameling blogstukken met inconsistenties en fouten, waarin onderzoek tot enkelvoudige conclusies wordt versimpeld. Welke onderzoeken Trenton precies aanhaalt, bleek uit geen van de bronnen.</p>
+      <p>De wetenschappelijke context is wel na te gaan. Dopamine is geen plezierstof in eenvoudige zin: onderzoek van onder meer Kent Berridge onderscheidt het willen van een beloning, waarbij dopamine een grote rol speelt, van het genieten ervan. Tolerantie door herhaalde sterke prikkels is bij verslavende middelen goed beschreven. Dat alledaags telefoongebruik op dezelfde manier de dopaminehuishouding ontregelt en dat een detox van enkele dagen die meetbaar herstelt, is niet aangetoond. De psycholoog Cameron Sepah, die het dopaminevasten in 2019 populair maakte, benadrukte zelf dat het om prikkelbeheersing uit de cognitieve gedragstherapie gaat en niet om het verlagen van dopamine.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar ligt bij het uitgangspunt. De titel en de flaptekst beloven het herprogrammeren van de hersenen en het resetten van dopamine, terwijl de werkzame technieken in het boek, verleidingen wegzetten, gedrag aan waarden koppelen en ongemak verdragen, gewone gedragsaanpakken zijn die geen dopaminetheorie nodig hebben. Het neurowetenschappelijke kader geeft die adviezen een schijn van precisie die het onderzoek niet levert.</p>
+      <p>De flaptekst van dit boek is grotendeels gelijk aan die van <i>Dopamine Detox</i> uit 2021, inclusief de detoxen van één, drie en zeven dagen en de nadruk op voeding en slaap. Lezers van dat eerdere boek klaagden dat maar een klein deel over dopamine ging en de rest over bekende voedings- en slaapadviezen. Of <i>Master Your Dopamine</i> daar een herwerking van is of een nieuw boek met hergebruikte promotietekst, viel zonder de volledige tekst niet vast te stellen. Trenton brengt korte titels uit in een eigen reeks van inmiddels meer dan tien delen, wat de vraag oproept hoeveel eigen onderzoek erin zit.</p>
+      <p>Een uitwerking van tolerantie en onthouding die op klinische ervaring rust, staat in <i>Dopamine Nation</i> van de psychiater Anna Lembke, en <i>The Molecule of More</i> geeft een breder beeld van wat dopamine wel en niet doet. Deze tekst berust op een beperkte inkijk; details van de hoofdstukken na het eerste konden niet worden gecontroleerd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de detoxperiodes als oefening in prikkelbeheersing, zonder te verwachten dat een hersenstof na drie of zeven dagen hersteld is.</li>
+        <li>Maak een verleiding fysiek lastiger bereikbaar, zoals de telefoon in een andere kamer, voordat er op wilskracht wordt gerekend.</li>
+        <li>Schrijf bij uitstel op welke snelle beloning de taak verdringt en wat de taak met eigen waarden te maken heeft.</li>
+        <li>Controleer bij neurowetenschappelijke claims in het boek of er een bron bij staat; de recensies geven reden tot voorzichtigheid.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">PKCS Media, februari 2023, als deel 11 van Trentons reeks <i>Mental and Emotional Abundance</i>, met als ondertitel <i>How to Rewire Your Brain for Focus and Peak Performance</i>. Verkrijgbaar als gebonden boek (ISBN 978-1647434564), paperback (ISBN 978-1647434557), e-boek via PublishDrive en luisterboek (voorgelezen door Russell Newton); de opgegeven omvang loopt per uitgave uiteen van 122 tot 201 bladzijden. Dezelfde auteur publiceerde in december 2021 <i>Dopamine Detox</i> bij dezelfde uitgever, met een bijna gelijkluidende flaptekst maar een andere inhoudsopgave. Er bestaan bijna gelijknamige titels van andere auteurs, zoals <i>Mastering Dopamine</i> van Martin Edwards (2025). Een Nederlandse vertaling is niet gevonden; Nederlandse boekhandels verkopen alleen de Engelse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nick Trenton, die volgens zijn uitgever een bachelor economie en een master gedragspsychologie heeft, schrijft korte zelfhulpboeken in een doorlopende reeks. In dit boek stelt hij dat het moderne leven het beloningssysteem voortdurend prikkelt, zodat steeds meer stimulans nodig is om gewone bezigheden nog bevredigend te vinden. Het boek opent met een vrouw, Jolie, die geen plezier meer beleeft aan een zonsondergang, en legt daarna uit wat dopamine doet en hoe een dopaminelus gedrag in stand houdt.</p><p>Het praktische deel draait om het beheersen van prikkels: detoxperiodes van één, drie of zeven dagen, het weghalen van verleidingen uit de omgeving, handelen vanuit eigen waarden, vrijwillig ongemak opzoeken en uitstelgedrag begrijpen als jacht op snelle beloning. Daarnaast noemt de uitgever voeding, darmgezondheid, slaap en aandachtsoefeningen.</p><p>De bronnen over de inhoud zijn dun: een flaptekst, een inkijkfragment van het eerste hoofdstuk, een lijst sectiekoppen bij Google Books en een handvol lezersrecensies. De populaire belofte van een dopamine-reset wordt door onderzoek niet gedragen; wat overeind blijft, is gewone gedragstherapeutische prikkelbeheersing.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dopamine</li><li>zelfhulp</li><li>dopaminedetox</li><li>prikkelbeheersing</li><li>uitstelgedrag</li><li>focus</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Anna Lembke werkt tolerantie en tijdelijke onthouding uit op basis van haar praktijk als verslavingspsychiater, met een onderbouwing die dit boek mist.</li>
+          <li value="418"><a href="418.html">The Molecule of More</a>. Lieberman en Long laten zien dat dopamine vooral over verlangen en verwachting gaat, wat het beeld van een plezierstof uit dit soort boeken bijstelt.</li>
+          <li value="290"><a href="290.html">Indistractable</a>. Nir Eyal behandelt afleiding en omgevingsinrichting als gedragsprobleem, zonder daar een dopamineverklaring aan op te hangen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

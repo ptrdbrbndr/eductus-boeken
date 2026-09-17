@@ -1,8 +1,8 @@
 # Boekenlijst
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
-met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 27
-augustus 2026: 1553 titels in 22 rubrieken.
+met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 17
+september 2026: 1556 titels in 22 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -19,8 +19,8 @@ bij de volgende build verloren.
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550, 824, 828, 832, 952, 1299, 1321, 1322, 1323, 1501, 1576, 1581, 1699, 1749 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552, 1762, 1833, 1879, 1901, 1913, 2029, 2030, 2053 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19, 1210, 1330 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542, 803, 1292, 1295, 1511, 1526, 1627, 1638, 1639, 1646, 1693, 1709, 1733, 1766, 1776, 1778, 1801, 1803, 1822, 1825, 1842, 1868, 1873, 1906, 1907, 2070, 2094, 2129, 2130 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162, 1171, 1172, 1173, 1174, 1203, 1302, 1307, 1308, 1309, 1310, 1311, 1314, 1315, 1316, 1317, 1319, 1320, 1325, 1326, 1328, 1329, 1506, 1513, 1521, 1523, 1524, 1528, 1545, 1548, 1550, 1553, 1563, 1564, 1565, 1588, 1599, 1604, 1610, 1613, 1616, 1628, 1631, 1647, 1656, 1668, 1674, 1679, 1680, 1683, 1688, 1696, 1712, 1718, 1719, 1720, 1722, 1731, 1732, 1750, 1751, 1756, 1759, 1802, 1807, 1809, 1810, 1812, 1813, 1816, 1828, 1830, 1831, 1853, 1855, 1857, 1858, 1860, 1862, 1863, 1864, 1865, 1866, 1871, 1872, 1881, 1883, 1894, 1895, 1899, 1902, 1915, 2005, 2016, 2026, 2036, 2052, 2066, 2068, 2069, 2088, 2090, 2093, 2096, 2104, 2105, 2107, 2108, 2109, 2117, 2131 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542, 803, 1292, 1295, 1511, 1526, 1627, 1638, 1639, 1646, 1693, 1709, 1733, 1766, 1776, 1778, 1801, 1803, 1822, 1825, 1842, 1868, 1873, 1906, 1907, 2070, 2094, 2129, 2130, 2319, 2320 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162, 1171, 1172, 1173, 1174, 1203, 1302, 1307, 1308, 1309, 1310, 1311, 1314, 1315, 1316, 1317, 1319, 1320, 1325, 1326, 1328, 1329, 1506, 1513, 1521, 1523, 1524, 1528, 1545, 1548, 1550, 1553, 1563, 1564, 1565, 1588, 1599, 1604, 1610, 1613, 1616, 1628, 1631, 1647, 1656, 1668, 1674, 1679, 1680, 1683, 1688, 1696, 1712, 1718, 1719, 1720, 1722, 1731, 1732, 1750, 1751, 1756, 1759, 1802, 1807, 1809, 1810, 1812, 1813, 1816, 1828, 1830, 1831, 1853, 1855, 1857, 1858, 1860, 1862, 1863, 1864, 1865, 1866, 1871, 1872, 1881, 1883, 1894, 1895, 1899, 1902, 1915, 2005, 2016, 2026, 2036, 2052, 2066, 2068, 2069, 2088, 2090, 2093, 2096, 2104, 2105, 2107, 2108, 2109, 2117, 2131, 2318 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931, 1532, 1729, 1747 |
 | Reclame en overtuiging | hoe reclame verkoopt en wat het vak over zijn eigen werking beweert | 443, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913, 1279, 1280, 1281, 1283, 1284, 1285, 1286, 1287, 1288, 1331, 1744, 1752, 1877, 2072, 2112, 2123, 2124, 2125, 2126 |
@@ -323298,6 +323298,697 @@ bredere context van een volledige pentest, inclusief verkenning,
 webkwetsbaarheden en rapportage, waar dit boek zich tot geheugen en netwerken
 beperkt.
 
+## 2318. Buddha's Brain
+
+Rick Hanson met Richard Mendius, 2009. Oorspronkelijke uitgave: *Buddha's
+Brain: The Practical Neuroscience of Happiness, Love, and Wisdom*, New
+Harbinger Publications, Oakland, 2009, ISBN 978-1-57224-695-9, met een
+voorwoord van Daniel J. Siegel, een woord vooraf van Jack Kornfield en een
+bijlage over voeding en hersenchemie van Jan Hanson. Nederlandse vertaling:
+*Boeddha's brein: hoe mindfulness je hersens en je leven kan veranderen*,
+vertaald door Marjolijn Stoltenkamp, Ten Have, 2012, ISBN 978-90-259-6174-9
+(e-boek ISBN 978-90-259-7178-6). De Nederlandse catalogi noemen alleen Hanson
+als auteur. Rubriek: brein en lichaam.
+Tags: `neurowetenschap`, `boeddhisme`, `meditatie`, `neuroplasticiteit`,
+`negativiteitsbias`, `mindfulness`, `geluk`
+
+Rick Hanson, neuropsycholoog en meditatieleraar, schreef dit boek samen met de
+neuroloog Richard Mendius, met wie hij het Wellspring Institute for
+Neuroscience and Contemplative Wisdom oprichtte. Het vertrekpunt is de regel
+van Donald Hebb dat neuronen die samen vuren ook samen verbinden: wat
+herhaaldelijk door de geest gaat, laat sporen na in de hersenen, en dat
+mechanisme is ook bewust te gebruiken. Hanson legt daar boeddhistische
+oefenstof naast, geordend langs drie pijlers die hij deugd, mindfulness en
+wijsheid noemt.
+
+Het eerste deel verklaart lijden uit de evolutie: een brein dat gebouwd is om
+te overleven, reageert sterker op gevaar dan op goed nieuws, en is volgens de
+bekende formule als klittenband voor negatieve ervaringen en als teflon voor
+positieve. De delen over geluk, liefde en wijsheid geven daarna oefeningen:
+positieve ervaringen bewust laten inwerken, het parasympathische zenuwstelsel
+activeren, gelijkmoedigheid, mededogen, liefdevolle vriendelijkheid,
+aandachtstraining en het ontspannen van het gevoel een zelf te zijn.
+
+Het boek verscheen in 2009, vóór de golf van herhalingsonderzoek in de
+psychologie. De neurologische uitleg is vaak eerder aannemelijk dan
+aangetoond, wat de auteurs zelf ook zeggen, en de claims over meditatie en
+hersenstructuur steunen op kleine vroege studies die grotere proeven later
+maar gedeeltelijk bevestigden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hanson en Mendius stellen dat de mentale toestanden die het
+boeddhisme nastreeft, tevredenheid, vriendelijkheid en inzicht, een
+lichamelijke basis in de hersenen hebben, en dat die basis met gerichte
+mentale oefening te versterken is omdat wat door de geest stroomt de hersenen
+vormt. Het lijden zelf verklaren zij uit de evolutie: drie
+overlevingsstrategieën, afscheiding, stabiliteit en het najagen van kansen en
+ontwijken van dreiging, zijn nuttig voor voortplanting en veroorzaken tegelijk
+onrust, omdat de wereld verbonden en veranderlijk is. Daartegenover zetten zij
+een praktijk van kleine, dagelijks herhaalde oefeningen die volgens hen door
+stapeling nieuwe neurale structuren opbouwen. De stelling is aanvechtbaar op
+het punt waar zij het meest op leunt: de sprong van algemene kennis over
+hersenplasticiteit naar de bewering dat een specifieke oefening van een halve
+minuut het brein blijvend in een gewenste richting verschuift.
+
+#### De gang van het boek
+
+**Inleiding en het zichzelf veranderende brein**
+
+Hanson schrijft dat hij het meeste van de tekst voor zijn rekening nam en dat
+Mendius dertig jaar ervaring als arts inbracht. Hij noemt beoefenaars van
+contemplatieve tradities de olympische atleten van de geest, van wie te leren
+valt hoe aandacht en gevoel te trainen zijn. In de gebruiksaanwijzing zeggen
+de auteurs dat zij de beschrijving van hersenprocessen hebben vereenvoudigd en
+zich opportunistisch hebben beperkt tot methoden met een aannemelijke
+wetenschappelijke verklaring. Ook waarschuwen zij dat het boek geen
+behandeling is en dat oefeningen bij mensen met trauma oude pijn kunnen
+oproepen.
+
+Het eerste hoofdstuk legt de basis: de regel van Hebb, het onderzoek van
+Maguire en collega's uit 2000 naar Londense taxichauffeurs met een grotere
+hippocampus, en het werk van Richard Davidson naar activiteit in de linker
+frontale hersenschors bij positieve stemming. Hanson onderscheidt drie
+basisfuncties van het brein, regulatie, leren en selectie, en koppelt die aan
+de drie pijlers deugd, mindfulness en wijsheid.
+
+**Deel een: de oorzaken van lijden**
+
+Hoofdstuk 2 beschrijft de drie overlevingsstrategieën en het mechanisme van de
+gevoelstoon: elke ervaring krijgt een kleuring van aangenaam, onaangenaam of
+neutraal, zodat een dier op de wortel afgaat en de stok ontwijkt. Hanson noemt
+zes manieren waarop het brein meer gewicht aan de stok geeft, waaronder de
+snelle herkenning van angstige gezichten via de amygdala, de voorrang die de
+hippocampus aan negatieve herinneringen geeft, en het werk van Baumeister over
+het grotere gewicht van slechte ervaringen. Het brein simuleert daarnaast
+voortdurend toekomst en verleden, wat de aandacht uit het moment trekt.
+
+Hoofdstuk 3 werkt de boeddhistische gelijkenis van de twee pijlen uit. De
+eerste pijl is onvermijdelijke pijn; de tweede is de eigen reactie daarop,
+gevoed door de drie gifstoffen hebzucht, haat en verblinding. Hanson verbindt
+die reacties met het sympathische zenuwstelsel en de
+hypothalamus-hypofyse-bijnieras. Chronische activering maakt de amygdala
+gevoeliger en tast de hippocampus aan, wat hij in verband brengt met angst en
+neerslachtigheid. Als tegenwicht noemt hij het parasympathische zenuwstelsel,
+en als gunstige grondtoon een lichaam dat meestal in rust is met af en toe een
+piek van activering.
+
+**Deel twee: geluk**
+
+Het bekendste hoofdstuk, over het opnemen van het goede, maakt onderscheid
+tussen expliciete herinneringen en impliciete sporen die de grondstemming
+bepalen. Omdat het brein negatieve ervaringen beter vastlegt, stelt Hanson
+drie stappen voor: een positief feit omzetten in een ervaring, die ervaring
+vijf tot twintig seconden vasthouden, en voelen dat ze naar binnen zakt. Een
+tweede methode houdt een positieve ervaring op de voorgrond terwijl een
+pijnlijke herinnering zwak op de achtergrond aanwezig is, zodat bij het
+opnieuw opslaan iets van het positieve meegaat.
+
+Hoofdstuk 5 geeft manieren om het parasympathische zenuwstelsel aan te
+spreken, zoals lang uitademen, de lippen aanraken, beeldspraak, een regelmatig
+hartritme en meditatie, met een lijst studies over meditatie en grijze stof.
+Hoofdstuk 6 beschrijft motivatie langs een neuro-as van hersenstam tot
+hersenschors, met de anterieure cingulaire cortex en de amygdala als twee
+knooppunten, beeldend hoofd en hart genoemd. Hoofdstuk 7 behandelt
+gelijkmoedigheid als niet reageren op de eigen reacties, een stroomonderbreker
+tussen gevoelstoon en hunkering.
+
+**Deel drie: liefde**
+
+De titel van hoofdstuk 8 komt uit het verhaal van twee wolven in het hart, een
+van liefde en een van haat. Hanson betoogt dat de wolf van liefde de grootste
+rol speelde in de groei van het menselijk brein, dat in drie miljoen jaar in
+omvang verdrievoudigde, maar dat geweld tussen groepen jagers-verzamelaars de
+wolf van haat even goed heeft gevormd. Hoofdstuk 9 verbindt mededogen met
+assertiviteit en beschrijft empathie als het nabootsen van handelingen,
+gevoelens en gedachten van een ander. Hoofdstuk 10 gaat over liefdevolle
+vriendelijkheid, over het verminderen van kwade wil en over het vergroten van
+de kring van wie als 'wij' geldt.
+
+**Deel vier: wijsheid**
+
+Hoofdstuk 11 noemt aandacht het middel waarmee de geest het brein het meest
+vormt en onderscheidt drie aspecten: informatie vasthouden, bijwerken en de
+juiste hoeveelheid prikkels zoeken, met een door dopamine geregelde poort naar
+het werkgeheugen. Hoofdstuk 12 bespreekt de vijf traditionele factoren van
+concentratie en koppelt eenpuntigheid van geest aan synchrone gammagolven.
+Hoofdstuk 13 beschrijft het zelf als een verzameling veranderlijke patronen in
+verschillende netwerken, zonder neurologisch bijzondere status, en besluit dat
+het ontspannen van dat zelf rust geeft.
+
+Een bijlage van Jan Hanson, acupuncturist, geeft voedings- en
+supplementadvies, met doseringen voor onder meer omega-3-vetzuren, 5-HTP,
+tryptofaan en tyrosine.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Zelfgerichte neuroplasticiteit | Het idee dat mentale activiteit, omdat neuronen die samen vuren samen verbinden, bewust te gebruiken is om de hersenen te veranderen. |
+| Negativiteitsbias | De neiging van het brein om onaangename informatie sneller op te merken, zorgvuldiger op te slaan en zwaarder te laten wegen dan aangename. |
+| Klittenband en teflon | Hansons beeld voor een brein waaraan negatieve ervaringen blijven kleven terwijl positieve eraf glijden. |
+| Eerste en tweede pijl | Het onderscheid tussen onvermijdelijke pijn en het lijden dat de eigen reactie daaraan toevoegt. |
+| Drie gifstoffen | Hebzucht, haat en verblinding, in het boek breed opgevat als reacties met hunkering als kern. |
+| Het goede opnemen | Positieve ervaringen opzoeken, enkele seconden vasthouden en voelen dat ze inwerken, zodat ze in het impliciete geheugen belanden. |
+| Gevoelstoon | De kleuring van elke ervaring als aangenaam, onaangenaam of neutraal, die bepaalt of iemand toenadert, vermijdt of doorgaat. |
+| Neuro-as | De vier niveaus van hersenstam tot hersenschors, waarlangs reacties sneller en automatischer worden naarmate ze lager liggen. |
+| Gelijkmoedigheid | Niet reageren op de eigen reacties, waardoor gevoelstoon niet vanzelf overgaat in hunkering. |
+| Twee wolven | De neiging tot liefde en de neiging tot haat, waarbij het ertoe doet welke van de twee dagelijks gevoed wordt. |
+
+#### Waar het argument op rust
+
+Het boek heeft een uitgebreide literatuurlijst en geeft bij de meeste
+neurologische beweringen een bron. Een deel daarvan staat stevig: het
+onderzoek naar Londense taxichauffeurs, de effecten van langdurige stress op
+de hippocampus uit dieronderzoek, en het overzicht van Baumeister en collega's
+uit 2001 dat slechte ervaringen in veel opzichten zwaarder wegen dan goede. De
+algemene gedachte dat herhaalde ervaring de verbindingen in het brein
+verandert, is binnen de neurowetenschap onomstreden.
+
+Zwakker staat de stap van die algemene kennis naar de concrete oefeningen. Dat
+het vasthouden van een positieve ervaring gedurende tien tot twintig seconden
+telkens een beetje neurale structuur bouwt, is een extrapolatie en geen
+meting. De neurale beschrijving van gelijkmoedigheid als samenspel van
+cingulaire activiteit, gammagolven en parasympathische demping presenteren de
+auteurs zelf met het woord 'waarschijnlijk'. Voor de methode van het opnemen
+van het goede verscheen pas in 2023 een studie, met Hanson als eerste auteur,
+in *The Journal of Positive Psychology*: een voor-en-nameting met meerdere
+groepen waarin deelnemers aan zijn cursus op zelfrapportage meer positieve en
+minder negatieve emoties meldden, ook twee maanden na afloop.
+
+De lijst met meditatie-effecten in hoofdstuk 5 steunt op studies uit 2003 tot
+2009, waaronder het werk van Lazar en Hölzel naar grijze stof en van Lutz naar
+gammagolven bij ervaren Tibetaanse beoefenaars. Dat waren kleine onderzoeken,
+vaak zonder loting, die beoefenaars met niet-beoefenaars vergeleken. Een
+grotere gerandomiseerde proef van Kral en collega's, gepubliceerd in 2022,
+vond na een training in mindfulness-gebaseerde stressreductie geen meetbare
+veranderingen in hersenstructuur. Ook enkele basisgetallen zijn verouderd: het
+boek noemt 100 miljard neuronen, terwijl een telling van Azevedo en collega's
+uit 2009 op ongeveer 86 miljard uitkwam.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de neurowetenschap in dit boek vaker dient als
+vertaling van boeddhistische leerstof dan als toets ervan. Begrippen als de
+twee pijlen, de drie gifstoffen en gelijkmoedigheid krijgen een hersengebied
+of neurotransmitter toegewezen, maar nergens blijkt dat die toewijzing iets
+voorspelt wat de oefening zonder hersenverhaal niet ook al beweerde. De
+auteurs geven toe dat zij vereenvoudigen en selectief kiezen. Een lezer die
+het hersenjargon als bewijs leest, krijgt toch een steviger indruk dan het
+onderzoek draagt.
+
+De meditatiestudies die het boek aanhaalt, zijn deels ingehaald. Dat meditatie
+grijze stof doet toenemen, is na grotere gerandomiseerde proeven geen
+vaststaand gegeven meer, en het verband tussen linker frontale activiteit en
+geluk heeft in later onderzoek wisselende uitkomsten opgeleverd. *Altered
+Traits* van Goleman en Davidson uit 2017 geeft een kritischer overzicht,
+geschreven door onderzoekers die een deel van dat vroege werk zelf deden.
+
+De bijlage over voeding past slecht bij de rest. Zij adviseert multivitaminen
+met tien tot vijfentwintig keer de dagelijkse hoeveelheid B-vitaminen en geeft
+doseringen voor 5-HTP, tryptofaan en tyrosine om neurotransmitters te
+beïnvloeden, op een onderbouwing die niet het niveau van de hoofdtekst haalt.
+Het boeddhisme in het boek is bovendien een westerse lezing, vooral gericht op
+inzichtmeditatie uit de kring van Spirit Rock; wie een andere traditie volgt,
+herkent de begrippen wel maar niet altijd de keuze ervan.
+
+Wat overeind blijft, is de praktische kern: aandacht voor de
+negativiteitsbias, bewust stilstaan bij goede ervaringen, en
+ademhalingsoefeningen die het lichaam tot rust brengen. Die oefeningen zijn
+onschuldig en goed uitvoerbaar. Hun waarde hangt minder af van de
+hersenkaarten eromheen dan het boek doet vermoeden.
+
+#### Wat er concreet mee te doen is
+
+- Houd bij een kleine positieve gebeurtenis de ervaring tien tot twintig
+seconden vast, met aandacht voor het lichaamsgevoel, en ga na enkele weken na
+of de grondstemming anders aanvoelt.
+- Onderscheid bij ergernis de eerste pijl van de tweede: welke pijn
+onvermijdelijk was en welke reactie er zelf aan is toegevoegd.
+- Gebruik een lange uitademing of een korte aandachtsronde door het lichaam om
+bij spanning het parasympathische zenuwstelsel aan te spreken.
+- Lees de hersenverklaringen als werkhypothese en de oefeningen als het
+eigenlijke gereedschap.
+- Overleg met een arts voordat supplementen uit de bijlage in hoge doses
+worden gebruikt, zeker naast medicatie tegen depressie.
+
+#### Wat je hierna leest
+
+- 333. Altered Traits. *Altered Traits* van Goleman en Davidson toetst met
+meer afstand welke meditatie-effecten het onderzoek werkelijk overeind houdt,
+en bespreekt dezelfde vroege studies waar dit boek op steunt.
+- 1606. The Wise Heart. *The Wise Heart* van Jack Kornfield, die het woord
+vooraf schreef, geeft de boeddhistische psychologie achter dit boek zonder de
+neurologische vertaling.
+- 1810. Positivity. *Positivity* van Barbara Fredrickson onderbouwt het nut
+van positieve emoties vanuit de psychologie, en laat met de omstreden
+positiviteitsratio zien hoe populaire wetenschap over geluk kan ontsporen.
+
+## 2319. Winning the War in Your Mind
+
+Craig Groeschel, 2021. Zondervan, Grand Rapids, 16 februari 2021, gebonden,
+256 blz., ISBN 978-0310362722, met als volledige titel *Winning the War in
+Your Mind: Change Your Thinking, Change Your Life*. Bij het boek verschenen
+een werkboek (HarperChristian Resources, ISBN 978-0310136828), een
+gelijknamige preekreeks van Life.Church en in 2023 een bewerking voor tieners,
+*Winning the War in Your Mind for Teens*. Er is geen Nederlandse vertaling
+gevonden: Uitgeverij Gideon, die *De christenatheïst*, *Hoop* en *Gewaagde
+gebeden* van Groeschel uitgaf, heeft deze titel niet in haar fonds, en
+Nederlandse boekhandels bieden alleen de Engelse editie aan. Rubriek:
+gewoontes en denken.
+Tags: `christelijke zelfhulp`, `gedachten`, `neuroplasticiteit`, `cognitieve
+gedragstherapie`, `gebed`, `piekeren`
+
+Craig Groeschel, voorganger van de Amerikaanse megakerk Life.Church, schreef
+dit boek over negatieve denkpatronen voor een christelijk publiek. Zijn
+uitgangspunt is dat mensen vastzitten in leugens over zichzelf, en dat die
+leugens in de hersenen vaste sporen slijten die door herhaling sterker worden.
+Het boek verdeelt de aanpak over vier principes: de leugen vervangen door
+waarheid uit de Bijbel, de hersenen door herhaling opnieuw bedraden, het eigen
+verleden en de toekomst anders inkaderen, en door gebed en lofprijzing het
+perspectief verleggen.
+
+Het materiaal bestaat grotendeels uit persoonlijke anekdotes van Groeschel,
+Bijbelteksten van vooral Paulus, en verwijzingen naar hersenonderzoek en
+begrippen uit de cognitieve therapie, zoals cognitieve vertekening en
+herkaderen. Elk deel bevat oefeningen, waaronder een gedachte-audit met
+twintig vragen. De psychologische onderdelen zijn herkenbaar als populaire
+cognitieve gedragstherapie; de toets of een gedachte klopt is bij Groeschel
+echter de Bijbel, en de bron van de leugens is volgens hem Satan. Die
+geloofsaanname draagt het boek, en wie haar niet deelt houdt vooral een vorm
+van affirmaties over.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Groeschel stelt dat de strijd om een mensenleven in het hoofd
+wordt gewonnen of verloren. Negatieve gedachten zijn volgens hem leugens die
+Satan herhaaldelijk influistert, en die door die herhaling vaste banen in de
+hersenen slijten, zodat het gedrag vanzelf de richting van de sterkste
+gedachten volgt. Gedragsverandering zonder verandering van denken houdt daarom
+geen stand. De uitweg is een leugen herkennen, haar vervangen door een
+waarheid uit de Bijbel en die waarheid zo vaak opschrijven, denken en
+uitspreken dat er een nieuw spoor ontstaat. Het boek presenteert die aanpak
+als een samengaan van Schrift en hersenwetenschap, waarbij God het denken
+vernieuwt terwijl de gelovige zelf de hersenen opnieuw bedraadt.
+
+#### De gang van het boek
+
+**Waarneming als werkelijkheid**
+
+Het boek opent met een anekdote over een voorganger, Kevin, die door een grap
+gelooft dat hij in een kast is opgesloten terwijl de deur niet op slot zit.
+Het beeld dient als model voor alles wat volgt: een leugen die als waarheid
+wordt geloofd, werkt in iemands leven alsof ze waar is. Groeschel beschrijft
+zijn eigen onzekerheid uit zijn jeugd en de afwijzingen die hij later als
+beginnend voorganger ervoer, en het moment waarop hij naar eigen zeggen van
+God hoorde dat hij niet is wie anderen zeggen dat hij is.
+
+Direct daarna volgt de eerste oefening, de gedachte-audit. Die bestaat uit
+twee delen: een dag lang gedachten noteren, en die gedachten vervolgens langs
+twintig vragen leggen, verdeeld in verdedigende vragen over wat schadelijk is
+en aanvallende vragen over wat opbouwt en bij het geloof past.
+
+**Het vervangingsprincipe: bolwerken afbreken**
+
+Groeschel leunt hier op Paulus, die volgens hem zijn denken in de hand hield
+terwijl hij gevangenzat. Uit de brief aan de Korintiërs neemt hij de term
+bolwerken over: leugens die zo diep zijn ingesleten dat ze onneembaar lijken,
+en die met goddelijke middelen moeten worden afgebroken door elke gedachte
+gevangen te nemen. Neutraliteit bestaat in deze strijd niet; wie niet vecht,
+verliest.
+
+Het praktische hart van dit deel is een procedure in drie stappen: het
+probleem benoemen, doorvragen naar de oorzaak, en de onderliggende leugen
+aanwijzen. Als voorbeeld dient te veel geld uitgeven, dat terug te voeren is
+op de leugen dat bezit gelukkig maakt. Het beeld van een hond, Max, die zijn
+tuin niet verlaat omdat hij ooit een schok kreeg van een schrikdraad dat
+allang niet meer werkt, staat voor mensen die na eerdere pijn niets meer
+durven. De leugen wordt vervangen door een Bijbeltekst, naar het voorbeeld van
+Jezus, die in de woestijn elke verleiding met een geciteerde tekst
+beantwoordde.
+
+**Het herbedradingsprincipe: van spoor naar loopgraaf**
+
+In het tweede deel wordt het argument neurologisch. Groeschel vertelt hoe hij
+in zijn eerste auto, een Buick Century, zelf een stereo inbouwde die door
+verkeerd aangesloten draden alleen werkte als de koplampen aan stonden. Zo
+zitten ook in de hersenen gekruiste draden die mensen steeds hetzelfde
+zelfondermijnende gedrag laten vertonen. Herhaalde gedachten vormen neurale
+banen, zoals herhaald oefenen bij stijldansen, en die banen werken als
+karrensporen in de modder. Zijn eigen angst over geld herleidt hij tot zijn
+grootmoeder, en hij beschrijft hoe hij die angst herkende toen zijn dochter
+haar begon over te nemen.
+
+Tegenover het onbedoelde spoor zet hij de loopgraaf van waarheid: een
+doelbewust gegraven nieuwe baan. Het hoofdstuk over herkauwen gebruikt het
+beeld van een koe die haar voedsel opnieuw kauwt voor het mediteren op
+Bijbelteksten. Omdat mensen herhaalde uitspraken eerder geloven, moet de
+waarheid even vaak herhaald worden als de leugen, tot de reactie automatisch
+wordt. De formule luidt: opschrijven, denken, uitspreken tot het geloofd
+wordt. Als eigen voorbeeld geeft hij de verklaring dat geld nooit een probleem
+voor hem zal zijn, omdat God overvloedig voorziet.
+
+**Het herkaderingsprincipe: lenzen, filters en wat God niet deed**
+
+Het derde deel introduceert cognitieve vertekening, met de anekdote van een
+etentje waarbij zijn vrouw Amy hem door een nieuwe bril anders ziet. Hoe
+iemand God ziet, hangt volgens Groeschel onder meer af van de relatie met de
+eigen vader. Hij noemt zichzelf een controlefreak en presenteert cognitief
+herkaderen als het herkennen en corrigeren van irrationeel denken, met Paulus
+als voorbeeld, die zijn gevangenschap zag als gelegenheid om het evangelie te
+verspreiden.
+
+Herkaderen richt zich eerst op het verleden. Groeschel beschrijft een blessure
+aan zijn werphand die een einde maakte aan zijn honkbalplannen; na een
+verhuizing ging hij tennissen en kreeg hij uiteindelijk een sportbeurs.
+Daaruit leidt hij de gewoonte af God ook te danken voor wat Hij niet deed.
+Daarna volgt het vooraf inkaderen van de toekomst: een drukke dag bij voorbaat
+vanuit Gods goedheid bekijken, en de maandag na een weekend preken niet langer
+als slechte dag benaderen. Het beeld van gieren die verval zoeken en kolibries
+die nectar zoeken, moet laten zien dat wie naar goedheid zoekt haar ook vindt.
+
+**Het verheugingsprincipe: paniek, gebed en lofprijzing**
+
+Het laatste deel begint bij angst. Groeschel beschrijft een jeugdangst voor
+blauwe busjes, versterkt door een waarschuwing van zijn moeder, en legt uit
+hoe de amygdala valse alarmen afgeeft. Hij vertelt over zijn eigen paniek bij
+het voorbereiden van preken en over een periode van instorting waarna hij in
+therapie ging. De profeet Elia, die na een overwinning wanhopig werd en God in
+een zacht fluisteren hoorde, dient als Bijbels voorbeeld. Zijn eigen
+verklaring uit die periode luidt dat zijn ervaring plus Gods aanwezigheid
+genoeg is.
+
+Gebed presenteert hij als relatie, met Jezus die God Abba noemt, en als iets
+dat de hersenen aantoonbaar verandert; hij verwijst daarbij naar
+hersenonderzoek naar gebed, volgens besprekingen van Andrew Newberg. Het
+slothoofdstuk gebruikt de Magic Eye-plaatjes, waarin een verborgen beeld pas
+verschijnt als er doorheen gekeken wordt, als beeld voor lofprijzing: door
+omstandigheden heen naar God kijken. Met Paulus in Filippenzen en de psalmen
+die zichzelf opdragen God te loven, eindigt het boek bij een beeld uit de
+vechtsport: de handen omhoog houden, in gebed en in lof.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Leugen | Een overtuiging over zichzelf of de werkelijkheid die in strijd is met wat God volgens de Bijbel zegt, en die werkt alsof ze waar is zolang ze wordt geloofd. |
+| Bolwerk | Een leugen die door langdurige herhaling zo diep is ingesleten dat ze onaantastbaar lijkt, ontleend aan Paulus. |
+| Gedachte-audit | Een oefening waarin eerst een dag gedachten worden genoteerd en daarna met twintig verdedigende en aanvallende vragen worden gewogen. |
+| Gedachtekrijger | Iemand die de strijd in het eigen hoofd erkent en actief elke gedachte gevangen neemt in plaats van neutraal te blijven. |
+| Gekruiste draden en karrensporen | Groeschels beelden voor neurale banen die door herhaling automatisch zijn geworden en zelfondermijnend gedrag in stand houden. |
+| Loopgraaf van waarheid | Een doelbewust aangelegde nieuwe denkbaan, gevormd door een Bijbelse waarheid herhaaldelijk op te schrijven, te denken en uit te spreken. |
+| Herkauwen | Het telkens opnieuw overdenken van een Bijbeltekst tot de reactie erop automatisch wordt. |
+| Herkaderen en vooraf inkaderen | Het verleden opnieuw duiden in het licht van Gods goedheid, en een komende situatie bij voorbaat vanuit dat perspectief benaderen. |
+| Bijkomende goedheid | De goedheid van God die zichtbaar wordt voor wie er gericht naar zoekt, ook in tegenslag. |
+| Vier principes | Vervangen, herbedraden, herkaderen en verheugen, de vier delen waarin het boek zijn aanpak ordent. |
+
+#### Waar het argument op rust
+
+Het argument rust op drie pijlers van ongelijk gewicht. De eerste is de
+Bijbel, vooral Paulus en de verzoekingen van Jezus in de woestijn; die pijler
+is voor het boek beslissend, want wat een leugen is en wat waarheid, wordt aan
+de Schrift afgemeten. De tweede is een reeks persoonlijke anekdotes van
+Groeschel over zijn jeugd, zijn geldangst, zijn paniek en zijn therapie. Die
+maken het boek herkenbaar, maar bewijzen niet dat de methode bij anderen
+werkt. De derde is populaire psychologie en hersenwetenschap: neurale banen,
+de amygdala, cognitieve vertekening, cognitief herkaderen en onderzoek naar
+gebed.
+
+De psychologische kern is ontleend aan de cognitieve therapie van Aaron Beck:
+automatische gedachten opsporen, de overtuiging eronder benoemen en die
+vervangen. Dat stramien heeft een stevige onderzoeksbasis bij angst en
+somberheid, en de gedachte-audit lijkt op de gedachtedagboeken uit die
+therapie. Ook de bewering dat herhaalde uitspraken eerder geloofd worden,
+klopt: het effect van herhaling op geloofwaardigheid is in de psychologie
+herhaaldelijk aangetoond. Neuroplasticiteit, het vermogen van de hersenen om
+door herhaalde activiteit te veranderen, is evenmin omstreden.
+
+Zwakker is de stap van die algemene bevindingen naar de specifieke praktijk
+van het boek. Er wordt geen onderzoek aangevoerd dat het memoriseren van
+Bijbelteksten of het uitspreken van geloofsverklaringen negatief denken
+vermindert. Het werk van Andrew Newberg, dat volgens besprekingen wordt
+aangehaald, laat zien dat meditatie en gebed meetbare hersenactiviteit geven,
+in studies met kleine groepen; het toont geen behandeleffect aan. De
+hersenwetenschap in het boek fungeert vooral als illustratie bij een
+theologische stelling. De beschrijving hier steunt op uitvoerige
+hoofdstukoverzichten en besprekingen, niet op de volledige tekst; welke
+bronnen precies in de noten staan, kon niet worden nagegaan.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar zit in de toets. In cognitieve gedragstherapie wordt een
+gedachte gewogen tegen de feiten: welk bewijs is er voor en tegen, en wat is
+een realistischer lezing. Bij Groeschel is een gedachte een leugen omdat ze
+afwijkt van wat de Bijbel over iemand zegt, en de vervangende gedachte is waar
+omdat ze uit de Bijbel komt. Daarmee verschuift de methode van toetsen naar
+verklaren. Zijn eigen voorbeeld maakt dat zichtbaar: de uitspraak dat geld
+nooit een probleem zal zijn omdat God overvloedig voorziet, is geen
+realistischere lezing van een financiële situatie maar een geloofsbelijdenis.
+Een citaat van Napoleon Hill over het planten van ideeën door herhaling past
+in die lijn, die dichter bij het positieve denken van Norman Vincent Peale
+ligt dan bij Beck.
+
+Daar komt een ongemakkelijk punt bij. Het boek waarschuwt dat mensen leugens
+geloven omdat die vaak herhaald worden, en schrijft vervolgens herhaling voor
+om nieuwe overtuigingen te laten beklijven. Herhaling maakt een uitspraak
+geloofwaardiger ongeacht of ze klopt, dus het mechanisme onderscheidt geen
+waarheid van leugen; dat onderscheid moet uit het geloof komen. Voor lezers
+zonder dat geloof blijft een vorm van affirmaties over, en onderzoek van Wood,
+Perunovic en Lee uit 2009 vond dat mensen met een laag zelfbeeld zich na het
+herhalen van positieve uitspraken over zichzelf eerder slechter dan beter
+voelden.
+
+Het beeld van Satan als bron van negatieve gedachten vereenvoudigt de oorzaken
+van somberheid en angst, waar erfelijkheid, omstandigheden en lichamelijke
+factoren een rol spelen. Groeschel ontkent dat niet uitdrukkelijk en vertelt
+openlijk over zijn eigen therapie, maar het boek geeft geen richtlijn voor
+wanneer professionele hulp nodig is. Het kader van oorlog en strijd kan
+bovendien schuld oproepen bij wie ondanks inzet niet wint. Het boek leunt
+verder op een preekstructuur met veel herhaling en gevleugelde zinnen.
+
+#### Wat er concreet mee te doen is
+
+- Noteer een dag lang terugkerende gedachten en zoek bij een hardnekkig
+probleem de overtuiging die eronder ligt, via de drie stappen probleem,
+doorvragen en overtuiging.
+- Weeg zo'n overtuiging ook tegen de feiten, niet alleen tegen een tekst of
+verklaring die haar tegenspreekt.
+- Gebruik vooraf inkaderen bij een voorspelbaar zware dag: bepaal van tevoren
+hoe die dag bekeken wordt.
+- Zoek bij aanhoudende paniek of somberheid professionele hulp; het boek
+beschrijft die stap bij de auteur zelf, maar werkt haar niet uit.
+
+#### Wat je hierna leest
+
+- 83. The Power of Positive Thinking. Peales christelijke voorloper verbindt
+gebed en positieve verklaringen op vergelijkbare wijze en laat zien uit welke
+traditie Groeschels herhaalde geloofsverklaringen voortkomen.
+- 373. 13 Things Mentally Strong People Don't Do. Morin werkt mentale
+weerbaarheid uit vanuit cognitieve gedragstherapie zonder religieus kader, wat
+laat zien hoeveel van Groeschels methode zonder dat kader overeind blijft.
+- 238. The Power of Habit. Duhigg beschrijft het automatisch worden van gedrag
+door herhaling met meer onderzoek dan Groeschel bij zijn beeld van
+karrensporen en loopgraven geeft.
+
+## 2320. Master Your Dopamine
+
+Nick Trenton, 2023. PKCS Media, februari 2023, als deel 11 van Trentons reeks
+*Mental and Emotional Abundance*, met als ondertitel *How to Rewire Your Brain
+for Focus and Peak Performance*. Verkrijgbaar als gebonden boek (ISBN
+978-1647434564), paperback (ISBN 978-1647434557), e-boek via PublishDrive en
+luisterboek (voorgelezen door Russell Newton); de opgegeven omvang loopt per
+uitgave uiteen van 122 tot 201 bladzijden. Dezelfde auteur publiceerde in
+december 2021 *Dopamine Detox* bij dezelfde uitgever, met een bijna
+gelijkluidende flaptekst maar een andere inhoudsopgave. Er bestaan bijna
+gelijknamige titels van andere auteurs, zoals *Mastering Dopamine* van Martin
+Edwards (2025). Een Nederlandse vertaling is niet gevonden; Nederlandse
+boekhandels verkopen alleen de Engelse uitgave. Rubriek: gewoontes en denken.
+Tags: `dopamine`, `zelfhulp`, `dopaminedetox`, `prikkelbeheersing`,
+`uitstelgedrag`, `focus`
+
+Nick Trenton, die volgens zijn uitgever een bachelor economie en een master
+gedragspsychologie heeft, schrijft korte zelfhulpboeken in een doorlopende
+reeks. In dit boek stelt hij dat het moderne leven het beloningssysteem
+voortdurend prikkelt, zodat steeds meer stimulans nodig is om gewone
+bezigheden nog bevredigend te vinden. Het boek opent met een vrouw, Jolie, die
+geen plezier meer beleeft aan een zonsondergang, en legt daarna uit wat
+dopamine doet en hoe een dopaminelus gedrag in stand houdt.
+
+Het praktische deel draait om het beheersen van prikkels: detoxperiodes van
+één, drie of zeven dagen, het weghalen van verleidingen uit de omgeving,
+handelen vanuit eigen waarden, vrijwillig ongemak opzoeken en uitstelgedrag
+begrijpen als jacht op snelle beloning. Daarnaast noemt de uitgever voeding,
+darmgezondheid, slaap en aandachtsoefeningen.
+
+De bronnen over de inhoud zijn dun: een flaptekst, een inkijkfragment van het
+eerste hoofdstuk, een lijst sectiekoppen bij Google Books en een handvol
+lezersrecensies. De populaire belofte van een dopamine-reset wordt door
+onderzoek niet gedragen; wat overeind blijft, is gewone gedragstherapeutische
+prikkelbeheersing.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Trenton stelt dat het moderne leven met sociale media,
+videogames en andere snelle beloningen het beloningssysteem zo vaak en zo
+sterk prikkelt dat de hersenen minder gevoelig worden en steeds meer stimulans
+vragen, waardoor gewone bezigheden saai aanvoelen, aandacht versnippert en
+uitstel de norm wordt. Volgens hem is dat omkeerbaar met eenvoudige,
+dagelijkse maatregelen: tijdelijk afzien van sterke prikkels, de omgeving zo
+inrichten dat verleidingen buiten bereik liggen, en gedrag verbinden aan eigen
+waarden in plaats van aan de eerstvolgende beloning. Daar valt tegenover te
+zetten dat het idee van een dopaminespiegel die in een paar dagen te resetten
+is, geen steun vindt in onderzoek, en dat de bruikbare kern van het boek
+bestaat uit gedragstechnieken die ook zonder dopamineverhaal werken.
+
+#### De gang van het boek
+
+**Wat dopamine is**
+
+Het eerste hoofdstuk, het enige dat via een inkijkfragment te lezen viel,
+begint met Jolie, die een zonsondergang niet meer mooi vindt. Trenton gebruikt
+haar als voorbeeld van een ontregeld beloningssysteem. Hij omschrijft dopamine
+als een neurotransmitter die emotie en motivatie regelt en daarnaast betrokken
+is bij beloningsgestuurd gedrag, werkgeheugen en uitvoerende functies. Een
+laag niveau gaat volgens hem samen met lusteloosheid en minder plezier in wat
+eerder aantrok.
+
+Hij koppelt dopamine aan beloning: bij iets aangenaams komt het vrij, en dat
+maakt herhaling waarschijnlijker. Ook de vecht-of-vluchtreactie komt kort ter
+sprake.
+
+**De dopaminelus en tolerantie**
+
+Een sectie over de dopaminelus en -cyclus beschrijft hoe een prikkel van
+buiten een signaal in de hersenen opwekt, dopamine vrijmaakt en zo de neiging
+versterkt om hetzelfde gedrag te herhalen. De hersenen onthouden de beloning
+en proberen die opnieuw op te roepen.
+
+Bij herhaalde pieken daalt de gevoeligheid, zodat meer nodig is voor hetzelfde
+effect. Trenton trekt die lijn door van middelenverslaving naar
+gedragsverslaving; in de termenlijst van het boek staan sociale media en
+videogames. Die parallel draagt de rest van het boek.
+
+**Detox, vasten en prikkelbeheersing**
+
+Het praktische zwaartepunt ligt bij wat Trenton dopaminedetox en
+dopaminevasten noemt: perioden van één, drie of zeven dagen waarin sterke
+prikkels worden gemeden. Een sectie over prikkelbeheersing gaat over de
+omgeving: verleidingen wegzetten of moeilijker bereikbaar maken, zodat
+wilskracht minder hoeft te doen.
+
+Een sectie met de titel *The Feasting Schedule* zet daar kennelijk een
+tegenhanger naast, een schema voor momenten van toegeven. Hoe Trenton dat
+precies uitwerkt, was uit de beschikbare bronnen niet op te maken.
+
+**Waarden, doorzetten en vrijwillig ongemak**
+
+Twee secties verbinden het onderwerp met motivatie op langere termijn: alles
+afstemmen op kernwaarden, en volharden. In de lijst met veelgebruikte termen
+staat ook vrijwillig ongemak, het bewust opzoeken van inspanning of ongerief.
+Hoe Trenton dat onderbouwt, blijkt niet uit de bronnen; de plaats in het boek
+wijst erop dat het de afhankelijkheid van directe beloning moet verkleinen.
+
+**Uitstelgedrag en pieken**
+
+Een sectie over dopamine en uitstelgedrag behandelt uitstel in samenhang met
+de trek naar snelle beloning. In de termenlijst staan daarbij het limbisch
+systeem en de prefrontale schors, zodat aannemelijk is dat Trenton uitstel
+beschrijft als strijd tussen impuls en planning. Een laatste sectie gaat over
+het beheersen van dopaminepieken.
+
+De flaptekst noemt verder voeding, darmgezondheid, slaap en
+aandachtsoefeningen van ongeveer tien minuten per dag. Die thema's vormden een
+groot deel van *Dopamine Detox* uit 2021. Of ze hier veel ruimte krijgen,
+blijkt niet uit de sectiekoppen, die vrijwel alleen over prikkels en gedrag
+gaan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Dopamine | Neurotransmitter die volgens Trenton emotie, motivatie, beloningsgestuurd gedrag, werkgeheugen en uitvoerende functies regelt. |
+| Dopaminelus | Het patroon waarin een prikkel dopamine vrijmaakt en daardoor het gedrag versterkt dat de prikkel opleverde. |
+| Dopaminedetox | Een periode van één, drie of zeven dagen waarin sterke prikkels worden gemeden om de gevoeligheid voor gewone beloningen te herstellen. |
+| Dopaminevasten | Trentons tweede term voor het tijdelijk afzien van sterk belonende activiteiten. |
+| Prikkelbeheersing (stimulus control) | De omgeving zo inrichten dat verleidingen uit zicht of lastig bereikbaar zijn. |
+| Feasting schedule | Sectietitel die als tegenhanger van het vasten een schema voor toegeven lijkt aan te duiden; de uitwerking viel niet na te gaan. |
+| Vrijwillig ongemak | Bewust gekozen inspanning of ongerief, in het boek geplaatst bij het verminderen van de afhankelijkheid van directe beloning. |
+| Dopaminepieken | Sterke, snelle uitschieters in beloning, die het boek als oorzaak van afnemende gevoeligheid behandelt. |
+
+#### Waar het argument op rust
+
+Wat over de inhoud vaststaat, komt uit vier bronnen: de flaptekst, een
+inkijkfragment van het eerste hoofdstuk via Everand, een lijst sectiekoppen en
+veelgebruikte termen bij Google Books, en vijf lezersrecensies op Goodreads
+bij ongeveer veertig beoordelingen, gemiddeld 3,6. Een onafhankelijke
+bespreking in pers of vakblad is niet gevonden. De gang van het boek hierboven
+is een reconstructie uit die sectiekoppen, geen volledige inhoudsopgave, en de
+volgorde kan afwijken.
+
+De lezers verschillen van oordeel. Positieve recensies noemen de taal
+toegankelijk en de aanwijzingen bruikbaar, één spreekt van een ruime
+bronkeuze. Een kritische recensie noemt het boek een verzameling blogstukken
+met inconsistenties en fouten, waarin onderzoek tot enkelvoudige conclusies
+wordt versimpeld. Welke onderzoeken Trenton precies aanhaalt, bleek uit geen
+van de bronnen.
+
+De wetenschappelijke context is wel na te gaan. Dopamine is geen plezierstof
+in eenvoudige zin: onderzoek van onder meer Kent Berridge onderscheidt het
+willen van een beloning, waarbij dopamine een grote rol speelt, van het
+genieten ervan. Tolerantie door herhaalde sterke prikkels is bij verslavende
+middelen goed beschreven. Dat alledaags telefoongebruik op dezelfde manier de
+dopaminehuishouding ontregelt en dat een detox van enkele dagen die meetbaar
+herstelt, is niet aangetoond. De psycholoog Cameron Sepah, die het
+dopaminevasten in 2019 populair maakte, benadrukte zelf dat het om
+prikkelbeheersing uit de cognitieve gedragstherapie gaat en niet om het
+verlagen van dopamine.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar ligt bij het uitgangspunt. De titel en de flaptekst
+beloven het herprogrammeren van de hersenen en het resetten van dopamine,
+terwijl de werkzame technieken in het boek, verleidingen wegzetten, gedrag aan
+waarden koppelen en ongemak verdragen, gewone gedragsaanpakken zijn die geen
+dopaminetheorie nodig hebben. Het neurowetenschappelijke kader geeft die
+adviezen een schijn van precisie die het onderzoek niet levert.
+
+De flaptekst van dit boek is grotendeels gelijk aan die van *Dopamine Detox*
+uit 2021, inclusief de detoxen van één, drie en zeven dagen en de nadruk op
+voeding en slaap. Lezers van dat eerdere boek klaagden dat maar een klein deel
+over dopamine ging en de rest over bekende voedings- en slaapadviezen. Of
+*Master Your Dopamine* daar een herwerking van is of een nieuw boek met
+hergebruikte promotietekst, viel zonder de volledige tekst niet vast te
+stellen. Trenton brengt korte titels uit in een eigen reeks van inmiddels meer
+dan tien delen, wat de vraag oproept hoeveel eigen onderzoek erin zit.
+
+Een uitwerking van tolerantie en onthouding die op klinische ervaring rust,
+staat in *Dopamine Nation* van de psychiater Anna Lembke, en *The Molecule of
+More* geeft een breder beeld van wat dopamine wel en niet doet. Deze tekst
+berust op een beperkte inkijk; details van de hoofdstukken na het eerste
+konden niet worden gecontroleerd.
+
+#### Wat er concreet mee te doen is
+
+- Lees de detoxperiodes als oefening in prikkelbeheersing, zonder te
+verwachten dat een hersenstof na drie of zeven dagen hersteld is.
+- Maak een verleiding fysiek lastiger bereikbaar, zoals de telefoon in een
+andere kamer, voordat er op wilskracht wordt gerekend.
+- Schrijf bij uitstel op welke snelle beloning de taak verdringt en wat de
+taak met eigen waarden te maken heeft.
+- Controleer bij neurowetenschappelijke claims in het boek of er een bron bij
+staat; de recensies geven reden tot voorzichtigheid.
+
+#### Wat je hierna leest
+
+- 314. Dopamine Nation. Anna Lembke werkt tolerantie en tijdelijke onthouding
+uit op basis van haar praktijk als verslavingspsychiater, met een onderbouwing
+die dit boek mist.
+- 418. The Molecule of More. Lieberman en Long laten zien dat dopamine vooral
+over verlangen en verwachting gaat, wat het beeld van een plezierstof uit dit
+soort boeken bijstelt.
+- 290. Indistractable. Nir Eyal behandelt afleiding en omgevingsinrichting als
+gedragsprobleem, zonder daar een dopamineverklaring aan op te hangen.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -323431,7 +324122,7 @@ Hellinger` 1510, 2043, 2044 · `beschadigd-bestand` 115, 130 · `beschaving` 57,
 `blokkade` 14 · `bodem` 1592 · `bodhichitta` 1662 · `Boeddha` 2046 ·
 `boeddhisme` 111, 287, 333, 341, 401, 528, 755, 1106, 1109, 1110, 1124, 1125,
 1168, 1556, 1558, 1559, 1560, 1561, 1606, 1645, 1664, 1665, 1685, 1713, 1717,
-1734, 1735, 1754, 1775, 1800, 1829, 1847, 1878, 2046 · `boek der
+1734, 1735, 1754, 1775, 1800, 1829, 1847, 1878, 2046, 2318 · `boek der
 veranderingen` 2039 · `bogomilen` 1702 · `boksen` 1835 · `Bombay` 1401, 1502,
 1837 · `bomen` 2077 · `bonobo` 1675 · `boosheid` 1584 · `bootstrapping` 369 ·
 `bos` 1597, 2077 · `bosbeheer` 2077 · `botanie` 1578 · `Boulder` 1559 ·
@@ -323460,34 +324151,34 @@ veranderingen` 2039 · `bogomilen` 1702 · `boksen` 1835 · `Bombay` 1401, 1502,
 school` 2022 · `chili` 2022 · `chimpansee` 1675 · `China` 348, 1522 · `chinese
 filosofie` 2039 · `Chinese filosofie` 389, 394, 1104, 1105 · `Chinese
 geschiedenis` 219 · `chiropractie` 432 · `christelijke traditie` 1566, 2078 ·
-`christendom` 162, 201, 391, 603, 606, 612, 754, 1207, 1237, 1268, 1300, 1568,
-1829 · `chronische pijn` 1668, 1732 · `chronische ziekte` 1731 ·
-`chronobiologie` 326, 329 · `cia` 693, 750 · `cijfers` 39, 65 · `citaten` 1572
-· `civilisatiekritiek` 298 · `classificatie` 719 · `clitoris` 1548 · `cloud`
-2308 · `cloud security` 2301 · `coachbloem` 1530 · `coaching` 161, 291, 441,
-1297, 1510, 1528, 1530, 1630, 1631, 1751, 1778, 1804, 1817, 1834, 1843, 2019,
-2026, 2034, 2059, 2070, 2106 · `cognitie` 656 · `cognitieve gedragstherapie`
-147, 153, 373, 1803 · `cognitieve herformulering` 2131 · `cognitieve
-herstructurering` 177 · `cognitieve neurowetenschap` 763 · `cognitieve
-psychologie` 759 · `cognitieve therapie` 1873 · `cognitieve vertekening` 234 ·
-`cognitieve wetenschap` 467 · `cognitieve-bias` 59 · `cognitiewetenschap` 755,
-767, 1172 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362
-· `Colombia` 1402 · `columns` 89, 90 · `coma` 763 · `comfortzone` 187 ·
-`command and control` 2304, 2311 · `commando` 97 · `commentaar` 1806 ·
-`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305,
-338, 356, 398, 399, 444, 466, 475, 539, 555, 1272, 1277, 1294, 1304, 1306,
-1530, 1589, 1590, 1670, 1738, 1843, 2056, 2077 · `communisme` 625 ·
-`compassie` 1525, 1527, 1556, 1814 · `complexiteit` 170, 268, 300, 347, 423,
-1258, 1274, 1279, 1861, 2121 · `complimenten geven` 356 · `complotdenken` 667,
-668, 672, 676, 683, 684, 688, 690, 914, 915, 916, 917, 920, 921, 923, 925,
-926, 931, 1142, 1143, 1145, 1146, 1147, 1150, 1152, 1908, 2023 ·
-`complottheorie` 680, 1532 · `componisten` 1749 · `concentratie` 70, 441, 802,
-1879, 2005, 2030 · `concurrentie` 293, 902 · `conditionering` 61, 519, 1569,
-1638, 1640 · `conflict` 35, 42, 43, 212, 305, 1641, 1642, 1843 ·
-`conflictbemiddeling` 304 · `conflicthantering` 271, 1590 · `conformisme` 211,
-1295, 1900 · `conjunctuurcyclus` 2125 · `consistentie` 553 · `consument` 703,
-704 · `consumptie` 463, 1651, 1709 · `consumptiekeuzes` 299 ·
-`consumptiemaatschappij` 564 · `contemplatie` 1734, 2078 · `content` 308 ·
+`christelijke zelfhulp` 2319 · `christendom` 162, 201, 391, 603, 606, 612,
+754, 1207, 1237, 1268, 1300, 1568, 1829 · `chronische pijn` 1668, 1732 ·
+`chronische ziekte` 1731 · `chronobiologie` 326, 329 · `cia` 693, 750 ·
+`cijfers` 39, 65 · `citaten` 1572 · `civilisatiekritiek` 298 · `classificatie`
+719 · `clitoris` 1548 · `cloud` 2308 · `cloud security` 2301 · `coachbloem`
+1530 · `coaching` 161, 291, 441, 1297, 1510, 1528, 1530, 1630, 1631, 1751,
+1778, 1804, 1817, 1834, 1843, 2019, 2026, 2034, 2059, 2070, 2106 · `cognitie`
+656 · `cognitieve gedragstherapie` 147, 153, 373, 1803, 2319 · `cognitieve
+herformulering` 2131 · `cognitieve herstructurering` 177 · `cognitieve
+neurowetenschap` 763 · `cognitieve psychologie` 759 · `cognitieve therapie`
+1873 · `cognitieve vertekening` 234 · `cognitieve wetenschap` 467 ·
+`cognitieve-bias` 59 · `cognitiewetenschap` 755, 767, 1172 · `collectief
+bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 · `Colombia` 1402 ·
+`columns` 89, 90 · `coma` 763 · `comfortzone` 187 · `command and control`
+2304, 2311 · `commando` 97 · `commentaar` 1806 · `communicatie` 34, 35, 122,
+145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444,
+466, 475, 539, 555, 1272, 1277, 1294, 1304, 1306, 1530, 1589, 1590, 1670,
+1738, 1843, 2056, 2077 · `communisme` 625 · `compassie` 1525, 1527, 1556, 1814
+· `complexiteit` 170, 268, 300, 347, 423, 1258, 1274, 1279, 1861, 2121 ·
+`complimenten geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684, 688,
+690, 914, 915, 916, 917, 920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146,
+1147, 1150, 1152, 1908, 2023 · `complottheorie` 680, 1532 · `componisten` 1749
+· `concentratie` 70, 441, 802, 1879, 2005, 2030 · `concurrentie` 293, 902 ·
+`conditionering` 61, 519, 1569, 1638, 1640 · `conflict` 35, 42, 43, 212, 305,
+1641, 1642, 1843 · `conflictbemiddeling` 304 · `conflicthantering` 271, 1590 ·
+`conformisme` 211, 1295, 1900 · `conjunctuurcyclus` 2125 · `consistentie` 553
+· `consument` 703, 704 · `consumptie` 463, 1651, 1709 · `consumptiekeuzes` 299
+· `consumptiemaatschappij` 564 · `contemplatie` 1734, 2078 · `content` 308 ·
 `content creatie` 365 · `content marketing` 369 · `controlemaatschappij` 2023
 · `controverse` 2003 · `Conversations with God` 1621 · `copywriting` 695, 697,
 698, 699, 701 · `Cor van der Geest` 1834 · `core gifts` 2037 · `corruptie`
@@ -323540,165 +324231,165 @@ stellen` 367, 427, 448, 1501, 1543, 2073 · `doelgericht oefenen` 2128 ·
 `domeincontroller` 2315 · `dominantie` 2057 · `donkere-triade` 124 · `dood`
 98, 169, 292, 535, 822, 1562, 1634, 1728, 1742, 1754, 1911, 2025, 2071 ·
 `doodsangst` 405, 2118 · `doorzetten` 20, 1766 · `doorzettingsvermogen` 185,
-249, 289, 324, 2040 · `dopamine` 314, 418, 2093 · `dorp` 1851 · `dosha's` 1605
-· `dramaturgie` 1201 · `drankindustrie` 1906 · `Dresden` 1771 · `drie-eenheid`
-1836 · `drogredenen` 421, 1918, 2120 · `dromen` 52, 357, 358, 359, 360, 646,
-1121, 1324, 1325, 1326, 1327, 1328, 1329, 1624, 1684, 1917, 2115 · `droom`
-1626 · `droomduiding` 1624 · `drugs` 568 · `drugsbeleid` 1714, 1719 · `duitse
-literatuur` 1202 · `duitsland` 2077 · `Duitsland` 1632, 1884 · `Duivelseiland`
-1850 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92, 1257, 1276, 1651
-· `dwangmatigheid` 1733 · `dyslexie` 1310 · `dystopie` 61, 618, 1757 ·
-`dzogchen` 1734, 1735, 1754 · `e-commerce` 257 · `e-mail` 70, 512 ·
-`e-mailmarketing` 309 · `ecologie` 298, 1257, 1276, 1578, 1592, 2077 ·
-`ecologische crisis` 1575 · `ecomeditatie` 2109 · `economie` 65, 98, 217, 251,
-297, 347, 423, 450, 452, 478, 625, 627, 683, 718, 809, 821, 910, 933, 1257,
-1269, 1276, 1280, 1281, 1332, 1333, 1334, 1336, 1337, 1338, 1339, 1340, 1341,
-1342, 1343 · `economische geschiedenis` 155, 804, 806, 807, 808, 809, 814,
-821, 933, 1287 · `educatief` 327 · `Een cursus in wonderen` 1515, 1644, 1663,
-1697, 1892 · `eenheid` 1644 · `eenvoud` 170, 205, 379, 1762 · `eenzaamheid` 7,
-96, 98, 111, 288, 302, 1200, 1203, 1204, 1205, 1206, 1207, 1209, 1210, 1293,
-1295, 1305, 1402, 1743 · `eer` 530, 534, 2087 · `eerlijk` 47 · `eerlijkheid`
-62 · `eerste duizend dagen` 1750 · `Eerste Wereldoorlog` 1571, 1887 ·
-`eerste-versie` 19 · `Eerste-Wereldoorlog` 1333 · `eetgedrag` 1689 ·
-`effectiviteit` 2070 · `eft` 2111 · `EFT` 1517, 1648, 1745, 2056 · `ego` 75,
-102, 149, 435, 1504, 1536, 1559, 1612, 1637, 1663, 1723, 1734, 1892, 2015,
-2108 · `ego en zelf` 409 · `ego-depletie` 382 · `ego-toestanden` 1511 ·
-`egypte` 591, 594, 595, 596, 597, 599, 602, 1120, 1122, 1126, 1139, 1149,
-1219, 1223, 1232, 1265 · `Egypte` 1542, 1821, 2017 · `eigen bedrijf` 210 ·
-`eigen beheer` 1768 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 ·
-`eigenaarschap` 97 · `eigendom` 1335 · `eigenliefde` 1647 · `eigenwaarde`
-1721, 2099 · `eindigheid` 442 · `einstein` 94 · `Einstein` 1622, 1657 ·
-`eiwit` 2016 · `eiwitten` 2068 · `elektriciteit` 267 · `elektrische auto's`
-266 · `eleusis` 765 · `Eleusis` 1611 · `elites` 682, 1145, 1146 · `Els van
-Steijn` 1602 · `emancipatie` 598 · `EMDR` 386, 2088 · `emigratie` 240, 1581 ·
-`emotie` 1912 · `emotie-eten` 557 · `emoties` 3, 43, 137, 142, 147, 153, 177,
-330, 331, 449, 457, 470, 488, 542, 1311, 1314, 1319, 1508, 1550, 1553, 1636,
-1647, 1745, 1753, 1802, 1810, 1828, 1863, 1872, 1898, 1902, 2026, 2059, 2111 ·
-`Emotion Codex` 2059 · `emotioneel brein` 2088 · `emotionele schaal` 1910 ·
-`empathie` 35, 67, 303, 577, 1641, 1642, 1667, 1678 · `enactivisme` 755 ·
-`endocrinologie` 2107 · `energetisch werk` 560, 1660 · `energetische
-geneeskunde` 2007, 2009 · `energie` 92, 195, 291, 377, 1257, 1273, 1276, 2006,
-2050, 2117 · `energiegevers` 1803 · `energiepsychologie` 2111 · `energiewerk`
-432, 1814 · `Engeland` 1562, 1626, 1634, 1757, 1885 · `engelen` 2025 ·
-`Engelse literatuur` 1666 · `entropie` 539, 818, 1272, 1276, 1277, 1316 ·
-`enzymen` 2051 · `Epictetus` 1710, 1916 · `Epicurus` 2118 · `epigenetica` 208,
-415, 1513, 1588, 1659, 1679, 1722, 1750, 1863, 1894, 2075 · `epos` 5, 530,
-531, 532, 1567 · `erfelijkheid` 419 · `erfenis` 39 · `Eric Berne` 1511 ·
-`erkenningszucht` 406 · `erotiek` 113, 164, 914, 1774 · `ervaring` 1576 ·
-`ervaringsdeskundige` 1549 · `ervaringsverhalen` 1892 · `esoterie` 378, 590,
-603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 642, 643, 644, 645, 647,
-670, 678, 679, 836, 917, 928, 937, 1119, 1120, 1140, 1154, 1157, 1164, 1165,
-1214, 1217, 1218, 1219, 1220, 1221, 1222, 1228, 1229, 1230, 1232, 1234, 1237,
-1239, 1254, 1268, 1520, 1537, 1650, 1684, 1690, 1856, 2017, 2020 · `esoterisch
-christendom` 2025 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232, 952,
-1116, 1294, 1727, 1769 · `essaybundel` 390, 425, 620, 926, 927, 934, 1259,
-1312 · `essays` 523, 656, 830, 1208, 1578, 1583, 1657, 1718, 1724, 1849 ·
-`essentie` 1636 · `esthetica` 756, 1576 · `esthetiek` 824, 828, 832, 1296,
-1299 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612, 665, 819, 1269, 2035,
-2122 · `ethisch hacken` 2303, 2309 · `etnobotanie` 765, 1841 · `etnografie`
-764, 1245 · `eurazië` 694 · `eurocrisis` 2124 · `europa` 751 · `euthanasie`
-2021 · `evangelicalisme` 1715 · `evangelisatie` 201 · `evangelisch` 1836 ·
-`evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518,
-609, 760, 762, 767, 820, 823, 829, 950, 1259, 1262, 1267, 1273, 1275, 1288,
-1308, 1344, 1659, 1676, 1677, 1678, 1708, 1858, 1904, 2066, 2101 ·
-`evolutiebiologie` 452, 453 · `evolutionaire gezondheid` 1565 · `evolutionaire
-psychologie` 1627 · `evolutionaire-psychologie` 67 · `excellentie` 553 ·
-`exclusion zone` 2050 · `excuses` 1738 · `executives` 344 · `existentialisme`
-405, 940, 1727 · `existentiefilosofie` 757 · `existentiële psychotherapie`
-2118 · `expeditie` 36 · `experiment` 79, 215 · `experimenten` 280, 424 ·
-`experimenteren` 265 · `expertise` 283, 320, 376 · `exploitatie` 2308, 2309,
-2317 · `exploitontwikkeling` 2302 · `expressie` 1699 · `extra dimensies` 648 ·
-`extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen`
-23, 72, 75, 312, 422 · `familie` 45, 325, 466, 1400, 1402, 1617, 1870, 2043,
-2086 · `familieconflict` 178 · `familiegeschiedenis` 114, 235 ·
-`familieopstellingen` 1510, 1602, 1636, 1637, 1844, 1914, 2043, 2044 ·
-`familieroman` 10 · `familiesysteem` 1510, 1602 · `fantasie` 1884, 1885, 2048
-· `fantasy` 192, 203, 1562, 1567, 1632, 1634, 2071 · `farmaceutische
-industrie` 752 · `farmacologie` 1714 · `fascisme` 753 · `fawnen` 1617 · `FBI`
-154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541,
-542, 1670, 1740 · `feedbackloops` 2121 · `feiten` 43 · `feminien leiderschap`
-1624 · `feminisme` 3, 620, 624, 1117, 1121, 1124, 1125, 1155, 1169, 1170,
-1224, 1225, 1226, 1229, 1231, 1235, 1236, 1238, 1240, 1241 · `fenomenologie`
-574, 577, 582, 721, 755, 757, 759 · `feuilleton` 1570 · `fictie` 100, 115 ·
-`film` 41, 832 · `filologie` 641 · `filosoferen` 1918 · `filosofie` 1, 6, 71,
-93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
-436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654, 932, 948, 1109, 1111,
-1112, 1115, 1163, 1167, 1260, 1266, 1268, 1296, 1300, 1317, 1555, 1724, 1725,
-1729, 1770, 1774, 2067 · `filosofie van de biologie` 760 ·
-`filosofiegeschiedenis` 269, 639, 1251 · `filosofische antropologie` 584 ·
-`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
-499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903, 1279, 1281, 1283, 1288
-· `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
-wiskunde` 497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395,
-425 · `financiering` 172 · `firewall-evasion` 2300 · `fitgirls` 1807 ·
-`fitness` 2068 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `Florence`
-2114 · `flow` 78, 187, 200, 1563, 1610, 1723, 2109 · `fobie` 1533 · `focus`
-175, 197, 448, 513, 1857 · `folklore` 615, 669, 1216, 1245 · `fondsbeheer`
-2123, 2126 · `forensisch onderzoek` 2301, 2303, 2313 · `fotoboek` 189 ·
-`fotografie` 1313 · `fotosynthese` 2051 · `Foucault` 1774 · `foutcultuur` 422
-· `fouten maken` 509 · `fractals` 811 · `fragmenten` 1200 · `franchise` 544,
-1877 · `frankrijk` 115 · `Frankrijk` 1672, 1727, 1770 · `Frans de Waal` 1675 ·
-`Frans-Guyana` 1850 · `Franse-Weerstand` 390 · `freelance` 515 · `Frijda` 1802
-· `Fromm` 1726 · `Fulani` 522 · `functionele training` 2052 · `fuzzing` 2307,
-2314 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458, 1128, 1130, 2066
-· `fysiotherapie` 1683 · `fytochemicalien` 1604 · `Gaia` 1575 · `Galenus` 328
-· `gamma-golven` 2109 · `gandhi` 2033 · `gaslighting` 123 · `gastheerschap`
-304 · `gastvrijheid` 531 · `gebed` 83, 259, 573, 1207, 1704, 1715, 1849, 1896
-· `gebedsonderzoek` 1531 · `geboorte` 1750 · `gebruikersgedrag` 294 ·
-`gedachten` 148, 177, 1761, 2018 · `gedachtenjournal` 176 · `gedrag` 21, 22,
-89, 90, 138, 154, 280, 330, 383, 425, 802, 1843 · `gedragsbiologie` 322, 339 ·
-`gedragscode` 2095 · `gedragseconomie` 424, 426, 514, 1288 ·
-`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie`
-294, 817, 2126 · `gedragstherapie` 1526, 1842 · `gedragstypen` 156 ·
-`gedragsverandering` 238, 290, 457, 469, 1565, 1907, 2108 ·
-`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800 ·
-`geest` 584, 652, 1167 · `geestelijke gezondheid` 193 · `geestelijke
-gezondheidszorg` 1525 · `geestelijke oefeningen` 586 · `geestelijke
-verzorging` 1575 · `geestestraining` 1556, 1662 · `gegevensanalyse` 486 ·
-`gehechtheid` 166, 2037, 2056 · `geheim genootschap` 202 · `geheime diensten`
-665, 668, 684, 685, 750, 1141, 1147 · `geheime genootschappen` 751 ·
-`geheugen` 66, 85, 175, 414, 766, 801, 1143, 1144, 1171, 1202, 1402, 1674 ·
-`gehoorzaamheid` 215, 617, 1295 · `geïllustreerd boek` 176 · `geïllustreerde
-klassieker` 2092 · `gelaatkunde` 1809 · `geld` 21, 37, 38, 56, 76, 121, 132,
-133, 158, 159, 433, 463, 464, 1654, 1762, 1832, 1890, 2028 · `geldmanagement`
-492, 493 · `geldmindset` 395 · `geldovertuigingen` 1752 · `geldpsychologie`
-233, 264 · `geldstelsel` 680 · `geldtheorie` 1332 · `geloof` 45, 83, 201, 554,
-1620, 1811, 1836, 2086 · `geloofsgeweld` 1707 · `geloofskritiek` 1579 ·
-`geloofsvervolging` 1700 · `geloofsvrijheid` 1702 · `geluk` 79, 93, 160, 228,
-335, 516, 526, 579, 1503, 1561, 1648, 1654, 1665, 1685, 1764, 1825, 1842,
-1852, 1882, 1893 · `gemeenschap` 9, 96, 304, 461, 1291, 1293, 1861 ·
-`gemoedsrust` 1710, 1728, 1838 · `gender` 1675 · `gendergelijkheid` 1548 ·
-`genderrollen` 1500 · `genderverandering` 2119 · `genealogie` 601 ·
-`geneeskunde` 49, 328, 823, 1127, 1129, 1135, 1136, 1259, 1263, 1307, 1668,
-1731, 1869 · `geneesmiddelen` 752, 1133 · `genen` 1894 · `generatieconflict`
-2086 · `generaties` 114 · `generatieve drift` 315 · `Genesis` 1542 ·
-`genetica` 413, 419, 818, 941, 1157, 1275, 1344 · `genezing` 340 · `genot en
-pijn` 314 · `Gent` 1618 · `gentechnologie` 413 · `geo-engineering` 1603 ·
-`geografie` 825 · `geologie` 239 · `geopolitiek` 220, 692, 694 · `George
-Foreman` 1835 · `Georgia` 1518 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94,
-212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597,
-598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687, 689, 690, 693,
-806, 807, 821, 833, 931, 935, 939, 944, 1141, 1145, 1150, 1226, 1229, 1270,
-1291, 1294, 1338, 1345, 1401, 1859, 2024, 2046 · `geschiedenis van de
-geneeskunde` 412, 1132 · `geschiedfilosofie` 235, 1342 · `geschiedschrijving`
-601, 602, 1155, 1233, 1254 · `gesprek` 43, 95, 302, 444, 1294, 1829 ·
-`gesprekken` 1502 · `gespreksleiding` 1918 · `gesprekstechniek` 182, 186, 438,
-1740, 1745, 2034 · `gespreksvoering` 1530, 1919 · `gestalttherapie` 1550, 1801
-· `getallen` 657, 835, 1282, 1312 · `getuigenis` 2083, 2091 · `getuigenissen`
-1685 · `geuren` 1632 · `gevangenendilemma` 453 · `gevangenis` 1837, 1850 ·
-`gevangeniswezen` 1859 · `gevoelens` 2059 · `gevolgen` 67 · `gewaarzijn` 519,
-1735 · `geweld` 45, 90, 214, 1289, 1518, 1746, 1770, 2045, 2062, 2087 ·
-`geweldloos verzet` 2033 · `geweldloosheid` 612, 1644 · `geweldloze
-communicatie` 1641, 1642 · `geweten` 1637 · `gewicht` 138 · `gewichtsverlies`
-2069 · `gewoontelus` 238 · `gewoonten` 187, 373, 1776 · `gewoontes` 7, 11, 13,
-22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158,
-181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557, 1561, 1563,
-1582, 1638, 1648, 1653, 1654, 1688, 1709, 1760, 1761, 1822, 1825, 1853, 1857,
-1860, 1868, 1883, 1907, 2019, 2029, 2073, 2076 · `gewoontevorming` 146, 161,
-168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 ·
-`gezichtsuitdrukking` 1902 · `gezin` 547, 1613, 2056 · `gezinnen` 327 ·
-`gezinsdynamiek` 1595 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332,
-412, 414, 415, 823, 1128, 1129, 1131, 1133, 1134, 1138, 1564, 1647, 1688,
+249, 289, 324, 2040 · `dopamine` 314, 418, 2093, 2320 · `dopaminedetox` 2320 ·
+`dorp` 1851 · `dosha's` 1605 · `dramaturgie` 1201 · `drankindustrie` 1906 ·
+`Dresden` 1771 · `drie-eenheid` 1836 · `drogredenen` 421, 1918, 2120 ·
+`dromen` 52, 357, 358, 359, 360, 646, 1121, 1324, 1325, 1326, 1327, 1328,
+1329, 1624, 1684, 1917, 2115 · `droom` 1626 · `droomduiding` 1624 · `drugs`
+568 · `drugsbeleid` 1714, 1719 · `duitse literatuur` 1202 · `duitsland` 2077 ·
+`Duitsland` 1632, 1884 · `Duivelseiland` 1850 · `dummies` 112 · `durfkapitaal`
+47 · `duurzaamheid` 92, 1257, 1276, 1651 · `dwangmatigheid` 1733 · `dyslexie`
+1310 · `dystopie` 61, 618, 1757 · `dzogchen` 1734, 1735, 1754 · `e-commerce`
+257 · `e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298, 1257, 1276,
+1578, 1592, 2077 · `ecologische crisis` 1575 · `ecomeditatie` 2109 ·
+`economie` 65, 98, 217, 251, 297, 347, 423, 450, 452, 478, 625, 627, 683, 718,
+809, 821, 910, 933, 1257, 1269, 1276, 1280, 1281, 1332, 1333, 1334, 1336,
+1337, 1338, 1339, 1340, 1341, 1342, 1343 · `economische geschiedenis` 155,
+804, 806, 807, 808, 809, 814, 821, 933, 1287 · `educatief` 327 · `Een cursus
+in wonderen` 1515, 1644, 1663, 1697, 1892 · `eenheid` 1644 · `eenvoud` 170,
+205, 379, 1762 · `eenzaamheid` 7, 96, 98, 111, 288, 302, 1200, 1203, 1204,
+1205, 1206, 1207, 1209, 1210, 1293, 1295, 1305, 1402, 1743 · `eer` 530, 534,
+2087 · `eerlijk` 47 · `eerlijkheid` 62 · `eerste duizend dagen` 1750 · `Eerste
+Wereldoorlog` 1571, 1887 · `eerste-versie` 19 · `Eerste-Wereldoorlog` 1333 ·
+`eetgedrag` 1689 · `effectiviteit` 2070 · `eft` 2111 · `EFT` 1517, 1648, 1745,
+2056 · `ego` 75, 102, 149, 435, 1504, 1536, 1559, 1612, 1637, 1663, 1723,
+1734, 1892, 2015, 2108 · `ego en zelf` 409 · `ego-depletie` 382 ·
+`ego-toestanden` 1511 · `egypte` 591, 594, 595, 596, 597, 599, 602, 1120,
+1122, 1126, 1139, 1149, 1219, 1223, 1232, 1265 · `Egypte` 1542, 1821, 2017 ·
+`eigen bedrijf` 210 · `eigen beheer` 1768 · `eigen-beheer` 107, 140, 142 ·
+`eigen-oordeel` 58, 546 · `eigenaarschap` 97 · `eigendom` 1335 · `eigenliefde`
+1647 · `eigenwaarde` 1721, 2099 · `eindigheid` 442 · `einstein` 94 ·
+`Einstein` 1622, 1657 · `eiwit` 2016 · `eiwitten` 2068 · `elektriciteit` 267 ·
+`elektrische auto's` 266 · `eleusis` 765 · `Eleusis` 1611 · `elites` 682,
+1145, 1146 · `Els van Steijn` 1602 · `emancipatie` 598 · `EMDR` 386, 2088 ·
+`emigratie` 240, 1581 · `emotie` 1912 · `emotie-eten` 557 · `emoties` 3, 43,
+137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488, 542, 1311, 1314, 1319,
+1508, 1550, 1553, 1636, 1647, 1745, 1753, 1802, 1810, 1828, 1863, 1872, 1898,
+1902, 2026, 2059, 2111 · `Emotion Codex` 2059 · `emotioneel brein` 2088 ·
+`emotionele schaal` 1910 · `empathie` 35, 67, 303, 577, 1641, 1642, 1667, 1678
+· `enactivisme` 755 · `endocrinologie` 2107 · `energetisch werk` 560, 1660 ·
+`energetische geneeskunde` 2007, 2009 · `energie` 92, 195, 291, 377, 1257,
+1273, 1276, 2006, 2050, 2117 · `energiegevers` 1803 · `energiepsychologie`
+2111 · `energiewerk` 432, 1814 · `Engeland` 1562, 1626, 1634, 1757, 1885 ·
+`engelen` 2025 · `Engelse literatuur` 1666 · `entropie` 539, 818, 1272, 1276,
+1277, 1316 · `enzymen` 2051 · `Epictetus` 1710, 1916 · `Epicurus` 2118 ·
+`epigenetica` 208, 415, 1513, 1588, 1659, 1679, 1722, 1750, 1863, 1894, 2075 ·
+`epos` 5, 530, 531, 532, 1567 · `erfelijkheid` 419 · `erfenis` 39 · `Eric
+Berne` 1511 · `erkenningszucht` 406 · `erotiek` 113, 164, 914, 1774 ·
+`ervaring` 1576 · `ervaringsdeskundige` 1549 · `ervaringsverhalen` 1892 ·
+`esoterie` 378, 590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 642,
+643, 644, 645, 647, 670, 678, 679, 836, 917, 928, 937, 1119, 1120, 1140, 1154,
+1157, 1164, 1165, 1214, 1217, 1218, 1219, 1220, 1221, 1222, 1228, 1229, 1230,
+1232, 1234, 1237, 1239, 1254, 1268, 1520, 1537, 1650, 1684, 1690, 1856, 2017,
+2020 · `esoterisch christendom` 2025 · `essay` 3, 9, 21, 57, 59, 63, 64, 68,
+96, 197, 232, 952, 1116, 1294, 1727, 1769 · `essaybundel` 390, 425, 620, 926,
+927, 934, 1259, 1312 · `essays` 523, 656, 830, 1208, 1578, 1583, 1657, 1718,
+1724, 1849 · `essentie` 1636 · `esthetica` 756, 1576 · `esthetiek` 824, 828,
+832, 1296, 1299 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612, 665, 819,
+1269, 2035, 2122 · `ethisch hacken` 2303, 2309 · `etnobotanie` 765, 1841 ·
+`etnografie` 764, 1245 · `eurazië` 694 · `eurocrisis` 2124 · `europa` 751 ·
+`euthanasie` 2021 · `evangelicalisme` 1715 · `evangelisatie` 201 ·
+`evangelisch` 1836 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
+339, 347, 383, 518, 609, 760, 762, 767, 820, 823, 829, 950, 1259, 1262, 1267,
+1273, 1275, 1288, 1308, 1344, 1659, 1676, 1677, 1678, 1708, 1858, 1904, 2066,
+2101 · `evolutiebiologie` 452, 453 · `evolutionaire gezondheid` 1565 ·
+`evolutionaire psychologie` 1627 · `evolutionaire-psychologie` 67 ·
+`excellentie` 553 · `exclusion zone` 2050 · `excuses` 1738 · `executives` 344
+· `existentialisme` 405, 940, 1727 · `existentiefilosofie` 757 · `existentiële
+psychotherapie` 2118 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
+280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `exploitatie`
+2308, 2309, 2317 · `exploitontwikkeling` 2302 · `expressie` 1699 · `extra
+dimensies` 648 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 ·
+`facilitatie` 304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466,
+1400, 1402, 1617, 1870, 2043, 2086 · `familieconflict` 178 ·
+`familiegeschiedenis` 114, 235 · `familieopstellingen` 1510, 1602, 1636, 1637,
+1844, 1914, 2043, 2044 · `familieroman` 10 · `familiesysteem` 1510, 1602 ·
+`fantasie` 1884, 1885, 2048 · `fantasy` 192, 203, 1562, 1567, 1632, 1634, 2071
+· `farmaceutische industrie` 752 · `farmacologie` 1714 · `fascisme` 753 ·
+`fawnen` 1617 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 ·
+`feedback` 41, 296, 541, 542, 1670, 1740 · `feedbackloops` 2121 · `feiten` 43
+· `feminien leiderschap` 1624 · `feminisme` 3, 620, 624, 1117, 1121, 1124,
+1125, 1155, 1169, 1170, 1224, 1225, 1226, 1229, 1231, 1235, 1236, 1238, 1240,
+1241 · `fenomenologie` 574, 577, 582, 721, 755, 757, 759 · `feuilleton` 1570 ·
+`fictie` 100, 115 · `film` 41, 832 · `filologie` 641 · `filosoferen` 1918 ·
+`filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383,
+390, 391, 392, 393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610, 652,
+654, 932, 948, 1109, 1111, 1112, 1115, 1163, 1167, 1260, 1266, 1268, 1296,
+1300, 1317, 1555, 1724, 1725, 1729, 1770, 1774, 2067 · `filosofie van de
+biologie` 760 · `filosofiegeschiedenis` 269, 639, 1251 · `filosofische
+antropologie` 584 · `financiële geletterdheid` 163 · `financiële markten` 268,
+351, 480, 481, 483, 499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903,
+1279, 1281, 1283, 1288 · `financiële onafhankelijkheid` 264 · `financiele
+vrijheid` 277 · `financiële wiskunde` 497, 507, 810 · `financiële-discipline`
+464 · `financiën` 334, 395, 425 · `financiering` 172 · `firewall-evasion` 2300
+· `fitgirls` 1807 · `fitness` 2068 · `fitnessbranche` 307, 544 · `flitshandel`
+499 · `Florence` 2114 · `flow` 78, 187, 200, 1563, 1610, 1723, 2109 · `fobie`
+1533 · `focus` 175, 197, 448, 513, 1857, 2320 · `folklore` 615, 669, 1216,
+1245 · `fondsbeheer` 2123, 2126 · `forensisch onderzoek` 2301, 2303, 2313 ·
+`fotoboek` 189 · `fotografie` 1313 · `fotosynthese` 2051 · `Foucault` 1774 ·
+`foutcultuur` 422 · `fouten maken` 509 · `fractals` 811 · `fragmenten` 1200 ·
+`franchise` 544, 1877 · `frankrijk` 115 · `Frankrijk` 1672, 1727, 1770 ·
+`Frans de Waal` 1675 · `Frans-Guyana` 1850 · `Franse-Weerstand` 390 ·
+`freelance` 515 · `Frijda` 1802 · `Fromm` 1726 · `Fulani` 522 · `functionele
+training` 2052 · `fuzzing` 2307, 2314 · `fysieke uitdaging` 323 · `fysiologie`
+318, 412, 458, 1128, 1130, 2066 · `fysiotherapie` 1683 · `fytochemicalien`
+1604 · `Gaia` 1575 · `Galenus` 328 · `gamma-golven` 2109 · `gandhi` 2033 ·
+`gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83,
+259, 573, 1207, 1704, 1715, 1849, 1896, 2319 · `gebedsonderzoek` 1531 ·
+`geboorte` 1750 · `gebruikersgedrag` 294 · `gedachten` 148, 177, 1761, 2018,
+2319 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330,
+383, 425, 802, 1843 · `gedragsbiologie` 322, 339 · `gedragscode` 2095 ·
+`gedragseconomie` 424, 426, 514, 1288 · `gedragsonderzoek` 302, 382 ·
+`gedragspatronen` 161 · `gedragspsychologie` 294, 817, 2126 ·
+`gedragstherapie` 1526, 1842 · `gedragstypen` 156 · `gedragsverandering` 238,
+290, 457, 469, 1565, 1907, 2108 · `gedragswetenschap` 166, 209, 305, 468, 469,
+510 · `geduld` 21, 351, 800 · `geest` 584, 652, 1167 · `geestelijke
+gezondheid` 193 · `geestelijke gezondheidszorg` 1525 · `geestelijke
+oefeningen` 586 · `geestelijke verzorging` 1575 · `geestestraining` 1556, 1662
+· `gegevensanalyse` 486 · `gehechtheid` 166, 2037, 2056 · `geheim genootschap`
+202 · `geheime diensten` 665, 668, 684, 685, 750, 1141, 1147 · `geheime
+genootschappen` 751 · `geheugen` 66, 85, 175, 414, 766, 801, 1143, 1144, 1171,
+1202, 1402, 1674 · `gehoorzaamheid` 215, 617, 1295 · `geïllustreerd boek` 176
+· `geïllustreerde klassieker` 2092 · `gelaatkunde` 1809 · `geld` 21, 37, 38,
+56, 76, 121, 132, 133, 158, 159, 433, 463, 464, 1654, 1762, 1832, 1890, 2028 ·
+`geldmanagement` 492, 493 · `geldmindset` 395 · `geldovertuigingen` 1752 ·
+`geldpsychologie` 233, 264 · `geldstelsel` 680 · `geldtheorie` 1332 · `geloof`
+45, 83, 201, 554, 1620, 1811, 1836, 2086 · `geloofsgeweld` 1707 ·
+`geloofskritiek` 1579 · `geloofsvervolging` 1700 · `geloofsvrijheid` 1702 ·
+`geluk` 79, 93, 160, 228, 335, 516, 526, 579, 1503, 1561, 1648, 1654, 1665,
+1685, 1764, 1825, 1842, 1852, 1882, 1893, 2318 · `gemeenschap` 9, 96, 304,
+461, 1291, 1293, 1861 · `gemoedsrust` 1710, 1728, 1838 · `gender` 1675 ·
+`gendergelijkheid` 1548 · `genderrollen` 1500 · `genderverandering` 2119 ·
+`genealogie` 601 · `geneeskunde` 49, 328, 823, 1127, 1129, 1135, 1136, 1259,
+1263, 1307, 1668, 1731, 1869 · `geneesmiddelen` 752, 1133 · `genen` 1894 ·
+`generatieconflict` 2086 · `generaties` 114 · `generatieve drift` 315 ·
+`Genesis` 1542 · `genetica` 413, 419, 818, 941, 1157, 1275, 1344 · `genezing`
+340 · `genot en pijn` 314 · `Gent` 1618 · `gentechnologie` 413 ·
+`geo-engineering` 1603 · `geografie` 825 · `geologie` 239 · `geopolitiek` 220,
+692, 694 · `George Foreman` 1835 · `Georgia` 1518 · `geschiedenis` 30, 36, 56,
+57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591,
+593, 595, 597, 598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687,
+689, 690, 693, 806, 807, 821, 833, 931, 935, 939, 944, 1141, 1145, 1150, 1226,
+1229, 1270, 1291, 1294, 1338, 1345, 1401, 1859, 2024, 2046 · `geschiedenis van
+de geneeskunde` 412, 1132 · `geschiedfilosofie` 235, 1342 ·
+`geschiedschrijving` 601, 602, 1155, 1233, 1254 · `gesprek` 43, 95, 302, 444,
+1294, 1829 · `gesprekken` 1502 · `gespreksleiding` 1918 · `gesprekstechniek`
+182, 186, 438, 1740, 1745, 2034 · `gespreksvoering` 1530, 1919 ·
+`gestalttherapie` 1550, 1801 · `getallen` 657, 835, 1282, 1312 · `getuigenis`
+2083, 2091 · `getuigenissen` 1685 · `geuren` 1632 · `gevangenendilemma` 453 ·
+`gevangenis` 1837, 1850 · `gevangeniswezen` 1859 · `gevoelens` 2059 ·
+`gevolgen` 67 · `gewaarzijn` 519, 1735 · `geweld` 45, 90, 214, 1289, 1518,
+1746, 1770, 2045, 2062, 2087 · `geweldloos verzet` 2033 · `geweldloosheid`
+612, 1644 · `geweldloze communicatie` 1641, 1642 · `geweten` 1637 · `gewicht`
+138 · `gewichtsverlies` 2069 · `gewoontelus` 238 · `gewoonten` 187, 373, 1776
+· `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134,
+135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442,
+445, 513, 557, 1561, 1563, 1582, 1638, 1648, 1653, 1654, 1688, 1709, 1760,
+1761, 1822, 1825, 1853, 1857, 1860, 1868, 1883, 1907, 2019, 2029, 2073, 2076 ·
+`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
+`gezag` 62 · `gezichtsuitdrukking` 1902 · `gezin` 547, 1613, 2056 · `gezinnen`
+327 · `gezinsdynamiek` 1595 · `gezondheid` 52, 88, 171, 181, 318, 323, 329,
+332, 412, 414, 415, 823, 1128, 1129, 1131, 1133, 1134, 1138, 1564, 1647, 1688,
 1828, 1860, 1890, 2007, 2016, 2028, 2104, 2105 · `gezondheidspsychologie` 458
 · `gezondheidszorg` 313, 317, 422, 1132 · `ggz` 104 · `gifstoffen` 1853 ·
 `gift` 1578 · `giftige relaties` 429 · `gijzelingsonderhandelaar` 271 ·
@@ -323949,42 +324640,42 @@ magdalena` 614 · `Maria Magdalena` 1819 · `Mark Janssen` 1633 · `marketing`
 1545, 1555, 1558, 1559, 1560, 1561, 1569, 1599, 1605, 1640, 1664, 1665, 1667,
 1685, 1712, 1717, 1732, 1735, 1737, 1754, 1760, 1761, 1763, 1773, 1775, 1777,
 1806, 1810, 1826, 1832, 1846, 1847, 1857, 1863, 1876, 1889, 2006, 2031, 2046,
-2060, 2096, 2100, 2109 · `meditaties` 2065 · `medium` 1867 · `mediumschap`
-1535 · `meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 · `meetsystemen`
-392 · `melancholie` 1200, 1202 · `melanesië` 717 · `memento mori` 286 ·
-`memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242,
-289, 324, 325, 348, 385, 402, 403, 431, 447, 505, 671, 752, 819, 830, 900,
-911, 925, 934, 941, 942, 949, 1114, 1142, 1204, 1205, 1228, 1283, 1286, 1303,
-1304, 1305, 1306, 1312, 1313, 1512, 1514, 1522, 1539, 1573, 1585, 1596, 1601,
-1617, 1620, 1622, 1691, 1694, 1714, 1732, 1758, 1765, 1767, 1777, 1847, 1850,
-1867, 2003, 2004, 2005, 2040, 2097, 2098 · `mens en dier` 584 · `menselijk
-gedrag` 155 · `menselijke natuur` 1859 · `menselijke oorsprong` 1904 ·
-`mensenkennis` 126, 356 · `menstruatie` 1121 · `mentale gezondheid` 315 ·
-`mentale helderheid` 148 · `mentale training` 1871 · `mentale weerbaarheid`
-229, 323, 372, 373, 374, 545, 2063 · `mentalisme` 378, 399 · `mentorschap` 4,
-285, 289, 320, 402 · `Mer-Ka-Ba` 1821 · `Merel Teunis` 1739 · `meridianen`
-2007 · `merken` 279, 700, 701, 705 · `metabolic typing` 2052 · `metabolisme`
-313 · `metacognitie` 2130 · `metafictie` 1771 · `metafoor` 1630 · `metafysica`
-102, 518, 584, 587, 1742 · `metasploit` 2308 · `Metasploit` 2302 · `meten` 69,
-133, 695, 697 · `meteorologie` 1839 · `meterpreter` 2308 · `methaan` 1603 ·
-`methode` 81, 764, 2009 · `methodologie` 1337, 1340, 1342, 1343 ·
-`methylering` 1894 · `Mexico` 1841, 1858 · `microbedrijf` 40, 172 ·
-`microbioom` 417 · `middelbare-leeftijd` 7 · `middeleeuwen` 534, 632, 822,
-947, 1107, 1216, 1263, 1282, 1649, 1701 · `Midden-aarde` 1567 ·
-`midden-oosten` 720 · `middenrif` 1756 · `midlife` 324 · `midrasj` 1542 ·
-`migratie` 1553 · `milieu` 1651, 1744 · `militair` 2064 · `militaire doctrine`
-2122 · `militaire geschiedenis` 568 · `militaire strategie` 220 ·
-`millennials` 159 · `Milton` 1885 · `Milton Erickson` 1546 · `mind-body` 2008
-· `minderheden` 68 · `minderheidsstandpunt` 761 · `mindful` 103 ·
-`mindfulness` 141, 147, 149, 177, 333, 401, 1525, 1526, 1561, 1606, 1645,
-1664, 1761, 1846, 1871, 1872, 2096, 2100 · `mindset` 146, 181, 188, 387, 458,
-1669, 1752, 2018, 2019, 2028, 2064, 2069 · `Mindvalley` 1760 · `minimalisme`
-181 · `misdaad` 254, 1148, 1707 · `misleiding` 219, 272, 677 · `mislukking`
-516, 1331 · `mismatchziekten` 1708 · `missie` 567 · `mitochondriën` 313 ·
-`mobiele beveiliging` 2302 · `mode` 833 · `modellen` 300 · `modelleren` 139 ·
-`modellering` 455 · `modelvorming` 2121 · `modulariteit` 1627 · `moed` 44,
-529, 1519, 2071 · `moeder en dochter` 1522, 1600, 1650, 1887 ·
-`moeder-en-zoon` 26 · `moeder-kindrelatie` 1862 · `moederkoren` 765, 1611 ·
+2060, 2096, 2100, 2109, 2318 · `meditaties` 2065 · `medium` 1867 ·
+`mediumschap` 1535 · `meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 ·
+`meetsystemen` 392 · `melancholie` 1200, 1202 · `melanesië` 717 · `memento
+mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191,
+226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431, 447, 505, 671, 752,
+819, 830, 900, 911, 925, 934, 941, 942, 949, 1114, 1142, 1204, 1205, 1228,
+1283, 1286, 1303, 1304, 1305, 1306, 1312, 1313, 1512, 1514, 1522, 1539, 1573,
+1585, 1596, 1601, 1617, 1620, 1622, 1691, 1694, 1714, 1732, 1758, 1765, 1767,
+1777, 1847, 1850, 1867, 2003, 2004, 2005, 2040, 2097, 2098 · `mens en dier`
+584 · `menselijk gedrag` 155 · `menselijke natuur` 1859 · `menselijke
+oorsprong` 1904 · `mensenkennis` 126, 356 · `menstruatie` 1121 · `mentale
+gezondheid` 315 · `mentale helderheid` 148 · `mentale training` 1871 ·
+`mentale weerbaarheid` 229, 323, 372, 373, 374, 545, 2063 · `mentalisme` 378,
+399 · `mentorschap` 4, 285, 289, 320, 402 · `Mer-Ka-Ba` 1821 · `Merel Teunis`
+1739 · `meridianen` 2007 · `merken` 279, 700, 701, 705 · `metabolic typing`
+2052 · `metabolisme` 313 · `metacognitie` 2130 · `metafictie` 1771 ·
+`metafoor` 1630 · `metafysica` 102, 518, 584, 587, 1742 · `metasploit` 2308 ·
+`Metasploit` 2302 · `meten` 69, 133, 695, 697 · `meteorologie` 1839 ·
+`meterpreter` 2308 · `methaan` 1603 · `methode` 81, 764, 2009 · `methodologie`
+1337, 1340, 1342, 1343 · `methylering` 1894 · `Mexico` 1841, 1858 ·
+`microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
+`middeleeuwen` 534, 632, 822, 947, 1107, 1216, 1263, 1282, 1649, 1701 ·
+`Midden-aarde` 1567 · `midden-oosten` 720 · `middenrif` 1756 · `midlife` 324 ·
+`midrasj` 1542 · `migratie` 1553 · `milieu` 1651, 1744 · `militair` 2064 ·
+`militaire doctrine` 2122 · `militaire geschiedenis` 568 · `militaire
+strategie` 220 · `millennials` 159 · `Milton` 1885 · `Milton Erickson` 1546 ·
+`mind-body` 2008 · `minderheden` 68 · `minderheidsstandpunt` 761 · `mindful`
+103 · `mindfulness` 141, 147, 149, 177, 333, 401, 1525, 1526, 1561, 1606,
+1645, 1664, 1761, 1846, 1871, 1872, 2096, 2100, 2318 · `mindset` 146, 181,
+188, 387, 458, 1669, 1752, 2018, 2019, 2028, 2064, 2069 · `Mindvalley` 1760 ·
+`minimalisme` 181 · `misdaad` 254, 1148, 1707 · `misleiding` 219, 272, 677 ·
+`mislukking` 516, 1331 · `mismatchziekten` 1708 · `missie` 567 ·
+`mitochondriën` 313 · `mobiele beveiliging` 2302 · `mode` 833 · `modellen` 300
+· `modelleren` 139 · `modellering` 455 · `modelvorming` 2121 · `modulariteit`
+1627 · `moed` 44, 529, 1519, 2071 · `moeder en dochter` 1522, 1600, 1650, 1887
+· `moeder-en-zoon` 26 · `moeder-kindrelatie` 1862 · `moederkoren` 765, 1611 ·
 `moederschap` 1758 · `momentum` 481 · `monetair beleid` 2124 · `monnik` 1664 ·
 `monniksleven` 230, 1207 · `monomythe` 410 · `monopolie` 306 · `monsters` 532
 · `Montségur` 1700 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263, 1627, 1676,
@@ -324018,29 +324709,30 @@ oorlogen` 235 · `narcisme` 258, 404 · `narratieve non-fictie` 2122 · `naslag`
 104, 105, 106, 107, 108, 128, 130, 131, 141, 1327, 2064 · `Nederlands` 1501,
 1527, 1616, 1768, 1769, 2013, 2042 · `nederlands-auteur` 140 · `Nederlandse
 literatuur` 1600 · `nederlandstalig` 113 · `nederzetting` 2021 · `nee zeggen`
-1670 · `negatieve emoties` 176 · `negatieve visualisatie` 1710 · `negentiende
-eeuw` 751, 1127, 1128, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1325,
-1676, 1677, 2024 · `negentig dagen` 188 · `neoliberalisme` 2022 ·
-`neolithicum` 1886 · `neopaganisme` 611, 637, 1126, 1224, 1227, 1228, 1230,
-1231, 1233, 1244, 1245 · `neotantra` 1773 · `nepnieuws` 237 · `netwerkanalyse`
-2303 · `netwerkbeveiliging` 2309 · `netwerken` 24, 246, 300, 388, 508, 1766,
-2317 · `netwerkinfrastructuur` 2311 · `netwerkprogrammering` 2313 ·
-`netwerkscanning` 2300 · `neurobiologie` 119, 1680 · `neurochirurgie` 49, 414
-· `neurodiversiteit` 1306, 1308, 1309, 1310, 1313, 2005 · `neurolinguïstisch
-programmeren` 1533 · `neurologie` 325, 1307, 1319, 1674 · `neuroplasticiteit`
-175, 208, 414, 1818 · `neuropsychologie` 1879 · `neurose` 575 ·
-`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
-418, 513, 585, 801, 829, 943, 1160, 1171, 1172, 1173, 1174, 1311, 1317, 1319,
-1320, 1563, 1610, 1818, 1902, 2013, 2109 · `neurowetenschap-voor-kinderen` 327
-· `neusademing` 318 · `new age` 149, 435, 449, 549, 670, 678, 679, 768, 1122,
-1156, 1241, 1242, 1660, 1661, 1667, 1820, 1821, 2101, 2115, 2116 · `New Age`
-1532, 1585, 1586, 1591, 1827, 1891, 1904 · `new journalism` 1835 · `New
-Orleans` 1706 · `new thought` 259, 380, 555, 1704 · `New Thought` 1607, 1629,
-1703, 1748, 1896, 1898, 1910, 2014 · `new world order` 2023 · `New York` 1581,
-1772 · `NeXT` 46, 1331 · `niet-oordelen` 1892 · `nietsdoen` 1840 · `Nietzsche`
-391 · `Nieuw-Zeeland` 1906, 2061 · `nieuwe gedachte` 127, 378 · `nieuwe
-spiritualiteit` 1621 · `nieuwe tijd` 1697 · `nieuwetijdskind` 1650 · `nieuws`
-60, 90 · `nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nieuwspraak` 1757 ·
+1670 · `negatieve emoties` 176 · `negatieve visualisatie` 1710 ·
+`negativiteitsbias` 2318 · `negentiende eeuw` 751, 1127, 1128, 1130, 1131,
+1132, 1133, 1134, 1135, 1136, 1137, 1325, 1676, 1677, 2024 · `negentig dagen`
+188 · `neoliberalisme` 2022 · `neolithicum` 1886 · `neopaganisme` 611, 637,
+1126, 1224, 1227, 1228, 1230, 1231, 1233, 1244, 1245 · `neotantra` 1773 ·
+`nepnieuws` 237 · `netwerkanalyse` 2303 · `netwerkbeveiliging` 2309 ·
+`netwerken` 24, 246, 300, 388, 508, 1766, 2317 · `netwerkinfrastructuur` 2311
+· `netwerkprogrammering` 2313 · `netwerkscanning` 2300 · `neurobiologie` 119,
+1680 · `neurochirurgie` 49, 414 · `neurodiversiteit` 1306, 1308, 1309, 1310,
+1313, 2005 · `neurolinguïstisch programmeren` 1533 · `neurologie` 325, 1307,
+1319, 1674 · `neuroplasticiteit` 175, 208, 414, 1818, 2318, 2319 ·
+`neuropsychologie` 1879 · `neurose` 575 · `neurowetenschap` 52, 208, 238, 275,
+314, 326, 330, 331, 333, 339, 340, 386, 418, 513, 585, 801, 829, 943, 1160,
+1171, 1172, 1173, 1174, 1311, 1317, 1319, 1320, 1563, 1610, 1818, 1902, 2013,
+2109, 2318 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
+age` 149, 435, 449, 549, 670, 678, 679, 768, 1122, 1156, 1241, 1242, 1660,
+1661, 1667, 1820, 1821, 2101, 2115, 2116 · `New Age` 1532, 1585, 1586, 1591,
+1827, 1891, 1904 · `new journalism` 1835 · `New Orleans` 1706 · `new thought`
+259, 380, 555, 1704 · `New Thought` 1607, 1629, 1703, 1748, 1896, 1898, 1910,
+2014 · `new world order` 2023 · `New York` 1581, 1772 · `NeXT` 46, 1331 ·
+`niet-oordelen` 1892 · `nietsdoen` 1840 · `Nietzsche` 391 · `Nieuw-Zeeland`
+1906, 2061 · `nieuwe gedachte` 127, 378 · `nieuwe spiritualiteit` 1621 ·
+`nieuwe tijd` 1697 · `nieuwetijdskind` 1650 · `nieuws` 60, 90 ·
+`nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nieuwspraak` 1757 ·
 `nihilisme` 1770 · `Nike` 20 · `nlp` 123, 125, 139 · `NLP` 1530, 1533, 1543,
 1630, 1631, 1804, 1809, 1868 · `nmap` 2300 · `Nobelprijs` 55, 2000 ·
 `non-coöperatie` 2033 · `non-dualiteit` 520, 1100, 1102, 1502, 1504, 1536,
@@ -324136,21 +324828,21 @@ Winfrey` 1748, 2003 · `Oprah's Book Club` 1620 · `opstand` 1770 ·
 1292, 1314 · `persoonlijkheidstypen` 361, 1292 · `perspectief` 580, 1729 ·
 `Peru` 1570, 1585, 1591 · `Perzië` 524, 525, 526, 536 · `pesten` 1633 ·
 `peyote` 1608 · `Phantasien` 1884 · `Phoenix Opleidingen` 1844 · `piekeren`
-105, 176, 1526, 1563, 1852, 2131 · `pijn` 85, 255, 1558 · `pijnappelklier`
-1545 · `pijnbestrijding` 1869 · `pijnlichaam` 435 · `piraten` 1686 · `Pixar`
-41, 46, 1331 · `plaats` 825 · `placebo` 387, 469, 1513, 1588 · `planeconomie`
-1334 · `planetaire gezondheid` 1575 · `planeten` 99, 1123 · `planning` 70,
-276, 2029, 2030, 2032, 2053 · `plantaardig` 2016, 2068 · `plantaardig eten`
-1604 · `plantaardig-dieet` 324 · `planten` 1841 · `plastische chirurgie` 411 ·
-`plato` 581 · `pleasen` 1617 · `Pleiaden` 1856 · `plicht` 2 · `podcast` 136,
-465, 513, 1503, 1764, 2096 · `poëzie` 204, 611, 1110, 1115, 1210, 1211, 1304,
-1330, 1681, 1746, 2000, 2119 · `poker` 137 · `polarisatie` 305, 1729, 1747 ·
-`polariteit` 1500, 1741 · `polemiek` 67, 1592 · `Polen` 2000 · `politicologie`
-220, 221, 453, 455 · `politiek` 54, 219, 438, 629, 680, 681, 688, 1269 ·
-`politiek geloof` 751 · `politieke analyse` 753 · `politieke economie` 566,
-933 · `politieke filosofie` 394, 623, 624, 626, 627, 628, 935, 2033, 2114 ·
-`politieke orde` 716 · `politiewerk` 2062 · `polygamie` 1707 ·
-`polyvagaaltheorie` 1623, 1628, 1655 · `populair` 77, 129, 133 ·
+105, 176, 1526, 1563, 1852, 2131, 2319 · `pijn` 85, 255, 1558 ·
+`pijnappelklier` 1545 · `pijnbestrijding` 1869 · `pijnlichaam` 435 · `piraten`
+1686 · `Pixar` 41, 46, 1331 · `plaats` 825 · `placebo` 387, 469, 1513, 1588 ·
+`planeconomie` 1334 · `planetaire gezondheid` 1575 · `planeten` 99, 1123 ·
+`planning` 70, 276, 2029, 2030, 2032, 2053 · `plantaardig` 2016, 2068 ·
+`plantaardig eten` 1604 · `plantaardig-dieet` 324 · `planten` 1841 ·
+`plastische chirurgie` 411 · `plato` 581 · `pleasen` 1617 · `Pleiaden` 1856 ·
+`plicht` 2 · `podcast` 136, 465, 513, 1503, 1764, 2096 · `poëzie` 204, 611,
+1110, 1115, 1210, 1211, 1304, 1330, 1681, 1746, 2000, 2119 · `poker` 137 ·
+`polarisatie` 305, 1729, 1747 · `polariteit` 1500, 1741 · `polemiek` 67, 1592
+· `Polen` 2000 · `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438,
+629, 680, 681, 688, 1269 · `politiek geloof` 751 · `politieke analyse` 753 ·
+`politieke economie` 566, 933 · `politieke filosofie` 394, 623, 624, 626, 627,
+628, 935, 2033, 2114 · `politieke orde` 716 · `politiewerk` 2062 · `polygamie`
+1707 · `polyvagaaltheorie` 1623, 1628, 1655 · `populair` 77, 129, 133 ·
 `populair-wetenschappelijk` 88, 239, 326, 418, 451, 1262, 1680 · `populaire
 filosofie` 194, 1724 · `populaire neurowetenschap` 1907 · `populaire
 psychologie` 156, 429, 1511, 1533, 1589, 1743, 1832 · `populaire wetenschap`
@@ -324172,60 +324864,61 @@ studies` 720 · `postman` 2305 · `postmarxisme` 628 · `postmodernisme` 565,
 `prestatiebeoordeling` 256 · `prestatiecultuur` 461 · `prestatieonderzoek` 376
 · `prestaties` 1883 · `prestige` 515 · `pretexting` 2310 · `preventie` 86,
 313, 1759, 2104, 2105 · `prijscontrole` 1336 · `prijsstelling` 307 ·
-`prijsvorming` 1334 · `prijzen` 23, 424 · `prikkels` 60, 65 ·
-`prikkelverwerking` 1523 · `primal therapy` 1646 · `primaten` 1675, 1678 ·
-`Prinses Máxima Centrum` 1514 · `prioriteiten` 25, 196, 1762, 1776 ·
-`prioriteren` 151, 311, 448 · `privacy` 393, 687, 2023 · `privatisering` 2022
-· `privilege escalation` 2306 · `proactief` 25 · `probleemdenken` 2094 ·
-`procestrauma` 1751 · `producer` 17 · `product` 446 · `productie` 912 ·
-`productiviteit` 151, 175, 197, 207, 244, 276, 278, 290, 311, 400, 434, 442,
-448, 512, 552, 802, 904, 1879, 1913, 2029, 2030, 2053, 2128 · `productontwerp`
-231, 294 · `productontwikkeling` 265, 471 · `proeven` 112 · `programmering`
-439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384, 562, 566,
-686, 1757 · `propositielogica` 437, 2120 · `protestantisme` 1577 · `protocol`
-69 · `protocollen` 2303 · `prototype pollution` 2316 · `provocatieve therapie`
-2106 · `prozagedicht` 1540 · `pseudokennis` 126 · `pseudoniem` 378 ·
-`pseudowetenschap` 673, 1120, 1139, 1152, 1156, 1219, 1240, 1243, 1531, 1607,
-1748, 1809, 1904, 1909, 2050 · `psychedelica` 275, 765, 925, 1159, 1162, 1608,
-1610, 1611, 1714, 1742, 1763 · `psychiatrie` 1, 48, 95, 96, 104, 213, 314,
-315, 317, 331, 671, 1314, 1315, 1506, 1511, 1521, 1527, 1554, 1601, 1684,
-1719, 1720, 2088 · `psychische gezondheid` 1718 · `psycho-neuro-immunologie`
-1647 · `psychoanalyse` 223, 360, 361, 405, 409, 575, 610, 703, 833, 1203,
-1323, 1330, 1726, 1830, 1900 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105,
-138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254, 258, 296, 310,
-338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457, 463, 467, 468, 469,
-487, 501, 514, 538, 541, 542, 582, 665, 801, 802, 828, 928, 936, 943, 951,
-1161, 1166, 1255, 1258, 1292, 1321, 1322, 1326, 1523, 1594, 1595, 1606, 1645,
-1715, 1730, 1778, 1802, 1833, 1843, 1902, 2090, 2106, 2108, 2310 ·
-`psychologische experimenten` 1859 · `psychologische flexibiliteit` 460 ·
-`psychologische functies` 361 · `psychopathie` 429 · `psychose` 671 ·
-`psychosomatiek` 1586, 1668, 1689, 1812, 1828 · `psychotherapie` 164, 227,
-386, 406, 769, 1158, 1309, 1539, 1541, 1546, 1745, 1804, 1862, 1873, 2036,
-2043, 2049 · `PTSS` 386, 1656 · `puberteit` 2004 · `publiceren` 13 · `publiek
-opbouwen` 369 · `publieksfilosofie` 269 · `Pulitzer` 5 · `Pulitzerprijs` 1706
-· `punk` 834 · `puzzels` 451, 1212 · `pythagoras` 1690 · `python` 2313 ·
-`Python` 486 · `qi` 1831 · `quantum` 94, 650, 653 · `quarks` 1658 · `queeste`
-522, 1567 · `Querido` 1681 · `quilten` 114 · `quotes` 179 · `ra` 2020 ·
-`raamvertelling` 1538, 1851 · `racisme` 601, 602, 1518, 1519, 1619, 1875 ·
-`Radboudumc` 1813 · `radicale theologie` 1579 · `radicale transparantie` 270 ·
-`radio` 1503, 1570 · `Ramana Maharshi` 2031 · `RAND` 454, 456 · `rapportage`
-2312 · `Rat-Pack` 178 · `rationaliteit` 454 · `rationeel-emotieve therapie`
-1584 · `rationele keuze` 455 · `realiteitscreatie` 1705 · `rebalancing` 1615 ·
-`rebirthing` 1696 · `recepten` 1864, 1881, 1895 · `recht` 393, 827 ·
-`rechtsfilosofie` 827 · `rechtsgeschiedenis` 827 · `rechtspraak` 69, 1519,
-1888 · `rechtvaardigheid` 623, 1678 · `reclame` 206, 279, 443, 446, 563, 673,
-695, 696, 697, 698, 699, 700, 701, 702, 705, 1906 · `reclamebureau` 701 ·
-`reclamegeschiedenis` 700, 703 · `reclamekritiek` 704 · `reclameonderzoek` 696
-· `reclametheorie` 700 · `reconnaissance` 2300, 2306 · `reconsolidatie` 1868 ·
-`red teaming` 2304, 2311, 2315 · `reeks` 114, 192 · `reflectie` 1572, 1673 ·
-`reflectiemethode` 1624 · `reflectievragen` 1602 · `Reformatie` 1900 ·
-`regels` 2095 · `regimeverandering` 220 · `regressietherapie` 1646, 2075 ·
-`regulering` 1336 · `reincarnatie` 1827, 1911 · `reïncarnatie` 202, 645, 1585,
-1661, 2017, 2020, 2025, 2075 · `reïnventie` 344 · `reisverhaal` 1, 1202, 1534,
-1593, 2089 · `reisverslag` 1684 · `reizen` 278, 1767 · `relaties` 34, 51, 101,
-120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406,
-466, 1500, 1509, 1517, 1541, 1549, 1589, 1726, 1738, 1745, 1773, 1819, 1843,
-1849, 1870, 1878, 2037, 2056, 2093 · `relatietherapie` 165, 1590, 1738 ·
+`prijsvorming` 1334 · `prijzen` 23, 424 · `prikkelbeheersing` 2320 ·
+`prikkels` 60, 65 · `prikkelverwerking` 1523 · `primal therapy` 1646 ·
+`primaten` 1675, 1678 · `Prinses Máxima Centrum` 1514 · `prioriteiten` 25,
+196, 1762, 1776 · `prioriteren` 151, 311, 448 · `privacy` 393, 687, 2023 ·
+`privatisering` 2022 · `privilege escalation` 2306 · `proactief` 25 ·
+`probleemdenken` 2094 · `procestrauma` 1751 · `producer` 17 · `product` 446 ·
+`productie` 912 · `productiviteit` 151, 175, 197, 207, 244, 276, 278, 290,
+311, 400, 434, 442, 448, 512, 552, 802, 904, 1879, 1913, 2029, 2030, 2053,
+2128 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471 · `proeven`
+112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108 ·
+`propaganda` 60, 384, 562, 566, 686, 1757 · `propositielogica` 437, 2120 ·
+`protestantisme` 1577 · `protocol` 69 · `protocollen` 2303 · `prototype
+pollution` 2316 · `provocatieve therapie` 2106 · `prozagedicht` 1540 ·
+`pseudokennis` 126 · `pseudoniem` 378 · `pseudowetenschap` 673, 1120, 1139,
+1152, 1156, 1219, 1240, 1243, 1531, 1607, 1748, 1809, 1904, 1909, 2050 ·
+`psychedelica` 275, 765, 925, 1159, 1162, 1608, 1610, 1611, 1714, 1742, 1763 ·
+`psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317, 331, 671, 1314, 1315,
+1506, 1511, 1521, 1527, 1554, 1601, 1684, 1719, 1720, 2088 · `psychische
+gezondheid` 1718 · `psycho-neuro-immunologie` 1647 · `psychoanalyse` 223, 360,
+361, 405, 409, 575, 610, 703, 833, 1203, 1323, 1330, 1726, 1830, 1900 ·
+`psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162,
+200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382,
+384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514, 538, 541, 542,
+582, 665, 801, 802, 828, 928, 936, 943, 951, 1161, 1166, 1255, 1258, 1292,
+1321, 1322, 1326, 1523, 1594, 1595, 1606, 1645, 1715, 1730, 1778, 1802, 1833,
+1843, 1902, 2090, 2106, 2108, 2310 · `psychologische experimenten` 1859 ·
+`psychologische flexibiliteit` 460 · `psychologische functies` 361 ·
+`psychopathie` 429 · `psychose` 671 · `psychosomatiek` 1586, 1668, 1689, 1812,
+1828 · `psychotherapie` 164, 227, 386, 406, 769, 1158, 1309, 1539, 1541, 1546,
+1745, 1804, 1862, 1873, 2036, 2043, 2049 · `PTSS` 386, 1656 · `puberteit` 2004
+· `publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
+`Pulitzer` 5 · `Pulitzerprijs` 1706 · `punk` 834 · `puzzels` 451, 1212 ·
+`pythagoras` 1690 · `python` 2313 · `Python` 486 · `qi` 1831 · `quantum` 94,
+650, 653 · `quarks` 1658 · `queeste` 522, 1567 · `Querido` 1681 · `quilten`
+114 · `quotes` 179 · `ra` 2020 · `raamvertelling` 1538, 1851 · `racisme` 601,
+602, 1518, 1519, 1619, 1875 · `Radboudumc` 1813 · `radicale theologie` 1579 ·
+`radicale transparantie` 270 · `radio` 1503, 1570 · `Ramana Maharshi` 2031 ·
+`RAND` 454, 456 · `rapportage` 2312 · `Rat-Pack` 178 · `rationaliteit` 454 ·
+`rationeel-emotieve therapie` 1584 · `rationele keuze` 455 ·
+`realiteitscreatie` 1705 · `rebalancing` 1615 · `rebirthing` 1696 · `recepten`
+1864, 1881, 1895 · `recht` 393, 827 · `rechtsfilosofie` 827 ·
+`rechtsgeschiedenis` 827 · `rechtspraak` 69, 1519, 1888 · `rechtvaardigheid`
+623, 1678 · `reclame` 206, 279, 443, 446, 563, 673, 695, 696, 697, 698, 699,
+700, 701, 702, 705, 1906 · `reclamebureau` 701 · `reclamegeschiedenis` 700,
+703 · `reclamekritiek` 704 · `reclameonderzoek` 696 · `reclametheorie` 700 ·
+`reconnaissance` 2300, 2306 · `reconsolidatie` 1868 · `red teaming` 2304,
+2311, 2315 · `reeks` 114, 192 · `reflectie` 1572, 1673 · `reflectiemethode`
+1624 · `reflectievragen` 1602 · `Reformatie` 1900 · `regels` 2095 ·
+`regimeverandering` 220 · `regressietherapie` 1646, 2075 · `regulering` 1336 ·
+`reincarnatie` 1827, 1911 · `reïncarnatie` 202, 645, 1585, 1661, 2017, 2020,
+2025, 2075 · `reïnventie` 344 · `reisverhaal` 1, 1202, 1534, 1593, 2089 ·
+`reisverslag` 1684 · `reizen` 278, 1767 · `relaties` 34, 51, 101, 120, 122,
+145, 152, 162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466, 1500,
+1509, 1517, 1541, 1549, 1589, 1726, 1738, 1745, 1773, 1819, 1843, 1849, 1870,
+1878, 2037, 2056, 2093 · `relatietherapie` 165, 1590, 1738 ·
 `relativiteitstheorie` 240, 281, 945 · `religie` 56, 572, 596, 599, 626, 936,
 937, 1138, 1170, 1173, 1226, 1233, 1236, 1290, 1291, 1657, 1805 ·
 `religiegeschiedenis` 1611, 1876 · `religiekritiek` 1629 · `religieus
@@ -324406,7 +325099,7 @@ wereldoorlog` 2075, 2122 · `tweede-wereldoorlog` 115, 819, 1140 · `tweelingen`
 1157, 2020 · `ufo's` 615, 675, 676, 1141, 1142, 1143, 1144 ·
 `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uithoudingsvermogen` 1514,
 2066 · `uitleg` 99, 102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag`
-12, 311, 513, 1584 · `uitstellen` 16 · `uitvinding` 267, 1152 ·
+12, 311, 513, 1584, 2320 · `uitstellen` 16 · `uitvinding` 267, 1152 ·
 `ultra-triatlon` 324 · `ultraloop` 1858 · `ultralopen` 229 · `ultramarathon`
 2040 · `umwelt` 322 · `Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 ·
 `vaardigheden` 40, 50, 349, 397, 1738 · `vaardigheden leren` 2128 ·
@@ -324552,9 +325245,9 @@ nidra` 1732 · `young adult` 192 · `youtube` 245 · `Zaire` 1835 · `zakelijk`
 1852, 1860, 1866, 1868, 1870, 1873, 1882, 1889, 1893, 1896, 1909, 1910, 1912,
 2005, 2006, 2007, 2008, 2009, 2013, 2018, 2028, 2036, 2037, 2042, 2052, 2056,
 2059, 2064, 2073, 2076, 2079, 2080, 2088, 2095, 2099, 2100, 2103, 2108, 2111,
-2128, 2129, 2130, 2131 · `zelfhulpkritiek` 1769 · `zelfkennis` 258, 260, 361,
-519, 526, 1640, 1778 · `zelfkritiek` 1645, 1693 · `zelfleiderschap` 1598, 1669
-· `zelfliefde` 190, 195, 204, 380, 403, 549, 1517, 1549, 1739, 1817 ·
+2128, 2129, 2130, 2131, 2320 · `zelfhulpkritiek` 1769 · `zelfkennis` 258, 260,
+361, 519, 526, 1640, 1778 · `zelfkritiek` 1645, 1693 · `zelfleiderschap` 1598,
+1669 · `zelfliefde` 190, 195, 204, 380, 403, 549, 1517, 1549, 1739, 1817 ·
 `zelfmoord` 1727 · `zelfmoordpoging` 2001 · `zelfonderzoek` 315, 470, 520,
 527, 579, 1101, 1203, 1208, 1502, 1534, 1572, 1612, 1624, 1652, 1665, 1673,
 1838, 1878, 1917, 2031 · `zelfontdekking` 2047 · `zelfontplooiing` 393, 1234,
@@ -328820,3 +329513,45 @@ beklijft wanneer de lezer een aanval zelf laat draaien in een omgeving die hij
 begrijpt, niet wanneer hij er een beschrijving van leest. Wie allebei leest,
 ziet hoe dezelfde overtuiging, leren door zelf te doen, in twee generaties
 leermateriaal is uitgewerkt.
+
+**Afzien om weer te voelen** (314, 288, 2320). 
+Drie boeken schrijven dezelfde eerste stap voor: een tijd zonder de prikkel
+die de aandacht opslokt, zodat gewone bezigheden weer iets opleveren. Lembke
+(314) komt er als psychiater op uit via verslaving en tolerantie, en laat
+patiënten dertig dagen afzien van hun middel. Newport (288) past hetzelfde
+ritme toe op de telefoon, met een opschoning van dertig dagen waarna elke
+dienst alleen terugkomt als ze een gekozen waarde dient. Trenton (2320) maakt
+er een zelfhulpprogramma van onder de noemer dopaminedetox. Naast elkaar
+gelezen valt op hoe de onderbouwing afneemt van spreekkamer naar
+zelfpublicatie, terwijl het advies vrijwel gelijk blijft.
+
+**Meditatie en het brein: belofte en toets** (2318, 2109, 333). 
+Hanson en Mendius (2318) vertaalden in 2009 boeddhistische oefenstof naar
+hersenonderzoek, met de belofte dat korte, herhaalde momenten van aandacht de
+hersenen blijvend vormen. Church (2109) gaat in 2020 verder en stelt dat een
+samengestelde oefening binnen enkele weken meetbare veranderingen geeft.
+Goleman en Davidson (333) zijn de toets op beide: na het doorzoeken van het
+meditatieonderzoek concluderen zij dat blijvende veranderingen pas na veel
+begeleide beoefening te zien zijn, en dat veel populaire claims op tijdelijke
+toestanden rusten. Het derde boek is de maatstaf om de eerste twee aan af te
+meten.
+
+**Boeddhistische psychologie in westerse taal** (1606, 2318, 1645). 
+Kornfield (1606) beschrijft de boeddhistische psychologie als een eigen
+stelsel dat begint bij wat heel is in plaats van bij wat kapot is. Hanson
+(2318), voor wiens boek Kornfield het woord vooraf schreef, vertaalt dezelfde
+leerstof naar neuronen en evolutie. Neff (1645) kwam via boeddhistische
+meditatie bij zelfcompassie uit en maakte er een begrip van dat in
+psychologisch onderzoek te meten valt. De route laat zien wat er bij elke
+vertaling bijkomt aan toetsbaarheid, en wat er van de oorspronkelijke context
+verloren gaat.
+
+**Gedachten bijsturen, met en zonder God** (83, 2319, 373). 
+Peale (83) maakte in 1952 van het positieve denken een christelijk programma
+van bijbelverzen, gebed en verwachting. Groeschel (2319) doet in 2021 iets
+vergelijkbaars met meer psychologische woorden: negatieve gedachten zijn
+leugens die door herhaling vaste banen in de hersenen slijten, en worden
+vervangen door een waarheid uit de Bijbel. Morin (373) werkt vanuit dezelfde
+cognitieve gedragstherapie zonder religieus kader, en beschrijft mentale
+kracht als het laten van dertien gewoonten. Wie de drie naast elkaar legt,
+ziet welk deel van de methode het geloof draagt en welk deel ook zonder werkt.
